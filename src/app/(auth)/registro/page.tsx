@@ -30,7 +30,7 @@ export default function RegisterPage() {
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      router.push('/');
+      router.push('/perfil');
     }
   }, [user, isUserLoading, router]);
   
