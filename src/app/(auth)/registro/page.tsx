@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,7 +13,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useAuth, useUser } from '@/firebase';
+import { useAuth } from '@/firebase';
 import {
   initiateEmailSignUp,
   initiateGoogleSignIn,
@@ -25,29 +25,20 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const auth = useAuth();
-  const { user, isUserLoading } = useUser();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (!isUserLoading && user) {
-      router.push('/perfil');
-    }
-  }, [user, isUserLoading, router]);
-
+  
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!auth) return;
     initiateEmailSignUp(auth, email, password);
+    // The redirect is now handled by the Header component after popup
   };
 
   const handleGoogleSignIn = () => {
     if (!auth) return;
     initiateGoogleSignIn(auth);
+     // The redirect is now handled by the Header component after popup
   };
 
-  if (isUserLoading || user) {
-    return null; // O un componente de carga
-  }
 
   return (
     <div className="flex items-center justify-center py-12">

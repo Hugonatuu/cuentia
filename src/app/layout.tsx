@@ -4,6 +4,8 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
+import WelcomePopup from '@/components/core/WelcomePopup';
+import { WelcomePopupProvider } from '@/hooks/use-welcome-popup.tsx';
 
 export const metadata: Metadata = {
   title: 'Cuentia',
@@ -24,12 +26,15 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <FirebaseClientProvider>
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
+          <WelcomePopupProvider>
+            <div className="flex min-h-screen flex-col">
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+            <WelcomePopup />
+            <Toaster />
+          </WelcomePopupProvider>
         </FirebaseClientProvider>
       </body>
     </html>

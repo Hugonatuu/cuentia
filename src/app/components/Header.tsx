@@ -23,11 +23,29 @@ import { mainNavLinks } from '@/lib/placeholder-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { signOut } from 'firebase/auth';
 import Logo from '@/components/core/Logo';
+import { useEffect, useRef } from 'react';
+import { useWelcomePopup } from '@/hooks/use-welcome-popup';
 
 export default function Header() {
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
+  const { showPopup } = useWelcomePopup();
+
+  // Ref to track the previous loading state
+  const wasLoadingRef = useRef(isUserLoading);
+
+  useEffect(() => {
+    // Check if loading has just finished and we have a user
+    if (wasLoadingRef.current && !isUserLoading && user) {
+        showPopup(() => {
+            router.push('/perfil');
+        });
+    }
+    // Update the ref for the next render
+    wasLoadingRef.current = isUserLoading;
+  }, [isUserLoading, user, showPopup, router]);
+
 
   const handleLogout = async () => {
     if (auth) {

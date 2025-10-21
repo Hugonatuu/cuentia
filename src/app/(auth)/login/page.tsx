@@ -30,13 +30,13 @@ export default function LoginPage() {
     e.preventDefault();
     if (!auth) return;
     initiateEmailSignIn(auth, email, password);
-    // Assuming onAuthStateChanged will redirect
+    // The redirect is now handled by the Header component after popup
   };
 
   const handleGoogleSignIn = () => {
     if (!auth) return;
     initiateGoogleSignIn(auth);
-    // Assuming onAuthStateChanged will redirect
+    // The redirect is now handled by the Header component after popup
   };
 
   return (
