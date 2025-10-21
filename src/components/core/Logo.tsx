@@ -11,7 +11,7 @@ const Logo = ({ width, height, className }: LogoProps) => {
   return (
     <Image
       src="/logo.png"
-      alt="Logo de la aplicación"
+      alt="Cuentia logo"
       width={width}
       height={height}
       className={className}
