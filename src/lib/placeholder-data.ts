@@ -18,12 +18,7 @@ const getImage = (id: string) => {
 export const mainNavLinks = [
   { href: '/cuentos/crear', label: 'Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
-  { href: '/cuentos/ejemplos', label: 'Ejemplos' },
-  { href: '/#precios', label: 'Precios' },
-];
-
-// This can be removed or kept for reference, but it's no longer used in the Header.
-export const authNavLinks = [
+  { href: '/crear-personaje', label: 'Crear Personaje' },
   { href: '/cuentos/ejemplos', label: 'Ejemplos' },
   { href: '/#precios', label: 'Precios' },
 ];
