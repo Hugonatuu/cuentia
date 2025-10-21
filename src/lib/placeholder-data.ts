@@ -117,5 +117,6 @@ export const howItWorksSteps = [
 
 export const characterSubNav = [
   { href: '/personajes/predefinidos', label: 'Personajes Predefinidos' },
+  { href: '/personajes/mis-personajes', label: 'Mis Personajes' },
   { href: '/personajes/crear-avatar', label: 'Crear Avatar' },
 ]
