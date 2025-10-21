@@ -17,11 +17,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Menu, BookHeart, UserCircle, LogOut } from 'lucide-react';
+import { Menu, UserCircle, LogOut } from 'lucide-react';
 import { useUser, useAuth } from '@/firebase';
 import { authNavLinks, mainNavLinks } from '@/lib/placeholder-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { signOut } from 'firebase/auth';
+import CuentiaLogo from '@/components/icons/CuentiaLogo';
 
 export default function Header() {
   const { user, isUserLoading } = useUser();
@@ -42,10 +43,7 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <BookHeart className="h-6 w-6 text-primary" />
-            <span className="font-headline text-2xl font-bold inline-block text-gray-800">
-              Cuentia
-            </span>
+            <CuentiaLogo className="h-10" />
           </Link>
           <nav className="hidden gap-6 md:flex">
             {navLinks.map((link) => (
@@ -128,10 +126,7 @@ export default function Header() {
               <div className="flex h-full flex-col">
                 <div className="mb-6 flex items-center">
                   <Link href="/" className="mr-6 flex items-center space-x-2">
-                    <BookHeart className="h-6 w-6 text-primary" />
-                    <span className="font-headline text-2xl font-bold inline-block text-gray-800">
-                      Cuentia
-                    </span>
+                    <CuentiaLogo className="h-10" />
                   </Link>
                 </div>
                 <nav className="flex flex-col gap-4">
