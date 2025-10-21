@@ -14,11 +14,15 @@ const getImage = (id: string) => {
     return image;
 };
 
-export const navLinks = [
-  { href: '/cuentos/crear', label: 'Crear Cuento' },
-  { href: '/personajes', label: 'Personajes' },
+export const authNavLinks = [
   { href: '/cuentos/ejemplos', label: 'Ejemplos' },
   { href: '/#precios', label: 'Precios' },
+];
+
+export const mainNavLinks = [
+  { href: '/cuentos/crear', label: 'Crear Cuento' },
+  { href: '/personajes', label: 'Personajes' },
+  { href: '/cuentos/mis-cuentos', label: 'Mis Cuentos' },
 ];
 
 export const pricingPlans = [

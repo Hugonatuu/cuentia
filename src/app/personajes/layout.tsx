@@ -1,9 +1,12 @@
-"use client"
+'use client';
 
-import Link from "next/link";
-import { usePathname } from 'next/navigation';
-import { characterSubNav } from "@/lib/placeholder-data";
-import { cn } from "@/lib/utils";
+import { useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useUser } from '@/firebase';
+import Link from 'next/link';
+import { characterSubNav } from '@/lib/placeholder-data';
+import { cn } from '@/lib/utils';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function CharactersLayout({
   children,
@@ -11,7 +14,29 @@ export default function CharactersLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { user, isUserLoading } = useUser();
+  const router = useRouter();
 
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push('/login');
+    }
+  }, [user, isUserLoading, router]);
+
+  if (isUserLoading || !user) {
+    return (
+      <div className="container py-8">
+        <div className="text-center mb-8">
+          <Skeleton className="h-16 w-3/4 mx-auto" />
+          <Skeleton className="h-6 w-1/2 mx-auto mt-4" />
+        </div>
+        <div className="flex justify-center mb-8">
+          <Skeleton className="h-10 w-80" />
+        </div>
+        <Skeleton className="h-96 w-full" />
+      </div>
+    );
+  }
   return (
     <div className="container py-8">
       <div className="text-center">
@@ -19,10 +44,11 @@ export default function CharactersLayout({
           Un Mundo de Personajes
         </h1>
         <p className="text-center text-lg text-muted-foreground mt-4 mb-8 max-w-2xl mx-auto">
-          Elige entre nuestros personajes listos para la aventura o crea los tuyos propios subiendo una foto. ¡La magia está en tus manos!
+          Elige entre nuestros personajes listos para la aventura o crea los
+          tuyos propios subiendo una foto. ¡La magia está en tus manos!
         </p>
       </div>
-      
+
       <div className="flex justify-center mb-8">
         <div className="inline-flex h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground">
           {characterSubNav.map((link) => (
@@ -30,8 +56,10 @@ export default function CharactersLayout({
               href={link.href}
               key={link.href}
               className={cn(
-                "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                pathname === link.href ? "bg-background text-foreground shadow-sm" : "hover:bg-background/50"
+                'inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                pathname === link.href
+                  ? 'bg-background text-foreground shadow-sm'
+                  : 'hover:bg-background/50'
               )}
             >
               {link.label}
