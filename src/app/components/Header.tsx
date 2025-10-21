@@ -43,7 +43,7 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src="/logo.png" alt="Cuentia Logo" width={140} height={32} key={Math.random()} />
+            <Image src="/logo.png" alt="Cuentia Logo" width={140} height={32} key={new Date().toISOString()} />
           </Link>
           <nav className="hidden gap-6 md:flex">
             {navLinks.map((link) => (
@@ -126,7 +126,7 @@ export default function Header() {
               <div className="flex h-full flex-col">
                 <div className="mb-6 flex items-center">
                   <Link href="/" className="mr-6 flex items-center space-x-2">
-                     <Image src="/logo.png" alt="Cuentia Logo" width={140} height={32} key={Math.random()} />
+                     <Image src="/logo.png" alt="Cuentia Logo" width={140} height={32} key={new Date().toISOString()} />
                   </Link>
                 </div>
                 <nav className="flex flex-col gap-4">
