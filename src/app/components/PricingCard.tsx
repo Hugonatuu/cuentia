@@ -1,7 +1,11 @@
+'use client';
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useUser } from "@/firebase";
+import { useRouter } from "next/navigation";
 
 type PricingPlan = {
   name: string;
@@ -17,6 +21,18 @@ type PricingCardProps = {
 };
 
 export default function PricingCard({ plan }: PricingCardProps) {
+  const { user } = useUser();
+  const router = useRouter();
+
+  const handleCtaClick = () => {
+    if (!user) {
+      router.push('/registro');
+    } else {
+      // TODO: Implement subscription logic for logged-in users
+      console.log(`Redirecting to subscription page for ${plan.name}`);
+    }
+  };
+
   return (
     <Card className={cn("flex flex-col", plan.isFeatured ? "border-primary ring-2 ring-primary shadow-lg" : "")}>
       <CardHeader>
@@ -38,7 +54,10 @@ export default function PricingCard({ plan }: PricingCardProps) {
         </ul>
       </CardContent>
       <CardFooter>
-        <Button className={cn("w-full", plan.isFeatured ? "" : "bg-accent text-accent-foreground hover:bg-accent/90")}>
+        <Button 
+          className={cn("w-full", plan.isFeatured ? "" : "bg-accent text-accent-foreground hover:bg-accent/90")}
+          onClick={handleCtaClick}
+        >
           {plan.cta}
         </Button>
       </CardFooter>

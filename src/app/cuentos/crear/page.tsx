@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useUser } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import {
@@ -23,18 +22,19 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Sparkles } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import AuthPopup from '@/components/core/AuthPopup';
 
 export default function CrearCuentoPage() {
   const { user, isUserLoading } = useUser();
-  const router = useRouter();
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isUserLoading && !user) {
-      router.push('/login');
+  const handleInteraction = () => {
+    if (!user && !isUserLoading) {
+      setPopupOpen(true);
     }
-  }, [user, isUserLoading, router]);
+  };
 
-  if (isUserLoading || !user) {
+  if (isUserLoading) {
     return (
        <div className="container mx-auto max-w-4xl py-12">
         <Card className="shadow-lg">
@@ -95,7 +95,21 @@ export default function CrearCuentoPage() {
 
   return (
     <div className="container mx-auto max-w-4xl py-12">
-      <Card className="shadow-lg">
+      <AuthPopup
+        isOpen={isPopupOpen}
+        onOpenChange={setPopupOpen}
+        title="Regístrate para crear tu cuento"
+        description="¡Regístrate y comienza a generar tus propias historias!"
+        actionText="Registrarse"
+        redirectPath="/registro"
+      />
+      <Card className="shadow-lg relative">
+        {!isUserLoading && !user && (
+            <div
+                className="absolute inset-0 z-10 bg-transparent cursor-pointer"
+                onClick={handleInteraction}
+            />
+        )}
         <CardHeader className="text-center">
           <CardTitle className="font-headline text-4xl md:text-5xl text-gray-800">
             Crea Tu Próximo Cuento
@@ -198,7 +212,7 @@ export default function CrearCuentoPage() {
               <Button
                 type="submit"
                 size="lg"
-                className="bg-accent text-accent-foreground hover:bg-accent/90"
+                className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
               >
                 Generar mi Cuento <Sparkles className="ml-2 h-5 w-5" />
               </Button>

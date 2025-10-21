@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useUser } from '@/firebase';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,18 +8,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { UploadCloud, Sparkles } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
+import AuthPopup from '@/components/core/AuthPopup';
 
 export default function CrearPersonajePage() {
     const { user, isUserLoading } = useUser();
-    const router = useRouter();
+    const [isPopupOpen, setPopupOpen] = useState(false);
 
-    useEffect(() => {
-        if (!isUserLoading && !user) {
-        router.push('/registro');
+    const handleInteraction = () => {
+        if (!user && !isUserLoading) {
+            setPopupOpen(true);
         }
-    }, [user, isUserLoading, router]);
-
-    if (isUserLoading || !user) {
+    };
+    
+    if (isUserLoading) {
         return (
             <div className="container mx-auto max-w-2xl py-12">
                 <Card>
@@ -48,7 +48,21 @@ export default function CrearPersonajePage() {
 
   return (
     <div className="container mx-auto max-w-2xl py-12">
-        <Card className="text-center shadow-lg">
+        <AuthPopup
+            isOpen={isPopupOpen}
+            onOpenChange={setPopupOpen}
+            title="Regístrate para crear tu personaje"
+            description="¡Regístrate y comienza a generar tus propios avatares para tus historias!"
+            actionText="Registrarse"
+            redirectPath="/registro"
+        />
+        <Card className="text-center shadow-lg relative">
+             {!isUserLoading && !user && (
+                <div
+                    className="absolute inset-0 z-10 bg-transparent cursor-pointer"
+                    onClick={handleInteraction}
+                />
+            )}
             <CardHeader>
                 <CardTitle className="font-headline text-4xl md:text-5xl text-gray-800">Crea tu Avatar Personalizado</CardTitle>
                 <CardDescription className="text-lg">
@@ -78,7 +92,7 @@ export default function CrearPersonajePage() {
                         </Label>
                     </div> 
                 </div>
-                 <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                 <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative">
                     Generar Avatar <Sparkles className="ml-2 h-5 w-5" />
                 </Button>
             </CardContent>
