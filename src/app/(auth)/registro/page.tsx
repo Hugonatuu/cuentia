@@ -14,7 +14,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useAuth, useUser } from '@/firebase';
-import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
+import {
+  initiateEmailSignUp,
+  initiateGoogleSignIn,
+} from '@/firebase/non-blocking-login';
+import { GoogleIcon } from '@/components/icons/GoogleIcon';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
@@ -34,6 +38,11 @@ export default function RegisterPage() {
     e.preventDefault();
     if (!auth) return;
     initiateEmailSignUp(auth, email, password);
+  };
+
+  const handleGoogleSignIn = () => {
+    if (!auth) return;
+    initiateGoogleSignIn(auth);
   };
 
   if (isUserLoading || user) {
@@ -89,11 +98,16 @@ export default function RegisterPage() {
               >
                 Crear cuenta
               </Button>
-              <Button variant="outline" className="w-full">
-                Registrarse con Google
-              </Button>
             </div>
           </form>
+          <Button
+            variant="outline"
+            className="w-full mt-4"
+            onClick={handleGoogleSignIn}
+          >
+            <GoogleIcon className="mr-2 h-4 w-4" />
+            Registrarse con Google
+          </Button>
           <div className="mt-4 text-center text-sm">
             ¿Ya tienes una cuenta?{' '}
             <Link href="/login" className="underline">
