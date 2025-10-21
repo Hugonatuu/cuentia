@@ -1,5 +1,4 @@
 'use client';
-// Re-trigger build to detect public assets and next.config.js changes
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
