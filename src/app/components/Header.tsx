@@ -1,4 +1,5 @@
 'use client';
+// Re-trigger build to detect public assets
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
