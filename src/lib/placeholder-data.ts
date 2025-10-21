@@ -14,15 +14,19 @@ const getImage = (id: string) => {
     return image;
 };
 
-export const authNavLinks = [
-  { href: '/cuentos/ejemplos', label: 'Ejemplos' },
-  { href: '/#precios', label: 'Precios' },
-];
-
+// This is now the single source of truth for navigation.
 export const mainNavLinks = [
   { href: '/cuentos/crear', label: 'Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
   { href: '/cuentos/mis-cuentos', label: 'Mis Cuentos' },
+  { href: '/cuentos/ejemplos', label: 'Ejemplos' },
+  { href: '/#precios', label: 'Precios' },
+];
+
+// This can be removed or kept for reference, but it's no longer used in the Header.
+export const authNavLinks = [
+  { href: '/cuentos/ejemplos', label: 'Ejemplos' },
+  { href: '/#precios', label: 'Precios' },
 ];
 
 export const pricingPlans = [

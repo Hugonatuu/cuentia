@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Menu, UserCircle, LogOut } from 'lucide-react';
 import { useUser, useAuth } from '@/firebase';
-import { authNavLinks, mainNavLinks } from '@/lib/placeholder-data';
+import { mainNavLinks } from '@/lib/placeholder-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { signOut } from 'firebase/auth';
 import Logo from '@/components/core/Logo';
@@ -36,7 +36,7 @@ export default function Header() {
     }
   };
 
-  const navLinks = user ? mainNavLinks : authNavLinks;
+  const navLinks = mainNavLinks;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
