@@ -12,12 +12,12 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useAuth } from '@/firebase';
+import { useAuth, useUser } from '@/firebase';
 import {
   initiateEmailSignIn,
   initiateGoogleSignIn,
 } from '@/firebase/non-blocking-login';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 
 export default function LoginPage() {
@@ -25,18 +25,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const auth = useAuth();
   const router = useRouter();
+  const { user, isUserLoading } = useUser();
+
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      router.push('/');
+    }
+  }, [user, isUserLoading, router]);
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!auth) return;
     initiateEmailSignIn(auth, email, password);
-    // The redirect is now handled by the Header component after popup
   };
 
   const handleGoogleSignIn = () => {
     if (!auth) return;
     initiateGoogleSignIn(auth);
-    // The redirect is now handled by the Header component after popup
   };
 
   return (
