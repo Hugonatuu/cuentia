@@ -1,10 +1,45 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import Link from "next/link";
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import Link from 'next/link';
+import { useAuth, useUser } from '@/firebase';
+import { initiateEmailSignUp } from '@/firebase/non-blocking-login';
 
 export default function RegisterPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const auth = useAuth();
+  const { user, isUserLoading } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isUserLoading && user) {
+      router.push('/perfil');
+    }
+  }, [user, isUserLoading, router]);
+
+  const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!auth) return;
+    initiateEmailSignUp(auth, email, password);
+  };
+
+  if (isUserLoading || user) {
+    return null; // O un componente de carga
+  }
+
   return (
     <div className="flex items-center justify-center py-12">
       <Card className="mx-auto max-w-sm">
@@ -15,33 +50,52 @@ export default function RegisterPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
+          <form onSubmit={handleSignUp}>
+            <div className="grid gap-4">
+              <div className="grid gap-2">
                 <Label htmlFor="first-name">Nombre</Label>
-                <Input id="first-name" placeholder="Max" required />
+                <Input
+                  id="first-name"
+                  placeholder="Max"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Correo electrónico</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="m@ejemplo.com"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">Contraseña</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+              >
+                Crear cuenta
+              </Button>
+              <Button variant="outline" className="w-full">
+                Registrarse con Google
+              </Button>
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Correo electrónico</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@ejemplo.com"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input id="password" type="password" />
-            </div>
-            <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-              Crear cuenta
-            </Button>
-            <Button variant="outline" className="w-full">
-              Registrarse con Google
-            </Button>
-          </div>
+          </form>
           <div className="mt-4 text-center text-sm">
-            ¿Ya tienes una cuenta?{" "}
+            ¿Ya tienes una cuenta?{' '}
             <Link href="/login" className="underline">
               Inicia sesión
             </Link>
