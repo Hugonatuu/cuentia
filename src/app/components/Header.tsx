@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -23,6 +22,7 @@ import { useUser, useAuth } from '@/firebase';
 import { authNavLinks, mainNavLinks } from '@/lib/placeholder-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { signOut } from 'firebase/auth';
+import Logo from '@/components/core/Logo';
 
 export default function Header() {
   const { user, isUserLoading } = useUser();
@@ -43,7 +43,7 @@ export default function Header() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex items-center">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src="/logo.png" alt="Cuentia Logo" width={140} height={32} key={new Date().toISOString()} />
+            <Logo width={140} height={32} />
           </Link>
           <nav className="hidden gap-6 md:flex">
             {navLinks.map((link) => (
@@ -126,7 +126,7 @@ export default function Header() {
               <div className="flex h-full flex-col">
                 <div className="mb-6 flex items-center">
                   <Link href="/" className="mr-6 flex items-center space-x-2">
-                     <Image src="/logo.png" alt="Cuentia Logo" width={140} height={32} key={new Date().toISOString()} />
+                     <Logo width={140} height={32} />
                   </Link>
                 </div>
                 <nav className="flex flex-col gap-4">
