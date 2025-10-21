@@ -1,0 +1,127 @@
+/**
+ * @file Firestore Security Rules
+ * @description This ruleset enforces a strict user-ownership model for user profiles, stories, and characters.
+ * All data is nested under /users/{userId}, providing clear ownership and access control.
+ * Subscription plans are stored at the root level and are publicly readable.
+ * Key Security Decisions:
+ * - User listing is disallowed.
+ * - Subscriptions are publicly readable.
+ * - Ownership is enforced through path-based matching and internal data consistency checks.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Protects user profiles. Only the user themselves can read, update, or delete their profile.
+     * @path /users/{userId}
+     * @allow (create) User with ID 'user123' can create their profile with matching userId in the data.
+     * @allow (get, update, delete) User with ID 'user123' can read, update, or delete their own profile.
+     * @deny (create) User with ID 'user123' cannot create a profile with a mismatched userId in the data.
+     * @deny (get, update, delete) User with ID 'user456' cannot read, update, or delete the profile of user 'user123'.
+     * @principle Enforces document ownership for all operations. Validates relational integrity between the path and the document's userId.
+     */
+    match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      // Disallow user listing for privacy
+      allow list: if false;
+
+      allow get: if isOwner(userId);
+
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
+
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Protects stories created by users. Only the owner user can create, read, update, or delete their stories.
+     * @path /users/{userId}/stories/{storyId}
+     * @allow (create) User with ID 'user123' can create a story under their profile with matching userId in the data.
+     * @allow (get, update, delete) User with ID 'user123' can read, update, or delete their own story.
+     * @deny (create) User with ID 'user123' cannot create a story with a mismatched userId in the data.
+     * @deny (get, update, delete) User with ID 'user456' cannot read, update, or delete the story of user 'user123'.
+     * @principle Enforces document ownership for all operations. Validates relational integrity between the path and the document's userId.
+     */
+    match /users/{userId}/stories/{storyId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow list: if isOwner(userId);
+
+      allow get: if isOwner(userId);
+
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
+
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Protects characters created by users. Only the owner user can create, read, update, or delete their characters.
+     * @path /users/{userId}/characters/{characterId}
+     * @allow (create) User with ID 'user123' can create a character under their profile with matching userId in the data.
+     * @allow (get, update, delete) User with ID 'user123' can read, update, or delete their own character.
+     * @deny (create) User with ID 'user123' cannot create a character with a mismatched userId in the data.
+     * @deny (get, update, delete) User with ID 'user456' cannot read, update, or delete the character of user 'user123'.
+     * @principle Enforces document ownership for all operations. Validates relational integrity between the path and the document's userId.
+     */
+    match /users/{userId}/characters/{characterId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow list: if isOwner(userId);
+
+      allow get: if isOwner(userId);
+
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
+
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows public read access to subscription plans.
+     * @path /subscriptions/{subscriptionId}
+     * @allow (get, list) Any user can read the subscription plans.
+     * @deny (create, update, delete) No user can create, update, or delete subscription plans.
+     * @principle Public read, restricted writes.
+     */
+    match /subscriptions/{subscriptionId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+  }
+}

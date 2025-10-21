@@ -1,0 +1,238 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the Cuentia application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "User's email address.",
+          "format": "email"
+        },
+        "subscriptionId": {
+          "type": "string",
+          "description": "Reference to Subscription. (Relationship: User 1:1 Subscription)"
+        },
+        "creditBalance": {
+          "type": "number",
+          "description": "The number of credits the user has available."
+        }
+      },
+      "required": [
+        "id",
+        "email"
+      ]
+    },
+    "Story": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Story",
+      "type": "object",
+      "description": "Represents a story created by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the story."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Story)"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the story."
+        },
+        "learningObjective": {
+          "type": "string",
+          "description": "The learning objective of the story."
+        },
+        "readerAge": {
+          "type": "number",
+          "description": "Target age of the reader."
+        },
+        "characterIds": {
+          "type": "array",
+          "description": "References to Characters. (Relationship: Story N:N Character)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Prompt used to generate the story."
+        },
+        "readerName": {
+          "type": "string",
+          "description": "Name of the reader (optional)."
+        },
+        "initialPhrase": {
+          "type": "string",
+          "description": "Initial phrase of the story (optional)."
+        },
+        "finalPhrase": {
+          "type": "string",
+          "description": "Final phrase of the story (optional)."
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "title",
+        "learningObjective",
+        "readerAge",
+        "prompt"
+      ]
+    },
+    "Character": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Character",
+      "type": "object",
+      "description": "Represents a character in a story.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the character."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the character."
+        },
+        "avatarUrl": {
+          "type": "string",
+          "description": "URL of the character's avatar image.",
+          "format": "uri"
+        },
+        "storyIds": {
+          "type": "array",
+          "description": "References to Stories. (Relationship: Story N:N Character)",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "avatarUrl"
+      ]
+    },
+    "Subscription": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Subscription",
+      "type": "object",
+      "description": "Represents a user's subscription plan.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the subscription."
+        },
+        "planName": {
+          "type": "string",
+          "description": "Name of the subscription plan (e.g., Artista, Magico)."
+        },
+        "creditLimit": {
+          "type": "number",
+          "description": "Number of credits included in the subscription plan."
+        },
+        "price": {
+          "type": "number",
+          "description": "Price of the subscription plan."
+        }
+      },
+      "required": [
+        "id",
+        "planName",
+        "creditLimit",
+        "price"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profiles.  Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/stories/{storyId}",
+        "definition": {
+          "entityName": "Story",
+          "schema": {
+            "$ref": "#/backend/entities/Story"
+          },
+          "description": "Stores stories created by each user. Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "storyId",
+              "description": "The unique identifier of the story."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/characters/{characterId}",
+        "definition": {
+          "entityName": "Character",
+          "schema": {
+            "$ref": "#/backend/entities/Character"
+          },
+          "description": "Stores characters created or associated with each user.  Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier of the user."
+            },
+            {
+              "name": "characterId",
+              "description": "The unique identifier of the character."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/subscriptions/{subscriptionId}",
+        "definition": {
+          "entityName": "Subscription",
+          "schema": {
+            "$ref": "#/backend/entities/Subscription"
+          },
+          "description": "Stores subscription plans. Not user-specific, so stored at the root level.",
+          "params": [
+            {
+              "name": "subscriptionId",
+              "description": "The unique identifier of the subscription plan."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). Authorization Independence is achieved through denormalization, copying relevant user attributes (like subscription details) into child documents.  Structural Segregation is maintained by separating user-specific data (stories, characters) into user-owned subcollections, ensuring homogeneous security requirements within each collection.  Access Modeling uses path-based ownership for private user data.  The design facilitates secure list operations (QAPs) by using path-based ownership, and ensuring that rules do not function as filters.  This means a user can only list stories that they own, and the security rules only check for ownership based on the path, not by filtering the contents of the documents."
+  }
+}
