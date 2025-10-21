@@ -1,3 +1,112 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-illustration",
+      "description": "An illustration of a child reading a book with magical creatures coming out of it.",
+      "imageUrl": "https://images.unsplash.com/photo-1577835724923-f591f5f98c89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxraWRzJTIwcmVhZGluZ3xlbnwwfHx8fDE3NjEwNDM5NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kids reading"
+    },
+    {
+      "id": "story-cover-1",
+      "description": "Cover for a story about a space adventure.",
+      "imageUrl": "https://images.unsplash.com/photo-1570545917537-873e36d4f64a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxraWRzJTIwc3BhY2V8ZW58MHx8fHwxNzYxMDQzOTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "kids space"
+    },
+    {
+      "id": "story-cover-2",
+      "description": "Cover for a story about a friendly dragon.",
+      "imageUrl": "https://images.unsplash.com/photo-1623913103041-587ac6750696?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxmcmllbmRseSUyMGRyYWdvbnxlbnwwfHx8fDE3NjEwNDM5NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "friendly dragon"
+    },
+    {
+      "id": "story-cover-3",
+      "description": "Cover for a story about jungle animals.",
+      "imageUrl": "https://images.unsplash.com/photo-1510272839903-5112a2e44bc6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxqdW5nbGUlMjBhbmltYWxzfGVufDB8fHx8MTc2MDk1NDY4NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jungle animals"
+    },
+    {
+      "id": "story-cover-4",
+      "description": "Cover for a story about an underwater world.",
+      "imageUrl": "https://images.unsplash.com/photo-1601301558660-27bfcf4410a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx1bmRlcndhdGVyJTIwd29ybGR8ZW58MHx8fHwxNzYxMDI5ODU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "underwater world"
+    },
+    {
+      "id": "story-cover-5",
+      "description": "Cover for a story about a robot with a heart.",
+      "imageUrl": "https://images.unsplash.com/photo-1604320233280-75d54bc1c22e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjdXRlJTIwcm9ib3R8ZW58MHx8fHwxNzYxMDIyNzI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cute robot"
+    },
+    {
+      "id": "char-1",
+      "description": "A brave knight character.",
+      "imageUrl": "https://images.unsplash.com/photo-1577720086808-ee62b140bc0e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxjYXJ0b29uJTIwa25pZ2h0fGVufDB8fHx8MTc2MDk4MjYwOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartoon knight"
+    },
+    {
+      "id": "char-2",
+      "description": "A clever fox character.",
+      "imageUrl": "https://images.unsplash.com/photo-1743964451742-0eff385d5d0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXJ0b29uJTIwZm94fGVufDB8fHx8MTc2MTA0Mzk0N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartoon fox"
+    },
+    {
+      "id": "char-3",
+      "description": "A magical fairy character.",
+      "imageUrl": "https://images.unsplash.com/photo-1704376570042-b9127758eac6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXJ0b29uJTIwZmFpcnl8ZW58MHx8fHwxNzYxMDQzOTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartoon fairy"
+    },
+    {
+      "id": "char-4",
+      "description": "A robot friend character.",
+      "imageUrl": "https://images.unsplash.com/photo-1657642737014-b056c3737939?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxjdXRlJTIwcm9ib3R8ZW58MHx8fHwxNzYxMDIyNzI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cute robot"
+    },
+    {
+      "id": "char-5",
+      "description": "A pirate captain character.",
+      "imageUrl": "https://images.unsplash.com/photo-1571312448265-d04cb8e483a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxjYXJ0b29uJTIwcGlyYXRlfGVufDB8fHx8MTc2MTA0Mzk0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartoon pirate"
+    },
+    {
+      "id": "char-6",
+      "description": "An adventurous princess character.",
+      "imageUrl": "https://images.unsplash.com/photo-1610524689143-88d4c6fa4789?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxjYXJ0b29uJTIwcHJpbmNlc3N8ZW58MHx8fHwxNzYxMDQzOTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cartoon princess"
+    },
+    {
+      "id": "char-7",
+      "description": "A sleepy bear character.",
+      "imageUrl": "https://images.unsplash.com/photo-1570986106448-ac20b7492f68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzbGVlcGluZyUyMGJlYXJ8ZW58MHx8fHwxNzYxMDQzOTQ4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sleeping bear"
+    },
+    {
+      "id": "char-8",
+      "description": "A baby dinosaur character.",
+      "imageUrl": "https://images.unsplash.com/photo-1645387326312-a95784a41217?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxiYWJ5JTIwZGlub3NhdXJ8ZW58MHx8fHwxNzYxMDQzOTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "baby dinosaur"
+    },
+    {
+      "id": "user-avatar",
+      "description": "Default user avatar.",
+      "imageUrl": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjEwMzE4OTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "how-it-works-1",
+      "description": "Icon representing describing your story",
+      "imageUrl": "https://images.unsplash.com/photo-1578842632254-3fe35b27809c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxpZGVhJTIwbGlnaHRidWxifGVufDB8fHx8MTc2MTAwODM1OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "idea lightbulb"
+    },
+    {
+      "id": "how-it-works-2",
+      "description": "Icon representing creating characters",
+      "imageUrl": "https://images.unsplash.com/photo-1551269901-5c5e14c25df7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtYWdpYyUyMHdhbmR8ZW58MHx8fHwxNzYxMDE4Mjg0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "magic wand"
+    },
+    {
+      "id": "how-it-works-3",
+      "description": "Icon representing receiving your tale",
+      "imageUrl": "https://images.unsplash.com/photo-1536704231234-beca9772ca68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8b3BlbiUyMGJvb2t8ZW58MHx8fHwxNzYwOTU1ODg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "open book"
+    }
+  ]
 }
