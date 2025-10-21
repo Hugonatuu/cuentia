@@ -5,7 +5,7 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import { FirebaseClientProvider } from '@/firebase/client-provider';
 import WelcomePopup from '@/components/core/WelcomePopup';
-import { WelcomePopupProvider } from '@/hooks/use-welcome-popup.tsx';
+import { WelcomePopupProvider } from '@/hooks/use-welcome-popup';
 
 export const metadata: Metadata = {
   title: 'Cuentia',
