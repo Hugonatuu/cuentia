@@ -18,7 +18,6 @@ const getImage = (id: string) => {
 export const mainNavLinks = [
   { href: '/cuentos/crear', label: 'Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
-  { href: '/cuentos/mis-cuentos', label: 'Mis Cuentos' },
   { href: '/cuentos/ejemplos', label: 'Ejemplos' },
   { href: '/#precios', label: 'Precios' },
 ];
