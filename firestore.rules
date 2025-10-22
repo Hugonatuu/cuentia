@@ -1,118 +1,131 @@
 /**
- * @file Firebase Security Rules for Cuentia Application
+ * @fileoverview Firestore Security Rules for the application.
  *
- * @core-philosophy This ruleset enforces a strict user-ownership model for user-generated content (stories, characters)
- * while allowing public read access to user profiles. Subscriptions are publicly accessible.
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for user-generated content (stories, characters),
+ * while allowing public read access to shared resources like predefined characters and subscription plans.
  *
- * @data-structure The data is organized hierarchically:
- *   - /users/{userId}: Contains public user profile information.
- *   - /users/{userId}/stories/{storyId}: Contains stories created by the user.
- *   - /users/{userId}/characters/{characterId}: Contains characters created by the user.
- *   - /subscriptions/{subscriptionId}: Contains subscription plan details.
+ * Data Structure:
+ * - /users/{userId}: Stores user profiles, secured with owner-only access for writes.
+ * - /users/{userId}/characters/{characterId}: Stores user-created characters, secured with owner-only access.
+ * - /users/{userId}/stories/{storyId}: Stores user-created stories, secured with owner-only access.
+ * - /subscriptions/{subscriptionId}: Stores subscription plans, publicly readable.
+ * - /predefinedCharacters/{characterId}: Stores predefined characters, publicly readable.
  *
- * @key-security-decisions
- *   - User profiles are publicly readable but only writable by the owning user.
- *   - Stories and characters are strictly owned by the user who created them.
- *   - Subscriptions are publicly readable and not writable through the client (admin only).
- *   - Listing of user documents, stories, and characters is allowed by the owner.
+ * Key Security Decisions:
+ * - User listing is disabled.
+ * - Public read access is granted to /subscriptions and /predefinedCharacters.
+ * - Owner-only access is enforced for all write operations on user-owned data.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Manages access to user profile documents. Users can read all profiles, but can only
-     * create or modify their own.
+     * @description Checks if the request is authenticated.
+     * @return {boolean} True if the request is authenticated, false otherwise.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * @description Checks if the authenticated user is the owner of the resource.
+     * @param {string} userId The user ID to compare against the request's auth UID.
+     * @return {boolean} True if the user is the owner, false otherwise.
+     */
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    /**
+     * @description Checks if the authenticated user is the existing owner of the resource.
+     * @param {string} userId The user ID to compare against the request's auth UID and resource data.
+     * @return {boolean} True if the user is the owner and the resource exists, false otherwise.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Rules for user profiles.
      * @path /users/{userId}
-     * @allow (get, list): Anyone can read user profiles.
-     * @allow (create, update, delete): Only the user with the matching UID can modify their own profile.
-     * @deny create: if the user attempts to create a profile with a different user ID.
-     * @deny update: if the user attempts to change their user ID.
-     * @principle Enforces document ownership for writes, public read access for profiles.
+     * @allow (create) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can create their own profile.
+     * @deny (create) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot create a profile for another user.
+     * @allow (get) Any user can read a user profile.
+     * @deny (update) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot update another user's profile.
+     * @deny (delete) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot delete another user's profile.
+     * @principle Enforces document ownership for writes.
      */
     match /users/{userId} {
-      function isSignedIn() {
-        return request.auth != null;
-      }
+      allow get: if true;
+      allow list: if false;
 
-      function isOwner(userId) {
-        return request.auth.uid == userId;
-      }
-
-      function isExistingOwner(userId) {
-        return isOwner(userId) && exists(/databases/$(database)/documents/users/$(userId));
-      }
-
-      allow get, list: if true;
-      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.email == request.auth.token.email;
-      allow update: if isSignedIn() && isExistingOwner(userId);
-      allow delete: if isSignedIn() && isExistingOwner(userId);
+      allow create: if isOwner(userId) && request.resource.data.email is string;
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
     }
 
     /**
-     * @description Manages access to stories created by a user. Only the owning user can create, read, update, or delete their stories.
-     * @path /users/{userId}/stories/{storyId}
-     * @allow (get, list): Only the owner of the stories can read and list them.
-     * @allow (create, update, delete): Only the owner can create, update, and delete stories.
-     * @deny create: if the userId in the path does not match the authenticated user's ID.
-     * @deny update: if a non-owner attempts to modify a story or if the story doesn't exist.
-     * @principle Enforces strict user-ownership for story data.
-     */
-    match /users/{userId}/stories/{storyId} {
-        function isSignedIn() {
-            return request.auth != null;
-        }
-
-        function isOwner(userId) {
-            return request.auth.uid == userId;
-        }
-
-        function isExistingOwner(userId) {
-            return isSignedIn() && isOwner(userId) && exists(/databases/$(database)/documents/users/$(userId)/stories/$(storyId));
-        }
-
-        allow get, list: if isSignedIn() && isOwner(userId);
-        allow create: if isSignedIn() && isOwner(userId);
-        allow update: if isExistingOwner(userId);
-        allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Manages access to characters created by a user. Only the owning user can create, read, update, or delete their characters.
+     * @description Rules for user-created characters.
      * @path /users/{userId}/characters/{characterId}
-     * @allow (get, list): Only the owner of the characters can read and list them.
-     * @allow (create, update, delete): Only the owner can create, update, and delete characters.
-     * @deny create: if the userId in the path does not match the authenticated user's ID.
-     * @deny update: if a non-owner attempts to modify a character or if the character doesn't exist.
-     * @principle Enforces strict user-ownership for character data.
+     * @allow (create) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can create a character in their own profile.
+     * @deny (create) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot create a character in another user's profile.
+     * @allow (get) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can get a character from their own profile.
+     * @allow (list) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can list characters in their own profile.
+     * @deny (update) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot update a character in another user's profile.
+     * @deny (delete) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot delete a character in another user's profile.
+     * @principle Restricts access to a user's own data tree.
      */
     match /users/{userId}/characters/{characterId} {
-        function isSignedIn() {
-            return request.auth != null;
-        }
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
 
-        function isOwner(userId) {
-            return request.auth.uid == userId;
-        }
-
-        function isExistingOwner(userId) {
-            return isSignedIn() && isOwner(userId) && exists(/databases/$(database)/documents/users/$(userId)/characters/$(characterId));
-        }
-
-        allow get, list: if isSignedIn() && isOwner(userId);
-        allow create: if isSignedIn() && isOwner(userId);
-        allow update: if isExistingOwner(userId);
-        allow delete: if isExistingOwner(userId);
+        /**
+     * @description Rules for user-created stories.
+     * @path /users/{userId}/stories/{storyId}
+     * @allow (create) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can create a story in their own profile.
+     * @deny (create) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot create a story in another user's profile.
+     * @allow (get) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can get a story from their own profile.
+     * @allow (list) User '5iTYALbo97SpQ8g915wjsi4A3Db2' can list stories in their own profile.
+     * @deny (update) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot update a story in another user's profile.
+     * @deny (delete) User '5iTYALbo97SpQ8g915wjsi4A3Db2' cannot delete a story in another user's profile.
+     * @principle Restricts access to a user's own data tree.
+     */
+    match /users/{userId}/stories/{storyId} {
+       allow get, list: if isOwner(userId);
+       allow create: if isOwner(userId) && request.resource.data.userId == userId;
+       allow update: if isExistingOwner(userId) && resource.data.userId == userId;
+       allow delete: if isExistingOwner(userId) && resource.data.userId == userId;
     }
 
     /**
-     * @description Manages access to subscription plans.  These are considered public and read-only.
+     * @description Rules for subscription plans.
      * @path /subscriptions/{subscriptionId}
-     * @allow get, list: if true; // Anyone can read subscription plans.
-     * @deny create, update, delete: if false; // No client-side writes allowed.
-     * @principle Public read access for subscription data, no client-side writes.
+     * @allow (get) Any user can read a subscription plan.
+     * @allow (list) Any user can list subscription plans.
+     * @deny (create) No user can create a subscription plan via client; only server.
+     * @deny (update) No user can update a subscription plan via client; only server.
+     * @deny (delete) No user can delete a subscription plan via client; only server.
      */
     match /subscriptions/{subscriptionId} {
+      allow get, list: if true;
+      allow create, update, delete: if false;
+    }
+
+    /**
+     * @description Rules for predefined characters.
+     * @path /predefinedCharacters/{characterId}
+     * @allow (get) Any user can read a predefined character.
+     * @allow (list) Any user can list predefined characters.
+     * @deny (create) No user can create a predefined character via client; only server.
+     * @deny (update) No user can update a predefined character via client; only server.
+     * @deny (delete) No user can delete a predefined character via client; only server.
+     */
+    match /predefinedCharacters/{characterId} {
       allow get, list: if true;
       allow create, update, delete: if false;
     }
