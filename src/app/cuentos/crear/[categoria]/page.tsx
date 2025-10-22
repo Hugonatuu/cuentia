@@ -36,7 +36,7 @@ import {
 } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { CharacterSlot } from '../components/CharacterSlot';
-import { AnyCharacter, CharacterWithCustomization } from '../components/types';
+import { CharacterWithCustomization } from '../components/types';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; webhook: string };
@@ -139,11 +139,18 @@ export default function CrearCuentoPage() {
     
     const webhookData = {
         ...data,
-        characters: data.characters.map(c => ({ 
-            name: c.character.name, 
-            url: 'avatarUrl' in c.character ? c.character.avatarUrl : c.character.imageUrl,
+        characters: data.characters.map(c => {
+          const baseCharacter = c.character;
+          return {
+            name: baseCharacter.name,
+            imageUrl: 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl,
+            species: baseCharacter.species,
+            gender: baseCharacter.gender,
+            age: baseCharacter.age,
+            description: 'description' in baseCharacter ? baseCharacter.description : undefined,
             customization: c.customization
-        })),
+          };
+        }),
         userId: user.uid,
     };
 
@@ -476,5 +483,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    

@@ -102,9 +102,9 @@
           "type": "string",
           "format": "date-time"
         },
-        "characterType": {
+        "species": {
           "type": "string",
-          "description": "The type of character (e.g., person, dog, cat)."
+          "description": "The species of the character (e.g., person, dog, cat)."
         },
         "gender": {
           "type": "string",
@@ -124,7 +124,7 @@
         "name",
         "avatarUrl",
         "createdAt",
-        "characterType",
+        "species",
         "gender",
         "age"
       ]
@@ -177,12 +177,24 @@
           "format": "uri",
           "description": "The URL for the character's image."
         },
+        "species": {
+          "type": "string",
+          "description": "The species of the character."
+        },
+        "gender": {
+          "type": "string",
+          "description": "The gender of the character."
+        },
+        "age": {
+          "type": "string",
+          "description": "The age of the character."
+        },
         "imageHint": {
           "type": "string",
           "description": "AI hint for the image."
         }
       },
-      "required": ["name", "description", "imageUrl"]
+      "required": ["name", "description", "imageUrl", "species", "gender", "age"]
     }
   },
   "auth": {
@@ -282,5 +294,3 @@
     ]
   }
 }
-
-    

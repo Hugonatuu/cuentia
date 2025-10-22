@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
+import { useUser, useFirestore } from '@/firebase';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -32,8 +32,8 @@ export default function CrearPersonajePage() {
     const firestore = useFirestore();
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [characterName, setCharacterName] = useState('');
-    const [characterType, setCharacterType] = useState('');
-    const [otherCharacterType, setOtherCharacterType] = useState('');
+    const [species, setSpecies] = useState('');
+    const [otherSpecies, setOtherSpecies] = useState('');
     const [gender, setGender] = useState('');
     const [age, setAge] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -83,9 +83,9 @@ export default function CrearPersonajePage() {
             return;
         }
 
-        const finalCharacterType = characterType === 'Otro' ? otherCharacterType : characterType;
+        const finalSpecies = species === 'Otro' ? otherSpecies : species;
 
-        if (!characterName.trim() || !finalCharacterType || !gender || !age) {
+        if (!characterName.trim() || !finalSpecies || !gender || !age) {
             toast({ variant: 'destructive', title: 'Error', description: 'Por favor, completa todos los campos del personaje.' });
             return;
         }
@@ -99,6 +99,9 @@ export default function CrearPersonajePage() {
 
         const formData = new FormData();
         formData.append('characterName', characterName);
+        formData.append('species', finalSpecies);
+        formData.append('gender', gender);
+        formData.append('age', age);
         selectedFiles.forEach((file) => {
             formData.append('images', file);
         });
@@ -125,7 +128,7 @@ export default function CrearPersonajePage() {
             addDocumentNonBlocking(charactersColRef, {
                 name: characterName,
                 avatarUrl: result.avatarUrl,
-                characterType: finalCharacterType,
+                species: finalSpecies,
                 gender,
                 age,
                 createdAt: serverTimestamp()
@@ -139,8 +142,8 @@ export default function CrearPersonajePage() {
             });
             
             setCharacterName('');
-            setCharacterType('');
-            setOtherCharacterType('');
+            setSpecies('');
+            setOtherSpecies('');
             setGender('');
             setAge('');
             setSelectedFiles([]);
@@ -220,9 +223,9 @@ export default function CrearPersonajePage() {
                             />
                         </div>
                          <div className="space-y-2">
-                            <Label htmlFor="character-type" className="text-lg font-semibold">Especie</Label>
-                             <Select value={characterType} onValueChange={setCharacterType}>
-                                <SelectTrigger id="character-type">
+                            <Label htmlFor="species" className="text-lg font-semibold">Especie</Label>
+                             <Select value={species} onValueChange={setSpecies}>
+                                <SelectTrigger id="species">
                                     <SelectValue placeholder="Selecciona una especie" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -237,14 +240,14 @@ export default function CrearPersonajePage() {
                                 </SelectContent>
                             </Select>
                         </div>
-                        {characterType === 'Otro' && (
+                        {species === 'Otro' && (
                             <div className="space-y-2 md:col-span-2">
-                                <Label htmlFor="other-character-type" className="text-lg font-semibold">Especifica la especie</Label>
+                                <Label htmlFor="other-species" className="text-lg font-semibold">Especifica la especie</Label>
                                 <Input
-                                    id="other-character-type"
+                                    id="other-species"
                                     placeholder=""
-                                    value={otherCharacterType}
-                                    onChange={(e) => setOtherCharacterType(e.target.value)}
+                                    value={otherSpecies}
+                                    onChange={(e) => setOtherSpecies(e.target.value)}
                                 />
                             </div>
                         )}

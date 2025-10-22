@@ -2,6 +2,9 @@ export interface Character {
   id: string;
   name: string;
   avatarUrl: string;
+  species: string;
+  gender: string;
+  age: string;
   createdAt: any; // Can be a server timestamp
 }
 
@@ -10,6 +13,9 @@ export interface PredefinedCharacter {
   name: string;
   description: string;
   imageUrl: string;
+  species: string;
+  gender: string;
+  age: string;
   imageHint: string;
 }
 
@@ -19,5 +25,3 @@ export interface CharacterWithCustomization {
   character: AnyCharacter;
   customization: string;
 }
-
-    
