@@ -33,7 +33,7 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
           alt={character.name}
           width={200}
           height={200}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
         />
       </div>
       <div className="py-2 px-1 absolute bottom-0 w-full bg-black/50 backdrop-blur-sm">
