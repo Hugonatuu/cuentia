@@ -13,7 +13,7 @@ export default function EjemplosPage() {
           Galería de la Imaginación
         </h1>
         <p className="max-w-2xl mx-auto text-lg text-muted-foreground mt-4">
-          Explora los mundos creados con Cuentia. Cada historia es una puerta a una nueva aventura.
+          Explora los mundos creados con Cuentia. Cada historia es una puerta a una nueva aventura o a un nuevo aprendizaje.
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -48,5 +48,3 @@ export default function EjemplosPage() {
     </div>
   );
 }
-
-    
