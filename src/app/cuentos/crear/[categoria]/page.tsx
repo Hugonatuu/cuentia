@@ -137,21 +137,17 @@ export default function CrearCuentoPage() {
 
     setIsSubmitting(true);
     
+    const characterImagesText = data.characters.map(c => {
+        const baseCharacter = c.character;
+        const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
+        return `${baseCharacter.name}:\n${imageUrl}`;
+    }).join('\n\n');
+
     const webhookData = {
         ...data,
-        characters: data.characters.map(c => {
-          const baseCharacter = c.character;
-          return {
-            name: baseCharacter.name,
-            imageUrl: 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl,
-            species: baseCharacter.species,
-            gender: baseCharacter.gender,
-            age: baseCharacter.age,
-            description: 'description' in baseCharacter ? baseCharacter.description : undefined,
-            customization: c.customization
-          };
-        }),
         userId: user.uid,
+        characterImagesText: characterImagesText,
+        characters: undefined, // No enviar el array de characters
     };
 
     try {
