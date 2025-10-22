@@ -1,3 +1,4 @@
+
 import placeholderImages from './placeholder-images.json';
 
 const getImage = (id: string) => {
@@ -67,11 +68,6 @@ export const pricingPlans = [
 ];
 
 export const exampleStories = [
-  { id: '1', title: 'El Viaje a la Luna de Leo', image: getImage('story-cover-1'), pdfUrl: '#' },
-  { id: '2', title: 'Ferdinand, el Dragón Tímido', image: getImage('story-cover-2'), pdfUrl: '#' },
-  { id: '3', title: 'La Aventura en la Selva', image: getImage('story-cover-3'), pdfUrl: '#' },
-  { id: '4', title: 'El Secreto del Océano', image: getImage('story-cover-4'), pdfUrl: '#' },
-  { id: '5', title: 'El Robot con Corazón', image: getImage('story-cover-5'), pdfUrl: '#' },
   { id: '6', title: 'Los tres amigos', image: getImage('story-cover-6'), pdfUrl: '/cuentos/cuento-lostresamigos.pdf' },
 ];
 
