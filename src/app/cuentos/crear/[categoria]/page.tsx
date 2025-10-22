@@ -145,8 +145,12 @@ export default function CrearCuentoPage() {
 
     const personalizacion = data.characters
       .filter(c => c.customization)
-      .map(c => `${c.character.name}: ${c.customization}`)
-      .join('\n');
+      .map(c => {
+        const baseCharacter = c.character;
+        const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
+        return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.customization}`;
+      })
+      .join('\n\n');
     
     const charactersForWebhook = data.characters.map(({ character, customization }) => {
       const { avatarUrl, imageUrl, createdAt, id, ...restOfCharacter } = character as any;
