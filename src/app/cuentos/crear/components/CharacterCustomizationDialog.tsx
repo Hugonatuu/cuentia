@@ -43,7 +43,7 @@ export function CharacterCustomizationDialog({
         <DialogHeader>
           <DialogTitle>Personalizar a {character.name}</DialogTitle>
           <DialogDescription>
-            Añade detalles específicos para este personaje solo para este cuento.
+            Añade detalles visuales específicos para este personaje solo para este cuento.
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-4 items-start gap-4 py-4">
@@ -78,5 +78,3 @@ export function CharacterCustomizationDialog({
     </Dialog>
   );
 }
-
-    
