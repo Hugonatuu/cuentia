@@ -242,7 +242,7 @@ export default function CrearPersonajePage() {
                                 <Label htmlFor="other-character-type" className="text-lg font-semibold">Especifica la especie</Label>
                                 <Input
                                     id="other-character-type"
-                                    placeholder="Ej: Dragón, robot, hada..."
+                                    placeholder=""
                                     value={otherCharacterType}
                                     onChange={(e) => setOtherCharacterType(e.target.value)}
                                 />
