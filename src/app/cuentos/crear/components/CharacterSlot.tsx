@@ -4,10 +4,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, X, Wand } from 'lucide-react';
+import { Plus, X, Wand, CheckCircle } from 'lucide-react';
 import { CharacterPickerDialog } from './CharacterPickerDialog';
 import { CharacterCustomizationDialog } from './CharacterCustomizationDialog';
 import type { AnyCharacter, CharacterWithCustomization } from './types';
+import { cn } from '@/lib/utils';
 
 interface CharacterSlotProps {
   characterWithCustomization: CharacterWithCustomization | undefined;
@@ -29,6 +30,7 @@ export function CharacterSlot({
 
   const excludedIds = allSelectedCharacters.filter(Boolean).map(c => c.id);
   const character = characterWithCustomization?.character;
+  const hasCustomization = !!characterWithCustomization?.customization;
 
   if (character) {
     return (
@@ -58,13 +60,13 @@ export function CharacterSlot({
           </div>
           <Button
               type="button"
-              variant="outline"
+              variant={hasCustomization ? "secondary" : "outline"}
               size="sm"
-              className="w-full"
+              className={cn("w-full", hasCustomization && "border-primary text-primary")}
               onClick={() => setCustomizationOpen(true)}
           >
-              <Wand className="mr-2 h-4 w-4" />
-              Personalizar
+              {hasCustomization ? <CheckCircle className="mr-2 h-4 w-4" /> : <Wand className="mr-2 h-4 w-4" />}
+              {hasCustomization ? "Personalizado" : "Personalizar"}
           </Button>
         </div>
         
@@ -102,5 +104,3 @@ export function CharacterSlot({
     </>
   );
 }
-
-    
