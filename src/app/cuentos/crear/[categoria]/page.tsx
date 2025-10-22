@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser } from '@/firebase';
 import { Button } from '@/components/ui/button';
 import {
@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Loader2, Sparkles, CreditCard } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useParams, useRouter } from 'next/navigation';
@@ -56,6 +56,15 @@ const webhookUrls: { [key: string]: string } = {
   '20': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/96e4c11c-9ae5-4dc3-b075-23bc7cbe47c3',
 };
 
+const creditCosts = {
+  images: {
+    '0': 400,
+    '12': 1500,
+    '20': 2400,
+  },
+  customization: 100,
+};
+
 const formSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.'),
   learningObjective: z.string().min(1, 'El objetivo de aprendizaje es obligatorio.'),
@@ -75,6 +84,7 @@ export default function CrearCuentoPage() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDedication, setShowDedication] = useState(false);
+  const [totalCredits, setTotalCredits] = useState(0);
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -102,6 +112,27 @@ export default function CrearCuentoPage() {
       characters: [],
     },
   });
+
+  const watchedImageCount = form.watch('imageCount');
+  const watchedCharacters = form.watch('characters');
+
+  useEffect(() => {
+    let credits = 0;
+    
+    // Calculate credits for images
+    if (watchedImageCount && creditCosts.images[watchedImageCount as keyof typeof creditCosts.images]) {
+      credits += creditCosts.images[watchedImageCount as keyof typeof creditCosts.images];
+    }
+
+    // Calculate credits for character customizations
+    if (watchedCharacters) {
+      const customizationCount = watchedCharacters.filter(c => c && c.customization).length;
+      credits += customizationCount * creditCosts.customization;
+    }
+    
+    setTotalCredits(credits);
+  }, [watchedImageCount, watchedCharacters]);
+
 
   const handleInteraction = () => {
     if (!user && !isUserLoading) {
@@ -500,12 +531,16 @@ export default function CrearCuentoPage() {
                 )}
               </div>
 
-              <div className="text-center pt-4">
+              <div className="flex flex-col items-center gap-4 pt-4">
+                 <div className="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-lg font-semibold text-primary">
+                    <CreditCard className="h-6 w-6" />
+                    <span>Coste Total: {totalCredits.toLocaleString()} créditos</span>
+                </div>
                 <Button
                   type="submit"
                   size="lg"
                   className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || totalCredits === 0}
                 >
                   {isSubmitting ? (
                     <>
@@ -526,3 +561,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
