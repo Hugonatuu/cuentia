@@ -421,7 +421,7 @@ export default function CrearCuentoPage() {
                     </FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Describe los eventos principales, giros o el mensaje que quieres transmitir."
+                        placeholder="En esta historia, Marta que es la protagonista, se va de viaje y conoce a una chica que se hará su mejor amiga."
                         rows={4}
                         {...field}
                       />
