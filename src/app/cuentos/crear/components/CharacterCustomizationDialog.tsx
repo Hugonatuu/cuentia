@@ -44,6 +44,8 @@ export function CharacterCustomizationDialog({
           <DialogTitle>Personalizar a {character.name}</DialogTitle>
           <DialogDescription>
             Añade detalles visuales específicos para este personaje solo para este cuento.
+            <br />
+            <span className="font-semibold text-primary">(+100cd por personalización)</span>
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-4 items-start gap-4 py-4">
