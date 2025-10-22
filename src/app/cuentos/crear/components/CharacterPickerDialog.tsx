@@ -23,10 +23,10 @@ interface CharacterPickerDialogProps {
 
 const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => (
   <Card
-    className={`overflow-hidden group transition-all duration-200 cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1'}`}
+    className={`overflow-hidden group transition-all duration-300 cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1'}`}
     onClick={() => !isDisabled && onSelect()}
   >
-    <CardContent className="p-0 text-center relative">
+    <CardContent className="p-0 text-center">
       <div className="aspect-square overflow-hidden">
         <Image
           src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
@@ -36,8 +36,8 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
           className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
         />
       </div>
-      <div className="py-2 px-1 absolute bottom-0 w-full bg-black/50 backdrop-blur-sm">
-        <h3 className="font-semibold text-sm text-white truncate">{character.name}</h3>
+      <div className="py-3 px-2">
+        <h3 className="font-semibold text-md truncate">{character.name}</h3>
       </div>
     </CardContent>
   </Card>
