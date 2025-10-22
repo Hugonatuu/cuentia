@@ -4,47 +4,80 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Plus, X } from 'lucide-react';
+import { Plus, X, Wand } from 'lucide-react';
 import { CharacterPickerDialog } from './CharacterPickerDialog';
-import type { AnyCharacter } from './types';
+import { CharacterCustomizationDialog } from './CharacterCustomizationDialog';
+import type { AnyCharacter, CharacterWithCustomization } from './types';
 
 interface CharacterSlotProps {
-  character: AnyCharacter | undefined;
+  characterWithCustomization: CharacterWithCustomization | undefined;
   allSelectedCharacters: AnyCharacter[];
   onSelect: (character: AnyCharacter) => void;
   onRemove: () => void;
+  onUpdateCustomization: (customization: string) => void;
 }
 
-export function CharacterSlot({ character, allSelectedCharacters, onSelect, onRemove }: CharacterSlotProps) {
+export function CharacterSlot({
+  characterWithCustomization,
+  allSelectedCharacters,
+  onSelect,
+  onRemove,
+  onUpdateCustomization,
+}: CharacterSlotProps) {
   const [isPickerOpen, setPickerOpen] = useState(false);
+  const [isCustomizationOpen, setCustomizationOpen] = useState(false);
 
   const excludedIds = allSelectedCharacters.filter(Boolean).map(c => c.id);
+  const character = characterWithCustomization?.character;
 
   if (character) {
     return (
-      <div className="relative group aspect-square">
-        <Card className="overflow-hidden w-full h-full">
-          <Image
-            src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
-            alt={character.name}
-            width={200}
-            height={200}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute bottom-0 w-full p-2 bg-black/50 backdrop-blur-sm text-center">
-             <p className="text-white text-sm font-semibold truncate">{character.name}</p>
+      <>
+        <div className="space-y-2">
+          <div className="relative group aspect-square">
+            <Card className="overflow-hidden w-full h-full">
+               <Image
+                src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
+                alt={character.name}
+                fill
+                className="object-cover object-center"
+              />
+            </Card>
+            <Button
+              type="button"
+              variant="destructive"
+              size="icon"
+              className="absolute -top-2 -right-2 h-7 w-7 rounded-full z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+              onClick={onRemove}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+             <div className="absolute bottom-0 w-full p-2 bg-black/50 backdrop-blur-sm text-center">
+                 <p className="text-white text-sm font-semibold truncate">{character.name}</p>
+              </div>
           </div>
-        </Card>
-        <Button
-          type="button"
-          variant="destructive"
-          size="icon"
-          className="absolute -top-2 -right-2 h-7 w-7 rounded-full z-10 opacity-0 group-hover:opacity-100 transition-opacity"
-          onClick={onRemove}
-        >
-          <X className="h-4 w-4" />
-        </Button>
-      </div>
+          <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              className="w-full"
+              onClick={() => setCustomizationOpen(true)}
+          >
+              <Wand className="mr-2 h-4 w-4" />
+              Personalizar
+          </Button>
+        </div>
+        
+        {isCustomizationOpen && (
+           <CharacterCustomizationDialog
+            isOpen={isCustomizationOpen}
+            onOpenChange={setCustomizationOpen}
+            character={character}
+            initialCustomization={characterWithCustomization?.customization || ''}
+            onSave={onUpdateCustomization}
+          />
+        )}
+      </>
     );
   }
 
@@ -69,3 +102,5 @@ export function CharacterSlot({ character, allSelectedCharacters, onSelect, onRe
     </>
   );
 }
+
+    

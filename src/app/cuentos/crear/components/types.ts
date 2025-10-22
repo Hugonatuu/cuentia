@@ -14,3 +14,10 @@ export interface PredefinedCharacter {
 }
 
 export type AnyCharacter = Character | PredefinedCharacter;
+
+export interface CharacterWithCustomization {
+  character: AnyCharacter;
+  customization: string;
+}
+
+    
