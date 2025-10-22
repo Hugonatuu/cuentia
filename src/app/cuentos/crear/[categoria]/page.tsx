@@ -11,7 +11,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -30,15 +29,14 @@ import * as z from 'zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
-import { CharacterSlot } from './components/CharacterSlot';
-import { Character } from './components/types';
+import { CharacterSlot } from '../components/CharacterSlot';
+import { AnyCharacter } from '../components/types';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; webhook: string };
@@ -79,7 +77,7 @@ const formSchema = z.object({
   prompt: z.string().min(1, 'La trama es obligatoria.'),
   initialPhrase: z.string().optional(),
   finalPhrase: z.string().optional(),
-  characters: z.array(z.custom<Character>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
+  characters: z.array(z.custom<AnyCharacter>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
 });
 
 type StoryFormValues = z.infer<typeof formSchema>;
@@ -141,7 +139,7 @@ export default function CrearCuentoPage() {
     
     const webhookData = {
         ...data,
-        characters: data.characters.map(c => ({ name: c.name, url: c.avatarUrl || c.imageUrl })),
+        characters: data.characters.map(c => ({ name: c.name, url: 'avatarUrl' in c ? c.avatarUrl : c.imageUrl })),
         userId: user.uid,
     };
 
@@ -366,7 +364,7 @@ export default function CrearCuentoPage() {
                                     onSelect={(character) => {
                                         const newCharacters = [...field.value];
                                         newCharacters[index] = character;
-                                        field.onChange(newCharacters);
+                                        field.onChange(newCharacters.filter(c => c !== undefined));
                                     }}
                                     onRemove={() => {
                                         const newCharacters = field.value.filter((_, i) => i !== index);

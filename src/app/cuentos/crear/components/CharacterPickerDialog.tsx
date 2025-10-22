@@ -29,7 +29,7 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
     <CardContent className="p-0 text-center relative">
       <div className="aspect-square overflow-hidden">
         <Image
-          src={character.avatarUrl || character.imageUrl || ''}
+          src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
           alt={character.name}
           width={200}
           height={200}

@@ -25,7 +25,7 @@ export function CharacterSlot({ character, allSelectedCharacters, onSelect, onRe
       <div className="relative group aspect-square">
         <Card className="overflow-hidden w-full h-full">
           <Image
-            src={character.avatarUrl || character.imageUrl || ''}
+            src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
             alt={character.name}
             width={200}
             height={200}

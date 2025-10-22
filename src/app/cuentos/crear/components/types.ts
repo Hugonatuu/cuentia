@@ -2,6 +2,7 @@ export interface Character {
   id: string;
   name: string;
   avatarUrl: string;
+  createdAt: any; // Can be a server timestamp
 }
 
 export interface PredefinedCharacter {
