@@ -37,6 +37,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import { CharacterSlot } from '../components/CharacterSlot';
 import { CharacterWithCustomization } from '../components/types';
+import { Switch } from '@/components/ui/switch';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; webhook: string };
@@ -86,6 +87,7 @@ export default function CrearCuentoPage() {
   const { user, isUserLoading } = useUser();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDedication, setShowDedication] = useState(false);
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -431,43 +433,57 @@ export default function CrearCuentoPage() {
                 )}
               />
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <FormField
-                  control={form.control}
-                  name="initialPhrase"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-lg font-semibold">
-                        Frase Inicial (Opcional)
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Érase una vez en un reino muy lejano..."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="finalPhrase"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-lg font-semibold">
-                        Frase Final (Opcional)
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="...y vivieron felices para siempre."
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="space-y-4 rounded-lg border p-4">
+                <div className="flex items-center space-x-2">
+                  <Switch
+                    id="show-dedication"
+                    checked={showDedication}
+                    onCheckedChange={setShowDedication}
+                  />
+                  <FormLabel htmlFor="show-dedication" className="text-lg font-semibold cursor-pointer">
+                    ¿Quieres añadir alguna frase/dedicatoria en tu libro?
+                  </FormLabel>
+                </div>
+                {showDedication && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                    <FormField
+                      control={form.control}
+                      name="initialPhrase"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-lg font-semibold">
+                            Frase al inicio del cuento
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Acuérdate de la importancia que tiene la amistad y el trabajo en equipo."
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="finalPhrase"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-lg font-semibold">
+                            Frase al final del cuento
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="De tu Mamá, que te quiere con locura."
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="text-center pt-4">
