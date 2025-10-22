@@ -41,15 +41,19 @@ import { CharacterWithCustomization } from '../components/types';
 import { Switch } from '@/components/ui/switch';
 
 const categoryDetails: {
-  [key: string]: { title: string; description: string; webhook: string };
+  [key: string]: { title: string; description: string; };
 } = {
   'aprendizaje': {
     title: '¡Crea un cuento!',
     description:
       'Rellena los detalles para tu cuento con ilustraciones y portada.',
-    webhook:
-      'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
   },
+};
+
+const webhookUrls: { [key: string]: string } = {
+  '0': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/0d6ca372-f43f-4027-a346-26fe38f0979d',
+  '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
+  '20': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/96e4c11c-9ae5-4dc3-b075-23bc7cbe47c3',
 };
 
 const formSchema = z.object({
@@ -82,7 +86,6 @@ export default function CrearCuentoPage() {
   const details = categoryDetails[categoria] || {
     title: '¡Crea un cuento!',
     description: 'Rellena los detalles y deja que la magia haga el resto.',
-    webhook: 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
   };
 
   const form = useForm<StoryFormValues>({
@@ -112,11 +115,13 @@ export default function CrearCuentoPage() {
       return;
     }
 
-    if (!details.webhook) {
+    const webhookUrl = webhookUrls[data.imageCount];
+
+    if (!webhookUrl) {
         toast({
             variant: 'destructive',
-            title: 'Error',
-            description: 'La categoría seleccionada no tiene un webhook configurado.',
+            title: 'Error de configuración',
+            description: 'La selección de imágenes no tiene un webhook asociado. Por favor, selecciona una opción válida.',
         });
         return;
     }
@@ -154,7 +159,7 @@ export default function CrearCuentoPage() {
     };
 
     try {
-        const response = await fetch(details.webhook, {
+        const response = await fetch(webhookUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
