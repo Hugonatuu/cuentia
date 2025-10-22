@@ -57,6 +57,7 @@ const formSchema = z.object({
   learningObjective: z.string().min(1, 'El objetivo de aprendizaje es obligatorio.'),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
   readerName: z.string().optional(),
+  imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
   prompt: z.string().min(1, 'La trama es obligatoria.'),
   initialPhrase: z.string().optional(),
   finalPhrase: z.string().optional(),
@@ -91,6 +92,7 @@ export default function CrearCuentoPage() {
       learningObjective: '',
       readerAge: '',
       readerName: '',
+      imageCount: '',
       prompt: '',
       initialPhrase: '',
       finalPhrase: '',
@@ -395,6 +397,30 @@ export default function CrearCuentoPage() {
                 )}
               />
 
+                <FormField
+                    control={form.control}
+                    name="imageCount"
+                    render={({ field }) => (
+                        <FormItem>
+                        <FormLabel className="text-lg font-semibold">
+                            ¿Cuántas imágenes quieres añadir a tu cuento?
+                        </FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Selecciona una cantidad" />
+                            </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                            <SelectItem value="0">0 imágenes (400cd)</SelectItem>
+                            <SelectItem value="12">12 imágenes (1.500cd)</SelectItem>
+                            <SelectItem value="20">20 imágenes (2.400cd)</SelectItem>
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
               <FormField
                 control={form.control}
