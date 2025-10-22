@@ -137,7 +137,9 @@ export default function CrearCuentoPage() {
 
     setIsSubmitting(true);
     
-    const characterImagesText = data.characters.map(c => {
+    const characterImagesText = data.characters
+      .filter(c => !c.customization)
+      .map(c => {
         const baseCharacter = c.character;
         const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
         return `${baseCharacter.name}:\n${imageUrl}`;
