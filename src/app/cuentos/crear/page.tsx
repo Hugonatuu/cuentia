@@ -3,39 +3,16 @@
 
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, BookOpen, Image as ImageIcon, Book } from 'lucide-react';
+import { ArrowRight, BookOpen } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-const storyCategories = [
-  {
-    title: 'Cuento 100% Ilustrado',
-    description: 'Añade 20 imágenes más la portada para ilustrar tu cuento de la mejor manera posible.',
-    href: '/cuentos/crear/ilustrado-20',
-    icon: ImageIcon,
-    isFeatured: true,
-  },
-  {
-    title: 'Cuento Ilustrado',
-    description: 'Añade 12 imágenes más la portada a tu cuento.',
-    href: '/cuentos/crear/ilustrado-12',
-    icon: ImageIcon,
-    isFeatured: false,
-  },
-  {
-    title: 'Cuento con Imágenes',
-    description: 'Crea un cuento con 5 imágenes más la portada.',
-    href: '/cuentos/crear/ilustrado-5',
-    icon: ImageIcon,
-    isFeatured: false,
-  },
-  {
-    title: 'Cuento sin Ilustraciones',
-    description: 'Solamente la portada. Ideal para lectores que aman imaginar.',
-    href: '/cuentos/crear/solo-portada',
-    icon: Book,
-    isFeatured: false,
-  },
-];
+const storyCategory = {
+  title: '¡CREA UN CUENTO CON EL OBJETIVO DE APRENDIZAJE QUE TU QUIERAS!',
+  description: 'Crea un cuento único con ilustraciones y portada.',
+  href: '/cuentos/crear/aprendizaje',
+  icon: BookOpen,
+  isFeatured: true,
+};
 
 export default function CrearCuentoSeleccionPage() {
   return (
@@ -49,26 +26,26 @@ export default function CrearCuentoSeleccionPage() {
           ofrece una experiencia única.
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {storyCategories.map((category) => (
-          <Link href={category.href} key={category.href} className="block group">
+      <div className="flex justify-center">
+        <div className="w-full max-w-md">
+          <Link href={storyCategory.href} className="block group">
             <Card
               className={cn(
                 'h-full flex flex-col transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1',
-                category.isFeatured
+                storyCategory.isFeatured
                   ? 'bg-primary/10 border-primary'
                   : 'bg-card'
               )}
             >
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <category.icon className="w-8 h-8 text-primary" />
-                  <CardTitle className="text-2xl">{category.title}</CardTitle>
+                  <storyCategory.icon className="w-8 h-8 text-primary" />
+                  <CardTitle className="text-2xl">{storyCategory.title}</CardTitle>
                 </div>
               </CardHeader>
               <CardContent className="flex-grow flex flex-col justify-between">
                 <CardDescription className="text-base mb-6">
-                  {category.description}
+                  {storyCategory.description}
                 </CardDescription>
                 <div className="flex justify-end items-center text-sm font-semibold text-primary">
                   Empezar a crear <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -76,7 +53,7 @@ export default function CrearCuentoSeleccionPage() {
               </CardContent>
             </Card>
           </Link>
-        ))}
+        </div>
       </div>
     </div>
   );

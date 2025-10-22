@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -42,31 +43,12 @@ import { Switch } from '@/components/ui/switch';
 const categoryDetails: {
   [key: string]: { title: string; description: string; webhook: string };
 } = {
-  'ilustrado-20': {
-    title: 'Cuento 100% Ilustrado',
+  'aprendizaje': {
+    title: '¡Crea un cuento!',
     description:
-      'Rellena los detalles para tu cuento con 20 ilustraciones y portada.',
-    webhook:
-      'https://natuai-n8n.kl7z6h.easypanel.host/webhook/b964948a-a957-484c-86e5-0e1291880479',
-  },
-  'ilustrado-12': {
-    title: 'Cuento Ilustrado',
-    description:
-      'Rellena los detalles para tu cuento con 12 ilustraciones y portada.',
+      'Rellena los detalles para tu cuento con ilustraciones y portada.',
     webhook:
       'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
-  },
-  'ilustrado-5': {
-    title: 'Cuento con Imágenes',
-    description: 'Rellena los detalles para tu cuento con 5 ilustraciones y portada.',
-    webhook:
-      'https://natuai-n8n.kl7z6h.easypanel.host/webhook/989189b6-b519-482d-89c0-6d4b96f5b9d2',
-  },
-  'solo-portada': {
-    title: 'Cuento sin Ilustraciones',
-    description: 'Rellena los detalles para tu cuento (solo portada).',
-    webhook:
-      'https://natuai-n8n.kl7z6h.easypanel.host/webhook/166669c2-7b24-4f8a-92ab-426b38c2901c',
   },
 };
 
@@ -97,9 +79,9 @@ export default function CrearCuentoPage() {
     : params.categoria;
 
   const details = categoryDetails[categoria] || {
-    title: 'Crea Tu Próximo Cuento',
+    title: '¡Crea un cuento!',
     description: 'Rellena los detalles y deja que la magia haga el resto.',
-    webhook: '',
+    webhook: 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
   };
 
   const form = useForm<StoryFormValues>({
@@ -391,6 +373,7 @@ export default function CrearCuentoPage() {
                                         const newCharacters = [...field.value];
                                         newCharacters[index] = { character, customization: '' };
                                         field.onChange(newCharacters.filter(c => c !== undefined));
+
                                     }}
                                     onRemove={() => {
                                         const newCharacters = field.value.filter((_, i) => i !== index);
