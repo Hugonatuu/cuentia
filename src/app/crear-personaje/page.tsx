@@ -214,7 +214,7 @@ export default function CrearPersonajePage() {
                             <Label htmlFor="avatar-name" className="text-lg font-semibold">Nombre del Personaje</Label>
                             <Input 
                                 id="avatar-name" 
-                                placeholder="Ej: Abuela Yoli, mi perro Tobi..."
+                                placeholder="Jack, Ana, Mr Thompson"
                                 value={characterName}
                                 onChange={(e) => setCharacterName(e.target.value)}
                             />
