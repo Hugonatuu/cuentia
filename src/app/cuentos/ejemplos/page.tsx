@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Download } from "lucide-react";
 import { exampleStories } from "@/lib/placeholder-data";
 
 export default function EjemplosPage() {
@@ -16,8 +18,8 @@ export default function EjemplosPage() {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {exampleStories.map((story) => (
-          <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-            <Link href="#">
+          <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
+            <Link href={story.pdfUrl || '#'} target="_blank" rel="noopener noreferrer" className="block">
               <CardContent className="p-0">
                 <Image
                   src={story.image.imageUrl}
@@ -32,9 +34,19 @@ export default function EjemplosPage() {
                 <CardTitle className="text-lg">{story.title}</CardTitle>
               </CardHeader>
             </Link>
+            <CardFooter className="mt-auto p-4">
+              <Button asChild className="w-full" variant={!story.pdfUrl || story.pdfUrl === '#' ? 'secondary' : 'default'} disabled={!story.pdfUrl || story.pdfUrl === '#'}>
+                <a href={story.pdfUrl} download>
+                  <Download className="mr-2 h-4 w-4" />
+                  Descargar
+                </a>
+              </Button>
+            </CardFooter>
           </Card>
         ))}
       </div>
     </div>
   );
 }
+
+    

@@ -67,11 +67,12 @@ export const pricingPlans = [
 ];
 
 export const exampleStories = [
-  { id: '1', title: 'El Viaje a la Luna de Leo', image: getImage('story-cover-1') },
-  { id: '2', title: 'Ferdinand, el Dragón Tímido', image: getImage('story-cover-2') },
-  { id: '3', title: 'La Aventura en la Selva', image: getImage('story-cover-3') },
-  { id: '4', title: 'El Secreto del Océano', image: getImage('story-cover-4') },
-  { id: '5', title: 'El Robot con Corazón', image: getImage('story-cover-5') },
+  { id: '1', title: 'El Viaje a la Luna de Leo', image: getImage('story-cover-1'), pdfUrl: '#' },
+  { id: '2', title: 'Ferdinand, el Dragón Tímido', image: getImage('story-cover-2'), pdfUrl: '#' },
+  { id: '3', title: 'La Aventura en la Selva', image: getImage('story-cover-3'), pdfUrl: '#' },
+  { id: '4', title: 'El Secreto del Océano', image: getImage('story-cover-4'), pdfUrl: '#' },
+  { id: '5', title: 'El Robot con Corazón', image: getImage('story-cover-5'), pdfUrl: '#' },
+  { id: '6', title: 'Los tres amigos', image: getImage('story-cover-6'), pdfUrl: '/cuentos/cuento-lostresamigos.pdf' },
 ];
 
 export const userProfile = {
@@ -107,3 +108,5 @@ export const characterSubNav = [
   { href: '/personajes/mis-personajes', label: 'Mis Personajes' },
   { href: '/personajes/crear-avatar', label: 'Crear Avatar' },
 ]
+
+    
