@@ -1,14 +1,26 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useUser, useFirestore, useCollection, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from '@/components/ui/skeleton';
+import { X } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { doc } from 'firebase/firestore';
 
 interface Character {
   id: string;
@@ -28,6 +40,7 @@ export default function PersonajesPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
+  const [characterToDelete, setCharacterToDelete] = useState<Character | null>(null);
 
   const userCharactersQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -42,9 +55,37 @@ export default function PersonajesPage() {
   const { data: userCharacters, isLoading: areCharactersLoading } = useCollection<Character>(userCharactersQuery);
   const { data: predefinedCharacters, isLoading: arePredefinedCharactersLoading } = useCollection<PredefinedCharacter>(predefinedCharactersQuery);
 
+  const handleDeleteClick = (character: Character) => {
+    setCharacterToDelete(character);
+  };
+
+  const confirmDelete = () => {
+    if (characterToDelete && firestore && user) {
+      const characterDocRef = doc(firestore, `users/${user.uid}/characters/${characterToDelete.id}`);
+      deleteDocumentNonBlocking(characterDocRef);
+    }
+    setCharacterToDelete(null);
+  };
+
 
   return (
     <div className="container mx-auto py-12">
+       <AlertDialog open={!!characterToDelete} onOpenChange={(isOpen) => !isOpen && setCharacterToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. Esto eliminará permanentemente el personaje
+              "{characterToDelete?.name}" de tus datos.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setCharacterToDelete(null)}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
           Un Mundo de Personajes
@@ -70,7 +111,12 @@ export default function PersonajesPage() {
 
       {user && (
         <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-6">Mis Personajes</h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-3xl font-bold">Mis Personajes</h2>
+            <Button asChild>
+                <Link href="/crear-personaje">Crear Nuevo Personaje</Link>
+            </Button>
+          </div>
           {areCharactersLoading ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                {[...Array(5)].map((_, i) => (
@@ -85,8 +131,17 @@ export default function PersonajesPage() {
               {userCharacters.map((character) => (
                 <Card
                   key={character.id}
-                  className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                  className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative"
                 >
+                  <Button
+                    variant="destructive"
+                    size="icon"
+                    className="absolute top-2 right-2 h-7 w-7 rounded-full z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => handleDeleteClick(character)}
+                  >
+                    <X className="h-4 w-4" />
+                    <span className="sr-only">Eliminar personaje</span>
+                  </Button>
                   <CardContent className="p-0 text-center">
                     <div className="aspect-square overflow-hidden">
                       <Image
