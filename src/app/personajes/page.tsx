@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from '@/components/ui/skeleton';
-import { X } from 'lucide-react';
+import { X, Info } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -204,29 +204,30 @@ export default function PersonajesPage() {
               {predefinedCharacters.map((character) => (
                 <TooltipProvider key={character.id}>
                   <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Card
-                        className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                      >
-                        <CardContent className="p-0 text-center">
-                          <div className="aspect-square overflow-hidden">
-                            <Image
-                              src={character.imageUrl}
-                              alt={character.name}
-                              width={400}
-                              height={400}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                              data-ai-hint={character.imageHint}
-                            />
-                          </div>
-                          <div className="py-3 px-2">
-                            <h3 className="font-semibold text-md">{character.name}</h3>
-                          </div>
+                    <Card
+                      className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                    >
+                      <TooltipTrigger asChild>
+                        <CardContent className="p-0 text-center relative">
+                            <Info className="absolute top-2 right-2 h-5 w-5 text-white bg-black/50 rounded-full p-1 z-10" />
+                            <div className="aspect-square overflow-hidden">
+                              <Image
+                                src={character.imageUrl}
+                                alt={character.name}
+                                width={400}
+                                height={400}
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                                data-ai-hint={character.imageHint}
+                              />
+                            </div>
+                            <div className="py-3 px-2">
+                              <h3 className="font-semibold text-md">{character.name}</h3>
+                            </div>
                         </CardContent>
-                      </Card>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>{character.description}</p>
+                      </TooltipTrigger>
+                    </Card>
+                     <TooltipContent>
+                      <p className="max-w-xs">{character.description}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
