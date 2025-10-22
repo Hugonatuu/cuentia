@@ -8,7 +8,7 @@ import {
   signInWithPopup,
   UserCredential,
 } from 'firebase/auth';
-import { getFirestore, doc, serverTimestamp } from 'firebase/firestore';
+import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from './non-blocking-updates';
 import { initializeFirebase } from '.';
 
@@ -54,7 +54,12 @@ export function initiateEmailSignIn(
   email: string,
   password: string
 ): void {
-  signInWithEmailAndPassword(authInstance, email, password);
+  signInWithEmailAndPassword(authInstance, email, password).then(
+    (userCredential) => {
+      // On successful sign-in, create/merge the user document.
+      createUserDocument(userCredential.user);
+    }
+  );
 }
 
 /** Initiate Google sign-in (non-blocking). */

@@ -24,35 +24,6 @@
       },
       "required": ["email", "createdAt"]
     },
-    "User": {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "User",
-      "type": "object",
-      "description": "Represents a user of the Cuentia application.",
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the user."
-        },
-        "email": {
-          "type": "string",
-          "description": "User's email address.",
-          "format": "email"
-        },
-        "subscriptionId": {
-          "type": "string",
-          "description": "Reference to Subscription. (Relationship: User 1:1 Subscription)"
-        },
-        "creditBalance": {
-          "type": "number",
-          "description": "The number of credits the user has available."
-        }
-      },
-      "required": [
-        "id",
-        "email"
-      ]
-    },
     "Story": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "Story",
@@ -183,13 +154,13 @@
     ]
   },
   "firestore": {
-     "structure": [
+    "structure": [
       {
         "path": "/users/{userId}",
         "definition": {
           "entityName": "UserProfile",
           "schema": {
-            "$ref": "#/backend/entities/UserProfile"
+            "$ref": "#/entities/UserProfile"
           },
           "description": "Stores public-facing user profiles. Uses path-based ownership for write operations, but may be publicly readable.",
           "params": [
@@ -205,7 +176,7 @@
         "definition": {
           "entityName": "Story",
           "schema": {
-            "$ref": "#/backend/entities/Story"
+            "$ref": "#/entities/Story"
           },
           "description": "Stores stories created by each user. Uses path-based ownership for private user data.",
           "params": [
@@ -225,7 +196,7 @@
         "definition": {
           "entityName": "Character",
           "schema": {
-            "$ref": "#/backend/entities/Character"
+            "$ref": "#/entities/Character"
           },
           "description": "Stores characters created or associated with each user.  Uses path-based ownership for private user data.",
           "params": [
@@ -245,7 +216,7 @@
         "definition": {
           "entityName": "Subscription",
           "schema": {
-            "$ref": "#/backend/entities/Subscription"
+            "$ref": "#/entities/Subscription"
           },
           "description": "Stores subscription plans. Not user-specific, so stored at the root level.",
           "params": [
