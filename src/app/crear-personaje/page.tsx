@@ -6,6 +6,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { UploadCloud, Sparkles, Loader2, X } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
@@ -25,6 +32,9 @@ export default function CrearPersonajePage() {
     const firestore = useFirestore();
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [characterName, setCharacterName] = useState('');
+    const [characterType, setCharacterType] = useState('');
+    const [gender, setGender] = useState('');
+    const [age, setAge] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
@@ -72,8 +82,8 @@ export default function CrearPersonajePage() {
             return;
         }
 
-        if (!characterName.trim()) {
-            toast({ variant: 'destructive', title: 'Error', description: 'Por favor, introduce un nombre para el personaje.' });
+        if (!characterName.trim() || !characterType || !gender || !age) {
+            toast({ variant: 'destructive', title: 'Error', description: 'Por favor, completa todos los campos del personaje.' });
             return;
         }
         if (selectedFiles.length === 0) {
@@ -112,6 +122,9 @@ export default function CrearPersonajePage() {
             addDocumentNonBlocking(charactersColRef, {
                 name: characterName,
                 avatarUrl: result.avatarUrl,
+                characterType,
+                gender,
+                age,
                 createdAt: serverTimestamp()
             });
             
@@ -123,6 +136,9 @@ export default function CrearPersonajePage() {
             });
             
             setCharacterName('');
+            setCharacterType('');
+            setGender('');
+            setAge('');
             setSelectedFiles([]);
 
         } catch (error) {
@@ -189,15 +205,54 @@ export default function CrearPersonajePage() {
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="space-y-2 text-left">
-                        <Label htmlFor="avatar-name" className="text-lg font-semibold">Nombre del Personaje</Label>
-                        <Input 
-                            id="avatar-name" 
-                            placeholder="Ej: Abuela Yoli, mi perro Tobi..."
-                            value={characterName}
-                            onChange={(e) => setCharacterName(e.target.value)}
-                        />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                        <div className="space-y-2">
+                            <Label htmlFor="avatar-name" className="text-lg font-semibold">Nombre del Personaje</Label>
+                            <Input 
+                                id="avatar-name" 
+                                placeholder="Ej: Abuela Yoli, mi perro Tobi..."
+                                value={characterName}
+                                onChange={(e) => setCharacterName(e.target.value)}
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="character-type" className="text-lg font-semibold">Tipo</Label>
+                            <Select value={characterType} onValueChange={setCharacterType}>
+                                <SelectTrigger id="character-type">
+                                    <SelectValue placeholder="Selecciona un tipo" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="persona">Persona</SelectItem>
+                                    <SelectItem value="perro">Perro</SelectItem>
+                                    <SelectItem value="gato">Gato</SelectItem>
+                                    <SelectItem value="loro">Loro</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="gender" className="text-lg font-semibold">Género</Label>
+                             <Select value={gender} onValueChange={setGender}>
+                                <SelectTrigger id="gender">
+                                    <SelectValue placeholder="Selecciona un género" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="masculino">Masculino</SelectItem>
+                                    <SelectItem value="femenino">Femenino</SelectItem>
+                                    <SelectItem value="neutro">Neutro</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                         <div className="space-y-2">
+                            <Label htmlFor="age" className="text-lg font-semibold">Edad</Label>
+                            <Input 
+                                id="age" 
+                                placeholder="Ej: 7, adulto, cachorro..."
+                                value={age}
+                                onChange={(e) => setAge(e.target.value)}
+                            />
+                        </div>
                     </div>
+                    
                     <div className="space-y-2 text-left">
                         <Label htmlFor="photos" className="text-lg font-semibold">Sube tus Fotos</Label>
                         <div className="flex items-center justify-center w-full">

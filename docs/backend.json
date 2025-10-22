@@ -101,12 +101,38 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "characterType": {
+          "type": "string",
+          "description": "The type of character (e.g., person, dog, cat).",
+          "enum": [
+            "persona",
+            "perro",
+            "gato",
+            "loro"
+          ]
+        },
+        "gender": {
+          "type": "string",
+          "description": "The gender of the character.",
+          "enum": [
+            "masculino",
+            "femenino",
+            "neutro"
+          ]
+        },
+        "age": {
+          "type": "string",
+          "description": "The age of the character."
         }
       },
       "required": [
         "name",
         "avatarUrl",
-        "createdAt"
+        "createdAt",
+        "characterType",
+        "gender",
+        "age"
       ]
     },
     "Subscription": {
