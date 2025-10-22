@@ -21,11 +21,20 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { doc } from 'firebase/firestore';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface Character {
   id: string;
   name: string;
   avatarUrl: string;
+  species: string;
+  gender: string;
+  age: string;
 }
 
 interface PredefinedCharacter {
@@ -34,6 +43,9 @@ interface PredefinedCharacter {
   description: string;
   imageUrl: string;
   imageHint: string;
+  species: string;
+  gender: string;
+  age: string;
 }
 
 export default function PersonajesPage() {
@@ -190,26 +202,34 @@ export default function PersonajesPage() {
          ) : predefinedCharacters && predefinedCharacters.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {predefinedCharacters.map((character) => (
-                <Card
-                  key={character.id}
-                  className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-                >
-                  <CardContent className="p-0 text-center">
-                    <div className="aspect-square overflow-hidden">
-                      <Image
-                        src={character.imageUrl}
-                        alt={character.name}
-                        width={400}
-                        height={400}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        data-ai-hint={character.imageHint}
-                      />
-                    </div>
-                    <div className="py-3 px-2">
-                      <h3 className="font-semibold text-md">{character.name}</h3>
-                    </div>
-                  </CardContent>
-                </Card>
+                <TooltipProvider key={character.id}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Card
+                        className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      >
+                        <CardContent className="p-0 text-center">
+                          <div className="aspect-square overflow-hidden">
+                            <Image
+                              src={character.imageUrl}
+                              alt={character.name}
+                              width={400}
+                              height={400}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                              data-ai-hint={character.imageHint}
+                            />
+                          </div>
+                          <div className="py-3 px-2">
+                            <h3 className="font-semibold text-md">{character.name}</h3>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{character.description}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ))}
             </div>
          ) : (
