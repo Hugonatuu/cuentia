@@ -12,6 +12,10 @@ import AuthPopup from '@/components/core/AuthPopup';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 
+interface WebhookResponse {
+    avatarUrl: string;
+}
+
 export default function CrearPersonajePage() {
     const { user, isUserLoading } = useUser();
     const [isPopupOpen, setPopupOpen] = useState(false);
@@ -20,6 +24,8 @@ export default function CrearPersonajePage() {
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+    const [generatedAvatar, setGeneratedAvatar] = useState<{name: string, url: string} | null>(null);
+
 
     useEffect(() => {
         const newPreviewUrls = selectedFiles.map(file => URL.createObjectURL(file));
@@ -51,7 +57,6 @@ export default function CrearPersonajePage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // Trigger auth popup if not logged in
         if (!user) {
             handleInteraction();
             return;
@@ -67,6 +72,7 @@ export default function CrearPersonajePage() {
         }
 
         setIsLoading(true);
+        setGeneratedAvatar(null);
 
         const formData = new FormData();
         formData.append('characterName', characterName);
@@ -81,27 +87,33 @@ export default function CrearPersonajePage() {
             });
 
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                 const errorText = await response.text();
+                 throw new Error(`Error del servidor: ${response.status} - ${errorText}`);
             }
+            
+            const result: WebhookResponse = await response.json();
 
-            // The webhook seems to return HTML, so we just check for OK status.
-            // If it returned JSON, you would parse it here: const result = await response.json();
+            if (!result.avatarUrl) {
+                throw new Error("La respuesta del servidor no incluyó una URL de avatar.");
+            }
+            
+            setGeneratedAvatar({ name: characterName, url: result.avatarUrl });
             
             toast({
-                title: '¡Avatar en proceso!',
-                description: 'Tu avatar se está generando. Te notificaremos cuando esté listo.',
+                title: '¡Avatar generado con éxito!',
+                description: `El avatar "${characterName}" se ha creado y está listo.`,
             });
             
-            // Reset form
             setCharacterName('');
             setSelectedFiles([]);
 
         } catch (error) {
-            console.error('Error calling webhook:', error);
+            console.error('Error al llamar al webhook:', error);
+            const errorMessage = error instanceof Error ? error.message : 'Hubo un problema al contactar el servidor.';
             toast({
                 variant: 'destructive',
                 title: 'Error al generar el avatar',
-                description: 'Hubo un problema al enviar tus datos. Por favor, inténtalo de nuevo más tarde.',
+                description: errorMessage,
             });
         } finally {
             setIsLoading(false);
@@ -230,6 +242,24 @@ export default function CrearPersonajePage() {
                         )}
                     </Button>
                 </form>
+
+                {generatedAvatar && (
+                    <div className="mt-12 text-left border-t pt-8">
+                        <h3 className="text-2xl font-bold text-center mb-6">¡Avatar Generado!</h3>
+                        <Card className="max-w-xs mx-auto overflow-hidden shadow-lg">
+                            <Image 
+                                src={generatedAvatar.url}
+                                alt={`Avatar para ${generatedAvatar.name}`}
+                                width={400}
+                                height={400}
+                                className="w-full h-auto object-cover"
+                            />
+                            <CardHeader>
+                                <CardTitle className="text-center">{generatedAvatar.name}</CardTitle>
+                            </CardHeader>
+                        </Card>
+                    </div>
+                )}
             </CardContent>
         </Card>
     </div>
