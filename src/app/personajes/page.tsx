@@ -2,19 +2,32 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { predefinedCharacters } from '@/lib/placeholder-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import { userCharactersCollectionRef } from '@/firebase/firestore/references';
+import { Skeleton } from '@/components/ui/skeleton';
+
+interface Character {
+  id: string;
+  name: string;
+  avatarUrl: string;
+}
 
 export default function PersonajesPage() {
   const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
   const router = useRouter();
 
-  // TODO: Replace with user's actual characters from Firestore
-  const userCharacters = predefinedCharacters.slice(0, 4);
+  const userCharactersQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return userCharactersCollectionRef(firestore, user.uid);
+  }, [firestore, user]);
+
+  const { data: userCharacters, isLoading: areCharactersLoading } = useCollection<Character>(userCharactersQuery);
 
   return (
     <div className="container mx-auto py-12">
@@ -44,7 +57,16 @@ export default function PersonajesPage() {
       {user && (
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-6">Mis Personajes</h2>
-          {userCharacters.length > 0 ? (
+          {areCharactersLoading ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+               {[...Array(5)].map((_, i) => (
+                <div key={i} className="space-y-2">
+                  <Skeleton className="h-auto w-full aspect-square" />
+                  <Skeleton className="h-6 w-3/4 mx-auto" />
+                </div>
+              ))}
+            </div>
+          ) : userCharacters && userCharacters.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {userCharacters.map((character) => (
                 <Card
@@ -54,12 +76,11 @@ export default function PersonajesPage() {
                   <CardContent className="p-0 text-center">
                     <div className="aspect-square overflow-hidden">
                       <Image
-                        src={character.image.imageUrl}
+                        src={character.avatarUrl}
                         alt={character.name}
                         width={400}
                         height={400}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                        data-ai-hint={character.image.imageHint}
                       />
                     </div>
                     <div className="py-3 px-2">

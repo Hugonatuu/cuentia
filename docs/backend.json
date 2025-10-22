@@ -108,12 +108,17 @@
           "items": {
             "type": "string"
           }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       },
       "required": [
         "id",
         "name",
-        "avatarUrl"
+        "avatarUrl",
+        "createdAt"
       ]
     },
     "Subscription": {
@@ -168,7 +173,23 @@
               "name": "userId",
               "description": "The unique identifier of the user, matching the Firebase Auth UID."
             }
-          ]
+          ],
+          "subcollections": {
+            "path": "/characters/{characterId}",
+            "definition": {
+              "entityName": "Character",
+              "schema": {
+                "$ref": "#/entities/Character"
+              },
+              "description": "Stores characters created by the user.",
+              "params": [
+                {
+                  "name": "characterId",
+                  "description": "The unique identifier of the character."
+                }
+              ]
+            }
+          }
         }
       },
        {
@@ -187,26 +208,6 @@
             {
               "name": "storyId",
               "description": "The unique identifier of the story."
-            }
-          ]
-        }
-      },
-      {
-        "path": "/users/{userId}/characters/{characterId}",
-        "definition": {
-          "entityName": "Character",
-          "schema": {
-            "$ref": "#/entities/Character"
-          },
-          "description": "Stores characters created or associated with each user.  Uses path-based ownership for private user data.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
-            },
-            {
-              "name": "characterId",
-              "description": "The unique identifier of the character."
             }
           ]
         }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useMemoFirebase } from '@/firebase';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
+import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { serverTimestamp } from 'firebase/firestore';
+import { userCharactersCollectionRef } from '@/firebase/firestore/references';
+
 
 interface WebhookResponse {
     avatarUrl: string;
@@ -18,6 +22,7 @@ interface WebhookResponse {
 
 export default function CrearPersonajePage() {
     const { user, isUserLoading } = useUser();
+    const firestore = useFirestore();
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [characterName, setCharacterName] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -61,6 +66,11 @@ export default function CrearPersonajePage() {
             handleInteraction();
             return;
         }
+        
+        if (!firestore) {
+            toast({ variant: 'destructive', title: 'Error', description: 'La base de datos no está disponible. Inténtalo de nuevo.' });
+            return;
+        }
 
         if (!characterName.trim()) {
             toast({ variant: 'destructive', title: 'Error', description: 'Por favor, introduce un nombre para el personaje.' });
@@ -97,18 +107,26 @@ export default function CrearPersonajePage() {
                 throw new Error("La respuesta del servidor no incluyó una URL de avatar.");
             }
             
+            // Guardar en Firestore
+            const charactersColRef = userCharactersCollectionRef(firestore, user.uid);
+            addDocumentNonBlocking(charactersColRef, {
+                name: characterName,
+                avatarUrl: result.avatarUrl,
+                createdAt: serverTimestamp()
+            });
+            
             setGeneratedAvatar({ name: characterName, url: result.avatarUrl });
             
             toast({
-                title: '¡Avatar generado con éxito!',
-                description: `El avatar "${characterName}" se ha creado y está listo.`,
+                title: '¡Avatar generado y guardado!',
+                description: `El avatar "${characterName}" se ha guardado en tu colección.`,
             });
             
             setCharacterName('');
             setSelectedFiles([]);
 
         } catch (error) {
-            console.error('Error al llamar al webhook:', error);
+            console.error('Error al llamar al webhook o guardar en Firestore:', error);
             const errorMessage = error instanceof Error ? error.message : 'Hubo un problema al contactar el servidor.';
             toast({
                 variant: 'destructive',
