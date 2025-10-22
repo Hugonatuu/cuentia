@@ -531,28 +531,30 @@ export default function CrearCuentoPage() {
                 )}
               </div>
 
-              <div className="flex flex-col items-center gap-4 pt-4">
-                 <div className="flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-lg font-semibold text-primary">
-                    <CreditCard className="h-6 w-6" />
+               <div className="flex flex-col pt-4">
+                <div className="flex justify-center">
+                    <Button
+                    type="submit"
+                    size="lg"
+                    className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
+                    disabled={isSubmitting || totalCredits === 0}
+                    >
+                    {isSubmitting ? (
+                        <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Generando...
+                        </>
+                    ) : (
+                        <>
+                        Generar mi Cuento <Sparkles className="ml-2 h-5 w-5" />
+                        </>
+                    )}
+                    </Button>
+                </div>
+                <div className="flex justify-end items-center gap-2 text-sm font-semibold text-primary/80 mt-2">
+                    <CreditCard className="h-4 w-4" />
                     <span>Coste Total: {totalCredits.toLocaleString()} créditos</span>
                 </div>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
-                  disabled={isSubmitting || totalCredits === 0}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Generando...
-                    </>
-                  ) : (
-                    <>
-                      Generar mi Cuento <Sparkles className="ml-2 h-5 w-5" />
-                    </>
-                  )}
-                </Button>
               </div>
             </form>
           </Form>
