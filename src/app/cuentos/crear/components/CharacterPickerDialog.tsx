@@ -26,18 +26,15 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
     className={`overflow-hidden group transition-all duration-300 cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1'}`}
     onClick={() => !isDisabled && onSelect()}
   >
-    <CardContent className="p-0 text-center">
-      <div className="aspect-square overflow-hidden">
+    <CardContent className="p-0 text-center relative aspect-square">
         <Image
           src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
           alt={character.name}
-          width={200}
-          height={200}
-          className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
+          fill
+          className="object-cover object-center transition-transform duration-300 group-hover:scale-110"
         />
-      </div>
-      <div className="py-3 px-2">
-        <h3 className="font-semibold text-md truncate">{character.name}</h3>
+      <div className="absolute bottom-0 w-full p-2 bg-black/50 backdrop-blur-sm">
+        <h3 className="font-semibold text-md truncate text-white">{character.name}</h3>
       </div>
     </CardContent>
   </Card>
