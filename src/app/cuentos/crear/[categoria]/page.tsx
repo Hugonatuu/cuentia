@@ -53,7 +53,7 @@ const categoryDetails: {
     description:
       'Rellena los detalles para tu cuento con 12 ilustraciones y portada.',
     webhook:
-      'https://natuai-n8n.kl7z6h.easypanel.host/webhook/33c9472e-8366-4e5c-a1f4-f584e022f462',
+      'https://natuai-n8n.kl7z6h.easypanel.host/webhook/90d5d462-d86c-455b-88d6-39192765c718',
   },
   'ilustrado-5': {
     title: 'Cuento con Imágenes',
