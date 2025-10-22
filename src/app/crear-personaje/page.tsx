@@ -216,18 +216,13 @@ export default function CrearPersonajePage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="character-type" className="text-lg font-semibold">Tipo</Label>
-                            <Select value={characterType} onValueChange={setCharacterType}>
-                                <SelectTrigger id="character-type">
-                                    <SelectValue placeholder="Selecciona un tipo" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="persona">Persona</SelectItem>
-                                    <SelectItem value="perro">Perro</SelectItem>
-                                    <SelectItem value="gato">Gato</SelectItem>
-                                    <SelectItem value="loro">Loro</SelectItem>
-                                </SelectContent>
-                            </Select>
+                            <Label htmlFor="character-type" className="text-lg font-semibold">Especie</Label>
+                            <Input
+                                id="character-type"
+                                placeholder="Ej: persona, perro..."
+                                value={characterType}
+                                onChange={(e) => setCharacterType(e.target.value)}
+                            />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="gender" className="text-lg font-semibold">Género</Label>

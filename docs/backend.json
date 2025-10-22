@@ -104,13 +104,7 @@
         },
         "characterType": {
           "type": "string",
-          "description": "The type of character (e.g., person, dog, cat).",
-          "enum": [
-            "persona",
-            "perro",
-            "gato",
-            "loro"
-          ]
+          "description": "The type of character (e.g., person, dog, cat)."
         },
         "gender": {
           "type": "string",
