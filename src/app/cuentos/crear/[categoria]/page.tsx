@@ -142,12 +142,17 @@ export default function CrearCuentoPage() {
         const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
         return `${baseCharacter.name}:\n${imageUrl}`;
     }).join('\n\n');
+    
+    const charactersForWebhook = data.characters.map(({ character, customization }) => {
+      const { avatarUrl, imageUrl, ...restOfCharacter } = character as any;
+      return { character: restOfCharacter, customization };
+    });
 
     const webhookData = {
         ...data,
         userId: user.uid,
         characterImagesText: characterImagesText,
-        characters: undefined, // No enviar el array de characters
+        characters: charactersForWebhook,
     };
 
     try {
