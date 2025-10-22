@@ -144,7 +144,7 @@ export default function CrearCuentoPage() {
     }).join('\n\n');
     
     const charactersForWebhook = data.characters.map(({ character, customization }) => {
-      const { avatarUrl, imageUrl, ...restOfCharacter } = character as any;
+      const { avatarUrl, imageUrl, createdAt, id, ...restOfCharacter } = character as any;
       return { character: restOfCharacter, customization };
     });
 
