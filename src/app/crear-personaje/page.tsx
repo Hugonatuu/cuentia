@@ -33,6 +33,7 @@ export default function CrearPersonajePage() {
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [characterName, setCharacterName] = useState('');
     const [characterType, setCharacterType] = useState('');
+    const [otherCharacterType, setOtherCharacterType] = useState('');
     const [gender, setGender] = useState('');
     const [age, setAge] = useState('');
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
@@ -82,7 +83,9 @@ export default function CrearPersonajePage() {
             return;
         }
 
-        if (!characterName.trim() || !characterType || !gender || !age) {
+        const finalCharacterType = characterType === 'Otro' ? otherCharacterType : characterType;
+
+        if (!characterName.trim() || !finalCharacterType || !gender || !age) {
             toast({ variant: 'destructive', title: 'Error', description: 'Por favor, completa todos los campos del personaje.' });
             return;
         }
@@ -122,7 +125,7 @@ export default function CrearPersonajePage() {
             addDocumentNonBlocking(charactersColRef, {
                 name: characterName,
                 avatarUrl: result.avatarUrl,
-                characterType,
+                characterType: finalCharacterType,
                 gender,
                 age,
                 createdAt: serverTimestamp()
@@ -137,6 +140,7 @@ export default function CrearPersonajePage() {
             
             setCharacterName('');
             setCharacterType('');
+            setOtherCharacterType('');
             setGender('');
             setAge('');
             setSelectedFiles([]);
@@ -215,15 +219,35 @@ export default function CrearPersonajePage() {
                                 onChange={(e) => setCharacterName(e.target.value)}
                             />
                         </div>
-                        <div className="space-y-2">
+                         <div className="space-y-2">
                             <Label htmlFor="character-type" className="text-lg font-semibold">Especie</Label>
-                            <Input
-                                id="character-type"
-                                placeholder="Ej: persona, perro..."
-                                value={characterType}
-                                onChange={(e) => setCharacterType(e.target.value)}
-                            />
+                             <Select value={characterType} onValueChange={setCharacterType}>
+                                <SelectTrigger id="character-type">
+                                    <SelectValue placeholder="Selecciona una especie" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="Humano">Humano</SelectItem>
+                                    <SelectItem value="Perro">Perro</SelectItem>
+                                    <SelectItem value="Gato">Gato</SelectItem>
+                                    <SelectItem value="Pájaro">Pájaro</SelectItem>
+                                    <SelectItem value="Conejo">Conejo</SelectItem>
+                                    <SelectItem value="Hámster">Hámster</SelectItem>
+                                    <SelectItem value="Pez">Pez</SelectItem>
+                                    <SelectItem value="Otro">Otro</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
+                        {characterType === 'Otro' && (
+                            <div className="space-y-2 md:col-span-2">
+                                <Label htmlFor="other-character-type" className="text-lg font-semibold">Especifica la especie</Label>
+                                <Input
+                                    id="other-character-type"
+                                    placeholder="Ej: Dragón, robot, hada..."
+                                    value={otherCharacterType}
+                                    onChange={(e) => setOtherCharacterType(e.target.value)}
+                                />
+                            </div>
+                        )}
                         <div className="space-y-2">
                             <Label htmlFor="gender" className="text-lg font-semibold">Género</Label>
                              <Select value={gender} onValueChange={setGender}>
@@ -333,5 +357,3 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
-
-    
