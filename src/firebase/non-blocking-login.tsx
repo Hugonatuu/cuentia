@@ -1,19 +1,37 @@
 'use client';
 import {
-  Auth, // Import Auth type for type hinting
+  Auth,
   signInAnonymously,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  // Assume getAuth and app are initialized elsewhere
+  UserCredential,
 } from 'firebase/auth';
+import { getFirestore, doc, serverTimestamp } from 'firebase/firestore';
+import { setDocumentNonBlocking } from './non-blocking-updates';
+import { initializeFirebase } from '.';
+
+/** Helper function to create a user document in Firestore. */
+function createUserDocument(user: UserCredential['user']) {
+  if (!user) return;
+
+  const { firestore } = initializeFirebase();
+  const userRef = doc(firestore, 'users', user.uid);
+  const userData = {
+    email: user.email,
+    displayName: user.displayName,
+    photoURL: user.photoURL,
+    createdAt: serverTimestamp(),
+  };
+
+  // Use the non-blocking function to create the document.
+  setDocumentNonBlocking(userRef, userData, { merge: true });
+}
 
 /** Initiate anonymous sign-in (non-blocking). */
 export function initiateAnonymousSignIn(authInstance: Auth): void {
-  // CRITICAL: Call signInAnonymously directly. Do NOT use 'await signInAnonymously(...)'.
   signInAnonymously(authInstance);
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
 }
 
 /** Initiate email/password sign-up (non-blocking). */
@@ -22,9 +40,12 @@ export function initiateEmailSignUp(
   email: string,
   password: string
 ): void {
-  // CRITICAL: Call createUserWithEmailAndPassword directly. Do NOT use 'await createUserWithEmailAndPassword(...)'.
-  createUserWithEmailAndPassword(authInstance, email, password);
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
+  createUserWithEmailAndPassword(authInstance, email, password).then(
+    (userCredential) => {
+      // On successful creation, create the user document.
+      createUserDocument(userCredential.user);
+    }
+  );
 }
 
 /** Initiate email/password sign-in (non-blocking). */
@@ -33,20 +54,18 @@ export function initiateEmailSignIn(
   email: string,
   password: string
 ): void {
-  // CRITICAL: Call signInWithEmailAndPassword directly. Do NOT use 'await signInWithEmailAndPassword(...)'.
   signInWithEmailAndPassword(authInstance, email, password);
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
 }
 
 /** Initiate Google sign-in (non-blocking). */
 export function initiateGoogleSignIn(authInstance: Auth): void {
   const provider = new GoogleAuthProvider();
-  // CRITICAL: Call signInWithPopup directly. Do NOT use 'await signInWithPopup(...)'.
-  signInWithPopup(authInstance, provider).catch((error) => {
-    // Handle Errors here.
-    // The most common error is the user closing the popup.
-    // We can log it or display a toast message.
-    console.error('Google Sign-In Error:', error);
-  });
-  // Code continues immediately. Auth state change is handled by onAuthStateChanged listener.
+  signInWithPopup(authInstance, provider)
+    .then((userCredential) => {
+      // On successful sign-in, create the user document (it will merge if it exists).
+      createUserDocument(userCredential.user);
+    })
+    .catch((error) => {
+      console.error('Google Sign-In Error:', error);
+    });
 }

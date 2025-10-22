@@ -1,5 +1,29 @@
 {
   "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Represents a user's profile information stored in Firestore.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "photoURL": {
+          "type": "string",
+          "format": "uri"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of when the user account was created."
+        }
+      },
+      "required": ["email", "createdAt"]
+    },
     "User": {
       "$schema": "http://json-schema.org/draft-07/schema#",
       "title": "User",
@@ -155,28 +179,28 @@
   "auth": {
     "providers": [
       "password",
-      "anonymous"
+      "google.com"
     ]
   },
   "firestore": {
-    "structure": [
+     "structure": [
       {
         "path": "/users/{userId}",
         "definition": {
-          "entityName": "User",
+          "entityName": "UserProfile",
           "schema": {
-            "$ref": "#/backend/entities/User"
+            "$ref": "#/backend/entities/UserProfile"
           },
-          "description": "Stores user profiles.  Uses path-based ownership for private user data.",
+          "description": "Stores public-facing user profiles. Uses path-based ownership for write operations, but may be publicly readable.",
           "params": [
             {
               "name": "userId",
-              "description": "The unique identifier of the user."
+              "description": "The unique identifier of the user, matching the Firebase Auth UID."
             }
           ]
         }
       },
-      {
+       {
         "path": "/users/{userId}/stories/{storyId}",
         "definition": {
           "entityName": "Story",
@@ -232,7 +256,6 @@
           ]
         }
       }
-    ],
-    "reasoning": "The Firestore structure is designed to ensure security, scalability, and ease of debugging, adhering to the core design principles of Authorization Independence, Clarity of Intent, DBAC (Database-Based Access Control), and QAPs (Rules are not Filters). Authorization Independence is achieved through denormalization, copying relevant user attributes (like subscription details) into child documents.  Structural Segregation is maintained by separating user-specific data (stories, characters) into user-owned subcollections, ensuring homogeneous security requirements within each collection.  Access Modeling uses path-based ownership for private user data.  The design facilitates secure list operations (QAPs) by using path-based ownership, and ensuring that rules do not function as filters.  This means a user can only list stories that they own, and the security rules only check for ownership based on the path, not by filtering the contents of the documents."
+    ]
   }
 }
