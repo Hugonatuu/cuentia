@@ -74,17 +74,6 @@ export const exampleStories = [
   { id: '5', title: 'El Robot con Corazón', image: getImage('story-cover-5') },
 ];
 
-export const predefinedCharacters = [
-  { id: '1', name: 'Caballero Valiente', image: getImage('char-1') },
-  { id: '2', name: 'Zorro Astuto', image: getImage('char-2') },
-  { id: '3', name: 'Hada Luminosa', image: getImage('char-3') },
-  { id: '4', name: 'Robot Amigo', image: getImage('char-4') },
-  { id: '5', name: 'Capitán Pirata', image: getImage('char-5') },
-  { id: '6', name: 'Princesa Aventurera', image: getImage('char-6') },
-  { id: '7', name: 'Oso Dormilón', image: getImage('char-7') },
-  { id: '8', name: 'Dinosaurio Bebé', image: getImage('char-8') },
-];
-
 export const userProfile = {
   name: 'Ana García',
   email: 'ana.garcia@email.com',

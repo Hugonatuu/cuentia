@@ -5,16 +5,23 @@ import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
-import { predefinedCharacters } from '@/lib/placeholder-data';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { userCharactersCollectionRef } from '@/firebase/firestore/references';
+import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface Character {
   id: string;
   name: string;
   avatarUrl: string;
+}
+
+interface PredefinedCharacter {
+  id: string;
+  name: string;
+  description: string;
+  imageUrl: string;
+  imageHint: string;
 }
 
 export default function PersonajesPage() {
@@ -27,7 +34,14 @@ export default function PersonajesPage() {
     return userCharactersCollectionRef(firestore, user.uid);
   }, [firestore, user]);
 
+  const predefinedCharactersQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return predefinedCharactersCollectionRef(firestore);
+  }, [firestore]);
+
   const { data: userCharacters, isLoading: areCharactersLoading } = useCollection<Character>(userCharactersQuery);
+  const { data: predefinedCharacters, isLoading: arePredefinedCharactersLoading } = useCollection<PredefinedCharacter>(predefinedCharactersQuery);
+
 
   return (
     <div className="container mx-auto py-12">
@@ -61,7 +75,7 @@ export default function PersonajesPage() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                {[...Array(5)].map((_, i) => (
                 <div key={i} className="space-y-2">
-                  <Skeleton className="h-auto w-full aspect-square" />
+                  <Skeleton className="h-auto w-full aspect-square rounded-lg" />
                   <Skeleton className="h-6 w-3/4 mx-auto" />
                 </div>
               ))}
@@ -109,30 +123,50 @@ export default function PersonajesPage() {
 
       <div className="mb-12">
         <h2 className="text-3xl font-bold mb-6">Personajes Predefinidos</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {predefinedCharacters.map((character) => (
-            <Card
-              key={character.id}
-              className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-            >
-              <CardContent className="p-0 text-center">
-                <div className="aspect-square overflow-hidden">
-                  <Image
-                    src={character.image.imageUrl}
-                    alt={character.name}
-                    width={400}
-                    height={400}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    data-ai-hint={character.image.imageHint}
-                  />
+         {arePredefinedCharactersLoading ? (
+             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+               {[...Array(10)].map((_, i) => (
+                <div key={i} className="space-y-2">
+                  <Skeleton className="h-auto w-full aspect-square rounded-lg" />
+                  <Skeleton className="h-6 w-3/4 mx-auto" />
                 </div>
-                <div className="py-3 px-2">
-                  <h3 className="font-semibold text-md">{character.name}</h3>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+              ))}
+            </div>
+         ) : predefinedCharacters && predefinedCharacters.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              {predefinedCharacters.map((character) => (
+                <Card
+                  key={character.id}
+                  className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                >
+                  <CardContent className="p-0 text-center">
+                    <div className="aspect-square overflow-hidden">
+                      <Image
+                        src={character.imageUrl}
+                        alt={character.name}
+                        width={400}
+                        height={400}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        data-ai-hint={character.imageHint}
+                      />
+                    </div>
+                    <div className="py-3 px-2">
+                      <h3 className="font-semibold text-md">{character.name}</h3>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+         ) : (
+            <div className="text-center py-16 border-2 border-dashed rounded-lg">
+                <h2 className="text-xl font-semibold text-gray-700">
+                    No hay personajes predefinidos
+                </h2>
+                <p className="text-muted-foreground mt-2">
+                    Pronto habrá una selección de personajes listos para la aventura.
+                </p>
+            </div>
+         )}
       </div>
     </div>
   );

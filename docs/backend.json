@@ -89,10 +89,6 @@
       "type": "object",
       "description": "Represents a character in a story.",
       "properties": {
-        "id": {
-          "type": "string",
-          "description": "Unique identifier for the character."
-        },
         "name": {
           "type": "string",
           "description": "Name of the character."
@@ -102,20 +98,12 @@
           "description": "URL of the character's avatar image.",
           "format": "uri"
         },
-        "storyIds": {
-          "type": "array",
-          "description": "References to Stories. (Relationship: Story N:N Character)",
-          "items": {
-            "type": "string"
-          }
-        },
         "createdAt": {
           "type": "string",
           "format": "date-time"
         }
       },
       "required": [
-        "id",
         "name",
         "avatarUrl",
         "createdAt"
@@ -150,6 +138,31 @@
         "creditLimit",
         "price"
       ]
+    },
+    "PredefinedCharacter": {
+      "title": "Predefined Character",
+      "description": "A character provided by the application for users to include in stories.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the character."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of the character's personality and role."
+        },
+        "imageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL for the character's image."
+        },
+        "imageHint": {
+          "type": "string",
+          "description": "AI hint for the image."
+        }
+      },
+      "required": ["name", "description", "imageUrl"]
     }
   },
   "auth": {
@@ -174,22 +187,24 @@
               "description": "The unique identifier of the user, matching the Firebase Auth UID."
             }
           ],
-          "subcollections": {
-            "path": "/characters/{characterId}",
-            "definition": {
-              "entityName": "Character",
-              "schema": {
-                "$ref": "#/entities/Character"
-              },
-              "description": "Stores characters created by the user.",
-              "params": [
-                {
-                  "name": "characterId",
-                  "description": "The unique identifier of the character."
-                }
-              ]
+          "subcollections": [
+            {
+              "path": "characters/{characterId}",
+              "definition": {
+                "entityName": "Character",
+                "schema": {
+                  "$ref": "#/entities/Character"
+                },
+                "description": "Stores characters created by the user.",
+                "params": [
+                  {
+                    "name": "characterId",
+                    "description": "The unique identifier of the character."
+                  }
+                ]
+              }
             }
-          }
+          ]
         }
       },
        {
@@ -224,6 +239,22 @@
             {
               "name": "subscriptionId",
               "description": "The unique identifier of the subscription plan."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/predefinedCharacters/{characterId}",
+        "definition": {
+          "entityName": "PredefinedCharacter",
+          "schema": {
+            "$ref": "#/entities/PredefinedCharacter"
+          },
+          "description": "Stores predefined characters available to all users.",
+           "params": [
+            {
+              "name": "characterId",
+              "description": "The unique identifier of the predefined character."
             }
           ]
         }
