@@ -421,7 +421,7 @@ export default function CrearCuentoPage() {
                     </FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="En esta historia, Marta que es la protagonista, se va de viaje y conoce a una chica que se hará su mejor amiga."
+                        placeholder="Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga."
                         rows={4}
                         {...field}
                       />
