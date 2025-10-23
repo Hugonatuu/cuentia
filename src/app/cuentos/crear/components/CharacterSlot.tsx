@@ -32,6 +32,8 @@ export function CharacterSlot({
   const character = characterWithCustomization?.character;
   const hasCustomization = !!characterWithCustomization?.customization;
 
+  const isUserCharacter = character && 'avatarUrl' in character;
+
   if (character) {
     return (
       <>
@@ -58,19 +60,21 @@ export function CharacterSlot({
                  <p className="text-white text-sm font-semibold truncate">{character.name}</p>
               </div>
           </div>
-          <Button
-              type="button"
-              variant={hasCustomization ? "secondary" : "outline"}
-              size="sm"
-              className={cn("w-full", hasCustomization && "border-primary text-primary")}
-              onClick={() => setCustomizationOpen(true)}
-          >
-              {hasCustomization ? <CheckCircle className="mr-2 h-4 w-4" /> : <Wand className="mr-2 h-4 w-4" />}
-              {hasCustomization ? "Personalizado" : "Personalizar"}
-          </Button>
+          {isUserCharacter && (
+            <Button
+                type="button"
+                variant={hasCustomization ? "secondary" : "outline"}
+                size="sm"
+                className={cn("w-full", hasCustomization && "border-primary text-primary")}
+                onClick={() => setCustomizationOpen(true)}
+            >
+                {hasCustomization ? <CheckCircle className="mr-2 h-4 w-4" /> : <Wand className="mr-2 h-4 w-4" />}
+                {hasCustomization ? "Personalizado" : "Personalizar"}
+            </Button>
+          )}
         </div>
         
-        {isCustomizationOpen && (
+        {isCustomizationOpen && isUserCharacter && (
            <CharacterCustomizationDialog
             isOpen={isCustomizationOpen}
             onOpenChange={setCustomizationOpen}
