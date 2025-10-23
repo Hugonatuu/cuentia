@@ -23,6 +23,7 @@ import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { serverTimestamp } from 'firebase/firestore';
 import { userCharactersCollectionRef } from '@/firebase/firestore/references';
 import { cn } from '@/lib/utils';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 
 interface WebhookResponse {
@@ -293,8 +294,11 @@ export default function CrearPersonajePage() {
                         </div>
                     </div>
                     
-                    <div className="space-y-2 text-left">
+                    <div className="space-y-4 text-left">
                         <Label htmlFor="photos" className="text-lg font-semibold">Sube tus Fotos ({selectedFiles.length}/4)</Label>
+                         <p className="text-sm font-semibold text-center text-destructive">
+                            Sube entre 2 y 4 fotos. Al menos una foto tiene que ser de cuerpo entero.
+                        </p> 
                         <div className="flex items-center justify-center w-full">
                             <Label
                                 htmlFor="dropzone-file"
@@ -320,9 +324,6 @@ export default function CrearPersonajePage() {
                                 />
                             </Label>
                         </div>
-                        <p className="pt-2 text-sm font-medium text-center text-muted-foreground">
-                            Sube entre 2 y 4 fotos. Al menos una foto tiene que ser de cuerpo entero.
-                        </p> 
                     </div>
 
                     {previewUrls.length > 0 && (
@@ -391,3 +392,5 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
+
+    
