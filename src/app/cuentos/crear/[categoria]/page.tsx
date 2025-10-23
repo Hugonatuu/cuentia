@@ -192,33 +192,28 @@ export default function CrearCuentoPage() {
       return { character: restOfCharacter, visual_description };
     });
 
-    // We need to handle the file upload. A common way is to convert it to base64.
-    let backCoverImageBase64: string | undefined;
+    const formData = new FormData();
+
+    // Append all form data fields to FormData
+    Object.entries(data).forEach(([key, value]) => {
+      if (key !== 'characters' && key !== 'backCoverImage' && value) {
+        formData.append(key, value as string);
+      }
+    });
+
+    formData.append('userId', user.uid);
+    formData.append('characterImagesText', characterImagesText);
+    formData.append('characters', JSON.stringify(charactersForWebhook));
+    
     if (data.backCoverImage) {
-        const reader = new FileReader();
-        backCoverImageBase64 = await new Promise((resolve, reject) => {
-            reader.onload = () => resolve(reader.result as string);
-            reader.onerror = error => reject(error);
-            reader.readAsDataURL(data.backCoverImage!);
-        });
+      formData.append('backCoverImage', data.backCoverImage);
     }
 
-
-    const webhookData = {
-        ...data,
-        userId: user.uid,
-        characterImagesText: characterImagesText,
-        characters: charactersForWebhook,
-        backCoverImage: backCoverImageBase64
-    };
 
     try {
         const response = await fetch(webhookUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(webhookData),
+            body: formData,
         });
 
         if (!response.ok) {
@@ -611,29 +606,27 @@ export default function CrearCuentoPage() {
               </div>
 
 
-               <div className="flex flex-col pt-4">
-                <div className="flex justify-center">
-                    <Button
-                    type="submit"
-                    size="lg"
-                    className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
-                    disabled={isSubmitting || totalCredits === 0}
-                    >
-                    {isSubmitting ? (
-                        <>
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                        Generando...
-                        </>
-                    ) : (
-                        <>
-                        Generar mi Cuento <Sparkles className="ml-2 h-5 w-5" />
-                        </>
-                    )}
-                    </Button>
-                </div>
-                <div className="flex justify-end items-center gap-2 text-sm font-semibold text-primary/80 mt-2">
-                    <CreditCard className="h-4 w-4" />
-                    <span>Coste Total: {totalCredits.toLocaleString()} créditos</span>
+               <div className="flex flex-col items-center pt-4">
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
+                  disabled={isSubmitting || totalCredits === 0}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Generando...
+                    </>
+                  ) : (
+                    <>
+                      Generar mi Cuento <Sparkles className="ml-2 h-5 w-5" />
+                    </>
+                  )}
+                </Button>
+                <div className="flex w-full justify-end items-center gap-2 text-sm font-semibold text-primary/80 mt-2">
+                  <CreditCard className="h-4 w-4" />
+                  <span>Coste Total: {totalCredits.toLocaleString()} créditos</span>
                 </div>
               </div>
             </form>
@@ -643,4 +636,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
