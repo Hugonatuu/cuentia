@@ -20,7 +20,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles, CreditCard } from 'lucide-react';
+import { Loader2, Sparkles, CreditCard, Info } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useParams, useRouter } from 'next/navigation';
@@ -39,6 +39,7 @@ import { useToast } from '@/hooks/use-toast';
 import { CharacterSlot } from '../components/CharacterSlot';
 import { CharacterWithCustomization } from '../components/types';
 import { Switch } from '@/components/ui/switch';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; };
@@ -69,7 +70,7 @@ const formSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.'),
   learningObjective: z.string().min(1, 'El objetivo de aprendizaje es obligatorio.'),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
-  readerName: z.string().optional(),
+  readerName: z.string().min(1, 'El nombre del lector es obligatorio.'),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
   prompt: z.string().optional(),
   initialPhrase: z.string().optional(),
@@ -382,9 +383,21 @@ export default function CrearCuentoPage() {
                   name="readerName"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg font-semibold">
-                        Nombre del Lector (Opcional)
-                      </FormLabel>
+                      <div className="flex items-center gap-2">
+                        <FormLabel className="text-lg font-semibold">
+                          Nombre del Lector
+                        </FormLabel>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Info className="h-4 w-4 text-accent cursor-pointer" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p>Pon el nombre del lector para personalizar la primera pagina del libro</p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
                       <FormControl>
                         <Input placeholder="Leo" {...field} />
                       </FormControl>
