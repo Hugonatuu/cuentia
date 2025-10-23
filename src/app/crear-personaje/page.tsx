@@ -308,7 +308,6 @@ export default function CrearPersonajePage() {
                                     <p className="mb-2 text-sm text-muted-foreground">
                                         <span className="font-semibold">Haz clic para subir</span> o arrastra y suelta
                                     </p>
-                                    <p className="text-xs text-muted-foreground">Sube entre 2 y 4 fotos. Intenta que al menos una sea de cuerpo entero.</p>
                                 </div>
                                 <Input 
                                     id="dropzone-file" 
@@ -320,7 +319,10 @@ export default function CrearPersonajePage() {
                                     disabled={selectedFiles.length >= 4}
                                 />
                             </Label>
-                        </div> 
+                        </div>
+                        <p className="pt-2 text-sm font-medium text-center text-muted-foreground">
+                            Sube entre 2 y 4 fotos. Al menos una foto tiene que ser de cuerpo entero.
+                        </p> 
                     </div>
 
                     {previewUrls.length > 0 && (
