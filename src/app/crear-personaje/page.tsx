@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -21,6 +22,7 @@ import Image from 'next/image';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { serverTimestamp } from 'firebase/firestore';
 import { userCharactersCollectionRef } from '@/firebase/firestore/references';
+import { cn } from '@/lib/utils';
 
 
 interface WebhookResponse {
@@ -61,7 +63,23 @@ export default function CrearPersonajePage() {
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
-            setSelectedFiles(prevFiles => [...prevFiles, ...Array.from(event.target.files || [])]);
+            const files = Array.from(event.target.files);
+            const totalFiles = selectedFiles.length + files.length;
+            if (totalFiles > 4) {
+                toast({
+                    variant: 'destructive',
+                    title: 'Límite de fotos alcanzado',
+                    description: 'Puedes subir un máximo de 4 fotos.',
+                });
+                const needed = 4 - selectedFiles.length;
+                if (needed > 0) {
+                    setSelectedFiles(prev => [...prev, ...files.slice(0, needed)]);
+                }
+            } else {
+                setSelectedFiles(prev => [...prev, ...files]);
+            }
+             // Reset file input to allow re-selection of the same file
+            event.target.value = '';
         }
     };
 
@@ -276,11 +294,14 @@ export default function CrearPersonajePage() {
                     </div>
                     
                     <div className="space-y-2 text-left">
-                        <Label htmlFor="photos" className="text-lg font-semibold">Sube tus Fotos</Label>
+                        <Label htmlFor="photos" className="text-lg font-semibold">Sube tus Fotos ({selectedFiles.length}/4)</Label>
                         <div className="flex items-center justify-center w-full">
                             <Label
                                 htmlFor="dropzone-file"
-                                className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer bg-card hover:bg-muted"
+                                className={cn(
+                                    "flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg bg-card",
+                                    selectedFiles.length < 4 ? "cursor-pointer hover:bg-muted" : "cursor-not-allowed opacity-50"
+                                )}
                             >
                                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                                     <UploadCloud className="w-10 h-10 mb-3 text-muted-foreground" />
@@ -289,7 +310,15 @@ export default function CrearPersonajePage() {
                                     </p>
                                     <p className="text-xs text-muted-foreground">Sube entre 2 y 4 fotos. Intenta que al menos una sea de cuerpo entero.</p>
                                 </div>
-                                <Input id="dropzone-file" type="file" className="hidden" multiple onChange={handleFileChange} accept="image/*" />
+                                <Input 
+                                    id="dropzone-file" 
+                                    type="file" 
+                                    className="hidden" 
+                                    multiple 
+                                    onChange={handleFileChange} 
+                                    accept="image/*"
+                                    disabled={selectedFiles.length >= 4}
+                                />
                             </Label>
                         </div> 
                     </div>
@@ -324,7 +353,7 @@ export default function CrearPersonajePage() {
                         </div>
                     )}
 
-                     <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative" disabled={isLoading}>
+                     <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative" disabled={isLoading || selectedFiles.length < 2 || selectedFiles.length > 4}>
                         {isLoading ? (
                             <>
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
