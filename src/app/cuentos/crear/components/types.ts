@@ -23,5 +23,7 @@ export type AnyCharacter = Character | PredefinedCharacter;
 
 export interface CharacterWithCustomization {
   character: AnyCharacter;
-  customization: string;
+  visual_description: string;
 }
+
+    

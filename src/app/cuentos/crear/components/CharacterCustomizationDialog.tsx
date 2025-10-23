@@ -19,21 +19,21 @@ interface CharacterCustomizationDialogProps {
   isOpen: boolean;
   onOpenChange: (isOpen: boolean) => void;
   character: AnyCharacter;
-  initialCustomization: string;
-  onSave: (customization: string) => void;
+  initialVisualDescription: string;
+  onSave: (visual_description: string) => void;
 }
 
 export function CharacterCustomizationDialog({
   isOpen,
   onOpenChange,
   character,
-  initialCustomization,
+  initialVisualDescription,
   onSave,
 }: CharacterCustomizationDialogProps) {
-  const [customization, setCustomization] = useState(initialCustomization);
+  const [visualDescription, setVisualDescription] = useState(initialVisualDescription);
 
   const handleSave = () => {
-    onSave(customization);
+    onSave(visualDescription);
     onOpenChange(false);
   };
 
@@ -58,12 +58,12 @@ export function CharacterCustomizationDialog({
             />
           </div>
           <div className="col-span-3 grid w-full gap-1.5">
-            <Label htmlFor="customization">Cambios para este cuento</Label>
+            <Label htmlFor="visual_description">Cambios para este cuento</Label>
             <Textarea
-              id="customization"
+              id="visual_description"
               placeholder="Ej: Quiero que en este libro Hugo lleve ropa de abrigo y una gorra azul."
-              value={customization}
-              onChange={(e) => setCustomization(e.target.value)}
+              value={visualDescription}
+              onChange={(e) => setVisualDescription(e.target.value)}
               className="min-h-[100px]"
             />
           </div>

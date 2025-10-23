@@ -15,7 +15,7 @@ interface CharacterSlotProps {
   allSelectedCharacters: AnyCharacter[];
   onSelect: (character: AnyCharacter) => void;
   onRemove: () => void;
-  onUpdateCustomization: (customization: string) => void;
+  onUpdateCustomization: (visual_description: string) => void;
 }
 
 export function CharacterSlot({
@@ -30,7 +30,7 @@ export function CharacterSlot({
 
   const excludedIds = allSelectedCharacters.filter(Boolean).map(c => c.id);
   const character = characterWithCustomization?.character;
-  const hasCustomization = !!characterWithCustomization?.customization;
+  const hasCustomization = !!characterWithCustomization?.visual_description;
 
   const isUserCharacter = character && 'avatarUrl' in character;
 
@@ -79,7 +79,7 @@ export function CharacterSlot({
             isOpen={isCustomizationOpen}
             onOpenChange={setCustomizationOpen}
             character={character}
-            initialCustomization={characterWithCustomization?.customization || ''}
+            initialVisualDescription={characterWithCustomization?.visual_description || ''}
             onSave={onUpdateCustomization}
           />
         )}
@@ -108,3 +108,5 @@ export function CharacterSlot({
     </>
   );
 }
+
+    

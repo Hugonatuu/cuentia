@@ -126,7 +126,7 @@ export default function CrearCuentoPage() {
 
     // Calculate credits for character customizations
     if (watchedCharacters) {
-      const customizationCount = watchedCharacters.filter(c => c && c.customization).length;
+      const customizationCount = watchedCharacters.filter(c => c && c.visual_description).length;
       credits += customizationCount * creditCosts.customization;
     }
     
@@ -160,7 +160,7 @@ export default function CrearCuentoPage() {
     setIsSubmitting(true);
     
     const characterImagesText = data.characters
-      .filter(c => !c.customization)
+      .filter(c => !c.visual_description)
       .map(c => {
         const baseCharacter = c.character;
         const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
@@ -168,17 +168,17 @@ export default function CrearCuentoPage() {
     }).join('\n\n');
 
     const personalizacion = data.characters
-      .filter(c => c.customization)
+      .filter(c => c.visual_description)
       .map(c => {
         const baseCharacter = c.character;
         const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
-        return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.customization}`;
+        return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.visual_description}`;
       })
       .join('\n\n');
     
-    const charactersForWebhook = data.characters.map(({ character, customization }) => {
+    const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
       const { avatarUrl, imageUrl, createdAt, id, ...restOfCharacter } = character as any;
-      return { character: restOfCharacter, customization };
+      return { character: restOfCharacter, visual_description };
     });
 
     const webhookData = {
@@ -409,7 +409,7 @@ export default function CrearCuentoPage() {
                                     allSelectedCharacters={field.value.map(c => c.character)}
                                     onSelect={(character) => {
                                         const newCharacters = [...field.value];
-                                        newCharacters[index] = { character, customization: '' };
+                                        newCharacters[index] = { character, visual_description: '' };
                                         field.onChange(newCharacters.filter(c => c !== undefined));
 
                                     }}
@@ -417,10 +417,10 @@ export default function CrearCuentoPage() {
                                         const newCharacters = field.value.filter((_, i) => i !== index);
                                         field.onChange(newCharacters);
                                     }}
-                                    onUpdateCustomization={(customization) => {
+                                    onUpdateCustomization={(visual_description) => {
                                       const newCharacters = [...field.value];
                                       if (newCharacters[index]) {
-                                        newCharacters[index].customization = customization;
+                                        newCharacters[index].visual_description = visual_description;
                                         field.onChange(newCharacters);
                                       }
                                     }}
@@ -564,4 +564,5 @@ export default function CrearCuentoPage() {
   );
 }
 
+    
     
