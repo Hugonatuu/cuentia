@@ -89,8 +89,8 @@ export default function CrearPersonajePage() {
             toast({ variant: 'destructive', title: 'Error', description: 'Por favor, completa todos los campos del personaje.' });
             return;
         }
-        if (selectedFiles.length === 0) {
-            toast({ variant: 'destructive', title: 'Error', description: 'Por favor, sube al menos una foto.' });
+        if (selectedFiles.length < 2 || selectedFiles.length > 4) {
+            toast({ variant: 'destructive', title: 'Error', description: 'Por favor, sube entre 2 y 4 fotos.' });
             return;
         }
 
@@ -287,7 +287,7 @@ export default function CrearPersonajePage() {
                                     <p className="mb-2 text-sm text-muted-foreground">
                                         <span className="font-semibold">Haz clic para subir</span> o arrastra y suelta
                                     </p>
-                                    <p className="text-xs text-muted-foreground">Sube entre 5 y 10 fotos para mejores resultados</p>
+                                    <p className="text-xs text-muted-foreground">Sube entre 2 y 4 fotos. Intenta que al menos una sea de cuerpo entero.</p>
                                 </div>
                                 <Input id="dropzone-file" type="file" className="hidden" multiple onChange={handleFileChange} accept="image/*" />
                             </Label>
