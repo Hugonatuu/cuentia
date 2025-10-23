@@ -40,6 +40,7 @@ import { CharacterSlot } from '../components/CharacterSlot';
 import { CharacterWithCustomization } from '../components/types';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import Image from 'next/image';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; };
@@ -76,6 +77,7 @@ const formSchema = z.object({
   initialPhrase: z.string().optional(),
   finalPhrase: z.string().optional(),
   characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
+  backCoverImage: z.instanceof(File).optional(),
 });
 
 type StoryFormValues = z.infer<typeof formSchema>;
@@ -85,6 +87,8 @@ export default function CrearCuentoPage() {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDedication, setShowDedication] = useState(false);
+  const [showBackCoverImage, setShowBackCoverImage] = useState(false);
+  const [backCoverPreview, setBackCoverPreview] = useState<string | null>(null);
   const [totalCredits, setTotalCredits] = useState(0);
   const params = useParams();
   const router = useRouter();
@@ -141,6 +145,21 @@ export default function CrearCuentoPage() {
     }
   };
 
+  const handleBackCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      form.setValue('backCoverImage', file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBackCoverPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      form.setValue('backCoverImage', undefined);
+      setBackCoverPreview(null);
+    }
+  };
+
   async function onSubmit(data: StoryFormValues) {
     if (!user) {
       handleInteraction();
@@ -167,27 +186,30 @@ export default function CrearCuentoPage() {
         const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
         return `${baseCharacter.name}:\n${imageUrl}`;
     }).join('\n\n');
-
-    const personalizacion = data.characters
-      .filter(c => c.visual_description)
-      .map(c => {
-        const baseCharacter = c.character;
-        const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
-        return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.visual_description}`;
-      })
-      .join('\n\n');
     
     const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
       const { avatarUrl, imageUrl, createdAt, id, ...restOfCharacter } = character as any;
       return { character: restOfCharacter, visual_description };
     });
 
+    // We need to handle the file upload. A common way is to convert it to base64.
+    let backCoverImageBase64: string | undefined;
+    if (data.backCoverImage) {
+        const reader = new FileReader();
+        backCoverImageBase64 = await new Promise((resolve, reject) => {
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = error => reject(error);
+            reader.readAsDataURL(data.backCoverImage!);
+        });
+    }
+
+
     const webhookData = {
         ...data,
         userId: user.uid,
         characterImagesText: characterImagesText,
-        personalizacion: personalizacion,
         characters: charactersForWebhook,
+        backCoverImage: backCoverImageBase64
     };
 
     try {
@@ -543,6 +565,51 @@ export default function CrearCuentoPage() {
                   </div>
                 )}
               </div>
+              
+              <div className="space-y-4 rounded-lg border p-4">
+                <div className="flex items-center space-x-2">
+                    <Switch
+                        id="show-back-cover-image"
+                        checked={showBackCoverImage}
+                        onCheckedChange={setShowBackCoverImage}
+                    />
+                    <FormLabel htmlFor="show-back-cover-image" className="text-lg font-semibold cursor-pointer">
+                        ¿Quieres añadir una imagen en la contraportada?
+                    </FormLabel>
+                </div>
+                {showBackCoverImage && (
+                    <div className="pt-4">
+                        <FormField
+                            control={form.control}
+                            name="backCoverImage"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Imagen de contraportada</FormLabel>
+                                    <FormControl>
+                                        <Input 
+                                            type="file" 
+                                            accept="image/*"
+                                            onChange={handleBackCoverImageChange} 
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        {backCoverPreview && (
+                            <div className="mt-4 relative w-32 h-32">
+                                <Image
+                                    src={backCoverPreview}
+                                    alt="Vista previa de la contraportada"
+                                    layout="fill"
+                                    className="rounded-md object-cover"
+                                />
+                            </div>
+                        )}
+                    </div>
+                )}
+              </div>
+
 
                <div className="flex flex-col pt-4">
                 <div className="flex justify-center">
@@ -576,3 +643,4 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
