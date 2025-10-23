@@ -102,14 +102,14 @@ export default function CrearPersonajePage() {
             return;
         }
 
-        const finalSpecies = species === 'Otro' ? otherSpecies : species;
+        const finalSpecies = species === 'Otro' ? otherSpecies.trim() : species;
 
-        if (!characterName.trim() || !finalSpecies || !gender || !age) {
-            toast({ variant: 'destructive', title: 'Error', description: 'Por favor, completa todos los campos del personaje.' });
+        if (!characterName.trim() || !finalSpecies || !gender || !age.trim()) {
+            toast({ variant: 'destructive', title: 'Campos incompletos', description: 'Por favor, completa todos los campos del personaje.' });
             return;
         }
         if (selectedFiles.length < 2 || selectedFiles.length > 4) {
-            toast({ variant: 'destructive', title: 'Error', description: 'Por favor, sube entre 2 y 4 fotos.' });
+            toast({ variant: 'destructive', title: 'Fotos insuficientes', description: 'Por favor, sube entre 2 y 4 fotos para generar el avatar.' });
             return;
         }
 
@@ -117,10 +117,10 @@ export default function CrearPersonajePage() {
         setGeneratedAvatar(null);
 
         const formData = new FormData();
-        formData.append('characterName', characterName);
+        formData.append('characterName', characterName.trim());
         formData.append('species', finalSpecies);
         formData.append('gender', gender);
-        formData.append('age', age);
+        formData.append('age', age.trim());
         selectedFiles.forEach((file) => {
             formData.append('images', file);
         });
@@ -145,11 +145,11 @@ export default function CrearPersonajePage() {
             // Guardar en Firestore
             const charactersColRef = userCharactersCollectionRef(firestore, user.uid);
             addDocumentNonBlocking(charactersColRef, {
-                name: characterName,
+                name: characterName.trim(),
                 avatarUrl: result.avatarUrl,
                 species: finalSpecies,
                 gender,
-                age,
+                age: age.trim(),
                 createdAt: serverTimestamp()
             });
             
@@ -157,7 +157,7 @@ export default function CrearPersonajePage() {
             
             toast({
                 title: '¡Avatar generado y guardado!',
-                description: `El avatar "${characterName}" se ha guardado en tu colección.`,
+                description: `El avatar "${characterName.trim()}" se ha guardado en tu colección.`,
             });
             
             setCharacterName('');
@@ -239,11 +239,13 @@ export default function CrearPersonajePage() {
                                 placeholder="Ej: Jack, Ana, Mr Thompson..."
                                 value={characterName}
                                 onChange={(e) => setCharacterName(e.target.value)}
+                                required
+                                maxLength={50}
                             />
                         </div>
                          <div className="space-y-2">
                             <Label htmlFor="species" className="text-lg font-semibold">Especie</Label>
-                             <Select value={species} onValueChange={setSpecies}>
+                             <Select value={species} onValueChange={setSpecies} required>
                                 <SelectTrigger id="species">
                                     <SelectValue placeholder="Selecciona una especie" />
                                 </SelectTrigger>
@@ -264,15 +266,17 @@ export default function CrearPersonajePage() {
                                 <Label htmlFor="other-species" className="text-lg font-semibold">Especifica la especie</Label>
                                 <Input
                                     id="other-species"
-                                    placeholder=""
+                                    placeholder="Ej: Dinosaurio, Dragón..."
                                     value={otherSpecies}
                                     onChange={(e) => setOtherSpecies(e.target.value)}
+                                    required
+                                    maxLength={50}
                                 />
                             </div>
                         )}
                         <div className="space-y-2">
                             <Label htmlFor="gender" className="text-lg font-semibold">Género</Label>
-                             <Select value={gender} onValueChange={setGender}>
+                             <Select value={gender} onValueChange={setGender} required>
                                 <SelectTrigger id="gender">
                                     <SelectValue placeholder="Selecciona un género" />
                                 </SelectTrigger>
@@ -290,6 +294,8 @@ export default function CrearPersonajePage() {
                                 placeholder="Ej: 7, adulto, cachorro..."
                                 value={age}
                                 onChange={(e) => setAge(e.target.value)}
+                                required
+                                maxLength={30}
                             />
                         </div>
                     </div>
@@ -356,7 +362,7 @@ export default function CrearPersonajePage() {
                         </div>
                     )}
 
-                     <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative" disabled={isLoading || selectedFiles.length < 2 || selectedFiles.length > 4}>
+                     <Button type="submit" size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative" disabled={isLoading}>
                         {isLoading ? (
                             <>
                                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
