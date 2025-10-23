@@ -71,7 +71,7 @@ const formSchema = z.object({
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
   readerName: z.string().optional(),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
-  prompt: z.string().min(1, 'La trama es obligatoria.'),
+  prompt: z.string().optional(),
   initialPhrase: z.string().optional(),
   finalPhrase: z.string().optional(),
   characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
@@ -464,7 +464,7 @@ export default function CrearCuentoPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold">
-                      Puntos Clave de la Trama
+                      Puntos Clave de la Trama (Opcional)
                     </FormLabel>
                     <FormControl>
                       <Textarea
@@ -563,6 +563,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
-    
