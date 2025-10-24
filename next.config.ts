@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'cuentia.s3.eu-north-1.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'replicate.delivery',
         port: '',
         pathname: '/**',
