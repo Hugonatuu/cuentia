@@ -6,20 +6,22 @@ import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebas
 import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen } from 'lucide-react';
+import { BookOpen, Download, Hourglass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface Story {
   id: string;
   title: string;
   coverImageUrl: string;
+  pdfUrl?: string;
+  status: 'generating' | 'completed';
 }
 
 export default function PerfilPage() {
@@ -150,27 +152,42 @@ export default function PerfilPage() {
                     </div>
                   ) : stories && stories.length > 0 ? (
                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {stories.map((story) => (
-                            <Card
-                            key={story.id}
-                            className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl"
-                            >
-                            <Link href={`/cuentos/mis-cuentos`}>
-                                <CardContent className="p-0">
-                                <Image
-                                    src={story.coverImageUrl || '/placeholder-cover.png'}
-                                    alt={story.title}
-                                    width={400}
-                                    height={600}
-                                    className="w-full h-auto object-cover aspect-[2/3]"
-                                />
-                                </CardContent>
-                                <CardHeader>
-                                <CardTitle className="text-lg truncate">{story.title}</CardTitle>
-                                </CardHeader>
-                            </Link>
-                            </Card>
-                        ))}
+                        {stories.map((story) => {
+                            const isCompleted = story.status === 'completed' && story.pdfUrl;
+                            return (
+                                <Card
+                                key={story.id}
+                                className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col"
+                                >
+                                    <CardContent className="p-0 relative">
+                                        <Image
+                                            src={story.coverImageUrl || '/placeholder-cover.png'}
+                                            alt={story.title}
+                                            width={400}
+                                            height={600}
+                                            className="w-full h-auto object-cover aspect-[2/3]"
+                                        />
+                                        {!isCompleted && (
+                                            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white p-4">
+                                                <Hourglass className="h-10 w-10 mb-2 animate-spin" />
+                                                <h3 className="text-md font-semibold text-center">Generando...</h3>
+                                            </div>
+                                        )}
+                                    </CardContent>
+                                    <CardHeader>
+                                        <CardTitle className="text-lg truncate">{story.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardFooter className="mt-auto">
+                                        <Button asChild className="w-full" disabled={!isCompleted}>
+                                        <a href={isCompleted ? story.pdfUrl : undefined} download target="_blank" rel="noopener noreferrer">
+                                            {isCompleted ? <Download className="mr-2 h-4 w-4" /> : <Hourglass className="mr-2 h-4 w-4" />}
+                                            {isCompleted ? 'Descargar' : 'Generando...'}
+                                        </a>
+                                        </Button>
+                                    </CardFooter>
+                                </Card>
+                            );
+                        })}
                     </div>
                   ) : (
                     <div className="text-center py-10 px-6 border-2 border-dashed rounded-lg">
