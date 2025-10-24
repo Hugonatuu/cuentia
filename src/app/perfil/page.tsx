@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -12,9 +12,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
+import { userStoriesCollectionRef } from '@/firebase/firestore/references';
+import { BookOpen } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+interface Story {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+}
 
 export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +32,13 @@ export default function PerfilPage() {
       router.push('/login');
     }
   }, [user, isUserLoading, router]);
+
+  const userStoriesQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return userStoriesCollectionRef(firestore, user.uid);
+  }, [firestore, user]);
+
+  const { data: stories, isLoading: areStoriesLoading } = useCollection<Story>(userStoriesQuery);
 
   if (isUserLoading || !user) {
     return (
@@ -121,29 +138,56 @@ export default function PerfilPage() {
                     Aquí encontrarás todas tus creaciones mágicas.
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {userProfile.stories.map((story) => (
-                    <Card
-                      key={story.id}
-                      className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl"
-                    >
-                      <Link href="#">
-                        <CardContent className="p-0">
-                          <Image
-                            src={story.image.imageUrl}
-                            alt={story.title}
-                            width={400}
-                            height={600}
-                            className="w-full h-auto object-cover aspect-[2/3]"
-                            data-ai-hint={story.image.imageHint}
-                          />
-                        </CardContent>
-                        <CardHeader>
-                          <CardTitle className="text-lg">{story.title}</CardTitle>
-                        </CardHeader>
-                      </Link>
-                    </Card>
-                  ))}
+                <CardContent>
+                  {areStoriesLoading ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {[...Array(3)].map((_, i) => (
+                         <div key={i} className="space-y-2">
+                            <Skeleton className="h-auto w-full aspect-[2/3] rounded-lg" />
+                            <Skeleton className="h-6 w-full" />
+                        </div>
+                      ))}
+                    </div>
+                  ) : stories && stories.length > 0 ? (
+                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {stories.map((story) => (
+                            <Card
+                            key={story.id}
+                            className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl"
+                            >
+                            <Link href={`/cuentos/mis-cuentos`}>
+                                <CardContent className="p-0">
+                                <Image
+                                    src={story.coverImageUrl || '/placeholder-cover.png'}
+                                    alt={story.title}
+                                    width={400}
+                                    height={600}
+                                    className="w-full h-auto object-cover aspect-[2/3]"
+                                />
+                                </CardContent>
+                                <CardHeader>
+                                <CardTitle className="text-lg truncate">{story.title}</CardTitle>
+                                </CardHeader>
+                            </Link>
+                            </Card>
+                        ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-10 px-6 border-2 border-dashed rounded-lg">
+                        <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
+                        <h2 className="mt-4 text-xl font-bold tracking-tight text-gray-800">
+                          Aún no has creado ningún cuento
+                        </h2>
+                        <p className="mt-1 text-md text-muted-foreground">
+                          ¡Es hora de dar vida a tu primera historia!
+                        </p>
+                        <Button asChild className="mt-4">
+                        <Link href="/cuentos/crear">
+                            Crear mi primer cuento
+                        </Link>
+                        </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
