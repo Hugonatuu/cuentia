@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Download, Hourglass, CheckCircle } from 'lucide-react';
+import { BookOpen, Download, Hourglass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Definiendo un tipo para la estructura de un cuento

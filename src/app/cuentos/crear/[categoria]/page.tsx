@@ -2,7 +2,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser, useFirestore, addDocumentNonBlocking } from '@/firebase';
+import { useUser, useFirestore } from '@/firebase';
+import { addDoc } from 'firebase/firestore';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
 import { Button } from '@/components/ui/button';
 import {
@@ -215,7 +216,7 @@ export default function CrearCuentoPage() {
           pdfUrl: ''
         };
 
-        const storyDocRef = await addDocumentNonBlocking(storiesColRef, storyData);
+        const storyDocRef = await addDoc(storiesColRef, storyData);
         
         if (!storyDocRef) {
           throw new Error('No se pudo crear el documento del cuento.');
