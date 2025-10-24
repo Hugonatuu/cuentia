@@ -2,7 +2,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@/firebase';
+import { useUser, useFirestore, addDocumentNonBlocking } from '@/firebase';
+import { userStoriesCollectionRef } from '@/firebase/firestore/references';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -41,6 +42,7 @@ import { CharacterWithCustomization } from '../components/types';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
+import { serverTimestamp } from 'firebase/firestore';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; };
@@ -84,6 +86,7 @@ type StoryFormValues = z.infer<typeof formSchema>;
 
 export default function CrearCuentoPage() {
   const { user, isUserLoading } = useUser();
+  const firestore = useFirestore();
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showDedication, setShowDedication] = useState(false);
@@ -161,7 +164,7 @@ export default function CrearCuentoPage() {
   };
 
   async function onSubmit(data: StoryFormValues) {
-    if (!user) {
+    if (!user || !firestore) {
       handleInteraction();
       return;
     }
@@ -192,25 +195,46 @@ export default function CrearCuentoPage() {
       return { character: restOfCharacter, visual_description };
     });
 
-    const formData = new FormData();
-
-    // Append all form data fields to FormData
-    Object.entries(data).forEach(([key, value]) => {
-      if (key !== 'characters' && key !== 'backCoverImage' && value) {
-        formData.append(key, value as string);
-      }
-    });
-
-    formData.append('userId', user.uid);
-    formData.append('characterImagesText', characterImagesText);
-    formData.append('characters', JSON.stringify(charactersForWebhook));
-    
-    if (data.backCoverImage) {
-      formData.append('backCoverImage', data.backCoverImage);
-    }
-
-
     try {
+        const storiesColRef = userStoriesCollectionRef(firestore, user.uid);
+        
+        const storyData = {
+          userId: user.uid,
+          title: data.title,
+          learningObjective: data.learningObjective,
+          readerAge: data.readerAge,
+          readerName: data.readerName,
+          imageCount: parseInt(data.imageCount, 10),
+          prompt: data.prompt || '',
+          initialPhrase: data.initialPhrase || '',
+          finalPhrase: data.finalPhrase || '',
+          characters: charactersForWebhook, // Simplified characters for Firestore
+          status: 'generating',
+          createdAt: serverTimestamp(),
+          coverImageUrl: '',
+          pdfUrl: ''
+        };
+
+        const storyDocRef = await addDocumentNonBlocking(storiesColRef, storyData);
+        
+        if (!storyDocRef) {
+          throw new Error('No se pudo crear el documento del cuento.');
+        }
+
+        const formData = new FormData();
+        Object.entries(data).forEach(([key, value]) => {
+          if (key !== 'characters' && key !== 'backCoverImage' && value) {
+            formData.append(key, value as string);
+          }
+        });
+        formData.append('storyId', storyDocRef.id);
+        formData.append('userId', user.uid);
+        formData.append('characterImagesText', characterImagesText);
+        formData.append('characters', JSON.stringify(charactersForWebhook));
+        if (data.backCoverImage) {
+          formData.append('backCoverImage', data.backCoverImage);
+        }
+
         const response = await fetch(webhookUrl, {
             method: 'POST',
             body: formData,
@@ -230,7 +254,7 @@ export default function CrearCuentoPage() {
         router.push('/cuentos/mis-cuentos');
 
     } catch (error) {
-        console.error('Error al llamar al webhook:', error);
+        console.error('Error al crear el cuento o llamar al webhook:', error);
         const errorMessage = error instanceof Error ? error.message : 'Hubo un problema al contactar el servidor.';
         toast({
             variant: 'destructive',
@@ -636,3 +660,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    

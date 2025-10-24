@@ -1,3 +1,4 @@
+
 'use client';
 
 import { collection, doc, CollectionReference, DocumentReference, Firestore } from "firebase/firestore";
@@ -17,7 +18,17 @@ export const userCharactersCollectionRef = (db: Firestore, userId: string) => {
     return createCollection(db, `users/${userId}/characters`);
 };
 
+export const userStoriesCollectionRef = (db: Firestore, userId: string) => {
+    return createCollection(db, `users/${userId}/stories`);
+};
+
 // Document references
 export const userDocRef = (db: Firestore, userId: string) => {
     return doc(db, 'users', userId) as DocumentReference;
 };
+
+export const storyDocRef = (db: Firestore, userId: string, storyId: string) => {
+    return doc(db, `users/${userId}/stories/${storyId}`) as DocumentReference;
+};
+
+    
