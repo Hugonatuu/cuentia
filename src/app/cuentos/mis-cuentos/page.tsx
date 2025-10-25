@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Download, Hourglass } from 'lucide-react';
+import { BookOpen, Hourglass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 // Definiendo un tipo para la estructura de un cuento
@@ -33,7 +33,7 @@ const StoryCard = ({ story }: { story: Story }) => {
 
   return (
     <Card className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
-      <Link href={isCompleted ? story.pdfUrl : '#'} target="_blank" rel="noopener noreferrer" className={`block flex-grow ${!isCompleted ? 'pointer-events-none' : ''}`}>
+      <div className="block flex-grow">
         <CardContent className="p-0 relative">
           <Image
             src={story.coverImageUrl || '/placeholder-cover.png'}
@@ -52,13 +52,13 @@ const StoryCard = ({ story }: { story: Story }) => {
         <CardHeader>
           <CardTitle className="text-lg truncate">{story.title}</CardTitle>
         </CardHeader>
-      </Link>
+      </div>
       <CardFooter className="mt-auto">
         <Button asChild className="w-full" disabled={!isCompleted}>
-          <a href={isCompleted ? story.pdfUrl : undefined} download>
-            {isCompleted ? <Download className="mr-2 h-4 w-4" /> : <Hourglass className="mr-2 h-4 w-4" />}
-            {isCompleted ? 'Descargar' : 'Generando...'}
-          </a>
+          <Link href={isCompleted ? `/cuentos/leer/${story.id}` : '#'}>
+            {isCompleted ? <BookOpen className="mr-2 h-4 w-4" /> : <Hourglass className="mr-2 h-4 w-4" />}
+            {isCompleted ? 'Leer Cuento' : 'Generando...'}
+          </Link>
         </Button>
       </CardFooter>
     </Card>

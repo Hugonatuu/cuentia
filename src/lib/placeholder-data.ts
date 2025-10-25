@@ -20,7 +20,7 @@ export const mainNavLinks = [
   { href: '/cuentos/crear', label: 'Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
   { href: '/crear-personaje', label: 'Crear Personaje' },
-  { href: '/cuentos/ejemplos', label: 'Ejemplos' },
+  { href: '/cuentos/mis-cuentos', label: 'Mis Cuentos' },
   { href: '/#precios', label: 'Precios' },
 ];
 

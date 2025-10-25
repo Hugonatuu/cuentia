@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect } from 'react';
@@ -13,7 +14,7 @@ import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Download, Hourglass } from 'lucide-react';
+import { BookOpen, Hourglass } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface Story {
@@ -179,10 +180,10 @@ export default function PerfilPage() {
                                     </CardHeader>
                                     <CardFooter className="mt-auto">
                                         <Button asChild className="w-full" disabled={!isCompleted}>
-                                        <a href={isCompleted ? story.pdfUrl : undefined} download target="_blank" rel="noopener noreferrer">
-                                            {isCompleted ? <Download className="mr-2 h-4 w-4" /> : <Hourglass className="mr-2 h-4 w-4" />}
-                                            {isCompleted ? 'Descargar' : 'Generando...'}
-                                        </a>
+                                          <Link href={isCompleted ? `/cuentos/leer/${story.id}` : '#'}>
+                                            {isCompleted ? <BookOpen className="mr-2 h-4 w-4" /> : <Hourglass className="mr-2 h-4 w-4" />}
+                                            {isCompleted ? 'Leer Cuento' : 'Generando...'}
+                                          </Link>
                                         </Button>
                                     </CardFooter>
                                 </Card>
