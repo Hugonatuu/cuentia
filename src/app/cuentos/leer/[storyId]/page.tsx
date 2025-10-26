@@ -12,6 +12,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Download, BookOpen } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { cn } from '@/lib/utils';
 
 // Configure the PDF worker from pdfjs-dist
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -39,6 +40,7 @@ export default function StoryViewerPage() {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pdfFile, setPdfFile] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     if (story?.pdfUrl) {
@@ -54,18 +56,30 @@ export default function StoryViewerPage() {
     setCurrentPage(1);
   }
 
+  const handlePageChange = (newPage: number) => {
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentPage(newPage);
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 50); // Short delay to allow render before fading in
+    }, 200); // Duration of the fade-out transition
+  };
+
   const goToPreviousPage = () => {
+    if (!canGoPrevious) return;
     const newPage = currentPage === 2 ? 1 : currentPage - 2;
     if (newPage >= 1) {
-      setCurrentPage(newPage);
+      handlePageChange(newPage);
     }
   };
 
   const goToNextPage = () => {
+    if (!canGoNext) return;
     if (!numPages) return;
     const newPage = currentPage === 1 ? 2 : currentPage + 2;
     if (newPage <= numPages) {
-      setCurrentPage(newPage);
+      handlePageChange(newPage);
     }
   };
 
@@ -124,16 +138,23 @@ export default function StoryViewerPage() {
     <div className="container mx-auto py-8">
       <div className="text-center mb-8">
         <h1 className="font-headline text-4xl md:text-5xl text-gray-800">{story.title}</h1>
-        <Button asChild variant="outline" className="mt-4">
-            <a href={story.pdfUrl} download>
-                <Download className="mr-2 h-4 w-4" />
-                Descargar PDF
-            </a>
-        </Button>
+        {pdfFile && (
+          <Button asChild variant="outline" className="mt-4">
+              <a href={pdfFile} download={`${story.title}.pdf`}>
+                  <Download className="mr-2 h-4 w-4" />
+                  Descargar PDF
+              </a>
+          </Button>
+        )}
       </div>
 
       <div className="flex justify-center">
-        <div className="relative flex items-center justify-center">
+        <div 
+          className={cn(
+            "relative flex items-center justify-center transition-opacity duration-200",
+            isTransitioning ? 'opacity-0' : 'opacity-100'
+          )}
+        >
           <Document
             file={pdfFile}
             onLoadSuccess={onDocumentLoadSuccess}
@@ -157,13 +178,13 @@ export default function StoryViewerPage() {
       
       {numPages && numPages > 1 && (
         <div className="mt-8 flex items-center justify-center gap-4">
-          <Button onClick={goToPreviousPage} disabled={!canGoPrevious} variant="outline" size="icon">
+          <Button onClick={goToPreviousPage} disabled={!canGoPrevious || isTransitioning} variant="outline" size="icon">
             <ChevronLeft />
           </Button>
-          <p className="text-lg font-medium">
-            Página {currentPage}{currentPage > 1 && numPages > currentPage + 1 ? ` - ${currentPage + 1}` : ''} de {numPages}
+          <p className="text-lg font-medium w-28 text-center">
+            Página {currentPage}{currentPage > 1 && numPages > currentPage + 1 ? ` - ${currentPage + 1}` : ''}
           </p>
-          <Button onClick={goToNextPage} disabled={!canGoNext} variant="outline" size="icon">
+          <Button onClick={goToNextPage} disabled={!canGoNext || isTransitioning} variant="outline" size="icon">
             <ChevronRight />
           </Button>
         </div>
