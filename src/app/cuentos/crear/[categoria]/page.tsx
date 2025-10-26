@@ -269,7 +269,7 @@ export default function CrearCuentoPage() {
 
   if (isUserLoading) {
     return (
-      <div className="container mx-auto max-w-4xl py-12">
+      <div className="container mx-auto max-w-5xl py-12">
         <div className="text-center mb-12">
           <Skeleton className="h-12 w-3/4 mx-auto" />
           <Skeleton className="h-6 w-1/2 mx-auto mt-4" />
@@ -293,7 +293,7 @@ export default function CrearCuentoPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-4xl py-12">
+    <div className="container mx-auto max-w-5xl py-12">
       <AuthPopup
         isOpen={isPopupOpen}
         onOpenChange={setPopupOpen}
