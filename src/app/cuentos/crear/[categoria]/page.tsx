@@ -49,7 +49,7 @@ const categoryDetails: {
   [key: string]: { title: string; description: string; };
 } = {
   'aprendizaje': {
-    title: '¡Crea un cuento!',
+    title: '¡Crea tu cuento!',
     description:
       'Transforma tu imaginación en un cuento inolvidable lleno de ilustraciones y magia.',
   },
@@ -103,7 +103,7 @@ export default function CrearCuentoPage() {
     : params.categoria;
 
   const details = categoryDetails[categoria] || {
-    title: '¡Crea un cuento!',
+    title: '¡Crea tu cuento!',
     description: 'Rellena los detalles y deja que la magia haga el resto.',
   };
 
