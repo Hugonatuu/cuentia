@@ -17,7 +17,7 @@ const getImage = (id: string) => {
 
 // This is now the single source of truth for navigation.
 export const mainNavLinks = [
-  { href: '/cuentos/crear', label: 'Crear Cuento 💫' },
+  { href: '/cuentos/crear', label: '💫 Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
   { href: '/crear-personaje', label: 'Crear Personaje' },
   { href: '/#precios', label: 'Precios' },
