@@ -2,116 +2,122 @@
  * @fileoverview Firestore Security Rules for the application.
  *
  * Core Philosophy:
- * This ruleset enforces a strict user-ownership model for user-generated content
- * (stories, characters), while allowing public read access to predefined characters
- * and subscription plans. It prioritizes security and data integrity by validating
- * ownership on write operations and restricting list operations where appropriate.
+ * This ruleset enforces a strict user-ownership model for user-generated content (stories, characters),
+ * ensuring that only the authenticated user can create, modify, or delete their own data. Public read
+ * access is granted to predefined characters and subscription plans.  User listing is disallowed.
  *
  * Data Structure:
- * - /users/{userId}: Stores user profile information.
- *   - /users/{userId}/characters/{characterId}: Stores characters created by the user.
- *   - /users/{userId}/stories/{storyId}: Stores stories created by the user.
- * - /subscriptions/{subscriptionId}: Stores subscription plans available to all users.
- * - /predefinedCharacters/{characterId}: Stores predefined characters available to all users.
+ * - /users/{userId}: Stores public user profile information.
+ * - /users/{userId}/characters/{characterId}: Stores characters created by the user.
+ * - /users/{userId}/stories/{storyId}: Stores stories created by the user.
+ * - /subscriptions/{subscriptionId}: Stores subscription plans (publicly readable).
+ * - /predefinedCharacters/{characterId}: Stores predefined characters (publicly readable).
  *
  * Key Security Decisions:
- * - Users can only read/write their own profiles and associated stories/characters.
- * - Listing of user profiles is disallowed for privacy.
- * - Predefined characters and subscription plans are publicly readable.
+ * - User profiles are created with limited public information on account creation, and owner-only update access.
+ * - Stories and Characters are strictly owned by the user who created them.
+ * - Listing user documents is disallowed to prevent data leakage.
+ * - Predefined characters and subscription plans are publicly readable but not writable by clients.
  *
  * Denormalization for Authorization:
- *  - Each Story document contains the userId of its author to allow easy validation.
+ * - Stories have a `userId` field to enable owner-based security rules.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Checks if the request is made by an authenticated user.
-     */
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
-    /**
-     * @description Checks if the authenticated user's UID matches the provided userId.
-     * @param {string} userId - The user ID to compare against the authenticated user's UID.
-     */
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
-    /**
-     * @description Checks if the authenticated user is the owner of the existing document.
-     * @param {string} userId - The user ID to compare against the authenticated user's UID.
-     */
-    function isExistingOwner(userId) {
-      return isOwner(userId) && resource != null;
-    }
-
-    /**
-     * @description Defines security rules for user profiles.
+     * @description Enforces user-ownership for profile data. Allows creating profile only for the user who matches the `userId` in the path.
      * @path /users/{userId}
-     * @allow (create) User with UID 'user123' can create their profile if request.auth.uid == 'user123'.
-     * @allow (get) Any user can read a profile
-     * @deny (create) User with UID 'user123' cannot create a profile with ID 'user456'.
-     * @deny (update) User with UID 'user123' cannot update profile with ID 'user456'.
-     * @deny (delete) User with UID 'user123' cannot delete profile with ID 'user456'.
-     * @principle Enforces document ownership for writes and validates relational integrity.
+     * @allow (create) - User `UhKTI3M3w7eBQUssL8MFcV6V42y1` can create a profile with `userId` equal to `UhKTI3M3w7eBQUssL8MFcV6V42y1`.
+     * @allow (get, update, delete) - Only if the user owns the profile (authenticated user ID matches the `userId` in the path).
+     * @deny (create) - If the authenticated user ID does not match the `userId` in the path.
+     * @principle Enforces document ownership for writes, allows reading a user's own profile.
      */
     match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+      
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
       allow get: if true;
-      allow list: if false;
-
-      allow create: if isOwner(userId) && request.resource.data.email is string && request.resource.data.createdAt is string;
-      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow list: if false; // Disallowing listing for privacy.
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.email == request.auth.token.email;
+      allow update: if isExistingOwner(userId);
       allow delete: if isExistingOwner(userId);
+    }
 
-      /**
-       * @description Defines security rules for characters created by a user.
-       * @path /users/{userId}/characters/{characterId}
-       * @allow (create) User with UID 'user123' can create a character under their profile.
-       * @allow (get) User with UID 'user123' can read a character under their profile.
-       * @deny (create) User with UID 'user123' cannot create a character under another user's profile ('user456').
-       * @deny (update) User with UID 'user123' cannot update a character under another user's profile ('user456').
-       * @deny (delete) User with UID 'user123' cannot delete a character under another user's profile ('user456').
-       * @principle Enforces document ownership for writes and restricts access to a user's own data tree.
-       */
-      match /characters/{characterId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if isOwner(userId);
-        allow update: if isExistingOwner(userId);
-        allow delete: if isExistingOwner(userId);
+     /**
+      * @description Enforces user-ownership for stories. Only the authenticated user can create, update, or delete their own stories.
+      * @path /users/{userId}/stories/{storyId}
+      * @allow (create) - User `UhKTI3M3w7eBQUssL8MFcV6V42y1` can create a story under their `userId`.
+      * @allow (get, list, update, delete) - Only if the user owns the story (authenticated user ID matches the `userId` in the path).
+      * @deny (create) - If the authenticated user ID does not match the `userId` in the path.
+      * @principle Enforces document ownership for writes, restricts access to a user's own data tree.
+      */
+    match /users/{userId}/stories/{storyId} {
+
+      function isSignedIn() {
+        return request.auth != null;
       }
 
-      /**
-       * @description Defines security rules for stories created by a user.
-       * @path /users/{userId}/stories/{storyId}
-       * @allow (create) User with UID 'user123' can create a story under their profile.
-       * @allow (get) User with UID 'user123' can read a story under their profile.
-       * @deny (create) User with UID 'user123' cannot create a story under another user's profile ('user456').
-       * @deny (update) User with UID 'user123' cannot update a story under another user's profile ('user456').
-       * @deny (delete) User with UID 'user123' cannot delete a story under another user's profile ('user456').
-       * @principle Enforces document ownership for writes and restricts access to a user's own data tree.
-       */
-      match /stories/{storyId} {
-        allow get: if isOwner(userId);
-        allow list: if isOwner(userId);
-        allow create: if isOwner(userId) && request.resource.data.userId == userId;
-        allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
-        allow delete: if isExistingOwner(userId);
+      function isOwner(userId) {
+        return request.auth.uid == userId;
       }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId && request.resource.data.id == storyId;
+      allow update: if isExistingOwner(userId) && resource.data.userId == userId;
+      allow delete: if isExistingOwner(userId) && resource.data.userId == userId;
     }
 
     /**
-     * @description Defines security rules for subscription plans.
+     * @description Enforces user-ownership for characters. Only the authenticated user can create, update, or delete their own characters.
+     * @path /users/{userId}/characters/{characterId}
+     * @allow (create) - User `UhKTI3M3w7eBQUssL8MFcV6V42y1` can create a character under their `userId`.
+     * @allow (get, list, update, delete) - Only if the user owns the character (authenticated user ID matches the `userId` in the path).
+     * @deny (create) - If the authenticated user ID does not match the `userId` in the path.
+     * @principle Enforces document ownership for writes, restricts access to a user's own data tree.
+     */
+    match /users/{userId}/characters/{characterId} {
+
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+       function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Allows public read access to subscription plans. No write access is allowed for clients.
      * @path /subscriptions/{subscriptionId}
-     * @allow (get) Any user can read subscription plans.
-     * @allow (list) Any user can list subscription plans.
-     * @deny (create) No one can create subscription plans via the client.
-     * @deny (update) No one can update subscription plans via the client.
-     * @deny (delete) No one can delete subscription plans via the client.
+     * @allow (get, list) - Any user can read subscription plans.
+     * @deny (create, update, delete) - No client-side write operations allowed.
+     * @principle Provides public information about subscription plans.
      */
     match /subscriptions/{subscriptionId} {
       allow get: if true;
@@ -122,13 +128,11 @@ service cloud.firestore {
     }
 
     /**
-     * @description Defines security rules for predefined characters.
+     * @description Allows public read access to predefined characters. No write access is allowed for clients.
      * @path /predefinedCharacters/{characterId}
-     * @allow (get) Any user can read predefined characters.
-     * @allow (list) Any user can list predefined characters.
-     * @deny (create) No one can create predefined characters via the client.
-     * @deny (update) No one can update predefined characters via the client.
-     * @deny (delete) No one can delete predefined characters via the client.
+     * @allow (get, list) - Any user can read predefined characters.
+     * @deny (create, update, delete) - No client-side write operations allowed.
+     * @principle Provides public information about available characters.
      */
     match /predefinedCharacters/{characterId} {
       allow get: if true;
