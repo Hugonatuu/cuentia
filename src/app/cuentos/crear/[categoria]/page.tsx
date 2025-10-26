@@ -51,7 +51,7 @@ const categoryDetails: {
   'aprendizaje': {
     title: '¡Crea tu cuento!',
     description:
-      'Transforma tu imaginación en un cuento inolvidable lleno de ilustraciones y magia.',
+      'Transforma tu imaginación en un cuento inolvidable lleno de ilustraciones y magia, donde cada página cobra vida con tus propias ideas y personajes.',
   },
 };
 
