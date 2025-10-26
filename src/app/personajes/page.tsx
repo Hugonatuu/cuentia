@@ -177,8 +177,7 @@ export default function PersonajesPage() {
                 Aún no has creado ningún personaje
               </h2>
               <p className="text-muted-foreground mt-2 mb-4">
-                ¡Dirígete a la sección de "Crear Personaje" para empezar a dar vida a
-                tus protagonistas!
+                Tu historia está esperando a su protagonista. ¡Crea el primero y deja que la magia comience!
               </p>
               <Button asChild>
                 <Link href="/crear-personaje">Crear mi primer personaje</Link>
