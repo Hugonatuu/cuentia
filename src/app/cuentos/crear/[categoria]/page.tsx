@@ -252,7 +252,7 @@ export default function CrearCuentoPage() {
         });
         
         form.reset();
-        router.push('/cuentos/mis-cuentos');
+        router.push('/perfil');
 
     } catch (error) {
         console.error('Error al crear el cuento o llamar al webhook:', error);
