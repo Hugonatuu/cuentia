@@ -72,7 +72,7 @@ const creditCosts = {
 
 const formSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.'),
-  learningObjective: z.string().min(1, 'El objetivo de aprendizaje es obligatorio.'),
+  learningObjective: z.string().optional(),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
   readerName: z.string().min(1, 'El nombre del lector es obligatorio.'),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
@@ -202,7 +202,7 @@ export default function CrearCuentoPage() {
         const storyData = {
           userId: user.uid,
           title: data.title,
-          learningObjective: data.learningObjective,
+          learningObjective: data.learningObjective || '',
           readerAge: data.readerAge,
           readerName: data.readerName,
           imageCount: parseInt(data.imageCount, 10),
@@ -379,7 +379,7 @@ export default function CrearCuentoPage() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold">
-                      Objetivo de Aprendizaje
+                      Objetivo de Aprendizaje (Opcional)
                     </FormLabel>
                     <FormControl>
                       <Textarea
@@ -661,5 +661,7 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
 
     
