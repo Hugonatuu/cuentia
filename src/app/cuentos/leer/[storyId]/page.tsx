@@ -70,16 +70,17 @@ export default function StoryViewerPage() {
   const canGoNext = numPages ? (currentPage === 1 ? numPages > 1 : currentPage < numPages - 1) : false;
 
   const getPageNumbersToRender = () => {
+    if (!numPages) return [];
     if (currentPage === 1) {
       return [1];
     }
     const pageNumbers = [currentPage];
-    if (numPages && currentPage + 1 <= numPages) {
+    if (currentPage + 1 <= numPages) {
       pageNumbers.push(currentPage + 1);
     }
     return pageNumbers;
   };
-
+  
   if (isLoading) {
     return (
         <div className="container mx-auto py-12 flex flex-col items-center gap-8">
@@ -104,13 +105,13 @@ export default function StoryViewerPage() {
     );
   }
 
-  if (!story) {
+  if (!story || !story.pdfUrl) {
      return (
         <div className="container mx-auto py-12">
             <Alert>
                 <BookOpen className="h-4 w-4" />
                 <AlertTitle>Cuento no encontrado</AlertTitle>
-                <AlertDescription>No hemos podido encontrar el cuento que buscas.</AlertDescription>
+                <AlertDescription>No hemos podido encontrar el cuento que buscas o el PDF aún no está disponible.</AlertDescription>
             </Alert>
         </div>
     );
@@ -133,7 +134,7 @@ export default function StoryViewerPage() {
           <Document
             file={story.pdfUrl}
             onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={console.error}
+            onLoadError={(error) => console.error("Error al cargar el PDF:", error)}
             options={options}
             loading={<Skeleton className="h-[80vh] w-[50vw]"/>}
             className="flex justify-center items-start gap-2"
@@ -142,9 +143,9 @@ export default function StoryViewerPage() {
                 <div key={pageNumber} className="shadow-lg">
                     <Page 
                         pageNumber={pageNumber} 
-                        renderTextLayer={false} 
+                        renderTextLayer={false}
                         renderAnnotationLayer={false}
-                        width={currentPage === 1 ? 500 : 400}
+                        width={window.innerWidth > 768 ? (currentPage === 1 ? 500 : 400) : 300}
                     />
                 </div>
             ))}
