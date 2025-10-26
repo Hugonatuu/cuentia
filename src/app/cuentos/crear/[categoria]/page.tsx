@@ -393,7 +393,9 @@ export default function CrearCuentoPage() {
           <Card className="shadow-lg">
             <CardHeader>
                 <CardTitle className="text-2xl font-semibold">2. Personajes</CardTitle>
-                <CardDescription>Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</CardDescription>
+                 <div className="bg-primary text-primary-foreground p-3 rounded-lg mt-2">
+                  <p className="text-sm text-center">Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</p>
+                </div>
             </CardHeader>
             <CardContent>
                 <FormField
@@ -590,6 +592,7 @@ export default function CrearCuentoPage() {
                                                         <PlusCircle className="h-4 w-4" />
                                                         <span>{backCoverPreview ? 'Cambiar imagen' : 'Subir imagen'}</span>
                                                     </div>
+
                                                     <input 
                                                         id="back-cover-upload"
                                                         type="file" 
@@ -653,3 +656,5 @@ export default function CrearCuentoPage() {
   );
 }
 
+
+    
