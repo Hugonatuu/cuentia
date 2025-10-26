@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles, CreditCard, Info } from 'lucide-react';
+import { Loader2, Sparkles, CreditCard, Info, PlusCircle, BookHeart } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useParams, useRouter } from 'next/navigation';
@@ -270,57 +270,23 @@ export default function CrearCuentoPage() {
   if (isUserLoading) {
     return (
       <div className="container mx-auto max-w-4xl py-12">
-        <Card className="shadow-lg">
-          <CardHeader className="text-center">
-            <Skeleton className="h-12 w-3/4 mx-auto" />
-            <Skeleton className="h-6 w-1/2 mx-auto mt-2" />
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-2">
-              <Skeleton className="h-6 w-40" />
+        <div className="text-center mb-12">
+          <Skeleton className="h-12 w-3/4 mx-auto" />
+          <Skeleton className="h-6 w-1/2 mx-auto mt-4" />
+        </div>
+        <Card className="shadow-lg p-8">
+          <div className="space-y-8">
+            <Skeleton className="h-10 w-full" />
+            <Skeleton className="h-24 w-full" />
+            <div className="grid grid-cols-2 gap-6">
+              <Skeleton className="h-10 w-full" />
               <Skeleton className="h-10 w-full" />
             </div>
-            <div className="space-y-2">
-              <Skeleton className="h-6 w-48" />
-              <Skeleton className="h-20 w-full" />
+            <Skeleton className="h-32 w-full" />
+            <div className="flex justify-center">
+              <Skeleton className="h-12 w-48" />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Skeleton className="h-6 w-32" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-              <div className="space-y-2">
-                <Skeleton className="h-6 w-48" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-            </div>
-            <div>
-              <Skeleton className="h-6 w-48 mb-2" />
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Skeleton className="h-6 w-52" />
-              <Skeleton className="h-24 w-full" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Skeleton className="h-6 w-44" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-              <div className="space-y-2">
-                <Skeleton className="h-6 w-44" />
-                <Skeleton className="h-10 w-full" />
-              </div>
-            </div>
-            <div className="text-center pt-4">
-              <Skeleton className="h-12 w-48 mx-auto" />
-            </div>
-          </CardContent>
+          </div>
         </Card>
       </div>
     );
@@ -336,32 +302,28 @@ export default function CrearCuentoPage() {
         actionText="Registrarse"
         redirectPath="/registro"
       />
-      <Card className="shadow-lg relative">
-        {!isUserLoading && !user && (
-          <div
-            className="absolute inset-0 z-10 bg-transparent cursor-pointer"
-            onClick={handleInteraction}
-          />
-        )}
-        <CardHeader className="text-center">
-          <CardTitle className="font-headline text-4xl md:text-5xl text-gray-800">
+      <div className="text-center mb-12">
+          <h1 className="font-headline text-4xl md:text-5xl text-gray-800">
             {details.title}
-          </CardTitle>
-          <CardDescription className="text-lg">
+          </h1>
+          <p className="max-w-xl mx-auto text-lg text-muted-foreground mt-2">
             {details.description}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <FormField
+          </p>
+      </div>
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+          <Card className="shadow-lg overflow-visible">
+            <CardHeader>
+                <CardTitle className="text-2xl font-semibold">1. Datos principales del cuento</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+               <FormField
                 control={form.control}
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg font-semibold">
-                      Título del Cuento
-                    </FormLabel>
+                    <FormLabel>Título del Cuento</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="El misterio del bosque encantado"
@@ -373,34 +335,13 @@ export default function CrearCuentoPage() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="learningObjective"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg font-semibold">
-                      Objetivo de Aprendizaje (Opcional)
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Ej: Enseñar la importancia de la amistad y el trabajo en equipo."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <FormField
                   control={form.control}
                   name="readerAge"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg font-semibold">
-                        Edad del Lector
-                      </FormLabel>
+                      <FormLabel>Edad del Lector</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
@@ -426,13 +367,11 @@ export default function CrearCuentoPage() {
                   render={({ field }) => (
                     <FormItem>
                       <div className="flex items-center gap-2">
-                        <FormLabel className="text-lg font-semibold">
-                          Nombre del Lector
-                        </FormLabel>
+                        <FormLabel>Nombre del Lector</FormLabel>
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>
-                              <Info className="h-4 w-4 text-accent cursor-pointer" />
+                              <Info className="h-4 w-4 text-muted-foreground cursor-pointer" />
                             </TooltipTrigger>
                             <TooltipContent>
                               <p>Pon el nombre del lector para personalizar la primera pagina del libro</p>
@@ -448,52 +387,104 @@ export default function CrearCuentoPage() {
                   )}
                 />
               </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg">
+            <CardHeader>
+                <CardTitle className="text-2xl font-semibold">2. Personajes</CardTitle>
+                <CardDescription>Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <FormField
+                    control={form.control}
+                    name="characters"
+                    render={({ field }) => (
+                    <FormItem>
+                        <FormControl>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                {[...Array(4)].map((_, index) => (
+                                    <CharacterSlot
+                                        key={index}
+                                        characterWithCustomization={field.value[index]}
+                                        allSelectedCharacters={field.value.map(c => c.character)}
+                                        onSelect={(character) => {
+                                            const newCharacters = [...field.value];
+                                            newCharacters[index] = { character, visual_description: '' };
+                                            field.onChange(newCharacters.filter(c => c !== undefined));
 
+                                        }}
+                                        onRemove={() => {
+                                            const newCharacters = field.value.filter((_, i) => i !== index);
+                                            field.onChange(newCharacters);
+                                        }}
+                                        onUpdateCustomization={(visual_description) => {
+                                        const newCharacters = [...field.value];
+                                        if (newCharacters[index]) {
+                                            newCharacters[index].visual_description = visual_description;
+                                            field.onChange(newCharacters);
+                                        }
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </FormControl>
+                        <FormMessage className="pt-2" />
+                    </FormItem>
+                    )}
+                />
+            </CardContent>
+          </Card>
+          
+          <Card className="shadow-lg">
+            <CardHeader>
+                <CardTitle className="text-2xl font-semibold">3. Detalles de la historia</CardTitle>
+                 <CardDescription>Añade los toques finales para que tu cuento sea único.</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
                <FormField
                 control={form.control}
-                name="characters"
+                name="prompt"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg font-semibold">Personajes (1-4)</FormLabel>
-                     <FormControl>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            {[...Array(4)].map((_, index) => (
-                                <CharacterSlot
-                                    key={index}
-                                    characterWithCustomization={field.value[index]}
-                                    allSelectedCharacters={field.value.map(c => c.character)}
-                                    onSelect={(character) => {
-                                        const newCharacters = [...field.value];
-                                        newCharacters[index] = { character, visual_description: '' };
-                                        field.onChange(newCharacters.filter(c => c !== undefined));
-
-                                    }}
-                                    onRemove={() => {
-                                        const newCharacters = field.value.filter((_, i) => i !== index);
-                                        field.onChange(newCharacters);
-                                    }}
-                                    onUpdateCustomization={(visual_description) => {
-                                      const newCharacters = [...field.value];
-                                      if (newCharacters[index]) {
-                                        newCharacters[index].visual_description = visual_description;
-                                        field.onChange(newCharacters);
-                                      }
-                                    }}
-                                />
-                            ))}
-                        </div>
+                    <FormLabel>Puntos Clave de la Trama (Opcional)</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga."
+                        rows={4}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="learningObjective"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Objetivo de Aprendizaje (Opcional)
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Ej: Enseñar la importancia de la amistad y el trabajo en equipo."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-                <FormField
+              <FormField
                     control={form.control}
                     name="imageCount"
                     render={({ field }) => (
                         <FormItem>
-                        <FormLabel className="text-lg font-semibold">
+                        <FormLabel>
                             ¿Cuántas imágenes quieres añadir a tu cuento?
                         </FormLabel>
                         <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -512,130 +503,135 @@ export default function CrearCuentoPage() {
                         </FormItem>
                     )}
                 />
-
-              <FormField
-                control={form.control}
-                name="prompt"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-lg font-semibold">
-                      Puntos Clave de la Trama (Opcional)
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga."
-                        rows={4}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <div className="space-y-4 rounded-lg border p-4">
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="show-dedication"
-                    checked={showDedication}
-                    onCheckedChange={setShowDedication}
-                  />
-                  <FormLabel htmlFor="show-dedication" className="text-lg font-semibold cursor-pointer">
-                    ¿Quieres añadir alguna frase/dedicatoria en tu libro?
-                  </FormLabel>
-                </div>
-                {showDedication && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-                    <FormField
-                      control={form.control}
-                      name="initialPhrase"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-lg font-semibold">
-                            Frase al inicio del cuento
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Acuérdate de la importancia que tiene la amistad y el trabajo en equipo."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="finalPhrase"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-lg font-semibold">
-                            Frase al final del cuento
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="De tu Mamá, que te quiere con locura."
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                )}
-              </div>
-              
-              <div className="space-y-4 rounded-lg border p-4">
-                <div className="flex items-center space-x-2">
+            </CardContent>
+          </Card>
+          
+           <Card className="shadow-lg">
+            <CardHeader>
+                <CardTitle className="text-2xl font-semibold">4. Toques Mágicos (Opcional)</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+                <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
+                  <div className="flex items-center space-x-3">
                     <Switch
-                        id="show-back-cover-image"
-                        checked={showBackCoverImage}
-                        onCheckedChange={setShowBackCoverImage}
+                      id="show-dedication"
+                      checked={showDedication}
+                      onCheckedChange={setShowDedication}
                     />
-                    <FormLabel htmlFor="show-back-cover-image" className="text-lg font-semibold cursor-pointer">
-                        ¿Quieres añadir una imagen en la contraportada?
+                    <FormLabel htmlFor="show-dedication" className="text-base font-semibold cursor-pointer">
+                      Añadir una dedicatoria especial
                     </FormLabel>
-                </div>
-                {showBackCoverImage && (
-                    <div className="pt-4">
-                        <FormField
-                            control={form.control}
-                            name="backCoverImage"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Imagen de contraportada</FormLabel>
-                                    <FormControl>
-                                        <Input 
-                                            type="file" 
-                                            accept="image/*"
-                                            onChange={handleBackCoverImageChange} 
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        {backCoverPreview && (
-                            <div className="mt-4 relative w-32 h-32">
-                                <Image
-                                    src={backCoverPreview}
-                                    alt="Vista previa de la contraportada"
-                                    layout="fill"
-                                    className="rounded-md object-cover"
-                                />
-                            </div>
+                  </div>
+                  {showDedication && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 animate-in fade-in-0 duration-300">
+                      <FormField
+                        control={form.control}
+                        name="initialPhrase"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Frase al inicio del cuento
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="Para mi querido Leo, con todo mi amor."
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
                         )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="finalPhrase"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Frase al final del cuento
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                placeholder="De tu Mamá, que te quiere con locura."
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
                     </div>
-                )}
-              </div>
+                  )}
+                </div>
+
+                <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
+                    <div className="flex items-center space-x-3">
+                        <Switch
+                            id="show-back-cover-image"
+                            checked={showBackCoverImage}
+                            onCheckedChange={setShowBackCoverImage}
+                        />
+                        <FormLabel htmlFor="show-back-cover-image" className="text-base font-semibold cursor-pointer">
+                            Añadir una imagen en la contraportada
+                        </FormLabel>
+                    </div>
+                    {showBackCoverImage && (
+                        <div className="pt-4 animate-in fade-in-0 duration-300">
+                            <FormField
+                                control={form.control}
+                                name="backCoverImage"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Imagen de contraportada</FormLabel>
+                                        <FormControl>
+                                            <div className="flex items-center gap-4">
+                                                <label htmlFor="back-cover-upload" className="cursor-pointer">
+                                                    <div className="flex items-center gap-2 rounded-md border border-input px-4 py-2 hover:bg-accent">
+                                                        <PlusCircle className="h-4 w-4" />
+                                                        <span>{backCoverPreview ? 'Cambiar imagen' : 'Subir imagen'}</span>
+                                                    </div>
+                                                    <input 
+                                                        id="back-cover-upload"
+                                                        type="file" 
+                                                        accept="image/*"
+                                                        className="hidden"
+                                                        onChange={handleBackCoverImageChange} 
+                                                    />
+                                                </label>
+                                                {backCoverPreview && (
+                                                    <div className="relative w-20 h-20">
+                                                        <Image
+                                                            src={backCoverPreview}
+                                                            alt="Vista previa de la contraportada"
+                                                            fill
+                                                            className="rounded-md object-cover"
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                        </div>
+                    )}
+                </div>
+            </CardContent>
+           </Card>
 
 
-               <div className="flex flex-col items-center pt-4">
+            <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
+                <Card className="p-4 flex items-center gap-4 shadow-lg bg-accent/50">
+                    <CreditCard className="h-6 w-6 text-primary" />
+                    <span className="text-lg font-bold text-primary">
+                        Coste Total: {totalCredits.toLocaleString()} créditos
+                    </span>
+                </Card>
                 <Button
                   type="submit"
                   size="lg"
-                  className="bg-accent text-accent-foreground hover:bg-accent/90 z-20 relative"
+                  className="shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-0.5"
                   disabled={isSubmitting || totalCredits === 0}
                 >
                   {isSubmitting ? (
@@ -645,23 +641,14 @@ export default function CrearCuentoPage() {
                     </>
                   ) : (
                     <>
-                      Generar mi Cuento <Sparkles className="ml-2 h-5 w-5" />
+                      <Sparkles className="mr-2 h-5 w-5" />
+                      Crear mi Cuento Mágico
                     </>
                   )}
                 </Button>
-                <div className="flex w-full justify-end items-center gap-2 text-sm font-semibold text-primary/80 mt-2">
-                  <CreditCard className="h-4 w-4" />
-                  <span>Coste Total: {totalCredits.toLocaleString()} créditos</span>
-                </div>
               </div>
-            </form>
-          </Form>
-        </CardContent>
-      </Card>
+        </form>
+      </Form>
     </div>
   );
 }
-
-    
-
-    
