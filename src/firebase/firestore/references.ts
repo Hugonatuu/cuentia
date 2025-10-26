@@ -32,4 +32,6 @@ export const storyDocRef = (db: Firestore, userId: string, storyId: string) => {
     return doc(db, `users/${userId}/stories/${storyId}`) as DocumentReference;
 };
 
-    
+export const communityStoryDocRef = (db: Firestore, storyId: string) => {
+    return doc(db, 'communityStories', storyId) as DocumentReference;
+};

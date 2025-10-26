@@ -5,12 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { communityStoriesCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { BookOpen } from "lucide-react";
 
 interface CommunityStory {
   id: string;
@@ -65,8 +64,8 @@ export default function ComunidadPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {stories.map((story) => (
             <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
-              <Link href={story.pdfUrl || '#'} target="_blank" rel="noopener noreferrer" className="block">
-                <CardContent className="p-0">
+              <CardContent className="p-0">
+                <Link href={`/comunidad/leer/${story.id}`}>
                   <Image
                     src={story.coverImageUrl}
                     alt={story.title}
@@ -74,17 +73,17 @@ export default function ComunidadPage() {
                     height={600}
                     className="w-full h-auto object-cover aspect-[2/3]"
                   />
-                </CardContent>
-                <CardHeader>
-                  <CardTitle className="text-lg">{story.title}</CardTitle>
-                </CardHeader>
-              </Link>
+                </Link>
+              </CardContent>
+              <CardHeader>
+                <CardTitle className="text-lg">{story.title}</CardTitle>
+              </CardHeader>
               <CardFooter className="mt-auto p-4">
-                <Button asChild className="w-full" variant={!story.pdfUrl || story.pdfUrl === '#' ? 'secondary' : 'default'} disabled={!story.pdfUrl || story.pdfUrl === '#'}>
-                  <a href={story.pdfUrl} target="_blank" rel="noopener noreferrer">
-                    <Download className="mr-2 h-4 w-4" />
-                    Descargar
-                  </a>
+                <Button asChild className="w-full">
+                  <Link href={`/comunidad/leer/${story.id}`}>
+                    <BookOpen className="mr-2 h-4 w-4" />
+                    Leer Cuento
+                  </Link>
                 </Button>
               </CardFooter>
             </Card>
