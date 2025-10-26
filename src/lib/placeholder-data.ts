@@ -19,7 +19,6 @@ const getImage = (id: string) => {
 export const mainNavLinks = [
   { href: '/cuentos/crear', label: '💫 Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
-  { href: '/crear-personaje', label: 'Crear Personaje' },
   { href: '/#precios', label: 'Precios' },
 ];
 
