@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -47,7 +48,7 @@ export default function Header() {
           </Link>
         </div>
         
-        <nav className="hidden gap-6 md:flex justify-center">
+        <nav className="hidden gap-8 md:flex justify-center">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
