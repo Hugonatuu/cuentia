@@ -104,8 +104,7 @@ export default function PersonajesPage() {
           Un Mundo de Personajes
         </h1>
         <p className="max-w-3xl mx-auto text-primary mt-4 font-body">
-          Elige entre nuestros personajes listos para la aventura o crea los
-          tuyos propios. ¡La magia está en tus manos!
+          Aquí viven los personajes que darán vida a tus historias. ¡Crea nuevos amigos, a ti mismo o incluso a tu mascota!
         </p>
       </div>
 
