@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -126,7 +127,7 @@ export default function PersonajesPage() {
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-3xl font-bold">Mis Personajes</h2>
             <Button asChild>
-                <Link href="/crear-personaje">Crear Nuevo Personaje</Link>
+                <Link href="/crear-personaje">✨ Crear Nuevo Personaje ✨</Link>
             </Button>
           </div>
           {areCharactersLoading ? (
