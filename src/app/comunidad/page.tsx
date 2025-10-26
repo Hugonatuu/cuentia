@@ -34,8 +34,8 @@ export default function ComunidadPage() {
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
           Cuentos de la Comunidad
         </h1>
-        <p className="max-w-2xl mx-auto text-lg text-muted-foreground mt-4">
-          Explora los mundos creados por otros soñadores de Cuentia. Cada historia es una puerta a una nueva aventura.
+        <p className="max-w-3xl mx-auto text-primary mt-4 font-body">
+          Aquí viven los personajes que darán vida a tus historias. ¡Crea nuevos amigos, a ti mismo o incluso a tu mascota!
         </p>
       </div>
 
