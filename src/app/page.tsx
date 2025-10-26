@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -49,7 +50,7 @@ export default function Home() {
             </p>
             <div className="flex justify-center gap-4">
               <Button size="lg" asChild>
-                <Link href="/cuentos/crear">
+                <Link href="/cuentos/crear/aprendizaje">
                   Empezar a Crear <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
