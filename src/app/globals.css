@@ -21,7 +21,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 30 30% 85%;
-    --input: 30 30% 92%;
+    --input: 45 100% 82%; /* #FFE8A3 */
     --ring: 252 100% 68%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
