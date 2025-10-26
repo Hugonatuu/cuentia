@@ -439,9 +439,11 @@ export default function CrearCuentoPage() {
           </Card>
           
           <Card className="shadow-lg">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-2xl font-semibold">3. Detalles de la historia</CardTitle>
-                 <CardDescription>Añade los toques finales para que tu cuento sea único.</CardDescription>
+                 <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
+                    <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
+                 </div>
             </CardHeader>
             <CardContent className="space-y-6">
                <FormField
@@ -655,7 +657,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-
-    
-    
