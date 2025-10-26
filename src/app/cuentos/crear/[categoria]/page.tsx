@@ -393,8 +393,8 @@ export default function CrearCuentoPage() {
           <Card className="shadow-lg">
             <CardHeader>
                 <CardTitle className="text-2xl font-semibold">2. Personajes</CardTitle>
-                 <div className="bg-primary text-primary-foreground p-3 rounded-lg mt-2">
-                  <p className="text-sm text-center">Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</p>
+                <div className="w-fit bg-primary text-primary-foreground p-3 rounded-lg mt-2">
+                  <p className="text-sm">Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</p>
                 </div>
             </CardHeader>
             <CardContent>
@@ -657,4 +657,5 @@ export default function CrearCuentoPage() {
 }
 
 
+    
     
