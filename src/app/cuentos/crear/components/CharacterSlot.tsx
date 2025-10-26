@@ -90,7 +90,7 @@ export function CharacterSlot({
   return (
     <>
       <Card
-        className="aspect-square flex items-center justify-center border-2 border-dashed bg-muted/50 hover:bg-muted/80 hover:border-primary transition-colors cursor-pointer"
+        className="aspect-square flex items-center justify-center border-2 border-dashed bg-input/50 hover:bg-input/80 hover:border-primary transition-colors cursor-pointer"
         onClick={() => setPickerOpen(true)}
       >
         <CardContent className="p-0 flex flex-col items-center justify-center text-muted-foreground">
@@ -108,5 +108,3 @@ export function CharacterSlot({
     </>
   );
 }
-
-    
