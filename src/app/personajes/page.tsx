@@ -102,7 +102,7 @@ export default function PersonajesPage() {
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
           Un Mundo de Personajes
         </h1>
-        <p className="max-w-3xl mx-auto text-lg text-muted-foreground mt-4">
+        <p className="max-w-3xl mx-auto text-primary mt-4 font-body">
           Elige entre nuestros personajes listos para la aventura o crea los
           tuyos propios. ¡La magia está en tus manos!
         </p>
