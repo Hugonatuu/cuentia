@@ -51,7 +51,7 @@ const categoryDetails: {
   'aprendizaje': {
     title: '¡Crea un cuento!',
     description:
-      'Rellena los detalles para tu cuento con ilustraciones y portada.',
+      'Transforma tu imaginación en un cuento inolvidable lleno de ilustraciones y magia.',
   },
 };
 
@@ -657,3 +657,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
