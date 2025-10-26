@@ -306,7 +306,7 @@ export default function CrearCuentoPage() {
           <h1 className="font-headline text-4xl md:text-5xl text-gray-800">
             {details.title}
           </h1>
-          <p className="max-w-xl mx-auto text-lg text-primary mt-2">
+          <p className="max-w-xl mx-auto text-lg text-primary mt-2 font-open-sans">
             {details.description}
           </p>
       </div>

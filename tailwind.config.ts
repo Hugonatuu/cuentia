@@ -12,6 +12,7 @@ export default {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
         headline: ['Luckiest Guy', 'cursive'],
+        'open-sans': ['Open Sans', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
