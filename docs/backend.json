@@ -195,6 +195,28 @@
         }
       },
       "required": ["name", "description", "imageUrl", "species", "gender", "age"]
+    },
+    "CommunityStory": {
+      "title": "Community Story",
+      "description": "A story shared by the community.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the story."
+        },
+        "coverImageUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL for the story's cover image."
+        },
+        "pdfUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL for the story's PDF file."
+        }
+      },
+      "required": ["title", "coverImageUrl", "pdfUrl"]
     }
   },
   "auth": {
@@ -287,6 +309,22 @@
             {
               "name": "characterId",
               "description": "The unique identifier of the predefined character."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/communityStories/{storyId}",
+        "definition": {
+          "entityName": "CommunityStory",
+          "schema": {
+            "$ref": "#/entities/CommunityStory"
+          },
+          "description": "Stores stories shared with the community.",
+          "params": [
+            {
+              "name": "storyId",
+              "description": "The unique identifier of the community story."
             }
           ]
         }

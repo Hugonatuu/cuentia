@@ -11,6 +11,7 @@ const createCollection = <T>(db: Firestore, path: string) => {
 // References to root collections
 export const usersCollectionRef = (db: Firestore) => createCollection(db, 'users');
 export const predefinedCharactersCollectionRef = (db: Firestore) => createCollection(db, 'predefinedCharacters');
+export const communityStoriesCollectionRef = (db: Firestore) => createCollection(db, 'communityStories');
 
 
 // References to subcollections
