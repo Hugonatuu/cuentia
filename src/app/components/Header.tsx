@@ -41,23 +41,25 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        <div className="mr-4 flex items-center">
+        <div className="flex-1 flex items-center justify-start">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo width={100} height={23} />
           </Link>
-          <nav className="hidden gap-6 md:flex">
+        </div>
+        
+        <nav className="hidden gap-6 md:flex justify-center">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-foreground/60 transition-colors hover:text-foreground/80"
+                className="text-sm font-semibold text-foreground/80 transition-colors hover:text-foreground"
               >
                 {link.label}
               </Link>
             ))}
-          </nav>
-        </div>
-        <div className="flex flex-1 items-center justify-end space-x-2">
+        </nav>
+
+        <div className="flex-1 flex items-center justify-end space-x-2">
           {isUserLoading ? (
             <div className="h-8 w-20 animate-pulse rounded-md bg-muted"></div>
           ) : user ? (
