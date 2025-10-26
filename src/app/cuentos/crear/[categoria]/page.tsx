@@ -622,9 +622,9 @@ export default function CrearCuentoPage() {
 
 
             <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
-                <Card className="p-4 flex items-center gap-4 shadow-lg bg-accent/50">
-                    <CreditCard className="h-6 w-6 text-primary" />
-                    <span className="text-lg font-bold text-primary">
+                <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
+                    <CreditCard className="h-5 w-5 text-primary" />
+                    <span className="text-sm font-bold text-primary">
                         Coste Total: {totalCredits.toLocaleString()} créditos
                     </span>
                 </Card>
@@ -652,3 +652,4 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
