@@ -143,7 +143,7 @@ export default function PersonajesPage() {
               {userCharacters.map((character) => (
                 <Card
                   key={character.id}
-                  className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative"
+                  className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative border-2 border-primary"
                 >
                   <Button
                     variant="destructive"
@@ -164,7 +164,7 @@ export default function PersonajesPage() {
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                       />
                     </div>
-                    <div className="py-3 px-2">
+                    <div className="py-3 px-2 bg-primary text-primary-foreground">
                       <h3 className="font-semibold text-md">{character.name}</h3>
                     </div>
                   </CardContent>
@@ -205,7 +205,7 @@ export default function PersonajesPage() {
                 <TooltipProvider key={character.id}>
                   <Tooltip>
                     <Card
-                      className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-primary"
                     >
                       <TooltipTrigger asChild>
                         <CardContent className="p-0 text-center relative">
@@ -220,7 +220,7 @@ export default function PersonajesPage() {
                                 data-ai-hint={character.imageHint}
                               />
                             </div>
-                            <div className="py-3 px-2">
+                            <div className="py-3 px-2 bg-primary text-primary-foreground">
                               <h3 className="font-semibold text-md">{character.name}</h3>
                             </div>
                         </CardContent>
