@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { storyDocRef } from '@/firebase/firestore/references';
@@ -14,14 +14,7 @@ import { ChevronLeft, ChevronRight, Download, BookOpen } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 // Configure the PDF worker from pdfjs-dist
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url,
-).toString();
-
-const options = {
-  cMapUrl: `https://unpkg.com/pdfjs-dist@${pdfjs.version}/cmaps/`,
-};
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface Story {
   id: string;
@@ -45,6 +38,16 @@ export default function StoryViewerPage() {
 
   const [numPages, setNumPages] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pdfFile, setPdfFile] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (story?.pdfUrl) {
+      // Set the internal API route as the source for the PDF
+      const internalPdfUrl = `/api/cuentos/${story.id}?url=${encodeURIComponent(story.pdfUrl)}`;
+      setPdfFile(internalPdfUrl);
+    }
+  }, [story]);
+
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
     setNumPages(numPages);
@@ -132,10 +135,9 @@ export default function StoryViewerPage() {
       <div className="flex justify-center">
         <div className="relative flex items-center justify-center">
           <Document
-            file={story.pdfUrl}
+            file={pdfFile}
             onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={(error) => console.error("Error al cargar el PDF:", error)}
-            options={options}
+            onLoadError={(error) => console.error("Error al cargar el PDF:", error.message)}
             loading={<Skeleton className="h-[80vh] w-[50vw]"/>}
             className="flex justify-center items-start gap-2"
           >
