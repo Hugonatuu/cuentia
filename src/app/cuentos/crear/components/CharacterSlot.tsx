@@ -93,7 +93,7 @@ export function CharacterSlot({
         className="aspect-square flex items-center justify-center border-2 border-dashed border-input bg-input/50 hover:bg-input/80 hover:border-primary transition-colors cursor-pointer"
         onClick={() => setPickerOpen(true)}
       >
-        <CardContent className="p-0 flex flex-col items-center justify-center text-primary-foreground/70">
+        <CardContent className="p-0 flex flex-col items-center justify-center text-foreground">
           <Plus className="h-10 w-10" />
           <p className="mt-2 text-sm font-medium">Añadir</p>
         </CardContent>
