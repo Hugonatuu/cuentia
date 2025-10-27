@@ -177,10 +177,11 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20 animate-in fade-in zoom-in-95 duration-500">
-                <div className="z-10 text-center md:col-span-1">
+            <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
+                <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500">
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                         <div className="absolute -top-10 right-0 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
+                        <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                         <div className="relative z-10">
                             <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                                 3. Escribe puntos clave y el objetivo de aprendizaje
@@ -193,10 +194,11 @@ export default function Home() {
                 </div>
             </div>
 
-             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20 animate-in fade-in zoom-in-95 duration-500">
-              <div className="z-10 text-center md:col-span-1">
+             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
+              <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                     <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
+                    <div className="absolute -top-10 -right-20 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                         4. Añade los últimos detalles de personalización a tu libro
@@ -356,3 +358,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
