@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { User, updateProfile } from 'firebase/auth';
-import { useFirestore } from '@/firebase';
+import { useAuth, useFirestore } from '@/firebase';
 import { userDocRef } from '@/firebase/firestore/references';
 import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -18,11 +18,12 @@ interface EditAvatarProps {
 export default function EditAvatar({ user }: EditAvatarProps) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isPickerDialogOpen, setIsPickerDialogOpen] = useState(false);
+  const auth = useAuth();
   const firestore = useFirestore();
   const { toast } = useToast();
 
   const handleSelectAvatar = async (character: AnyCharacter) => {
-    if (!firestore) return;
+    if (!firestore || !auth.currentUser) return;
 
     const newPhotoURL = 'avatarUrl' in character ? character.avatarUrl : character.imageUrl;
 
@@ -36,10 +37,13 @@ export default function EditAvatar({ user }: EditAvatarProps) {
 
     try {
       // Update Firebase Auth profile
-      await updateProfile(user, { photoURL: newPhotoURL });
+      await updateProfile(auth.currentUser, { photoURL: newPhotoURL });
+      
+      // Force refresh of the user token to get the updated profile info
+      await auth.currentUser.getIdToken(true);
 
       // Update Firestore document
-      const userRef = userDocRef(firestore, user.uid);
+      const userRef = userDocRef(firestore, auth.currentUser.uid);
       updateDocumentNonBlocking(userRef, { photoURL: newPhotoURL });
 
       toast({
