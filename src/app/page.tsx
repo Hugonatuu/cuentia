@@ -57,14 +57,9 @@ export default function Home() {
               Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
-              <Button size="lg" asChild className="h-14 px-10 text-lg">
+              <Button size="lg" asChild className="h-16 px-12 text-xl mt-4">
                 <Link href="/cuentos/crear/aprendizaje">
                   ✨ Crear mi Cuento ✨
-                </Link>
-              </Button>
-              <Button variant="secondary" asChild>
-                <Link href="/comunidad">
-                  Ver cuentos creados con Cuentia
                 </Link>
               </Button>
             </div>
@@ -183,7 +178,7 @@ export default function Home() {
             </div>
             
             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
-                <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-bottom duration-500 delay-400">
+                <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500 delay-400">
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                         <div className="absolute -top-10 right-0 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
                         <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
@@ -343,5 +338,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
