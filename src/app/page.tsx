@@ -88,7 +88,7 @@ export default function Home() {
               </h2>
             </div>
             <div className="relative grid md:grid-cols-2 gap-16 items-center">
-              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in zoom-in-95 duration-500">
+              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700">
                 
                 {/* Image collage */}
                 <div className="relative z-10">
@@ -112,7 +112,7 @@ export default function Home() {
                   </Card>
                 </div>
               </div>
-              <div className="z-10 text-center md:text-left animate-in fade-in zoom-in-95 duration-500 delay-100">
+              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
@@ -130,7 +130,7 @@ export default function Home() {
             </div>
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:text-left animate-in fade-in zoom-in-95 duration-500 delay-200">
+              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
@@ -145,7 +145,7 @@ export default function Home() {
                     </div>
                 </Card>
               </div>
-              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in zoom-in-95 duration-500 delay-300">
+              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-400">
                 
                 <div className="relative z-10 w-full max-w-sm">
                    <Carousel
@@ -185,7 +185,7 @@ export default function Home() {
             </div>
             
             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
-                <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500 delay-400">
+                <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                         <div className="relative z-10">
                             <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
@@ -200,7 +200,7 @@ export default function Home() {
             </div>
 
              <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-right duration-500 delay-500">
+              <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-600">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
