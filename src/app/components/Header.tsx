@@ -60,7 +60,7 @@ export default function Header() {
             ))}
         </nav>
 
-        <div className="flex-1 flex items-center justify-end space-x-2">
+        <div className="flex-1 flex items-center justify-end space-x-2 mr-4">
           {isUserLoading ? (
             <div className="h-8 w-20 animate-pulse rounded-md bg-muted"></div>
           ) : user ? (
@@ -116,6 +116,7 @@ export default function Header() {
               </Button>
             </div>
           )}
+          </div>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
@@ -164,7 +165,6 @@ export default function Header() {
               </div>
             </SheetContent>
           </Sheet>
-        </div>
       </div>
     </header>
   );
