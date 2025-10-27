@@ -194,24 +194,6 @@ export default function Home() {
             </div>
 
              <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="relative h-[400px] flex items-center justify-center">
-                {/* Background Blobs */}
-                <div className="absolute -top-10 -left-20 w-80 h-80 bg-red-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
-
-                {/* Image collage */}
-                <div className="relative z-10">
-                  <Card className="p-2 bg-white shadow-2xl transform hover:scale-110 transition-transform duration-300">
-                     <Image
-                      src={placeholderImages.placeholderImages.find(img => img.id === 'how-it-works-3')?.imageUrl || ''}
-                      alt="Cuento personalizado"
-                      width={300}
-                      height={400}
-                      className="rounded"
-                      data-ai-hint={placeholderImages.placeholderImages.find(img => img.id === 'how-it-works-3')?.imageHint}
-                    />
-                  </Card>
-                </div>
-              </div>
               <div className="z-10 text-center md:text-left">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden">
                     <div className="absolute -top-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
@@ -222,9 +204,6 @@ export default function Home() {
                         <p className="text-lg text-muted-foreground mb-6">
                         Añade una dedicatoria especial y una imagen en la parte de atrás de tu cuento para hacerlo todavía más único.
                         </p>
-                        <Button asChild>
-                        <Link href="/cuentos/crear">Personalizar mi Cuento</Link>
-                        </Button>
                     </div>
                 </Card>
               </div>
