@@ -66,7 +66,7 @@ export default function Header() {
           ) : user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2">
+                <Button className="flex items-center gap-2">
                   <span>Mi Perfil</span>
                   <Avatar className="h-8 w-8">
                     {user.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || user.email || ''} />}
