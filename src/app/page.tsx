@@ -62,9 +62,9 @@ export default function Home() {
                   ✨ Crear mi Cuento ✨
                 </Link>
               </Button>
-              <Button variant="secondary" size="lg" asChild className="h-14 px-10 text-lg">
+              <Button variant="secondary" asChild>
                 <Link href="/comunidad">
-                  Ver cuentos creados por Cuentia
+                  Ver cuentos creados con Cuentia
                 </Link>
               </Button>
             </div>
@@ -343,3 +343,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
