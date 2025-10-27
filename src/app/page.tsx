@@ -177,8 +177,8 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-                <div className="z-10 text-center md:text-left md:col-span-2">
+            <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
+                <div className="z-10 text-center md:col-span-1">
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full">
                         <div className="absolute -top-10 -left-20 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
                         <div className="relative z-10">
@@ -193,15 +193,15 @@ export default function Home() {
                 </div>
             </div>
 
-             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:text-left">
+             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
+              <div className="z-10 text-center md:col-span-1">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden">
                     <div className="absolute -top-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                         4. Añade los últimos detalles de personalización a tu libro
                         </h3>
-                        <p className="text-lg text-muted-foreground mb-6">
+                        <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
                         Añade una dedicatoria especial y una imagen en la parte de atrás de tu cuento para hacerlo todavía más único.
                         </p>
                     </div>
@@ -297,7 +297,7 @@ export default function Home() {
                 </AccordionTrigger>
                 <AccordionContent>
                   Simplemente subes varias fotos de una persona o mascota, y
-                  nuestra IA generará un personaje de dibujos que podrás usar
+                  nuestra IA generará un personaje de dibujos animados que podrás usar
                   como protagonista en todos tus cuentos.
                 </AccordionContent>
               </AccordionItem>
@@ -356,3 +356,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
