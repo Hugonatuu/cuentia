@@ -220,7 +220,7 @@ export default function PerfilPage() {
                  <Card>
                     <CardHeader>
                         <CardTitle>Modelo Pay As You Go</CardTitle>
-                        <CardDescription>Paga únicamente por lo que vas a usar (1€ = 1.000 créditos).</CardDescription>
+                        <CardDescription>Paga únicamente por lo que vas a usar.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6 pt-2">
                         <div className='flex items-center gap-6'>
@@ -285,5 +285,3 @@ export default function PerfilPage() {
     </div>
   );
 }
-
-    
