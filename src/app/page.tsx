@@ -329,12 +329,10 @@ export default function Home() {
               </AccordionItem>
               <AccordionItem value="item-4">
                 <AccordionTrigger>
-                  ¿Qué pasa si no uso todos mis créditos en un mes?
+                  ¿Cuántos créditos cuesta crear un cuento?
                 </AccordionTrigger>
                 <AccordionContent>
-                  En los planes de suscripción, los créditos no utilizados no se
-                  acumulan para el mes siguiente. ¡Es una excusa perfecta para
-                  crear más historias!
+                  Los cuentos más básicos cuestan desde 400 créditos. Según la cantidad de páginas o ilustraciones que elijas, el coste puede aumentar, pero siempre lo verás antes de confirmar la creación.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
