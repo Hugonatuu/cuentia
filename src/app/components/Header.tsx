@@ -43,8 +43,8 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         <div className="flex-1 flex items-center justify-start">
-          <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Logo width={100} height={23} />
+          <Link href="/" className="mr-8 flex items-center space-x-2">
+            <Logo width={140} height={32} />
           </Link>
         </div>
         
@@ -127,7 +127,7 @@ export default function Header() {
               <div className="flex h-full flex-col">
                 <div className="mb-6 flex items-center">
                   <Link href="/" className="mr-6 flex items-center space-x-2">
-                     <Logo width={100} height={23} />
+                     <Logo width={140} height={32} />
                   </Link>
                 </div>
                 <nav className="flex flex-col gap-4">
