@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles, CreditCard, Info, PlusCircle, BookHeart } from 'lucide-react';
+import { Loader2, Sparkles, CreditCard, Info, PlusCircle, BookHeart, Lightbulb } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useParams, useRouter } from 'next/navigation';
@@ -44,6 +44,12 @@ import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
 import { serverTimestamp } from 'firebase/firestore';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; };
@@ -69,6 +75,13 @@ const creditCosts = {
   },
   customization: 100,
 };
+
+const learningObjectiveSuggestions = [
+    'Enseñar la importancia de cuidar a los demás',
+    'Aprender a valorar las cosas',
+    'Hacer ver al protagonista que es más fuerte de lo que cree',
+];
+
 
 const formSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.'),
@@ -469,9 +482,26 @@ export default function CrearCuentoPage() {
                 name="learningObjective"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>
-                      Objetivo de Aprendizaje (Opcional)
-                    </FormLabel>
+                    <div className="flex items-center justify-between">
+                        <FormLabel>
+                          Objetivo de Aprendizaje (Opcional)
+                        </FormLabel>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button type="button" variant="ghost" size="sm">
+                                    <Lightbulb className="mr-2 h-4 w-4" />
+                                    Ideas
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                {learningObjectiveSuggestions.map((suggestion, index) => (
+                                    <DropdownMenuItem key={index} onSelect={() => form.setValue('learningObjective', suggestion)}>
+                                        {suggestion}
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
                     <FormControl>
                       <Textarea
                         placeholder="Ej: Enseñar a Leo la importancia de la amistad y el trabajo en equipo."
