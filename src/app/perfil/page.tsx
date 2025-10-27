@@ -196,7 +196,7 @@ export default function PerfilPage() {
                                     <CardContent className="p-0 relative">
                                         <Image
                                             src={story.coverImageUrl || '/placeholder-cover.png'}
-                                            alt={story.title}
+                                            alt={story.title || 'Portada del cuento'}
                                             width={400}
                                             height={600}
                                             className="w-full h-auto object-cover aspect-[2/3]"
