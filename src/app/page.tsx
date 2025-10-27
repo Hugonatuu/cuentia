@@ -26,25 +26,19 @@ import PricingCard from "./components/PricingCard";
 import Image from "next/image";
 
 export default function Home() {
-  const heroImage = placeholderImages.placeholderImages.find(
-    (img) => img.id === "hero-illustration"
-  );
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white overflow-hidden">
-          {heroImage && (
             <Image
-              src={heroImage.imageUrl}
-              alt={heroImage.description}
+              src="/cuentos/mi-nueva-imagen.jpg"
+              alt="Cuentos mágicos"
               fill
               className="object-cover animate-zoom-in"
-              data-ai-hint={heroImage.imageHint}
               priority
             />
-          )}
           <div className="absolute inset-0 bg-black/50" />
           <div className="relative container mx-auto px-4 text-center z-10">
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4">

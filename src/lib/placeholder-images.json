@@ -1,12 +1,6 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-illustration",
-      "description": "An illustration of a child reading a book with magical creatures coming out of it.",
-      "imageUrl": "https://images.unsplash.com/photo-1577835724923-f591f5f98c89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxraWRzJTIwcmVhZGluZ3xlbnwwfHx8fDE3NjEwNDM5NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "kids reading"
-    },
-    {
       "id": "story-cover-1",
       "description": "Cover for a story about a space adventure.",
       "imageUrl": "https://images.unsplash.com/photo-1570545917537-873e36d4f64a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxraWRzJTIwc3BhY2V8ZW58MHx8fHwxNzYxMDQzOTQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
