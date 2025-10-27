@@ -46,14 +46,11 @@ export default function Home() {
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
               Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.
             </p>
-            <div className="flex justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
-              <Button size="lg" asChild>
+            <div className="flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
+              <Button size="lg" asChild className="h-14 px-10 text-lg">
                 <Link href="/cuentos/crear/aprendizaje">
                   Crear mi Cuento <Sparkles className="ml-2 h-5 w-5" />
                 </Link>
-              </Button>
-              <Button size="lg" variant="secondary" asChild>
-                <Link href="/cuentos/ejemplos">Ver Ejemplos</Link>
               </Button>
             </div>
           </div>
