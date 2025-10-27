@@ -39,7 +39,6 @@ export default function Home() {
               className="object-cover animate-zoom-in"
               priority
             />
-          <div className="absolute inset-0 bg-black/50" />
           <div className="relative container mx-auto px-4 text-center z-10">
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4">
               Crea Cuentos Mágicos
