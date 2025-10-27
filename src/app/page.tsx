@@ -75,7 +75,7 @@ export default function Home() {
               </h2>
             </div>
             <div className="relative grid md:grid-cols-2 gap-16 items-center">
-              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in zoom-in-95 duration-500">
+              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-left duration-500">
                 {/* Background Blobs */}
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-yellow-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
@@ -102,7 +102,7 @@ export default function Home() {
                   </Card>
                 </div>
               </div>
-              <div className="z-10 text-center md:text-left animate-in fade-in zoom-in-95 duration-500">
+              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-right duration-500">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                     <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
                      <div className="relative z-10">
@@ -121,7 +121,7 @@ export default function Home() {
             </div>
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:text-left animate-in fade-in zoom-in-95 duration-500">
+              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-left duration-500 delay-200">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                     <div className="absolute -top-10 -right-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                      <div className="relative z-10">
@@ -137,7 +137,7 @@ export default function Home() {
                     </div>
                 </Card>
               </div>
-              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in zoom-in-95 duration-500">
+              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-right duration-500 delay-200">
                 <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
 
                 <div className="relative z-10 w-full max-w-sm">
@@ -178,7 +178,7 @@ export default function Home() {
             </div>
             
             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
-                <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500">
+                <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-bottom duration-500 delay-400">
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                         <div className="absolute -top-10 right-0 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
                         <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
@@ -195,7 +195,7 @@ export default function Home() {
             </div>
 
              <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500">
+              <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-right duration-500 delay-500">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                     <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                     <div className="absolute -top-10 -right-20 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
