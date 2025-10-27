@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
@@ -14,8 +14,9 @@ import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass } from 'lucide-react';
+import { BookOpen, Hourglass, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
 
 interface Story {
   id: string;
@@ -25,37 +26,12 @@ interface Story {
   status: 'generating' | 'completed';
 }
 
-const payAsYouGoPlans = [
-  {
-    name: '5€',
-    price: '5€',
-    credits: '5.000 créditos',
-    features: ['Paga solo por lo que usas', 'Ideal para empezar'],
-    isFeatured: false,
-    cta: 'Comprar Créditos',
-  },
-  {
-    name: '10€',
-    price: '10€',
-    credits: '10.000 créditos',
-    features: ['Paga solo por lo que usas', 'Para crear varias historias'],
-    isFeatured: false,
-    cta: 'Comprar Créditos',
-  },
-  {
-    name: '15€',
-    price: '15€',
-    credits: '15.000 créditos',
-    features: ['Paga solo por lo que usas', 'Más créditos, más diversión'],
-    isFeatured: false,
-    cta: 'Comprar Créditos',
-  },
-]
-
 export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
+  const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(10);
+
 
   useEffect(() => {
     if (!isUserLoading && !user) {
@@ -114,6 +90,8 @@ export default function PerfilPage() {
   }
 
   const creditPercentage = (userProfile.credits / userProfile.totalCredits) * 100;
+  const payAsYouGoCredits = payAsYouGoEuros * 1000;
+
 
   return (
     <div className="container mx-auto py-12">
@@ -238,18 +216,32 @@ export default function PerfilPage() {
             </TabsContent>
             <TabsContent value="subscription">
               <div className="space-y-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Modelo Pay As You Go</CardTitle>
-                    <CardDescription>Paga únicamente por lo que vas a usar.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {payAsYouGoPlans.map((plan) => (
-                      <div key={plan.name} className="flex flex-col">
-                        <PricingCard plan={plan} />
-                      </div>
-                    ))}
-                  </CardContent>
+                 <Card>
+                    <CardHeader>
+                        <CardTitle>Modelo Pay As You Go</CardTitle>
+                        <CardDescription>Paga únicamente por lo que vas a usar (1€ = 1.000 créditos).</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6 pt-2">
+                        <div className='flex items-center gap-6'>
+                            <div className="flex-grow space-y-2">
+                                <div className='flex justify-between font-medium'>
+                                    <span>{payAsYouGoEuros}€</span>
+                                    <span>{payAsYouGoCredits.toLocaleString()} créditos</span>
+                                </div>
+                                <Slider 
+                                    value={[payAsYouGoEuros]} 
+                                    onValueChange={(value) => setPayAsYouGoEuros(value[0])}
+                                    min={1} 
+                                    max={50} 
+                                    step={1} 
+                                />
+                            </div>
+                            <Button>
+                                <CreditCard className="mr-2 h-4 w-4" />
+                                Comprar Créditos
+                            </Button>
+                        </div>
+                    </CardContent>
                 </Card>
 
                 <Card>
