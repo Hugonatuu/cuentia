@@ -236,15 +236,14 @@ export default function Home() {
                   stopOnInteraction: true,
                 }),
               ]}
-              className="w-full max-w-4xl mx-auto"
+              className="w-full max-w-6xl mx-auto"
             >
               <CarouselContent>
                 {isLoading && (
-                    [...Array(4)].map((_, index) => (
-                        <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4">
+                    [...Array(5)].map((_, index) => (
+                        <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/5">
                             <div className="p-1">
                                 <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-                                <Skeleton className="h-6 w-3/4 mx-auto mt-2" />
                             </div>
                         </CarouselItem>
                     ))
@@ -252,7 +251,7 @@ export default function Home() {
                 {!isLoading && stories && stories.map((story) => (
                   <CarouselItem
                     key={story.id}
-                    className="basis-1/2 md:basis-1/3 lg:basis-1/4"
+                    className="basis-1/2 md:basis-1/3 lg:basis-1/5"
                   >
                     <div className="p-1">
                        <Link href={`/comunidad/leer/${story.id}`}>
@@ -266,9 +265,6 @@ export default function Home() {
                                 className="w-full h-auto object-cover aspect-[2/3] transition-transform duration-300 group-hover:scale-105"
                               />
                             </CardContent>
-                            <div className="pt-2 text-center">
-                                <h3 className="font-bold text-sm truncate">{story.title}</h3>
-                            </div>
                           </Card>
                        </Link>
                     </div>
