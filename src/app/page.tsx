@@ -37,9 +37,6 @@ export default function Home() {
         {/* Hero Section */}
         <section className="py-20 md:py-32">
           <div className="container mx-auto px-4 text-center">
-            <div className="mb-6 flex justify-center">
-              <Logo width={280} height={64} />
-            </div>
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 text-gray-800">
               Crea Cuentos Mágicos
             </h1>
