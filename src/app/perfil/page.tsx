@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -279,37 +280,38 @@ export default function PerfilPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="relative overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
-                   <div className="absolute top-2 -right-11">
-                       <div className="flex items-center justify-center w-36 h-8 bg-primary -rotate-45 transform">
-                          <span className="text-sm font-bold text-primary-foreground">
-                            RECOMENDADO
-                          </span>
-                       </div>
-                   </div>
-                  <CardHeader className="pt-12">
-                    <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
-                    <CardDescription>Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un 20 % más de créditos por el mismo precio.</CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {pricingPlans
-                      .filter((p) => p.name !== 'Pay as you go')
-                      .map((plan) => (
-                        <div key={plan.name} className="flex flex-col">
-                          <PricingCard
-                            plan={{
-                              ...plan,
-                              isFeatured: plan.name === userProfile.subscription,
-                              cta:
-                                plan.name === userProfile.subscription
-                                  ? 'Plan Actual'
-                                  : 'Cambiar Plan',
-                            }}
-                          />
-                        </div>
-                      ))}
-                  </CardContent>
-                </Card>
+                 <div className="relative pt-8">
+                    <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
+                      <div className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
+                        <Star className="h-5 w-5" />
+                        <span className="text-sm font-bold tracking-wider">RECOMENDADO</span>
+                      </div>
+                    </div>
+                    <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
+                      <CardHeader>
+                        <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
+                        <CardDescription>Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un 20 % más de créditos por el mismo precio.</CardDescription>
+                      </CardHeader>
+                      <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {pricingPlans
+                          .filter((p) => p.name !== 'Pay as you go')
+                          .map((plan) => (
+                            <div key={plan.name} className="flex flex-col">
+                              <PricingCard
+                                plan={{
+                                  ...plan,
+                                  isFeatured: plan.name === userProfile.subscription,
+                                  cta:
+                                    plan.name === userProfile.subscription
+                                      ? 'Plan Actual'
+                                      : 'Cambiar Plan',
+                                }}
+                              />
+                            </div>
+                          ))}
+                      </CardContent>
+                    </Card>
+                 </div>
               </div>
             </TabsContent>
           </Tabs>
