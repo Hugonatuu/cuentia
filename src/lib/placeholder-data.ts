@@ -37,7 +37,13 @@ export const pricingPlans = [
     name: 'Plan Artista',
     price: '9,99€',
     credits: '12.000 créditos / mes',
-    features: ['Acceso a todas las funciones', 'Soporte prioritario', 'Personajes ilimitados'],
+    features: [
+      'Acceso a todas las funciones',
+      'Soporte prioritario',
+      'Personajes ilimitados',
+      'Acceso anticipado a novedades',
+      'Exportación en alta calidad'
+    ],
     isFeatured: false,
     cta: 'Suscribirse',
   },
@@ -45,7 +51,13 @@ export const pricingPlans = [
     name: 'Plan Mágico',
     price: '14,99€',
     credits: '19.000 créditos / mes',
-    features: ['Todo en Artista', 'Generación más rápida', 'Acceso a estilos premium'],
+    features: [
+      'Acceso a todas las funciones',
+      'Soporte prioritario',
+      'Personajes ilimitados',
+      'Acceso anticipado a novedades',
+      'Exportación en alta calidad'
+    ],
     isFeatured: true,
     cta: 'Suscribirse',
   },
@@ -53,7 +65,13 @@ export const pricingPlans = [
     name: 'Plan Especial',
     price: '23,99€',
     credits: '30.000 créditos / mes',
-    features: ['Todo en Mágico', 'Colaboración en cuentos', 'Exportación en alta calidad'],
+    features: [
+      'Acceso a todas las funciones',
+      'Soporte prioritario',
+      'Personajes ilimitados',
+      'Acceso anticipado a novedades',
+      'Exportación en alta calidad'
+    ],
     isFeatured: false,
     cta: 'Suscribirse',
   },
@@ -61,7 +79,13 @@ export const pricingPlans = [
     name: 'Plan King',
     price: '39,99€',
     credits: '55.000 créditos / mes',
-    features: ['Todo en Especial', 'Consultoría personalizada', 'Acceso anticipado a novedades'],
+    features: [
+      'Acceso a todas las funciones',
+      'Soporte prioritario',
+      'Personajes ilimitados',
+      'Acceso anticipado a novedades',
+      'Exportación en alta calidad'
+    ],
     isFeatured: false,
     cta: 'Suscribirse',
   },
