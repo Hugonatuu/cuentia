@@ -254,7 +254,7 @@ export default function PerfilPage() {
 
                 <Card className="border-2 border-primary/20 shadow-lg shadow-primary/10">
                   <CardHeader>
-                    <CardTitle>Modelo de Suscripción (¡Más rentable!)</CardTitle>
+                    <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
                     <CardDescription>¡Hasta un 20% más rentable que Pay As You Go!</CardDescription>
                   </CardHeader>
                   <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
