@@ -24,7 +24,6 @@ import {
   pricingPlans,
 } from "@/lib/placeholder-data";
 import PricingCard from "./components/PricingCard";
-import Logo from "@/components/core/Logo";
 
 export default function Home() {
   const heroImage = placeholderImages.placeholderImages.find(
