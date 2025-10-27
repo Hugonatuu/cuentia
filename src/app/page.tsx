@@ -137,7 +137,7 @@ export default function Home() {
                         2. Elige que personaje quieres que aparezcan en tu cuento
                         </h3>
                         <p className="text-lg text-muted-foreground mb-6">
-                        Puedes elegir entre los personajes que has creado, o usar los personajes predefinidos de Cuentia. ¡Combínalos como quieras!
+                        Puedes elegir entre los personajes que has created, o usar los personajes predefinidos de Cuentia. ¡Combínalos como quieras!
                         </p>
                         <Button asChild>
                         <Link href="/personajes">Ver Personajes</Link>
@@ -356,5 +356,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
