@@ -103,7 +103,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="z-10 text-center md:text-left">
-                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden">
+                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden transition-transform duration-300 hover:scale-105">
                     <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
@@ -122,7 +122,7 @@ export default function Home() {
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
               <div className="z-10 text-center md:text-left">
-                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden">
+                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden transition-transform duration-300 hover:scale-105">
                     <div className="absolute -top-10 -right-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
@@ -179,7 +179,7 @@ export default function Home() {
             
             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
                 <div className="z-10 text-center md:col-span-1">
-                    <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full">
+                    <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                         <div className="absolute -top-10 right-0 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
                         <div className="relative z-10">
                             <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
@@ -195,7 +195,7 @@ export default function Home() {
 
              <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
               <div className="z-10 text-center md:col-span-1">
-                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden">
+                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden transition-transform duration-300 hover:scale-105">
                     <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
