@@ -15,7 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import placeholderImages from "@/lib/placeholder-images.json";
 import {
   exampleStories,
@@ -51,7 +51,7 @@ export default function Home() {
             <div className="flex justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild>
                 <Link href="/cuentos/crear/aprendizaje">
-                  Crear mi Cuento <ArrowRight className="ml-2 h-5 w-5" />
+                  Crear mi Cuento <Sparkles className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button size="lg" variant="secondary" asChild>
