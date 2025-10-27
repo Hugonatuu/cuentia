@@ -43,7 +43,7 @@ export default function Home() {
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg">
               Crea Cuentos Mágicos
             </h1>
-            <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans">
+            <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold">
               Transforma tus ideas en historias personalizadas con ilustraciones
               únicas. La herramienta perfecta para padres, educadores y
               pequeños soñadores.
