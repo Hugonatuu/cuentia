@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -20,6 +19,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import EditDisplayName from './components/EditDisplayName';
+import EditAvatar from './components/EditAvatar';
 
 interface Story {
   id: string;
@@ -101,18 +101,7 @@ export default function PerfilPage() {
     <div className="container mx-auto py-12">
       <div className="grid gap-10 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <div className="flex flex-col items-center text-center">
-          <Avatar className="h-24 w-24 mb-4">
-            <AvatarImage
-              src={user.photoURL || userProfile.avatar.imageUrl}
-              alt={user.displayName || userProfile.name}
-              data-ai-hint={userProfile.avatar.imageHint}
-            />
-            <AvatarFallback>
-              {user.displayName
-                ? user.displayName.charAt(0)
-                : user.email?.charAt(0).toUpperCase()}
-            </AvatarFallback>
-          </Avatar>
+          <EditAvatar user={user} />
            <EditDisplayName user={user} />
           <p className="text-sm text-muted-foreground">{user.email}</p>
         </div>
