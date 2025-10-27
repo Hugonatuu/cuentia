@@ -1,5 +1,4 @@
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   Accordion,
@@ -24,6 +23,7 @@ import {
   pricingPlans,
 } from "@/lib/placeholder-data";
 import PricingCard from "./components/PricingCard";
+import Image from "next/image";
 
 export default function Home() {
   const heroImage = placeholderImages.placeholderImages.find(
@@ -54,19 +54,6 @@ export default function Home() {
                 <Link href="/cuentos/ejemplos">Ver Ejemplos</Link>
               </Button>
             </div>
-            {heroImage && (
-              <div className="mt-12 md:mt-16 relative">
-                <Image
-                  src={heroImage.imageUrl}
-                  alt={heroImage.description}
-                  width={1200}
-                  height={800}
-                  className="rounded-xl shadow-2xl mx-auto"
-                  data-ai-hint={heroImage.imageHint}
-                  priority
-                />
-              </div>
-            )}
           </div>
         </section>
 
