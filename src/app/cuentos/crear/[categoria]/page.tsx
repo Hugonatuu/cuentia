@@ -474,7 +474,7 @@ export default function CrearCuentoPage() {
                     </FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Ej: Enseñar la importancia de la amistad y el trabajo en equipo."
+                        placeholder="Ej: Enseñar a Leo la importancia de la amistad y el trabajo en equipo."
                         {...field}
                       />
                     </FormControl>
@@ -657,5 +657,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
