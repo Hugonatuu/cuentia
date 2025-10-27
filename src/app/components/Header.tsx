@@ -67,6 +67,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="flex items-center gap-2">
+                  <span>Mi Perfil</span>
                   <Avatar className="h-8 w-8">
                     {user.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || user.email || ''} />}
                     <AvatarFallback>
@@ -75,7 +76,6 @@ export default function Header() {
                         : user.email?.charAt(0).toUpperCase()}
                     </AvatarFallback>
                   </Avatar>
-                  <span>Mi Perfil</span>
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end" forceMount>
