@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from "next/link";
@@ -165,6 +166,38 @@ export default function Home() {
                 <Button asChild>
                   <Link href="/personajes">Ver Personajes</Link>
                 </Button>
+              </div>
+            </div>
+            
+            <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
+              <div className="z-10 text-center md:text-left">
+                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
+                  3. Escribe puntos clave y el objetivo de aprendizaje
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  ¡Deja volar tu imaginación! Añade los puntos clave de la trama, un objetivo de aprendizaje y dale tu toque personal a la historia.
+                </p>
+                <Button asChild>
+                  <Link href="/cuentos/crear">Empezar a Escribir</Link>
+                </Button>
+              </div>
+              <div className="relative h-[400px] flex items-center justify-center">
+                {/* Background Blobs */}
+                <div className="absolute -top-10 -left-20 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
+                <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
+                
+                {/* Image */}
+                <div className="relative z-10">
+                  <Card className="p-2 bg-white shadow-xl transform hover:scale-110 transition-transform duration-300">
+                    <Image
+                      src={placeholderImages.placeholderImages.find(img => img.id === 'how-it-works-3')?.imageUrl || ''}
+                      alt="Libro de cuentos abierto"
+                      width={250}
+                      height={250}
+                      className="rounded"
+                    />
+                  </Card>
+                </div>
               </div>
             </div>
 
