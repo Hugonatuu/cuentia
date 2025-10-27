@@ -14,9 +14,10 @@ import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass, CreditCard } from 'lucide-react';
+import { BookOpen, Hourglass, CreditCard, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface Story {
   id: string;
@@ -241,6 +242,13 @@ export default function PerfilPage() {
                                 Comprar Créditos
                             </Button>
                         </div>
+                         <Alert variant="destructive" className="mt-4">
+                            <AlertTriangle className="h-4 w-4" />
+                            <AlertTitle>Aviso</AlertTitle>
+                            <AlertDescription>
+                                Con este modelo los créditos cuestan un 20% más que en las suscripciones.
+                            </AlertDescription>
+                        </Alert>
                     </CardContent>
                 </Card>
 
