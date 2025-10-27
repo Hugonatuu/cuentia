@@ -228,7 +228,7 @@ export default function Home() {
         <section id="examples" className="py-20">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <h2 className="font-headline text-4xl md:text-5xl text-gray-800">
+              <h2 className="font-headline text-4xl md:text-5xl text-gray-800 animate-in fade-in zoom-in-95 duration-500">
                 Cuentos creados con Cuentia
               </h2>
             </div>
