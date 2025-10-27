@@ -10,7 +10,7 @@ interface LogoProps {
 const Logo = ({ width, height, className }: LogoProps) => {
   return (
     <Image
-      src="/logo.png?v=2"
+      src="/cuentos/logo.png?v=3"
       alt="Cuentia logo"
       width={width}
       height={height}
