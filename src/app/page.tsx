@@ -34,12 +34,23 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="py-20 md:py-32">
-          <div className="container mx-auto px-4 text-center">
-            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 text-gray-800">
+        <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white">
+          {heroImage && (
+            <Image
+              src={heroImage.imageUrl}
+              alt={heroImage.description}
+              fill
+              className="object-cover"
+              data-ai-hint={heroImage.imageHint}
+              priority
+            />
+          )}
+          <div className="absolute inset-0 bg-black/50" />
+          <div className="relative container mx-auto px-4 text-center z-10">
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4">
               Crea Cuentos Mágicos
             </h1>
-            <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8">
+            <p className="max-w-3xl mx-auto text-lg md:text-xl text-white/90 mb-8">
               Transforma tus ideas en historias personalizadas con ilustraciones
               únicas. La herramienta perfecta para padres, educadores y
               pequeños soñadores.
@@ -50,7 +61,7 @@ export default function Home() {
                   Empezar a Crear <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="secondary" asChild>
                 <Link href="/cuentos/ejemplos">Ver Ejemplos</Link>
               </Button>
             </div>
