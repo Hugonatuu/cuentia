@@ -85,7 +85,7 @@ export default function Home() {
                 <div className="relative z-10">
                   <Card className="p-2 bg-white shadow-xl rotate-[-8deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
-                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/ejemplo-mundo-personajes-2.png"
+                      src="https://replicate.delivery/xezq/Kz3kDfIH8gxWXy5PDDnX4vlxL7OTsec1EQtdWPJ3TmfLf1GWB/tmp4c8ladyg.jpeg"
                       alt="Personaje de dibujos animados"
                       width={200}
                       height={200}
