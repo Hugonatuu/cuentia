@@ -252,7 +252,8 @@ export default function PerfilPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-2 border-primary/20 shadow-lg shadow-primary/10">
+                <Card className="relative overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10">
+                   <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">-20%</div>
                   <CardHeader>
                     <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
                     <CardDescription>Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un 20 % más de créditos por el mismo precio.</CardDescription>
@@ -284,3 +285,5 @@ export default function PerfilPage() {
     </div>
   );
 }
+
+    
