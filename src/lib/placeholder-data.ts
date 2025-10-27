@@ -1,5 +1,6 @@
 
 import placeholderImages from './placeholder-images.json';
+import { subMonths } from 'date-fns';
 
 const getImage = (id: string) => {
     const image = placeholderImages.placeholderImages.find(img => img.id === id);
@@ -74,15 +75,15 @@ export const userProfile = {
   name: 'Ana García',
   email: 'ana.garcia@email.com',
   avatar: getImage('user-avatar'),
+  subscription: 'Plan Mágico',
+  billingStartDate: subMonths(new Date(), 2),
   subscriptionCredits: {
     current: 8500,
     total: 19000,
   },
   payAsYouGoCredits: {
     current: 1200,
-    total: 5000,
   },
-  subscription: 'Plan Mágico',
   stories: exampleStories.slice(0, 3),
 };
 

@@ -14,10 +14,12 @@ import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass, CreditCard, AlertTriangle } from 'lucide-react';
+import { BookOpen, Hourglass, CreditCard, AlertTriangle, Calendar, Gift, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 interface Story {
   id: string;
@@ -91,7 +93,6 @@ export default function PerfilPage() {
   }
 
   const subscriptionCreditPercentage = (userProfile.subscriptionCredits.current / userProfile.subscriptionCredits.total) * 100;
-  const paygCreditPercentage = (userProfile.payAsYouGoCredits.current / userProfile.payAsYouGoCredits.total) * 100;
   const payAsYouGoCredits = payAsYouGoEuros * 1000;
 
 
@@ -126,14 +127,27 @@ export default function PerfilPage() {
                   <TabsTrigger value="payg">Créditos Pay As You Go</TabsTrigger>
                 </TabsList>
                 <TabsContent value="subscription" className="mt-4">
-                  <div className="space-y-2">
-                    <p className="font-semibold">Créditos restantes del plan</p>
-                    <div className="flex items-center gap-4">
-                      <Progress value={subscriptionCreditPercentage} className="w-[60%]" />
-                      <span className="font-bold">
-                        {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
-                        {userProfile.subscriptionCredits.total.toLocaleString()}
-                      </span>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-start">
+                        <div className='space-y-1'>
+                            <p className="text-lg font-bold text-primary">{userProfile.subscription}</p>
+                            <p className="text-sm text-muted-foreground flex items-center gap-2">
+                                <Calendar className="h-4 w-4" />
+                                <span>Fecha de facturación: {format(userProfile.billingStartDate, 'dd MMM yyyy', { locale: es })}</span>
+                            </p>
+                        </div>
+                        <Button variant="outline">Gestionar mi suscripción</Button>
+                    </div>
+
+                    <div className="space-y-2 pt-2">
+                        <p className="font-semibold text-sm">Créditos restantes del plan</p>
+                        <div className="flex items-center gap-4">
+                        <Progress value={subscriptionCreditPercentage} className="flex-grow" />
+                        <span className="font-bold text-sm">
+                            {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
+                            {userProfile.subscriptionCredits.total.toLocaleString()}
+                        </span>
+                        </div>
                     </div>
                   </div>
                 </TabsContent>
@@ -141,8 +155,8 @@ export default function PerfilPage() {
                   <div className="space-y-2">
                     <p className="font-semibold">Créditos comprados</p>
                     <div className="flex items-center gap-4">
-                      <Progress value={paygCreditPercentage} className="w-[60%]" />
-                      <span className="font-bold">
+                      <Gift className="h-6 w-6 text-primary" />
+                      <span className="font-bold text-xl">
                         {userProfile.payAsYouGoCredits.current.toLocaleString()}
                       </span>
                     </div>
