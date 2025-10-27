@@ -37,7 +37,7 @@ export default function PerfilPage() {
 
 
   useEffect(() => {
-    if (!isUserLoading && !user) {
+    if (!isUserLoading && (!user || !user.emailVerified)) {
       router.push('/login');
     }
   }, [user, isUserLoading, router]);
@@ -49,7 +49,7 @@ export default function PerfilPage() {
 
   const { data: stories, isLoading: areStoriesLoading } = useCollection<Story>(userStoriesQuery);
 
-  if (isUserLoading || !user) {
+  if (isUserLoading || !user || !user.emailVerified) {
     return (
       <div className="container mx-auto py-12">
         <div className="grid gap-10 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">

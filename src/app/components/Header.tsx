@@ -38,6 +38,7 @@ export default function Header() {
   };
 
   const navLinks = mainNavLinks;
+  const isUserVerified = user && user.emailVerified;
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -63,7 +64,7 @@ export default function Header() {
         <div className="flex-1 flex items-center justify-end space-x-2 mr-4">
           {isUserLoading ? (
             <div className="h-8 w-20 animate-pulse rounded-md bg-muted"></div>
-          ) : user ? (
+          ) : isUserVerified ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2">
@@ -144,7 +145,7 @@ export default function Header() {
                   ))}
                 </nav>
                 <div className="mt-auto flex flex-col gap-2">
-                  {!isUserLoading && !user && (
+                  {!isUserLoading && !isUserVerified && (
                     <>
                       <SheetClose asChild>
                         <Button variant="outline" asChild>

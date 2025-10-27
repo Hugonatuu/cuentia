@@ -29,15 +29,17 @@ export default function RegisterPage() {
   const { user, isUserLoading } = useUser();
 
   useEffect(() => {
-    if (!isUserLoading && user) {
+    if (!isUserLoading && user && user.emailVerified) {
       router.push('/perfil');
     }
   }, [user, isUserLoading, router]);
-  
+
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!auth) return;
-    initiateEmailSignUp(auth, email, password);
+    initiateEmailSignUp(auth, email, password, () => {
+      router.push('/verificar-correo');
+    });
   };
 
   const handleGoogleSignIn = () => {

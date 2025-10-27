@@ -13,12 +13,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { useAuth, useUser } from '@/firebase';
-import {
-  initiateEmailSignIn,
-  initiateGoogleSignIn,
-} from '@/firebase/non-blocking-login';
+import { initiateEmailSignIn, initiateGoogleSignIn } from '@/firebase/non-blocking-login';
 import { useEffect, useState } from 'react';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
+import { useToast } from '@/hooks/use-toast';
+import { User } from 'firebase/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -26,17 +25,39 @@ export default function LoginPage() {
   const auth = useAuth();
   const router = useRouter();
   const { user, isUserLoading } = useUser();
+  const { toast } = useToast();
 
   useEffect(() => {
-    if (!isUserLoading && user) {
+    if (!isUserLoading && user && user.emailVerified) {
       router.push('/perfil');
     }
   }, [user, isUserLoading, router]);
 
+  const handleSuccess = (loggedInUser: User) => {
+    if (!loggedInUser.emailVerified) {
+      toast({
+        variant: 'destructive',
+        title: 'Verificación requerida',
+        description: 'Por favor, verifica tu correo electrónico para iniciar sesión.',
+      });
+      auth.signOut();
+    } else {
+      router.push('/perfil');
+    }
+  };
+
+  const handleError = (error: any) => {
+    toast({
+      variant: 'destructive',
+      title: 'Error de inicio de sesión',
+      description: 'Las credenciales son incorrectas. Por favor, inténtalo de nuevo.',
+    });
+  };
+
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!auth) return;
-    initiateEmailSignIn(auth, email, password);
+    initiateEmailSignIn(auth, email, password, handleSuccess, handleError);
   };
 
   const handleGoogleSignIn = () => {
