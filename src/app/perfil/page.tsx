@@ -117,7 +117,7 @@ export default function PerfilPage() {
         <div className="grid gap-10">
           <Card>
             <CardHeader>
-              <CardTitle>Tu Plan Actual: {userProfile.subscription}</CardTitle>
+              <CardTitle>Tu Plan Actual</CardTitle>
             </CardHeader>
             <CardContent>
               <Tabs defaultValue="subscription">
@@ -271,7 +271,7 @@ export default function PerfilPage() {
 
                 <Card className="relative overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10">
                    <div className="absolute top-2 right-2 bg-green-500 text-white text-base font-bold px-3 py-1.5 rounded-full rotate-12 transform">
-                     <span>-20%</span>
+                     <span className="text-lg">-20%</span>
                    </div>
                   <CardHeader>
                     <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
