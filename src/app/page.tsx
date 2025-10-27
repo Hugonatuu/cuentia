@@ -23,8 +23,17 @@ import {
 } from "@/lib/placeholder-data";
 import PricingCard from "./components/PricingCard";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+import * as React from "react";
 
 export default function Home() {
+
+  const characterImages = [
+    "https://replicate.delivery/xezq/YMjNRS6q8ToTNpGc0BwccmJ5rp8ZVPPcL3xHAsDlvUwFVbYF/tmprddbkgrm.jpeg",
+    "https://replicate.delivery/xezq/KnJIaaGSy1ZINBFqbOBhphXjKVdg580RF55VffOAMQzuWthVA/tmpniscmvpg.jpeg",
+    "https://replicate.delivery/xezq/OYOYNSYYtgoeGq25TSpWQVH1w407I35riGV4tegt9ftsZbDrA/tmp5wl33ynn.jpeg",
+    "https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -110,16 +119,39 @@ export default function Home() {
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
 
-                <div className="relative z-10">
-                  <Card className="p-2 bg-white shadow-xl transform hover:scale-110 transition-transform duration-300">
-                    <Image
-                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/fondo-mundo-personajes.png"
-                      alt="Mundo de Personajes"
-                      width={300}
-                      height={300}
-                      className="rounded"
-                    />
-                  </Card>
+                <div className="relative z-10 w-full max-w-xs sm:max-w-sm md:max-w-md">
+                   <Carousel
+                      plugins={[
+                        Autoplay({
+                          delay: 2000,
+                          stopOnInteraction: true,
+                        }),
+                      ]}
+                      opts={{
+                        align: "start",
+                        loop: true,
+                      }}
+                    >
+                      <CarouselContent>
+                        {characterImages.map((src, index) => (
+                          <CarouselItem key={index}>
+                            <Card className="overflow-hidden">
+                              <CardContent className="p-0">
+                                <Image
+                                  src={src}
+                                  alt={`Personaje de ejemplo ${index + 1}`}
+                                  width={400}
+                                  height={400}
+                                  className="rounded-lg object-cover aspect-square"
+                                />
+                              </CardContent>
+                            </Card>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-10" />
+                      <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
+                    </Carousel>
                 </div>
               </div>
               <div className="z-10 text-center md:text-left">
