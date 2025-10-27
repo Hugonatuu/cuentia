@@ -220,7 +220,7 @@ export default function PerfilPage() {
                  <Card>
                     <CardHeader>
                         <CardTitle>Modelo Pay As You Go</CardTitle>
-                        <CardDescription>Paga únicamente por lo que vas a usar.</CardDescription>
+                        <CardDescription>Paga únicamente por lo que vas a usar</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6 pt-2">
                         <div className='flex items-center gap-6'>
@@ -253,7 +253,7 @@ export default function PerfilPage() {
                 </Card>
 
                 <Card className="relative overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10">
-                   <div className="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full">-20%</div>
+                   <div className="absolute top-2 right-2 bg-green-500 text-white text-base font-bold px-3 py-1.5 rounded-full">-20%</div>
                   <CardHeader>
                     <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
                     <CardDescription>Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un 20 % más de créditos por el mismo precio.</CardDescription>
