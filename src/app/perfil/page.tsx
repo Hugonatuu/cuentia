@@ -122,7 +122,7 @@ export default function PerfilPage() {
             <CardContent>
               <Tabs defaultValue="subscription">
                 <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="subscription">Créditos de Suscripción</TabsTrigger>
+                  <TabsTrigger value="subscription">Mi suscripción</TabsTrigger>
                   <TabsTrigger value="payg">Créditos Pay As You Go</TabsTrigger>
                 </TabsList>
                 <TabsContent value="subscription" className="mt-4">
