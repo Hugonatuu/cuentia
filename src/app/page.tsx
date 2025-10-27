@@ -17,18 +17,35 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Sparkles, BookText } from "lucide-react";
-import placeholderImages from "@/lib/placeholder-images.json";
+import { Sparkles } from "lucide-react";
 import {
-  exampleStories,
   pricingPlans,
 } from "@/lib/placeholder-data";
 import PricingCard from "./components/PricingCard";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { communityStoriesCollectionRef } from '@/firebase/firestore/references';
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface CommunityStory {
+  id: string;
+  title: string;
+  coverImageUrl: string;
+}
 
 export default function Home() {
+
+  const firestore = useFirestore();
+  
+  const communityStoriesQuery = useMemoFirebase(() => {
+    if (!firestore) return null;
+    return communityStoriesCollectionRef(firestore);
+  }, [firestore]);
+
+  const { data: stories, isLoading } = useCollection<CommunityStory>(communityStoriesQuery);
+
 
   const characterImages = [
     "https://replicate.delivery/xezq/YMjNRS6q8ToTNpGc0BwccmJ5rp8ZVPPcL3xHAsDlvUwFVbYF/tmprddbkgrm.jpeg",
@@ -75,11 +92,8 @@ export default function Home() {
               </h2>
             </div>
             <div className="relative grid md:grid-cols-2 gap-16 items-center">
-              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-left duration-500">
-                {/* Background Blobs */}
-                <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
-                <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-yellow-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
-
+              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in zoom-in-95 duration-500">
+                
                 {/* Image collage */}
                 <div className="relative z-10">
                   <Card className="absolute -top-16 -left-40 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
@@ -102,9 +116,8 @@ export default function Home() {
                   </Card>
                 </div>
               </div>
-              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-right duration-500">
+              <div className="z-10 text-center md:text-left animate-in fade-in zoom-in-95 duration-500 delay-100">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
-                    <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                         1. CREA TU PERSONAJE
@@ -121,9 +134,8 @@ export default function Home() {
             </div>
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-left duration-500 delay-200">
+              <div className="z-10 text-center md:text-left animate-in fade-in zoom-in-95 duration-500 delay-200">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
-                    <div className="absolute -top-10 -right-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                         2. Elige que personaje quieres que aparezcan en tu cuento
@@ -137,9 +149,8 @@ export default function Home() {
                     </div>
                 </Card>
               </div>
-              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-right duration-500 delay-200">
-                <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
-
+              <div className="relative h-[400px] flex items-center justify-center animate-in fade-in zoom-in-95 duration-500 delay-300">
+                
                 <div className="relative z-10 w-full max-w-sm">
                    <Carousel
                       plugins={[
@@ -180,8 +191,6 @@ export default function Home() {
             <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
                 <div className="z-10 text-center md:col-span-1 animate-in fade-in zoom-in-95 duration-500 delay-400">
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
-                        <div className="absolute -top-10 right-0 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
-                        <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                         <div className="relative z-10">
                             <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                                 3. Escribe puntos clave y el objetivo de aprendizaje
@@ -197,8 +206,6 @@ export default function Home() {
              <div className="relative grid md:grid-cols-1 gap-16 items-center mt-20">
               <div className="z-10 text-center md:col-span-1 animate-in fade-in slide-in-from-right duration-500 delay-500">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
-                    <div className="absolute -bottom-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
-                    <div className="absolute -top-10 -right-20 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
                         4. Añade los últimos detalles de personalización a tu libro
@@ -230,27 +237,38 @@ export default function Home() {
               className="w-full max-w-5xl mx-auto"
             >
               <CarouselContent>
-                {exampleStories.map((story) => (
+                {isLoading && (
+                    [...Array(5)].map((_, index) => (
+                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                            <div className="p-1">
+                                <Skeleton className="aspect-[2/3] w-full rounded-lg" />
+                                <Skeleton className="h-6 w-3/4 mt-2" />
+                            </div>
+                        </CarouselItem>
+                    ))
+                )}
+                {!isLoading && stories && stories.map((story) => (
                   <CarouselItem
                     key={story.id}
                     className="md:basis-1/2 lg:basis-1/3"
                   >
                     <div className="p-1">
-                      <Card className="overflow-hidden">
-                        <CardContent className="p-0">
-                          <Image
-                            src={story.image.imageUrl}
-                            alt={story.title}
-                            width={400}
-                            height={600}
-                            className="w-full h-auto object-cover aspect-[2/3]"
-                            data-ai-hint={story.image.imageHint}
-                          />
-                          <div className="p-4">
-                            <h3 className="font-bold text-lg">{story.title}</h3>
-                          </div>
-                        </CardContent>
-                      </Card>
+                       <Link href={`/comunidad/leer/${story.id}`}>
+                          <Card className="overflow-hidden group">
+                            <CardContent className="p-0">
+                              <Image
+                                src={story.coverImageUrl}
+                                alt={story.title}
+                                width={400}
+                                height={600}
+                                className="w-full h-auto object-cover aspect-[2/3] transition-transform duration-300 group-hover:scale-105"
+                              />
+                              <div className="p-4">
+                                <h3 className="font-bold text-lg truncate">{story.title}</h3>
+                              </div>
+                            </CardContent>
+                          </Card>
+                       </Link>
                     </div>
                   </CarouselItem>
                 ))}
@@ -258,6 +276,11 @@ export default function Home() {
               <CarouselPrevious />
               <CarouselNext />
             </Carousel>
+             {!isLoading && (!stories || stories.length === 0) && (
+                <div className="text-center text-muted-foreground py-10">
+                    No hay cuentos en la comunidad todavía.
+                </div>
+            )}
           </div>
         </section>
 
