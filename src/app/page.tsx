@@ -299,18 +299,18 @@ export default function Home() {
             </div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg">
                   ¿Cómo funciona la creación de avatares?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="text-base">
                   Simplemente subes varias fotos de una persona o mascota, y
                   nuestra IA generará un personaje de dibujos animados que podrás usar
                   como protagonista en todos tus cuentos.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger>¿Qué son los créditos?</AccordionTrigger>
-                <AccordionContent>
+                <AccordionTrigger className="text-lg">¿Qué son los créditos?</AccordionTrigger>
+                <AccordionContent className="text-base">
                   Los créditos son la moneda de Cuentia. Los usas para generar
                   cuentos e ilustraciones. Cada plan te da una cantidad
                   diferente de créditos para que des rienda suelta a tu
@@ -318,20 +318,20 @@ export default function Home() {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg">
                   ¿Puedo usar los cuentos comercialmente?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="text-base">
                   Sí, con nuestros planes de suscripción, tienes plenos
                   derechos para usar los cuentos e ilustraciones generados como
                   desees, incluso para proyectos comerciales.
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger>
+                <AccordionTrigger className="text-lg">
                   ¿Cuántos créditos cuesta crear un cuento?
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="text-base">
                   Los cuentos más básicos cuestan desde 400 créditos. Según la cantidad de páginas o ilustraciones que elijas, el coste puede aumentar, pero siempre lo verás antes de confirmar la creación.
                 </AccordionContent>
               </AccordionItem>
