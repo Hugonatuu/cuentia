@@ -80,8 +80,11 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-20 bg-card overflow-hidden">
-          <div className="container mx-auto px-4">
+        <section id="how-it-works" className="py-20 bg-card overflow-hidden relative">
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-300/50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob"></div>
+          <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-pink-300/50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-16">
               <h2 className="font-headline text-4xl md:text-5xl text-gray-800">
                 CÓMO FUNCIONA
