@@ -33,6 +33,7 @@ export default function PerfilPage() {
   const firestore = useFirestore();
   const router = useRouter();
   const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
+  const [activeTab, setActiveTab] = useState('stories');
 
 
   useEffect(() => {
@@ -151,20 +152,26 @@ export default function PerfilPage() {
                   </div>
                 </TabsContent>
                 <TabsContent value="payg" className="mt-4">
-                  <div className="space-y-2">
-                    <p className="font-semibold">Créditos comprados</p>
-                    <div className="flex items-center gap-4">
-                      <Gift className="h-6 w-6 text-primary" />
-                      <span className="font-bold text-xl">
-                        {userProfile.payAsYouGoCredits.current.toLocaleString()}
-                      </span>
+                  <div className="flex justify-between items-center">
+                    <div className="space-y-2">
+                      <p className="font-semibold">Créditos comprados</p>
+                      <div className="flex items-center gap-4">
+                        <Gift className="h-6 w-6 text-primary" />
+                        <span className="font-bold text-xl">
+                          {userProfile.payAsYouGoCredits.current.toLocaleString()}
+                        </span>
+                      </div>
                     </div>
+                     <Button onClick={() => setActiveTab('subscription')}>
+                      <CreditCard className="mr-2 h-4 w-4" />
+                      Añadir Créditos
+                    </Button>
                   </div>
                 </TabsContent>
               </Tabs>
             </CardContent>
           </Card>
-          <Tabs defaultValue="stories">
+          <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="stories">Mis Cuentos</TabsTrigger>
               <TabsTrigger value="subscription">Planes</TabsTrigger>
