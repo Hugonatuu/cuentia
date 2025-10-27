@@ -51,7 +51,7 @@ export default function Home() {
             <div className="flex justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild>
                 <Link href="/cuentos/crear/aprendizaje">
-                  Empezar a Crear <ArrowRight className="ml-2 h-5 w-5" />
+                  Crear mi Cuento <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button size="lg" variant="secondary" asChild>
