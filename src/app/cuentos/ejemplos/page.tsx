@@ -31,7 +31,7 @@ export default function EjemplosPage() {
                 />
               </CardContent>
               <CardHeader>
-                <CardTitle className="text-lg">{story.title}</CardTitle>
+                <CardTitle className="text-lg text-center">{story.title}</CardTitle>
               </CardHeader>
             </Link>
             <CardFooter className="mt-auto p-4">

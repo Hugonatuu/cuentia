@@ -176,7 +176,7 @@ export default function PerfilPage() {
                                         )}
                                     </CardContent>
                                     <CardHeader>
-                                        <CardTitle className="text-lg truncate">{story.title}</CardTitle>
+                                        <CardTitle className="text-lg text-center truncate">{story.title}</CardTitle>
                                     </CardHeader>
                                     <CardFooter className="mt-auto">
                                         <Button asChild className="w-full" disabled={!isCompleted}>

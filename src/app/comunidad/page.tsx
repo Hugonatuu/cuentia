@@ -76,10 +76,10 @@ export default function ComunidadPage() {
                 </Link>
               </CardContent>
               <CardHeader>
-                <CardTitle className="text-lg">{story.title}</CardTitle>
+                <CardTitle className="text-lg text-center">{story.title}</CardTitle>
               </CardHeader>
               <CardFooter className="mt-auto p-4">
-                <Button asChild className="w-full">
+                <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
                   <Link href={`/comunidad/leer/${story.id}`}>
                     <BookOpen className="mr-2 h-4 w-4" />
                     Leer Cuento
