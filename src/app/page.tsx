@@ -48,7 +48,7 @@ export default function Home() {
             <div className="flex justify-center animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild className="h-14 px-10 text-lg">
                 <Link href="/cuentos/crear/aprendizaje">
-                  Crear mi Cuento <Sparkles className="ml-2 h-5 w-5" />
+                  ✨ Crear mi Cuento ✨
                 </Link>
               </Button>
             </div>
@@ -85,8 +85,8 @@ export default function Home() {
                 <div className="relative z-10">
                   <Card className="p-2 bg-white shadow-xl rotate-[-8deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
-                      src="https://replicate.delivery/xezq/Kz3kDfIH8gxWXy5PDDnX4vlxL7OTsec1EQtdWPJ3TmfLf1GWB/tmp4c8ladyg.jpeg"
-                      alt="Personaje de dibujos animados"
+                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/personaje-principal-idea.png"
+                      alt="Transformación de foto a personaje"
                       width={200}
                       height={200}
                       className="rounded"
@@ -94,8 +94,8 @@ export default function Home() {
                   </Card>
                   <Card className="absolute -bottom-16 right-0 p-2 bg-white shadow-2xl rotate-[5deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
-                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/personaje-principal-idea.png"
-                      alt="Transformación de foto a personaje"
+                      src="https://replicate.delivery/xezq/Kz3kDfIH8gxWXy5PDDnX4vlxL7OTsec1EQtdWPJ3TmfLf1GWB/tmp4c8ladyg.jpeg"
+                      alt="Personaje de dibujos animados"
                       width={220}
                       height={220}
                       className="rounded"
