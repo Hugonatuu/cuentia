@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import {
   Accordion,
@@ -68,8 +69,7 @@ export default function Home() {
                   1. CREA TU PERSONAJE
                 </h3>
                 <p className="text-lg text-muted-foreground mb-6">
-                  Sube una foto, comienza desde cero o elige un personaje de
-                  nuestro Mundo de Personajes.
+                  Sube una foto, Crea una versión mágica de ti, de tu mascota o de quien tú quieras… ¡y tantos personajes como imagines!
                 </p>
                 <Button asChild>
                   <Link href="/crear-personaje">Crear un Personaje</Link>
