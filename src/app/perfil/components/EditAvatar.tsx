@@ -39,10 +39,10 @@ export default function EditAvatar({ user }: EditAvatarProps) {
       // Update Firebase Auth profile
       await updateProfile(auth.currentUser, { photoURL: newPhotoURL });
       
-      // Force refresh of the user token to get the updated profile info
-      await auth.currentUser.getIdToken(true);
+      // Force a reload of the user object to get the updated profile info client-side
+      await auth.currentUser.reload();
 
-      // Update Firestore document
+      // Update Firestore document (non-blocking)
       const userRef = userDocRef(firestore, auth.currentUser.uid);
       updateDocumentNonBlocking(userRef, { photoURL: newPhotoURL });
 
