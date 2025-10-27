@@ -83,7 +83,7 @@ export default function Home() {
 
                 {/* Image collage */}
                 <div className="relative z-10">
-                  <Card className="p-2 bg-white shadow-xl rotate-[-8deg] transform hover:scale-110 transition-transform duration-300">
+                  <Card className="absolute -top-16 -left-16 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
                       src="https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
                       alt="Transformación de foto a personaje"
@@ -92,7 +92,7 @@ export default function Home() {
                       className="rounded"
                     />
                   </Card>
-                  <Card className="absolute -bottom-16 right-0 p-2 bg-white shadow-2xl rotate-[5deg] transform hover:scale-110 transition-transform duration-300">
+                  <Card className="relative p-2 bg-white shadow-2xl rotate-[5deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
                       src="https://replicate.delivery/xezq/Kz3kDfIH8gxWXy5PDDnX4vlxL7OTsec1EQtdWPJ3TmfLf1GWB/tmp4c8ladyg.jpeg"
                       alt="Personaje de dibujos animados"
