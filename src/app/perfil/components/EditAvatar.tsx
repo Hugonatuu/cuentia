@@ -39,25 +39,30 @@ export default function EditAvatar({ user }: EditAvatarProps) {
   });
 
   const handleUpload = async () => {
-    if (!newAvatarFile) return;
+    if (!newAvatarFile || !firestore) return;
 
     setIsUploading(true);
     try {
-      // NOTE: Replace this with your actual file upload logic (e.g., to a webhook or Firebase Storage)
       const formData = new FormData();
-      formData.append('avatar', newAvatarFile);
+      // Although the webhook expects 'images', we send a single file which is what character creation does for a single image.
+      // We are piggy-backing on the same endpoint. If a dedicated endpoint for profile pictures is available, it should be used.
+      formData.append('images', newAvatarFile); 
 
-      // SIMULATING A WEBHOOK UPLOAD
-      const response = await new Promise<{ url: string }>((resolve) => {
-        setTimeout(() => {
-          resolve({ url: preview! }); // Use preview for simulation
-        }, 1500);
+      const uploadResponse = await fetch('https://natuai-n8n.kl7z6h.easypanel.host/webhook/90d5d462-d86c-455b-88d6-39192765c718', {
+        method: 'POST',
+        body: formData,
       });
-      // In a real scenario, the response would be from your server:
-      // const uploadResponse = await fetch('YOUR_UPLOAD_WEBHOOK', { method: 'POST', body: formData });
-      // const response = await uploadResponse.json();
 
-      const newPhotoURL = response.url;
+      if (!uploadResponse.ok) {
+        throw new Error('Error al subir la imagen al servidor.');
+      }
+      
+      const response: { avatarUrl: string } = await uploadResponse.json();
+      const newPhotoURL = response.avatarUrl;
+
+      if (!newPhotoURL) {
+        throw new Error('La respuesta del servidor no incluyó una URL válida.');
+      }
 
       // Update Firebase Auth profile
       await updateProfile(user, { photoURL: newPhotoURL });
@@ -72,9 +77,9 @@ export default function EditAvatar({ user }: EditAvatarProps) {
       });
 
       // Cleanup
+      if (preview) URL.revokeObjectURL(preview);
       setNewAvatarFile(null);
       setPreview(null);
-      if (preview) URL.revokeObjectURL(preview);
 
     } catch (error) {
       console.error('Error uploading avatar:', error);
