@@ -25,6 +25,33 @@ interface Story {
   status: 'generating' | 'completed';
 }
 
+const payAsYouGoPlans = [
+  {
+    name: '5€',
+    price: '5€',
+    credits: '5.000 créditos',
+    features: ['Paga solo por lo que usas', 'Ideal para empezar'],
+    isFeatured: false,
+    cta: 'Comprar Créditos',
+  },
+  {
+    name: '10€',
+    price: '10€',
+    credits: '10.000 créditos',
+    features: ['Paga solo por lo que usas', 'Para crear varias historias'],
+    isFeatured: false,
+    cta: 'Comprar Créditos',
+  },
+  {
+    name: '15€',
+    price: '15€',
+    credits: '15.000 créditos',
+    features: ['Paga solo por lo que usas', 'Más créditos, más diversión'],
+    isFeatured: false,
+    cta: 'Comprar Créditos',
+  },
+]
+
 export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
@@ -210,32 +237,46 @@ export default function PerfilPage() {
               </Card>
             </TabsContent>
             <TabsContent value="subscription">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Gestionar Suscripción</CardTitle>
-                  <CardDescription>
-                    Cambia de plan para obtener más créditos y beneficios.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {pricingPlans
-                    .filter((p) => p.name !== 'Pay as you go')
-                    .map((plan) => (
+              <div className="space-y-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Modelo Pay As You Go</CardTitle>
+                    <CardDescription>Paga únicamente por lo que vas a usar.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {payAsYouGoPlans.map((plan) => (
                       <div key={plan.name} className="flex flex-col">
-                        <PricingCard
-                          plan={{
-                            ...plan,
-                            isFeatured: plan.name === userProfile.subscription,
-                            cta:
-                              plan.name === userProfile.subscription
-                                ? 'Plan Actual'
-                                : 'Cambiar Plan',
-                          }}
-                        />
+                        <PricingCard plan={plan} />
                       </div>
                     ))}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Modelo de Suscripción (¡Más rentable!)</CardTitle>
+                    <CardDescription>Cambia de plan para obtener más créditos y beneficios.</CardDescription>
+                  </CardHeader>
+                  <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {pricingPlans
+                      .filter((p) => p.name !== 'Pay as you go')
+                      .map((plan) => (
+                        <div key={plan.name} className="flex flex-col">
+                          <PricingCard
+                            plan={{
+                              ...plan,
+                              isFeatured: plan.name === userProfile.subscription,
+                              cta:
+                                plan.name === userProfile.subscription
+                                  ? 'Plan Actual'
+                                  : 'Cambiar Plan',
+                            }}
+                          />
+                        </div>
+                      ))}
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
           </Tabs>
         </div>
