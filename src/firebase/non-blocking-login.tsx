@@ -9,6 +9,7 @@ import {
   UserCredential,
   User,
   sendEmailVerification,
+  updateProfile,
 } from 'firebase/auth';
 import { doc, serverTimestamp } from 'firebase/firestore';
 import { setDocumentNonBlocking } from './non-blocking-updates';
@@ -42,17 +43,26 @@ export function initiateEmailSignUp(
   authInstance: Auth,
   email: string,
   password: string,
+  displayName: string,
   onSuccess?: () => void
 ): void {
-  createUserWithEmailAndPassword(authInstance, email, password).then(
-    (userCredential) => {
-      // On successful creation, create the user document and send verification.
+  createUserWithEmailAndPassword(authInstance, email, password)
+    .then(async (userCredential) => {
+      // Update profile first
+      await updateProfile(userCredential.user, { displayName });
+
+      // Then create user document with all info and send verification
       createUserDocument(userCredential.user);
       sendEmailVerification(userCredential.user);
-      authInstance.signOut();
+
+      // Sign out to force user to log in after verification
+      await authInstance.signOut();
       onSuccess?.();
-    }
-  );
+    })
+    .catch((error) => {
+      console.error('Sign-up error:', error);
+      // Optionally, handle specific errors and show toasts
+    });
 }
 
 /** Initiate email/password sign-in (non-blocking). */

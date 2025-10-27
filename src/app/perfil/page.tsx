@@ -19,6 +19,7 @@ import { Slider } from '@/components/ui/slider';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import EditDisplayName from './components/EditDisplayName';
 
 interface Story {
   id: string;
@@ -112,7 +113,7 @@ export default function PerfilPage() {
                 : user.email?.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
-          <h2 className="text-xl font-bold">{user.displayName || userProfile.name}</h2>
+           <EditDisplayName user={user} />
           <p className="text-sm text-muted-foreground">{user.email}</p>
         </div>
         <div className="grid gap-10">

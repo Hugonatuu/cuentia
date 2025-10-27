@@ -37,7 +37,7 @@ export default function RegisterPage() {
   const handleSignUp = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!auth) return;
-    initiateEmailSignUp(auth, email, password, () => {
+    initiateEmailSignUp(auth, email, password, firstName, () => {
       router.push('/verificar-correo');
     });
   };
