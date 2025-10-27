@@ -40,7 +40,7 @@ export default function Home() {
               priority
             />
           <div className="relative container mx-auto px-4 text-center z-10">
-            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4">
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg">
               Crea Cuentos Mágicos
             </h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-white/90 mb-8">
