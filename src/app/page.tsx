@@ -104,6 +104,37 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
+               <div className="relative h-[400px] flex items-center justify-center md:order-last">
+                <div className="absolute -top-10 -left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
+                <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
+
+                <div className="relative z-10">
+                  <Card className="p-2 bg-white shadow-xl transform hover:scale-110 transition-transform duration-300">
+                    <Image
+                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/fondo-mundo-personajes.png"
+                      alt="Mundo de Personajes"
+                      width={300}
+                      height={300}
+                      className="rounded"
+                    />
+                  </Card>
+                </div>
+              </div>
+              <div className="z-10 text-center md:text-left">
+                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
+                  2. Elige que personaje quieres que aparezcan en tu cuento
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Puedes elegir entre los personajes que has creado, o usar los personajes predefinidos de Cuentia. ¡Combínalos como quieras!
+                </p>
+                <Button asChild>
+                  <Link href="/personajes">Ver Personajes</Link>
+                </Button>
+              </div>
+            </div>
+
           </div>
         </section>
 
