@@ -90,7 +90,8 @@ export default function PerfilPage() {
     );
   }
 
-  const creditPercentage = (userProfile.credits / userProfile.totalCredits) * 100;
+  const subscriptionCreditPercentage = (userProfile.subscriptionCredits.current / userProfile.subscriptionCredits.total) * 100;
+  const paygCreditPercentage = (userProfile.payAsYouGoCredits.current / userProfile.payAsYouGoCredits.total) * 100;
   const payAsYouGoCredits = payAsYouGoEuros * 1000;
 
 
@@ -116,22 +117,38 @@ export default function PerfilPage() {
         <div className="grid gap-10">
           <Card>
             <CardHeader>
-              <CardTitle>Tu Plan Actual</CardTitle>
-              <CardDescription>
-                Estás en el {userProfile.subscription}.
-              </CardDescription>
+              <CardTitle>Tu Plan Actual: {userProfile.subscription}</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-2">
-                <p className="font-semibold">Créditos Restantes</p>
-                <div className="flex items-center gap-4">
-                  <Progress value={creditPercentage} className="w-[60%]" />
-                  <span className="font-bold">
-                    {userProfile.credits.toLocaleString()} /{' '}
-                    {userProfile.totalCredits.toLocaleString()}
-                  </span>
-                </div>
-              </div>
+              <Tabs defaultValue="subscription">
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="subscription">Créditos de Suscripción</TabsTrigger>
+                  <TabsTrigger value="payg">Créditos Pay As You Go</TabsTrigger>
+                </TabsList>
+                <TabsContent value="subscription" className="mt-4">
+                  <div className="space-y-2">
+                    <p className="font-semibold">Créditos restantes del plan</p>
+                    <div className="flex items-center gap-4">
+                      <Progress value={subscriptionCreditPercentage} className="w-[60%]" />
+                      <span className="font-bold">
+                        {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
+                        {userProfile.subscriptionCredits.total.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </TabsContent>
+                <TabsContent value="payg" className="mt-4">
+                  <div className="space-y-2">
+                    <p className="font-semibold">Créditos comprados</p>
+                    <div className="flex items-center gap-4">
+                      <Progress value={paygCreditPercentage} className="w-[60%]" />
+                      <span className="font-bold">
+                        {userProfile.payAsYouGoCredits.current.toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
             </CardContent>
           </Card>
           <Tabs defaultValue="stories">
@@ -253,7 +270,9 @@ export default function PerfilPage() {
                 </Card>
 
                 <Card className="relative overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10">
-                   <div className="absolute top-2 right-2 bg-green-500 text-white text-base font-bold px-3 py-1.5 rounded-full">-20%</div>
+                   <div className="absolute top-2 right-2 bg-green-500 text-white text-base font-bold px-3 py-1.5 rounded-full rotate-12 transform">
+                     <span>-20%</span>
+                   </div>
                   <CardHeader>
                     <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
                     <CardDescription>Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un 20 % más de créditos por el mismo precio.</CardDescription>
