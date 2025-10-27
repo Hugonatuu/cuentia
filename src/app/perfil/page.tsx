@@ -30,7 +30,7 @@ export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
-  const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(10);
+  const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
 
 
   useEffect(() => {
@@ -231,7 +231,7 @@ export default function PerfilPage() {
                                 <Slider 
                                     value={[payAsYouGoEuros]} 
                                     onValueChange={(value) => setPayAsYouGoEuros(value[0])}
-                                    min={1} 
+                                    min={5} 
                                     max={50} 
                                     step={1} 
                                 />
