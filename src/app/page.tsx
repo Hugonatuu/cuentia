@@ -40,15 +40,15 @@ export default function Home() {
               priority
             />
           <div className="relative container mx-auto px-4 text-center z-10">
-            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg">
+            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out">
               Crea Cuentos Mágicos
             </h1>
-            <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold">
+            <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
               Transforma tus ideas en historias personalizadas con ilustraciones
               únicas. La herramienta perfecta para padres, educadores y
               pequeños soñadores.
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild>
                 <Link href="/cuentos/crear/aprendizaje">
                   Empezar a Crear <ArrowRight className="ml-2 h-5 w-5" />
