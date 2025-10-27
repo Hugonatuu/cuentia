@@ -1,69 +1,40 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { useState } from 'react';
 import { User, updateProfile } from 'firebase/auth';
 import { useFirestore } from '@/firebase';
 import { userDocRef } from '@/firebase/firestore/references';
 import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
-import { Camera, Loader2, UploadCloud, X } from 'lucide-react';
-import Image from 'next/image';
+import { Camera, Loader2 } from 'lucide-react';
+import { ProfileAvatarPickerDialog } from './ProfileAvatarPickerDialog'; // Changed import
+import type { AnyCharacter } from '@/app/cuentos/crear/components/types';
 
 interface EditAvatarProps {
   user: User;
 }
 
 export default function EditAvatar({ user }: EditAvatarProps) {
-  const [newAvatarFile, setNewAvatarFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isPickerDialogOpen, setIsPickerDialogOpen] = useState(false);
   const firestore = useFirestore();
   const { toast } = useToast();
 
-  const onDrop = useCallback((acceptedFiles: File[]) => {
-    if (acceptedFiles[0]) {
-      const file = acceptedFiles[0];
-      setNewAvatarFile(file);
-      const previewUrl = URL.createObjectURL(file);
-      setPreview(previewUrl);
+  const handleSelectAvatar = async (character: AnyCharacter) => {
+    if (!firestore) return;
+
+    const newPhotoURL = 'avatarUrl' in character ? character.avatarUrl : character.imageUrl;
+
+    if (newPhotoURL === user.photoURL) {
+      setIsPickerDialogOpen(false);
+      return;
     }
-  }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: { 'image/*': ['.jpeg', '.png', '.jpg'] },
-    multiple: false,
-  });
+    setIsUpdating(true);
+    setIsPickerDialogOpen(false);
 
-  const handleUpload = async () => {
-    if (!newAvatarFile || !firestore) return;
-
-    setIsUploading(true);
     try {
-      const formData = new FormData();
-      // Although the webhook expects 'images', we send a single file which is what character creation does for a single image.
-      // We are piggy-backing on the same endpoint. If a dedicated endpoint for profile pictures is available, it should be used.
-      formData.append('images', newAvatarFile); 
-
-      const uploadResponse = await fetch('https://natuai-n8n.kl7z6h.easypanel.host/webhook/90d5d462-d86c-455b-88d6-39192765c718', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!uploadResponse.ok) {
-        throw new Error('Error al subir la imagen al servidor.');
-      }
-      
-      const response: { avatarUrl: string } = await uploadResponse.json();
-      const newPhotoURL = response.avatarUrl;
-
-      if (!newPhotoURL) {
-        throw new Error('La respuesta del servidor no incluyó una URL válida.');
-      }
-
       // Update Firebase Auth profile
       await updateProfile(user, { photoURL: newPhotoURL });
 
@@ -75,50 +46,25 @@ export default function EditAvatar({ user }: EditAvatarProps) {
         title: '¡Avatar actualizado!',
         description: 'Tu foto de perfil se ha cambiado correctamente.',
       });
-
-      // Cleanup
-      if (preview) URL.revokeObjectURL(preview);
-      setNewAvatarFile(null);
-      setPreview(null);
-
     } catch (error) {
-      console.error('Error uploading avatar:', error);
+      console.error('Error updating avatar:', error);
       toast({
         variant: 'destructive',
-        title: 'Error al subir',
+        title: 'Error al actualizar',
         description: 'No se pudo cambiar tu foto de perfil. Por favor, inténtalo de nuevo.',
       });
     } finally {
-      setIsUploading(false);
+      setIsUpdating(false);
     }
   };
 
-  const handleCancel = () => {
-    if (preview) {
-        URL.revokeObjectURL(preview);
-    }
-    setNewAvatarFile(null);
-    setPreview(null);
-  }
-
   return (
-    <div className="relative group mb-4">
-      {preview ? (
-        <div className="flex flex-col items-center gap-4">
-            <Image src={preview} alt="Vista previa del nuevo avatar" width={96} height={96} className="h-24 w-24 rounded-full object-cover" />
-            <div className="flex gap-2">
-                <Button onClick={handleUpload} disabled={isUploading}>
-                    {isUploading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <UploadCloud className="h-4 w-4 mr-2" />}
-                    Guardar
-                </Button>
-                <Button variant="ghost" size="icon" onClick={handleCancel} disabled={isUploading}>
-                    <X className="h-4 w-4" />
-                </Button>
-            </div>
-        </div>
-      ) : (
-        <div {...getRootProps()} className="cursor-pointer">
-          <input {...getInputProps()} />
+    <>
+      <div className="relative group mb-4">
+        <div 
+          className="cursor-pointer"
+          onClick={() => !isUpdating && setIsPickerDialogOpen(true)}
+        >
           <Avatar className="h-24 w-24">
             <AvatarImage
               src={user.photoURL || `https://avatar.vercel.sh/${user.uid}.png`}
@@ -131,10 +77,19 @@ export default function EditAvatar({ user }: EditAvatarProps) {
             </AvatarFallback>
           </Avatar>
           <div className="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <Camera className="h-8 w-8 text-white" />
+            {isUpdating ? (
+              <Loader2 className="h-8 w-8 text-white animate-spin" />
+            ) : (
+              <Camera className="h-8 w-8 text-white" />
+            )}
           </div>
         </div>
-      )}
-    </div>
+      </div>
+      <ProfileAvatarPickerDialog
+        isOpen={isPickerDialogOpen}
+        onOpenChange={setIsPickerDialogOpen}
+        onSelectAvatar={handleSelectAvatar}
+      />
+    </>
   );
 }
