@@ -117,18 +117,20 @@ export default function Home() {
                   </Card>
                 </div>
               </div>
-              <div className="z-10 text-center md:text-left animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+              <div className="z-10 text-center md:text-left">
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                      <div className="relative z-10">
-                        <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
+                        <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
                         1. CREA TU PERSONAJE
                         </h3>
-                        <p className="text-lg text-muted-foreground mb-6">
+                        <p className="text-lg text-muted-foreground mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                         Sube una foto, Crea una versión mágica de ti, de tu mascota o de quien tú quieras… ¡y tantos personajes como imagines!
                         </p>
-                        <Button asChild>
-                        <Link href="/crear-personaje">Crear un Personaje</Link>
-                        </Button>
+                        <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-400">
+                          <Button asChild>
+                            <Link href="/crear-personaje">Crear un Personaje</Link>
+                          </Button>
+                        </div>
                     </div>
                 </Card>
               </div>
