@@ -75,18 +75,6 @@ export default function Home() {
               </h2>
             </div>
             <div className="relative grid md:grid-cols-2 gap-16 items-center">
-              <div className="z-10 text-center md:text-left">
-                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
-                  1. CREA TU PERSONAJE
-                </h3>
-                <p className="text-lg text-muted-foreground mb-6">
-                  Sube una foto, Crea una versión mágica de ti, de tu mascota o de quien tú quieras… ¡y tantos personajes como imagines!
-                </p>
-                <Button asChild>
-                  <Link href="/crear-personaje">Crear un Personaje</Link>
-                </Button>
-              </div>
-
               <div className="relative h-[400px] flex items-center justify-center">
                 {/* Background Blobs */}
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
@@ -114,10 +102,32 @@ export default function Home() {
                   </Card>
                 </div>
               </div>
+              <div className="z-10 text-center md:text-left">
+                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
+                  1. CREA TU PERSONAJE
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Sube una foto, Crea una versión mágica de ti, de tu mascota o de quien tú quieras… ¡y tantos personajes como imagines!
+                </p>
+                <Button asChild>
+                  <Link href="/crear-personaje">Crear un Personaje</Link>
+                </Button>
+              </div>
             </div>
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="relative h-[400px] flex items-center justify-center order-last md:order-first">
+              <div className="z-10 text-center md:text-left order-last md:order-first">
+                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
+                  2. Elige que personaje quieres que aparezcan en tu cuento
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Puedes elegir entre los personajes que has creado, o usar los personajes predefinidos de Cuentia. ¡Combínalos como quieras!
+                </p>
+                <Button asChild>
+                  <Link href="/personajes">Ver Personajes</Link>
+                </Button>
+              </div>
+              <div className="relative h-[400px] flex items-center justify-center">
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
 
@@ -155,17 +165,6 @@ export default function Home() {
                       <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-10" />
                     </Carousel>
                 </div>
-              </div>
-              <div className="z-10 text-center md:text-left">
-                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
-                  2. Elige que personaje quieres que aparezcan en tu cuento
-                </h3>
-                <p className="text-lg text-muted-foreground mb-6">
-                  Puedes elegir entre los personajes que has creado, o usar los personajes predefinidos de Cuentia. ¡Combínalos como quieras!
-                </p>
-                <Button asChild>
-                  <Link href="/personajes">Ver Personajes</Link>
-                </Button>
               </div>
             </div>
             
@@ -367,3 +366,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
