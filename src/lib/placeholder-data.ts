@@ -19,7 +19,7 @@ export const mainNavLinks = [
   { href: '/cuentos/crear/aprendizaje', label: '💫 Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
   { href: '/comunidad', label: 'Cuentos de la comunidad' },
-  { href: '/#precios', label: 'Precios' },
+  { href: '/precios', label: 'Precios' },
 ];
 
 export const pricingPlans = [
