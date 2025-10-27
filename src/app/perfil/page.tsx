@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -77,7 +76,7 @@ export default function PerfilPage() {
             <Tabs defaultValue="stories">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="stories">Mis Cuentos</TabsTrigger>
-                <TabsTrigger value="subscription">Suscripción</TabsTrigger>
+                <TabsTrigger value="subscription">Planes</TabsTrigger>
               </TabsList>
               <TabsContent value="stories">
                  <Skeleton className="h-96 w-full" />
@@ -168,7 +167,7 @@ export default function PerfilPage() {
           <Tabs defaultValue="stories">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="stories">Mis Cuentos</TabsTrigger>
-              <TabsTrigger value="subscription">Suscripción</TabsTrigger>
+              <TabsTrigger value="subscription">Planes</TabsTrigger>
             </TabsList>
             <TabsContent value="stories">
               <Card>
