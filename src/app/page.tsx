@@ -44,9 +44,7 @@ export default function Home() {
               Crea Cuentos Mágicos
             </h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
-              Transforma tus ideas en historias personalizadas con ilustraciones
-              únicas. La herramienta perfecta para padres, educadores y
-              pequeños soñadores.
+              Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.
             </p>
             <div className="flex justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild>
