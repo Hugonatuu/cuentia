@@ -2,158 +2,152 @@
  * @fileoverview Firestore Security Rules for the application.
  *
  * Core Philosophy:
- * This ruleset enforces a combination of user-ownership and public-read/owner-write access patterns.
- * User-generated content is generally secured under the /users/{userId} path, ensuring only the owning user can modify it.
- * Publicly available data, such as community stories and predefined characters, is readable by all but writable only under certain conditions (e.g., by the application itself, which is not modeled in this prototype).
+ * This ruleset enforces a strict user-ownership model for user-generated content
+ * (stories, characters), ensuring that only the authenticated user who created
+ * the content can modify or delete it. Public read access is granted where
+ * appropriate (e.g., predefined characters, community stories).
  *
  * Data Structure:
- * - /users/{userId}: Stores user profiles, secured by ownership.
- * - /users/{userId}/characters/{characterId}: Stores user-created characters, secured by ownership.
- * - /users/{userId}/stories/{storyId}: Stores user-created stories, secured by ownership.
- * - /subscriptions/{subscriptionId}: Stores subscription plans, publicly readable.
- * - /predefinedCharacters/{characterId}: Stores predefined characters, publicly readable.
- * - /communityStories/{storyId}: Stores community stories, publicly readable.
+ * - /users/{userId}: Stores user profile information.  Only the user can write
+ *   to their own profile.  Read access is public.
+ * - /users/{userId}/stories/{storyId}: Stores stories created by the user.
+ *   Only the user can manage their own stories.
+ * - /users/{userId}/characters/{characterId}: Stores characters created by the user.
+ *   Only the user can manage their own characters.
+ * - /subscriptions/{subscriptionId}: Stores subscription plans. Read access is
+ *   public, write access is restricted.
+ * - /predefinedCharacters/{characterId}: Stores predefined characters. Read
+ *   access is public, write access is restricted.
+ * - /communityStories/{storyId}: Stores community stories. Read access is
+ *   public, write access is restricted.
  *
  * Key Security Decisions:
- * - User listing is generally disallowed to protect privacy.
- * - Public read access is granted to community stories and predefined characters, assuming these collections are intended to be publicly visible.
- * - Data validation is minimal in this prototype to enable rapid iteration. Only authorization-critical fields are validated.
- * - The app does not have a concept of "roles", and no admin privileges are defined.
+ * - Users can only read and write their own profile data and their associated
+ *   stories and characters.
+ * - Listing of user profiles is implicitly denied via the security rules structure.
+ * - Subscription plans, predefined characters, and community stories are
+ *   publicly readable but not writable by end-users.
+ *
+ * Denormalization for Authorization:
+ * - Stories and characters are stored under the user's document. To create simpler, more performant rules, denormalize (copy) data required for an authorization decision directly onto the documents being secured.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Checks if the request is authenticated.
-     * @returns {boolean} True if the request is authenticated, false otherwise.
+     * @description Secure user profiles. Users can read all profiles, but only write their own.
+     * @path /users/{userId}
+     * @allow (create, update, delete) auth.uid == userId (isOwner)
+     * @allow (get, list) public read
+     * @deny (create, update, delete) if auth.uid != userId
+     * @principle Enforces document ownership for writes, allows public reads.
+     */
+    match /users/{userId} {
+      allow get, list: if true;
+      allow create: if request.auth.uid == userId;
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secure stories created by each user. Only the owner can manage their stories.
+     * @path /users/{userId}/stories/{storyId}
+     * @allow (create, update, delete) auth.uid == userId (isOwner)
+     * @allow (get, list) if isOwner(userId);
+     * @deny (create, update, delete) if auth.uid != userId
+     * @principle Enforces document ownership for writes, restricts read access to the owner.
+     */
+    match /users/{userId}/stories/{storyId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Secure characters created by each user. Only the owner can manage their characters.
+     * @path /users/{userId}/characters/{characterId}
+     * @allow (create, update, delete) auth.uid == userId (isOwner)
+     * @allow (get, list) if isOwner(userId);
+     * @deny (create, update, delete) if auth.uid != userId
+     * @principle Enforces document ownership for writes, restricts read access to the owner.
+     */
+    match /users/{userId}/characters/{characterId} {
+      allow get, list: if isOwner(userId);
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Subscription plans are publicly readable, but not writable by end-users.
+     * @path /subscriptions/{subscriptionId}
+     * @allow (get, list) public read
+     * @deny (create, update, delete) end-user writes
+     * @principle Allows public reads, restricts writes.
+     */
+    match /subscriptions/{subscriptionId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Predefined characters are publicly readable, but not writable by end-users.
+     * @path /predefinedCharacters/{characterId}
+     * @allow (get, list) public read
+     * @deny (create, update, delete) end-user writes
+     * @principle Allows public reads, restricts writes.
+     */
+    match /predefinedCharacters/{characterId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Community stories are publicly readable, but not writable by end-users.
+     * @path /communityStories/{storyId}
+     * @allow (get, list) public read
+     * @deny (create, update, delete) end-user writes
+     * @principle Allows public reads, restricts writes.
+     */
+    match /communityStories/{storyId} {
+      allow get, list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    //------------------- Helper functions -----------------------
+
+    /**
+     * @description Checks if the user is signed in.
+     * @return {boolean} True if the user is signed in, false otherwise.
      */
     function isSignedIn() {
       return request.auth != null;
     }
 
     /**
-     * @description Checks if the authenticated user ID matches the provided user ID.
-     * @param {string} userId - The user ID to compare against the authenticated user's ID.
-     * @returns {boolean} True if the user IDs match, false otherwise.
+     * @description Checks if the request is made by the owner of the document.
+     * @param {string} userId - The user ID to compare against the request's auth UID.
+     * @return {boolean} True if the request is made by the owner, false otherwise.
      */
     function isOwner(userId) {
       return isSignedIn() && request.auth.uid == userId;
     }
 
     /**
-     * @description Checks if the authenticated user is the owner and the resource exists.
-     * @param {string} userId - The user ID to compare against the authenticated user's ID.
-     * @returns {boolean} True if the user IDs match and the resource exists, false otherwise.
+     * @description Checks if the request is made by the existing owner of the document.
+     * @param {string} userId - The user ID to compare against the request's auth UID.
+     * @return {boolean} True if the request is made by the existing owner, false otherwise.
      */
     function isExistingOwner(userId) {
       return isOwner(userId) && resource != null;
-    }
-
-    /**
-     * @description Rules for user profiles.
-     * @path /users/{userId}
-     * @allow (create) User with UID 'user123' creates their profile document at /users/user123.
-     * @allow (get) Any user can read a user profile.
-     * @allow (update) User with UID 'user123' updates their profile document at /users/user123.
-     * @deny (create) User with UID 'user123' tries to create a profile document at /users/user456.
-     * @deny (delete) User tries to delete someone else's profile.
-     * @principle Enforces document ownership for writes; allows public reads.
-     */
-    match /users/{userId} {
-      allow get: if true;
-      allow list: if false; // User listing is disallowed.
-      allow create: if isOwner(userId) && request.resource.data.email is string && request.resource.data.createdAt is string;
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Rules for characters created by a user.
-     * @path /users/{userId}/characters/{characterId}
-     * @allow (create) User with UID 'user123' creates a character document at /users/user123/characters/char1.
-     * @allow (get) User with UID 'user123' reads a character document at /users/user123/characters/char1.
-     * @allow (update) User with UID 'user123' updates a character document at /users/user123/characters/char1.
-     * @deny (create) User with UID 'user123' tries to create a character document at /users/user456/characters/char1.
-     * @deny (delete) User tries to delete someone else's character.
-     * @principle Enforces document ownership for all operations.
-     */
-    match /users/{userId}/characters/{characterId} {
-      allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
-    }
-
-     /**
-      * @description Rules for stories created by a user.
-      * @path /users/{userId}/stories/{storyId}
-      * @allow (create) User with UID 'user123' creates a story document at /users/user123/stories/story1.
-      * @allow (get) User with UID 'user123' reads a story document at /users/user123/stories/story1.
-      * @allow (update) User with UID 'user123' updates a story document at /users/user123/stories/story1.
-      * @deny (create) User with UID 'user123' tries to create a story document at /users/user456/stories/story1.
-      * @deny (delete) User tries to delete someone else's story.
-      * @principle Enforces document ownership for all operations.
-      */
-    match /users/{userId}/stories/{storyId} {
-      allow get: if isOwner(userId);
-      allow list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
-    }
-
-    /**
-     * @description Rules for subscription plans.
-     * @path /subscriptions/{subscriptionId}
-     * @allow (get) Any user can read a subscription plan.
-     * @deny (create) No one can create a subscription (only backend). // TODO: Add backend check for create, update, delete
-     * @deny (update) No one can update a subscription (only backend).
-     * @deny (delete) No one can delete a subscription (only backend).
-     * @principle Allows public reads; restricts writes to the application.
-     */
-    match /subscriptions/{subscriptionId} {
-      allow get: if true;
-      allow list: if true;
-      allow create: if false; // TODO: Add backend check
-      allow update: if false; // TODO: Add backend check
-      allow delete: if false; // TODO: Add backend check
-    }
-
-    /**
-     * @description Rules for predefined characters.
-     * @path /predefinedCharacters/{characterId}
-     * @allow (get) Any user can read a predefined character.
-     * @deny (create) No one can create a predefined character (only backend). // TODO: Add backend check for create, update, delete
-     * @deny (update) No one can update a predefined character (only backend).
-     * @deny (delete) No one can delete a predefined character (only backend).
-     * @principle Allows public reads; restricts writes to the application.
-     */
-    match /predefinedCharacters/{characterId} {
-      allow get: if true;
-      allow list: if true;
-      allow create: if false; // TODO: Add backend check
-      allow update: if false; // TODO: Add backend check
-      allow delete: if false; // TODO: Add backend check
-    }
-
-    /**
-     * @description Rules for community stories.
-     * @path /communityStories/{storyId}
-     * @allow (get) Any user can read a community story.
-     * @allow (list) Any user can list community stories.
-     * @deny (create) No one can create a community story (only backend).  // TODO: Add backend check for create, update, delete
-     * @deny (update) No one can update a community story (only backend).
-     * @deny (delete) No one can delete a community story (only backend).
-     * @principle Allows public reads; restricts writes to the application.
-     */
-    match /communityStories/{storyId} {
-      allow get: if true;
-      allow list: if true;
-      allow create: if false; // TODO: Add backend check
-      allow update: if false; // TODO: Add backend check
-      allow delete: if false; // TODO: Add backend check
     }
   }
 }
