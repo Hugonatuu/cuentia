@@ -18,10 +18,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Sparkles } from "lucide-react";
-import {
-  pricingPlans,
-} from "@/lib/placeholder-data";
-import PricingCard from "./components/PricingCard";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
@@ -234,15 +230,21 @@ export default function Home() {
                 align: "start",
                 loop: true,
               }}
-              className="w-full max-w-5xl mx-auto"
+              plugins={[
+                Autoplay({
+                  delay: 2000,
+                  stopOnInteraction: true,
+                }),
+              ]}
+              className="w-full max-w-4xl mx-auto"
             >
               <CarouselContent>
                 {isLoading && (
-                    [...Array(5)].map((_, index) => (
-                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    [...Array(4)].map((_, index) => (
+                        <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/4">
                             <div className="p-1">
                                 <Skeleton className="aspect-[2/3] w-full rounded-lg" />
-                                <Skeleton className="h-6 w-3/4 mt-2" />
+                                <Skeleton className="h-6 w-3/4 mx-auto mt-2" />
                             </div>
                         </CarouselItem>
                     ))
@@ -250,7 +252,7 @@ export default function Home() {
                 {!isLoading && stories && stories.map((story) => (
                   <CarouselItem
                     key={story.id}
-                    className="md:basis-1/2 lg:basis-1/3"
+                    className="basis-1/2 md:basis-1/3 lg:basis-1/4"
                   >
                     <div className="p-1">
                        <Link href={`/comunidad/leer/${story.id}`}>
@@ -263,10 +265,10 @@ export default function Home() {
                                 height={600}
                                 className="w-full h-auto object-cover aspect-[2/3] transition-transform duration-300 group-hover:scale-105"
                               />
-                              <div className="p-4">
-                                <h3 className="font-bold text-lg truncate">{story.title}</h3>
-                              </div>
                             </CardContent>
+                            <div className="pt-2 text-center">
+                                <h3 className="font-bold text-sm truncate">{story.title}</h3>
+                            </div>
                           </Card>
                        </Link>
                     </div>
