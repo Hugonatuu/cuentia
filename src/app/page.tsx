@@ -34,13 +34,13 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white">
+        <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white overflow-hidden">
           {heroImage && (
             <Image
               src={heroImage.imageUrl}
               alt={heroImage.description}
               fill
-              className="object-cover"
+              className="object-cover animate-zoom-in"
               data-ai-hint={heroImage.imageHint}
               priority
             />
