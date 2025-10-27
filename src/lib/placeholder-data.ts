@@ -1,4 +1,3 @@
-
 import placeholderImages from './placeholder-images.json';
 
 const getImage = (id: string) => {
@@ -79,24 +78,6 @@ export const userProfile = {
   subscription: 'Plan Mágico',
   stories: exampleStories.slice(0, 3),
 };
-
-export const howItWorksSteps = [
-    {
-        icon: getImage('how-it-works-1'),
-        title: "1. Describe tu idea",
-        description: "Danos los detalles de tu cuento: personajes, tema y objetivo de aprendizaje."
-    },
-    {
-        icon: getImage('how-it-works-2'),
-        title: "2. Personaliza los detalles",
-        description: "Añade un avatar personalizado, frases especiales y dale tu toque único."
-    },
-    {
-        icon: getImage('how-it-works-3'),
-        title: "3. Recibe tu cuento mágico",
-        description: "En instantes, nuestra IA creará un cuento e ilustraciones listos para leer."
-    }
-]
 
 export const characterSubNav = [
   { href: '/personajes/predefinidos', label: 'Personajes Predefinidos' },

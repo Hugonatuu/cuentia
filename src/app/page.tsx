@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import {
   Accordion,
@@ -19,7 +18,6 @@ import { Sparkles } from "lucide-react";
 import placeholderImages from "@/lib/placeholder-images.json";
 import {
   exampleStories,
-  howItWorksSteps,
   pricingPlans,
 } from "@/lib/placeholder-data";
 import PricingCard from "./components/PricingCard";
@@ -41,7 +39,7 @@ export default function Home() {
             />
           <div className="relative container mx-auto px-4 text-center z-10">
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out">
-              Crea Cuentos Mágicos
+              Crea cuentos que cobran vida en segundos
             </h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
               Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.
@@ -57,32 +55,54 @@ export default function Home() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-20 bg-card">
+        <section id="how-it-works" className="py-20 bg-card overflow-hidden">
           <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
+            <div className="text-center mb-16">
               <h2 className="font-headline text-4xl md:text-5xl text-gray-800">
-                COMO FUNCIONA
+                CÓMO FUNCIONA
               </h2>
-              <p className="max-w-2xl mx-auto text-lg text-muted-foreground mt-4">
-                En solo unos pocos pasos, tendrás un cuento único y maravilloso
-                listo para compartir.
-              </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              {howItWorksSteps.map((step, index) => (
-                <div key={index}>
-                  <Image
-                    src={step.icon.imageUrl}
-                    alt={step.icon.description}
-                    width={200}
-                    height={200}
-                    data-ai-hint={step.icon.imageHint}
-                    className="mx-auto mb-4 rounded-full"
-                  />
-                  <h3 className="text-2xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
+            <div className="relative grid md:grid-cols-2 gap-16 items-center">
+              <div className="z-10 text-center md:text-left">
+                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
+                  1. CREA TU PERSONAJE
+                </h3>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Sube una foto, comienza desde cero o elige un personaje de
+                  nuestro Mundo de Personajes.
+                </p>
+                <Button asChild>
+                  <Link href="/crear-personaje">Crear un Personaje</Link>
+                </Button>
+              </div>
+
+              <div className="relative h-[400px] flex items-center justify-center">
+                {/* Background Blobs */}
+                <div className="absolute -top-10 -left-20 w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
+                <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-yellow-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
+
+                {/* Image collage */}
+                <div className="relative z-10">
+                  <Card className="p-2 bg-white shadow-xl rotate-[-8deg] transform hover:scale-110 transition-transform duration-300">
+                    <Image
+                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/ejemplo-mundo-personajes-2.png"
+                      alt="Personaje de dibujos animados"
+                      width={200}
+                      height={200}
+                      className="rounded"
+                    />
+                  </Card>
+                  <Card className="absolute -bottom-16 right-0 p-2 bg-white shadow-2xl rotate-[5deg] transform hover:scale-110 transition-transform duration-300">
+                    <Image
+                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/personaje-principal-idea.png"
+                      alt="Transformación de foto a personaje"
+                      width={220}
+                      height={220}
+                      className="rounded"
+                    />
+                  </Card>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </section>
