@@ -85,7 +85,7 @@ export default function Home() {
                 <div className="relative z-10">
                   <Card className="p-2 bg-white shadow-xl rotate-[-8deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
-                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/personaje-principal-idea.png"
+                      src="https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
                       alt="Transformación de foto a personaje"
                       width={200}
                       height={200}
