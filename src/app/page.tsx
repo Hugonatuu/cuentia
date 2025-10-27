@@ -116,7 +116,7 @@ export default function Home() {
             </div>
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-               <div className="relative h-[400px] flex items-center justify-center">
+              <div className="relative h-[400px] flex items-center justify-center">
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
 
@@ -124,7 +124,7 @@ export default function Home() {
                    <Carousel
                       plugins={[
                         Autoplay({
-                          delay: 2000,
+                          delay: 4000,
                           stopOnInteraction: true,
                         }),
                       ]}
