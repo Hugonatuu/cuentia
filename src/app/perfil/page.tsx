@@ -244,10 +244,10 @@ export default function PerfilPage() {
                     </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="border-2 border-primary/20 shadow-lg shadow-primary/10">
                   <CardHeader>
                     <CardTitle>Modelo de Suscripción (¡Más rentable!)</CardTitle>
-                    <CardDescription>Cambia de plan para obtener más créditos y beneficios.</CardDescription>
+                    <CardDescription>¡Hasta un 20% más rentable que Pay As You Go!</CardDescription>
                   </CardHeader>
                   <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                     {pricingPlans
