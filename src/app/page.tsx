@@ -120,7 +120,7 @@ export default function Home() {
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
 
-                <div className="relative z-10 w-full max-w-xs sm:max-w-sm md:max-w-md">
+                <div className="relative z-10 w-full max-w-sm">
                    <Carousel
                       plugins={[
                         Autoplay({
