@@ -83,7 +83,7 @@ export default function Home() {
 
                 {/* Image collage */}
                 <div className="relative z-10">
-                  <Card className="absolute -top-16 -left-16 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
+                  <Card className="absolute -top-16 -left-24 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
                       src="https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
                       alt="Transformación de foto a personaje"
