@@ -279,11 +279,15 @@ export default function PerfilPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="relative overflow-hidden border-2 border-primary/20 shadow-lg shadow-primary/10">
-                   <div className="absolute top-2 right-2 bg-green-500 text-white text-base font-bold px-3 py-1.5 rounded-full rotate-12 transform">
-                     <span className="text-lg">-20%</span>
+                <Card className="relative overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
+                   <div className="absolute top-2 -right-11">
+                       <div className="flex items-center justify-center w-36 h-8 bg-primary -rotate-45 transform">
+                          <span className="text-sm font-bold text-primary-foreground">
+                            RECOMENDADO
+                          </span>
+                       </div>
                    </div>
-                  <CardHeader>
+                  <CardHeader className="pt-12">
                     <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
                     <CardDescription>Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un 20 % más de créditos por el mismo precio.</CardDescription>
                   </CardHeader>
