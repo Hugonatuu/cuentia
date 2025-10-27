@@ -17,7 +17,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Sparkles } from "lucide-react";
+import { Sparkles, BookText } from "lucide-react";
 import placeholderImages from "@/lib/placeholder-images.json";
 import {
   exampleStories,
@@ -94,7 +94,7 @@ export default function Home() {
 
                 {/* Image collage */}
                 <div className="relative z-10">
-                  <Card className="absolute -top-16 -left-32 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
+                  <Card className="absolute -top-16 -left-40 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
                       src="https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
                       alt="Transformación de foto a personaje"
@@ -117,7 +117,7 @@ export default function Home() {
             </div>
 
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="relative h-[400px] flex items-center justify-center">
+              <div className="relative h-[400px] flex items-center justify-center order-last md:order-first">
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-pink-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
 
@@ -169,40 +169,30 @@ export default function Home() {
               </div>
             </div>
             
-            <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="z-10 text-center md:text-left">
-                <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
-                  3. Escribe puntos clave y el objetivo de aprendizaje
-                </h3>
-                <p className="text-lg text-muted-foreground mb-6">
-                  ¡Deja volar tu imaginación! Añade los puntos clave de la trama, un objetivo de aprendizaje y dale tu toque personal a la historia.
-                </p>
-                <Button asChild>
-                  <Link href="/cuentos/crear">Empezar a Escribir</Link>
-                </Button>
-              </div>
-              <div className="relative h-[400px] flex items-center justify-center">
-                {/* Background Blobs */}
+            <div className="mt-20 text-center">
+              <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden">
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-green-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-2000"></div>
-                
-                {/* Image */}
-                <div className="relative z-10">
-                  <Card className="p-2 bg-white shadow-xl transform hover:scale-110 transition-transform duration-300">
-                    <Image
-                      src={placeholderImages.placeholderImages.find(img => img.id === 'how-it-works-3')?.imageUrl || ''}
-                      alt="Libro de cuentos abierto"
-                      width={250}
-                      height={250}
-                      className="rounded"
-                    />
-                  </Card>
+                 <div className="relative z-10">
+                    <div className="flex justify-center items-center mb-4">
+                        <BookText className="h-10 w-10 text-primary mr-4" />
+                        <h3 className="font-headline text-3xl md:text-4xl text-primary">
+                        3. Escribe puntos clave y el objetivo de aprendizaje
+                        </h3>
+                    </div>
+                    <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+                    ¡Deja volar tu imaginación! Añade los puntos clave de la trama, un objetivo de aprendizaje y dale tu toque personal a la historia.
+                    </p>
+                    <Button asChild>
+                    <Link href="/cuentos/crear">Empezar a Escribir</Link>
+                    </Button>
                 </div>
-              </div>
+              </Card>
             </div>
 
+
             <div className="relative grid md:grid-cols-2 gap-16 items-center mt-20">
-              <div className="relative h-[400px] flex items-center justify-center">
+              <div className="relative h-[400px] flex items-center justify-center order-last md:order-first">
                 <div className="absolute -top-10 -left-20 w-80 h-80 bg-orange-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-4000"></div>
                 <div className="absolute -bottom-10 -right-20 w-80 h-80 bg-cyan-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-blob animation-delay-6000"></div>
                 <div className="relative z-10">
