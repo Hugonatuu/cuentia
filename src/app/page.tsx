@@ -87,7 +87,7 @@ export default function Home() {
           <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-300/30 rounded-full mix-blend-multiply filter blur-2xl opacity-75 animate-blob animation-delay-1000"></div>
           
           <div className="container mx-auto px-4 relative z-10">
-            <div className="text-center mb-16">
+            <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
               <h2 className="font-headline text-4xl md:text-5xl text-gray-800">
                 CÓMO FUNCIONA
               </h2>
@@ -118,7 +118,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="z-10 text-center md:text-left">
-                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
+                <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
                         1. CREA TU PERSONAJE
