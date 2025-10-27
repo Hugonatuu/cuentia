@@ -488,7 +488,7 @@ export default function CrearCuentoPage() {
                         </FormLabel>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button type="button" variant="ghost" size="sm">
+                                <Button type="button" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
                                     <Lightbulb className="mr-2 h-4 w-4" />
                                     Ideas
                                 </Button>
