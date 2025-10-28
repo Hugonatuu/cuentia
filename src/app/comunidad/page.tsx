@@ -35,7 +35,7 @@ export default function ComunidadPage() {
           Cuentos de la Comunidad
         </h1>
         <p className="max-w-3xl mx-auto text-primary mt-4 font-body">
-          Aquí viven los personajes que darán vida a tus historias. ¡Crea nuevos amigos, a ti mismo o incluso a tu mascota!
+          Descubre las historias creadas por otros soñadores como tú. Inspírate, comparte y deja que la magia de sus cuentos te transporte a nuevos mundos.
         </p>
       </div>
 
