@@ -80,6 +80,15 @@ const learningObjectiveSuggestions = [
     'Enseñar la importancia de cuidar a los demás',
     'Aprender a valorar las cosas',
     'Hacer ver al protagonista que es más fuerte de lo que cree',
+    'Descubrir que ser diferente es algo especial',
+    'Aprender a expresar y entender las emociones',
+    'Enseñar a perdonar y a pedir perdón',
+    'Aprender que todos cometemos errores y que está bien',
+    'Comprender el valor de decir la verdad',
+    'Enseñar a respetar a los demás, sin importar sus diferencias',
+    'Aprender a escuchar y compartir',
+    'Aprender a superar el miedo a...',
+    'Enseñar a confiar en uno mismo'
 ];
 
 
@@ -687,3 +696,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
