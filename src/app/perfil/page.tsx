@@ -76,6 +76,9 @@ export default function PerfilPage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+        <div className="mt-10">
             <Tabs defaultValue="stories">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="stories">Mis Cuentos</TabsTrigger>
@@ -88,7 +91,6 @@ export default function PerfilPage() {
                  <Skeleton className="h-96 w-full" />
               </TabsContent>
             </Tabs>
-          </div>
         </div>
       </div>
     );
@@ -162,7 +164,10 @@ export default function PerfilPage() {
               </Tabs>
             </CardContent>
           </Card>
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
+        </div>
+      </div>
+      <div className="mt-10">
+        <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="stories">Mis Cuentos</TabsTrigger>
               <TabsTrigger value="subscription">Planes</TabsTrigger>
@@ -177,8 +182,8 @@ export default function PerfilPage() {
                 </CardHeader>
                 <CardContent>
                   {areStoriesLoading ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {[...Array(3)].map((_, i) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                      {[...Array(4)].map((_, i) => (
                          <div key={i} className="space-y-2">
                             <Skeleton className="h-auto w-full aspect-[2/3] rounded-lg" />
                             <Skeleton className="h-6 w-full" />
@@ -186,7 +191,7 @@ export default function PerfilPage() {
                       ))}
                     </div>
                   ) : stories && stories.length > 0 ? (
-                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {stories.map((story) => {
                             const isCompleted = story.status === 'completed' && story.pdfUrl;
                             return (
@@ -315,7 +320,6 @@ export default function PerfilPage() {
               </div>
             </TabsContent>
           </Tabs>
-        </div>
       </div>
     </div>
   );
