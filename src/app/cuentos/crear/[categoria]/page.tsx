@@ -213,6 +213,14 @@ export default function CrearCuentoPage() {
         return `${baseCharacter.name}:\n${imageUrl}`;
     }).join('\n\n');
     
+    const personalizacionText = data.characters
+      .filter(c => c.visual_description)
+      .map(c => {
+        const baseCharacter = c.character;
+        const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
+        return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.visual_description}`;
+      }).join('\n\n');
+
     const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
       const { avatarUrl, imageUrl, createdAt, id, ...restOfCharacter } = character as any;
       return { character: restOfCharacter, visual_description };
@@ -253,6 +261,7 @@ export default function CrearCuentoPage() {
         formData.append('storyId', storyDocRef.id);
         formData.append('userId', user.uid);
         formData.append('characterImagesText', characterImagesText);
+        formData.append('personalizacion', personalizacionText);
         formData.append('characters', JSON.stringify(charactersForWebhook));
         if (data.backCoverImage) {
           formData.append('backCoverImage', data.backCoverImage);
@@ -696,5 +705,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
