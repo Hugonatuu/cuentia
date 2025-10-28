@@ -220,7 +220,7 @@ export default function CrearPersonajePage() {
             Crea tu Avatar Personalizado
           </h1>
           <p className="max-w-xl mx-auto text-primary mt-4 font-body">
-             Sube algunas fotos y convierte a un ser querido (¡o a tu mascota!) en el héroe de un cuento.
+             Sube algunas fotos y deja que la inteligencia artificial transforme a ti, a un ser querido o a tu mascota en el protagonista de un cuento.
           </p>
         </div>
 
@@ -421,5 +421,7 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
+
+    
 
     
