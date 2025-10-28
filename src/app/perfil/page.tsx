@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -13,7 +12,7 @@ import { userProfile, pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass, CreditCard, AlertTriangle, Calendar, Gift, Star } from 'lucide-react';
+import { BookOpen, Hourglass, CreditCard, AlertTriangle, Calendar, Gift, Star, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -21,6 +20,8 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import EditDisplayName from './components/EditDisplayName';
 import EditAvatar from './components/EditAvatar';
+import { CreditsInfoDialog } from './components/CreditsInfoDialog';
+
 
 interface Story {
   id: string;
@@ -36,6 +37,7 @@ export default function PerfilPage() {
   const router = useRouter();
   const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
   const [activeTab, setActiveTab] = useState('stories');
+  const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
 
 
   useEffect(() => {
@@ -102,6 +104,7 @@ export default function PerfilPage() {
 
   return (
     <div className="container mx-auto py-12">
+       <CreditsInfoDialog isOpen={isCreditsInfoOpen} onOpenChange={setIsCreditsInfoOpen} />
       <div className="grid gap-10 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <div className="flex flex-col items-center text-center">
           <EditAvatar user={user} />
@@ -250,6 +253,12 @@ export default function PerfilPage() {
             </TabsContent>
             <TabsContent value="subscription">
               <div className="space-y-8">
+                 <div className="flex justify-start mb-4">
+                    <Button variant="outline" onClick={() => setIsCreditsInfoOpen(true)}>
+                      <Info className="mr-2 h-4 w-4" />
+                      ¿Cómo funcionan los créditos?
+                    </Button>
+                  </div>
                  <Card>
                     <CardHeader>
                         <CardTitle>Modelo Pay As You Go</CardTitle>
