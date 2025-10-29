@@ -93,7 +93,7 @@ const learningObjectiveSuggestions = [
 
 
 const formSchema = z.object({
-  title: z.string().min(1, 'El título es obligatorio.'),
+  title: z.string().min(1, 'El título es obligatorio.').max(35, 'El título no puede tener más de 35 caracteres.'),
   learningObjective: z.string().optional(),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
   readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
@@ -371,6 +371,7 @@ export default function CrearCuentoPage() {
                       <Input
                         placeholder="El misterio del bosque encantado"
                         {...field}
+                        maxLength={35}
                       />
                     </FormControl>
                     <FormMessage />
@@ -717,5 +718,7 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
 
     
