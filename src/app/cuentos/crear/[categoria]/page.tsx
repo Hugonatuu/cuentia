@@ -96,7 +96,7 @@ const formSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.'),
   learningObjective: z.string().optional(),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
-  readerName: z.string().min(1, 'El nombre del lector es obligatorio.'),
+  readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
   prompt: z.string().optional(),
   initialPhrase: z.string().optional(),
@@ -423,7 +423,7 @@ export default function CrearCuentoPage() {
                         </TooltipProvider>
                       </div>
                       <FormControl>
-                        <Input placeholder="Leo" {...field} />
+                        <Input placeholder="Leo" {...field} maxLength={20} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
