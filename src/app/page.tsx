@@ -332,7 +332,7 @@ export default function Home() {
                   ¿Cuántos créditos cuesta crear un cuento?
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
-                  Los cuentos más básicos cuestan desde 400 créditos. Según la cantidad de páginas o ilustraciones que elijas, el coste puede aumentar, pero siempre lo verás antes de confirmar la creación.
+                  Los cuentos más básicos ilustrados cuestan 800 créditos. Estos cuentos ya cuentan con varias imágenes de la mejor calidad posible.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
