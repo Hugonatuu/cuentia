@@ -99,8 +99,8 @@ const formSchema = z.object({
   readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
   prompt: z.string().max(220, 'Los puntos clave no pueden tener más de 220 caracteres.').optional(),
-  initialPhrase: z.string().optional(),
-  finalPhrase: z.string().optional(),
+  initialPhrase: z.string().max(150, 'La frase no puede tener más de 150 caracteres.').optional(),
+  finalPhrase: z.string().max(150, 'La frase no puede tener más de 150 caracteres.').optional(),
   characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
   backCoverImage: z.instanceof(File).optional(),
 });
@@ -150,6 +150,8 @@ export default function CrearCuentoPage() {
   const watchedReaderName = form.watch('readerName');
   const watchedPrompt = form.watch('prompt');
   const watchedLearningObjective = form.watch('learningObjective');
+  const watchedInitialPhrase = form.watch('initialPhrase');
+  const watchedFinalPhrase = form.watch('finalPhrase');
 
   useEffect(() => {
     let credits = 0;
@@ -619,9 +621,13 @@ export default function CrearCuentoPage() {
                               <Input
                                 placeholder="Para mi querido Leo, con todo mi amor."
                                 {...field}
+                                maxLength={150}
                               />
                             </FormControl>
-                            <FormMessage />
+                             <div className="flex justify-between">
+                                <FormMessage />
+                                <div className="text-xs text-right text-muted-foreground">{(watchedInitialPhrase || '').length}/150</div>
+                            </div>
                           </FormItem>
                         )}
                       />
@@ -637,9 +643,13 @@ export default function CrearCuentoPage() {
                               <Input
                                 placeholder="De tu Mamá, que te quiere con locura."
                                 {...field}
+                                maxLength={150}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <div className="flex justify-between">
+                                <FormMessage />
+                                <div className="text-xs text-right text-muted-foreground">{(watchedFinalPhrase || '').length}/150</div>
+                            </div>
                           </FormItem>
                         )}
                       />
