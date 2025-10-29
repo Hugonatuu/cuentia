@@ -345,7 +345,7 @@ export default function Home() {
             <h2 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
               ¿Listo para Crear Magia?
             </h2>
-            <p className="max-w-2xl mx-auto text-lg md:text-xl text-muted-foreground my-8">
+            <p className="max-w-2xl mx-auto text-lg md:text-xl text-primary my-8">
               Únete a la comunidad de Cuentia y empieza a dar vida a las
               historias que siempre has imaginado. Tu próxima gran aventura te
               espera.
