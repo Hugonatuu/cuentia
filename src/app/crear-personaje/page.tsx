@@ -247,6 +247,7 @@ export default function CrearPersonajePage() {
                             required
                             maxLength={50}
                         />
+                         <div className="text-xs text-right text-muted-foreground">{characterName.length}/50</div>
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="species">Especie</Label>
@@ -277,6 +278,7 @@ export default function CrearPersonajePage() {
                                 required
                                 maxLength={50}
                             />
+                            <div className="text-xs text-right text-muted-foreground">{otherSpecies.length}/50</div>
                         </div>
                     )}
                     <div className="space-y-2">
@@ -302,6 +304,7 @@ export default function CrearPersonajePage() {
                             required
                             maxLength={30}
                         />
+                         <div className="text-xs text-right text-muted-foreground">{age.length}/30</div>
                     </div>
                 </div>
             </CardContent>

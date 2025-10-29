@@ -146,6 +146,10 @@ export default function CrearCuentoPage() {
 
   const watchedImageCount = form.watch('imageCount');
   const watchedCharacters = form.watch('characters');
+  const watchedTitle = form.watch('title');
+  const watchedReaderName = form.watch('readerName');
+  const watchedPrompt = form.watch('prompt');
+  const watchedLearningObjective = form.watch('learningObjective');
 
   useEffect(() => {
     let credits = 0;
@@ -374,7 +378,10 @@ export default function CrearCuentoPage() {
                         maxLength={35}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <div className="flex justify-between">
+                        <FormMessage />
+                        <div className="text-xs text-right text-muted-foreground">{watchedTitle.length}/35</div>
+                    </div>
                   </FormItem>
                 )}
               />
@@ -426,7 +433,10 @@ export default function CrearCuentoPage() {
                       <FormControl>
                         <Input placeholder="Leo" {...field} maxLength={20} />
                       </FormControl>
-                      <FormMessage />
+                       <div className="flex justify-between">
+                            <FormMessage />
+                            <div className="text-xs text-right text-muted-foreground">{watchedReaderName.length}/20</div>
+                        </div>
                     </FormItem>
                   )}
                 />
@@ -504,7 +514,10 @@ export default function CrearCuentoPage() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <div className="flex justify-between">
+                        <FormMessage />
+                        <div className="text-xs text-right text-muted-foreground">{(watchedPrompt || '').length}/220</div>
+                    </div>
                   </FormItem>
                 )}
               />
@@ -541,7 +554,10 @@ export default function CrearCuentoPage() {
                         {...field}
                       />
                     </FormControl>
-                    <FormMessage />
+                    <div className="flex justify-between">
+                        <FormMessage />
+                        <div className="text-xs text-right text-muted-foreground">{(watchedLearningObjective || '').length}/200</div>
+                    </div>
                   </FormItem>
                 )}
               />
