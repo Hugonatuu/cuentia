@@ -103,6 +103,7 @@ const formSchema = z.object({
   finalPhrase: z.string().max(150, 'La frase no puede tener más de 150 caracteres.').optional(),
   characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
   backCoverImage: z.instanceof(File).optional(),
+  language: z.string().min(1, 'Debes seleccionar un idioma.'),
 });
 
 type StoryFormValues = z.infer<typeof formSchema>;
@@ -141,6 +142,7 @@ export default function CrearCuentoPage() {
       initialPhrase: '',
       finalPhrase: '',
       characters: [],
+      language: 'es-ES',
     },
   });
 
@@ -261,7 +263,8 @@ export default function CrearCuentoPage() {
           status: 'generating',
           createdAt: serverTimestamp(),
           coverImageUrl: '',
-          pdfUrl: ''
+          pdfUrl: '',
+          language: data.language,
         };
 
         const storyDocRef = await addDoc(storiesColRef, storyData);
@@ -711,6 +714,33 @@ export default function CrearCuentoPage() {
                         </div>
                     )}
                 </div>
+                 <FormField
+                    control={form.control}
+                    name="language"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Idioma del Cuento</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Selecciona un idioma" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="es-ES">Español (España)</SelectItem>
+                            <SelectItem value="es-LA">Español (Latino)</SelectItem>
+                            <SelectItem value="en-US">Inglés</SelectItem>
+                            <SelectItem value="fr-FR">Francés</SelectItem>
+                            <SelectItem value="it-IT">Italiano</SelectItem>
+                            <SelectItem value="de-DE">Alemán</SelectItem>
+                            <SelectItem value="pt-BR">Portugués (Brasil)</SelectItem>
+                            <SelectItem value="pt-PT">Portugués (Portugal)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
             </CardContent>
            </Card>
 
