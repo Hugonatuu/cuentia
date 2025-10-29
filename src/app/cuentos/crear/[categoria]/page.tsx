@@ -94,7 +94,7 @@ const learningObjectiveSuggestions = [
 
 const formSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.').max(35, 'El título no puede tener más de 35 caracteres.'),
-  learningObjective: z.string().optional(),
+  learningObjective: z.string().max(200, 'El objetivo de aprendizaje no puede exceder los 200 caracteres.').optional(),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
   readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
@@ -537,6 +537,7 @@ export default function CrearCuentoPage() {
                     <FormControl>
                       <Textarea
                         placeholder="Ej: Enseñar a Leo la importancia de la amistad y el trabajo en equipo."
+                        maxLength={200}
                         {...field}
                       />
                     </FormControl>
@@ -719,3 +720,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
