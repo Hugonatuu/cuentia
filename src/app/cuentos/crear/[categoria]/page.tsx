@@ -593,48 +593,10 @@ export default function CrearCuentoPage() {
                 />
             </CardContent>
           </Card>
-
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold">4. Idioma</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <FormField
-                control={form.control}
-                name="language"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Idioma del Cuento</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona un idioma" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="es-ES">Español (España)</SelectItem>
-                        <SelectItem value="es-LA">Español (Latino)</SelectItem>
-                        <SelectItem value="en-US">Inglés</SelectItem>
-                        <SelectItem value="fr-FR">Francés</SelectItem>
-                        <SelectItem value="it-IT">Italiano</SelectItem>
-                        <SelectItem value="de-DE">Alemán</SelectItem>
-                        <SelectItem value="pt-BR">Portugués (Brasil)</SelectItem>
-                        <SelectItem value="pt-PT">Portugués (Portugal)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
           
            <Card className="shadow-lg">
             <CardHeader>
-                <CardTitle className="text-2xl font-semibold">5. Toques Mágicos (Opcional)</CardTitle>
+                <CardTitle className="text-2xl font-semibold">4. Toques Mágicos (Opcional)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
                 <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
@@ -755,12 +717,50 @@ export default function CrearCuentoPage() {
             </CardContent>
            </Card>
 
+          <Card className="shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl font-semibold">Idioma</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <FormField
+                control={form.control}
+                name="language"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Idioma del Cuento</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona un idioma" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="es-ES">Español (España)</SelectItem>
+                        <SelectItem value="es-LA">Español (Latino)</SelectItem>
+                        <SelectItem value="en-US">Inglés</SelectItem>
+                        <SelectItem value="fr-FR">Francés</SelectItem>
+                        <SelectItem value="it-IT">Italiano</SelectItem>
+                        <SelectItem value="de-DE">Alemán</SelectItem>
+                        <SelectItem value="pt-BR">Portugués (Brasil)</SelectItem>
+                        <SelectItem value="pt-PT">Portugués (Portugal)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+          </Card>
+
 
             <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
                 <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
                     <CreditCard className="h-5 w-5 text-primary" />
                     <span className="text-sm font-bold text-primary">
-                        Coste Total: {totalCredits.toLocaleString()} créditos
+                        Coste Total: {totalCredits} créditos
                     </span>
                 </Card>
                 <Button
