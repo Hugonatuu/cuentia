@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -68,7 +67,7 @@ export default function PreciosPage() {
               <div className="flex-grow space-y-2">
                 <div className="flex justify-between font-medium">
                   <span>{payAsYouGoEuros}€</span>
-                  <span>{payAsYouGoCredits.toLocaleString()} créditos</span>
+                  <span>{payAsYouGoCredits} créditos</span>
                 </div>
                 <Slider
                   value={[payAsYouGoEuros]}
