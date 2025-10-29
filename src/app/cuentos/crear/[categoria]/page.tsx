@@ -739,7 +739,7 @@ export default function CrearCuentoPage() {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="es-ES">Español (España)</SelectItem>
-                        <SelectItem value="es-LA">Español (Latino)</SelectItem>
+                        <SelectItem value="es-419">Español (Latino)</SelectItem>
                         <SelectItem value="en-US">Inglés</SelectItem>
                         <SelectItem value="fr-FR">Francés</SelectItem>
                         <SelectItem value="it-IT">Italiano</SelectItem>
