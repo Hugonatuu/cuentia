@@ -62,14 +62,14 @@ const categoryDetails: {
 };
 
 const webhookUrls: { [key: string]: string } = {
-  '3': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/0d6ca372-f43f-4027-a346-26fe38f0979d',
+  '4': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/0d6ca372-f43f-4027-a346-26fe38f0979d',
   '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
   '20': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/96e4c11c-9ae5-4dc3-b075-23bc7cbe47c3',
 };
 
 const creditCosts = {
   images: {
-    '3': 600,
+    '4': 800,
     '12': 1500,
     '20': 2400,
   },
@@ -558,7 +558,7 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                            <SelectItem value="3">3 imágenes + Portada (600cd)</SelectItem>
+                            <SelectItem value="4">4 imágenes + portada (800cd)</SelectItem>
                             <SelectItem value="12">12 imágenes + Portada (1.500cd)</SelectItem>
                             <SelectItem value="20">20 imágenes + Portada (2.400cd)</SelectItem>
                             </SelectContent>
@@ -718,4 +718,5 @@ export default function CrearCuentoPage() {
   );
 }
 
+    
     
