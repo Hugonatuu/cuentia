@@ -222,8 +222,15 @@ export default function CrearCuentoPage() {
       }).join('\n\n');
 
     const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
-      const { avatarUrl, imageUrl, createdAt, id, ...restOfCharacter } = character as any;
-      return { character: restOfCharacter, visual_description };
+      const isPredefined = 'imageUrl' in character;
+      const final_visual_description = isPredefined ? character.imageHint : visual_description;
+      
+      const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
+
+      return { 
+        ...restOfCharacter,
+        visual_description: final_visual_description
+      };
     });
 
     try {
@@ -546,9 +553,9 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                            <SelectItem value="0">0 imágenes (400cd)</SelectItem>
-                            <SelectItem value="12">12 imágenes (1.500cd)</SelectItem>
-                            <SelectItem value="20">20 imágenes (2.400cd)</SelectItem>
+                            <SelectItem value="0">0 imágenes + Portada (400cd)</SelectItem>
+                            <SelectItem value="12">12 imágenes + Portada (1.500cd)</SelectItem>
+                            <SelectItem value="20">20 imágenes + Portada (2.400cd)</SelectItem>
                             </SelectContent>
                         </Select>
                         <FormMessage />
