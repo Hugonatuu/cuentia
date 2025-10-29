@@ -98,7 +98,7 @@ const formSchema = z.object({
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
   readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
   imageCount: z.string().min(1, 'Debes seleccionar un número de imágenes.'),
-  prompt: z.string().optional(),
+  prompt: z.string().max(220, 'Los puntos clave no pueden tener más de 220 caracteres.').optional(),
   initialPhrase: z.string().optional(),
   finalPhrase: z.string().optional(),
   characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
@@ -500,6 +500,7 @@ export default function CrearCuentoPage() {
                       <Textarea
                         placeholder="Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga."
                         rows={4}
+                        maxLength={220}
                         {...field}
                       />
                     </FormControl>
@@ -718,7 +719,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
-
-    
