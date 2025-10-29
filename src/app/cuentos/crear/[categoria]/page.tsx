@@ -62,14 +62,14 @@ const categoryDetails: {
 };
 
 const webhookUrls: { [key: string]: string } = {
-  '0': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/0d6ca372-f43f-4027-a346-26fe38f0979d',
+  '3': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/0d6ca372-f43f-4027-a346-26fe38f0979d',
   '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
   '20': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/96e4c11c-9ae5-4dc3-b075-23bc7cbe47c3',
 };
 
 const creditCosts = {
   images: {
-    '0': 400,
+    '3': 600,
     '12': 1500,
     '20': 2400,
   },
@@ -224,11 +224,16 @@ export default function CrearCuentoPage() {
     const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
       const isPredefined = 'imageUrl' in character;
       const final_visual_description = isPredefined ? character.imageHint : visual_description;
+      const description = isPredefined ? character.description : '';
       
       const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
 
       return { 
-        ...restOfCharacter,
+        name: character.name,
+        gender: character.gender,
+        age: character.age,
+        description: description,
+        species: character.species,
         visual_description: final_visual_description
       };
     });
@@ -553,7 +558,7 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                            <SelectItem value="0">0 imágenes + Portada (400cd)</SelectItem>
+                            <SelectItem value="3">3 imágenes + Portada (600cd)</SelectItem>
                             <SelectItem value="12">12 imágenes + Portada (1.500cd)</SelectItem>
                             <SelectItem value="20">20 imágenes + Portada (2.400cd)</SelectItem>
                             </SelectContent>
@@ -712,3 +717,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
