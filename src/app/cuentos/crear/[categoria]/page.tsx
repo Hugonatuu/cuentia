@@ -238,9 +238,9 @@ export default function CrearCuentoPage() {
         name: character.name,
         gender: character.gender,
         age: character.age,
-        description: isPredefined ? (character as PredefinedCharacter).description : '',
+        description: isPredefined ? (character as PredefinedCharacter).description || '' : '',
         species: character.species,
-        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
+        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint || '' : visual_description || ''),
       };
     });
 
@@ -496,11 +496,16 @@ export default function CrearCuentoPage() {
           </Card>
           
           <Card className="shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-2xl font-semibold">3. Detalles de la historia</CardTitle>
-                 <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
-                    <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
-                 </div>
+            <CardHeader>
+                <div className="flex flex-row items-center justify-between">
+                  <CardTitle className="text-2xl font-semibold">3. Detalles de la historia</CardTitle>
+                   <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
+                      <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
+                   </div>
+                </div>
+                 <CardDescription>
+                  💡 Consejo: te recomendamos escribir los detalles del cuento en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.
+                </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
                <FormField
