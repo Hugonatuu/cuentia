@@ -240,7 +240,7 @@ export default function CrearCuentoPage() {
         age: character.age,
         description: isPredefined ? (character as PredefinedCharacter).description || '' : '',
         species: character.species,
-        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint || '' : visual_description || ''),
+        visual_description: isPredefined ? (character as PredefinedCharacter).imageHint || '' : visual_description || '',
       };
     });
 
@@ -503,9 +503,9 @@ export default function CrearCuentoPage() {
                       <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
                    </div>
                 </div>
-                 <CardDescription>
+                 <div className="mt-2 text-sm text-muted-foreground p-3 bg-accent/20 border border-accent/50 rounded-lg">
                   💡 Consejo: te recomendamos escribir los detalles del cuento en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.
-                </CardDescription>
+                </div>
             </CardHeader>
             <CardContent className="space-y-6">
                <FormField
@@ -732,7 +732,7 @@ export default function CrearCuentoPage() {
                   <FormItem>
                     <FormLabel>Idioma del Cuento</FormLabel>
                     <Select
-                      onValueChange={field.onChange}
+                      onValuechange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
@@ -796,3 +796,4 @@ export default function CrearCuentoPage() {
     
 
     
+
