@@ -39,7 +39,7 @@ import {
 } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { CharacterSlot } from '../components/CharacterSlot';
-import { CharacterWithCustomization } from '../components/types';
+import { CharacterWithCustomization, PredefinedCharacter } from '../components/types';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
@@ -231,8 +231,6 @@ export default function CrearCuentoPage() {
 
     const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
       const isPredefined = 'imageUrl' in character;
-      const final_visual_description = isPredefined ? character.imageHint : (visual_description || '');
-      const description = isPredefined ? character.description : '';
       
       const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
 
@@ -240,9 +238,9 @@ export default function CrearCuentoPage() {
         name: character.name,
         gender: character.gender,
         age: character.age,
-        description: description,
+        description: isPredefined ? (character as PredefinedCharacter).description : '',
         species: character.species,
-        visual_description: final_visual_description
+        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
       };
     });
 
@@ -787,6 +785,8 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
 
     
 
