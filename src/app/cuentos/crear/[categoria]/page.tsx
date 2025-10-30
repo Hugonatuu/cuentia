@@ -238,9 +238,9 @@ export default function CrearCuentoPage() {
         name: character.name,
         gender: character.gender,
         age: character.age,
-        description: isPredefined ? (character as PredefinedCharacter).description || '' : '',
+        description: (isPredefined ? (character as PredefinedCharacter).description : '') || '',
         species: character.species,
-        visual_description: isPredefined ? (character as PredefinedCharacter).imageHint || '' : visual_description || '',
+        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
       };
     });
 
@@ -503,8 +503,8 @@ export default function CrearCuentoPage() {
                       <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
                    </div>
                 </div>
-                 <div className="mt-2 text-sm text-muted-foreground p-3 bg-accent/20 border border-accent/50 rounded-lg">
-                  💡 Consejo: te recomendamos escribir los detalles del cuento en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.
+                 <div className="mt-2 text-sm text-foreground p-3 bg-accent/20 border border-accent/50 rounded-lg">
+                  💡 Consejo: te recomendamos escribir los detalles en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.
                 </div>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -732,7 +732,7 @@ export default function CrearCuentoPage() {
                   <FormItem>
                     <FormLabel>Idioma del Cuento</FormLabel>
                     <Select
-                      onValuechange={field.onChange}
+                      onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
@@ -796,4 +796,5 @@ export default function CrearCuentoPage() {
     
 
     
+
 
