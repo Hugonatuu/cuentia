@@ -231,7 +231,7 @@ export default function CrearCuentoPage() {
 
     const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
       const isPredefined = 'imageUrl' in character;
-      const final_visual_description = isPredefined ? character.imageHint : visual_description;
+      const final_visual_description = isPredefined ? character.imageHint : (visual_description || '');
       const description = isPredefined ? character.description : '';
       
       const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
@@ -787,5 +787,7 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
 
     
