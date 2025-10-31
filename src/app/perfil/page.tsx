@@ -18,8 +18,8 @@ import EditDisplayName from './components/EditDisplayName';
 import EditAvatar from './components/EditAvatar';
 import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
-import { useCollection } from '@/firebase/firestore/use-collection'; // Import useCollection
-import { watchUserSubscription } from '@/lib/firestore'; // Import the new function
+import { useCollection } from '@/firebase/firestore/use-collection'; 
+import { watchUserSubscription } from '@/lib/firestore'; 
 import { updateDoc } from 'firebase/firestore';
 
 interface Story {
@@ -35,6 +35,8 @@ interface UserProfile {
     monthlyCreditCount?: number;
     current_period_start?: { seconds: number; nanoseconds: number };
 }
+
+const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
 
 export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
@@ -146,7 +148,7 @@ export default function PerfilPage() {
                                 </p>
                             </div>
                             <Button asChild variant="outline">
-                              <Link href="/precios">Gestionar mi suscripción</Link>
+                              <a href={STRIPE_BILLING_PORTAL_URL} target="_blank" rel="noopener noreferrer">Gestionar mi suscripción</a>
                             </Button>
                         </div>
                         <div className="space-y-2 pt-2">

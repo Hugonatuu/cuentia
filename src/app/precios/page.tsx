@@ -36,14 +36,29 @@ import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/referen
 interface Subscription {
   id: string;
   status: 'active' | 'trialing' | 'past_due' | 'canceled';
-  priceId: string;
   price: {
     id: string;
     product: {
       id: string;
+    },
+    metadata: {
+        firebaseRole?: string;
     }
   };
+  items: {
+    price: {
+        id: string;
+        product: {
+            id: string;
+        },
+        metadata: {
+            firebaseRole?: string;
+        }
+    }
+  }[];
 }
+
+const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
 
 export default function PreciosPage() {
   const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
@@ -71,6 +86,12 @@ export default function PreciosPage() {
       router.push('/registro');
       return;
     }
+
+    if (activeSubscription) {
+        window.location.assign(STRIPE_BILLING_PORTAL_URL);
+        return;
+    }
+
     if (!firestore) {
       toast({
         variant: 'destructive',
@@ -92,10 +113,7 @@ export default function PreciosPage() {
         title: 'Error al procesar el pago',
         description: error instanceof Error ? error.message : 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
       });
-    } finally {
-        // Only set loading to null if it hasn't redirected.
-        // If redirection is successful, the component will unmount.
-        setIsLoading(null);
+       setIsLoading(null);
     }
   };
 
@@ -188,7 +206,7 @@ export default function PreciosPage() {
                       plan={plan}
                       onCtaClick={() => handleSubscription(plan.stripePriceId)}
                       isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
-                      isCurrentUserPlan={activeSubscription?.price?.id === plan.stripePriceId}
+                      isCurrentUserPlan={activeSubscription?.items?.[0]?.price.id === plan.stripePriceId}
                       hasActiveSubscription={!!activeSubscription}
                     />
                   </div>

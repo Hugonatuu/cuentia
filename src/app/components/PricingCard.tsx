@@ -25,7 +25,7 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
   
   let ctaText = 'Suscribirse';
   if (hasActiveSubscription) {
-    ctaText = isCurrentUserPlan ? 'Plan Actual' : 'Cambiar Plan';
+    ctaText = isCurrentUserPlan ? 'Plan Actual' : 'Gestionar Plan';
   }
 
   return (
