@@ -76,6 +76,7 @@ export default function PreciosPage() {
     setIsLoading(priceId);
     try {
       await createCheckoutSession(firestore, user.uid, priceId);
+      // La redirección es manejada dentro de createCheckoutSession
     } catch (error) {
       console.error('Error creating checkout session:', error);
       toast({
@@ -84,7 +85,8 @@ export default function PreciosPage() {
         description: 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
       });
     } finally {
-      setIsLoading(null);
+      // El setIsLoading se mantiene en true porque la página debería redirigir.
+      // Si el usuario vuelve, se reiniciará.
     }
   };
 
@@ -189,5 +191,3 @@ export default function PreciosPage() {
     </div>
   );
 }
-
-    
