@@ -29,6 +29,11 @@
         "monthlyAudioCount": {
             "type": "number",
             "description": "The number of audio credits used in the current billing cycle."
+        },
+        "current_period_start": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start date of the current billing cycle from Stripe."
         }
       },
       "required": ["email", "createdAt"]
