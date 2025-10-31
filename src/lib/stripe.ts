@@ -11,7 +11,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
 
-export function createCheckoutSession(
+export async function createCheckoutSession(
   db: Firestore,
   userId: string,
   priceId: string
@@ -22,47 +22,49 @@ export function createCheckoutSession(
     userId,
     'checkout_sessions'
   );
+  
   const data = {
     price: priceId,
-    success_url: window.location.origin,
-    cancel_url: window.location.origin,
+    success_url: window.location.origin + '/perfil',
+    cancel_url: window.location.origin + '/precios',
     mode: 'subscription',
   };
 
-  addDoc(checkoutSessionsRef, data)
-    .then((docRef) => {
-      onSnapshot(docRef, async (snap) => {
-        const { error, url } = snap.data() || {};
-        if (error) {
-          console.error(`An error occurred: ${error.message}`);
-          // TODO: Display a toast to the user about the error.
+  try {
+    const docRef = await addDoc(checkoutSessionsRef, data);
+
+    onSnapshot(docRef, async (snap) => {
+      const { error, url } = snap.data() || {};
+      if (error) {
+        console.error(`An error occurred: ${error.message}`);
+        // Optionally, use toast to show error to the user
+      }
+      if (url) {
+        const stripe = await loadStripe(
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+        );
+        if (stripe) {
+          await stripe.redirectToCheckout({ sessionId: snap.id });
         }
-        if (url) {
-          const stripe = await loadStripe(
-            process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-          );
-          if (stripe) {
-            await stripe.redirectToCheckout({ sessionId: snap.id });
-          }
-        }
-      }, (error) => {
-        // This is the error callback for the onSnapshot listener itself.
-        const permissionError = new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'get',
-        });
-        errorEmitter.emit('permission-error', permissionError);
-        console.error('Snapshot listener error:', error);
-      });
-    })
-    .catch((error) => {
-      // This catches errors from the initial addDoc operation.
+      }
+    }, (error) => {
       const permissionError = new FirestorePermissionError({
-        path: `users/${userId}/checkout_sessions`,
-        operation: 'create',
-        requestResourceData: data,
+        path: docRef.path,
+        operation: 'get',
       });
       errorEmitter.emit('permission-error', permissionError);
-      console.error('Error creating document:', error);
+      console.error('Snapshot listener error:', error);
     });
+
+  } catch (error) {
+    const permissionError = new FirestorePermissionError({
+      path: `users/${userId}/checkout_sessions`,
+      operation: 'create',
+      requestResourceData: data,
+    });
+    errorEmitter.emit('permission-error', permissionError);
+    // This console.error is for developer debugging; the emitted error will be shown in the UI.
+    console.error('Error creating checkout session document:', error);
+    throw permissionError; // Re-throw to be caught by the calling function's try/catch
+  }
 }
