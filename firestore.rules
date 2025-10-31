@@ -15,7 +15,7 @@
  * - /users/{userId}/characters/{characterId}: Stores characters created by the user.
  *   Only the user can manage their own characters.
  * - /users/{userId}/checkout_sessions/{sessionId}: Stores Stripe checkout sessions.
- *   Only the user can create their own checkout sessions.
+ *   Only the user can create and read their own checkout sessions.
  * - /subscriptions/{subscriptionId}: Stores subscription plans. Read access is
  *   public, write access is restricted.
  * - /predefinedCharacters/{characterId}: Stores predefined characters. Read
@@ -75,7 +75,8 @@ service cloud.firestore {
        */
       match /checkout_sessions/{sessionId} {
         allow create: if isOwner(userId);
-        allow get, list, update, delete: if false; // Only the Firebase extension should manage these.
+        allow get: if isOwner(userId);
+        allow list, update, delete: if false; // Only the Firebase extension should manage these.
       }
     }
 
