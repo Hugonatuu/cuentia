@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -39,12 +38,17 @@ interface UserProfile {
 interface Subscription {
   id: string;
   status: 'active' | 'trialing' | 'past_due' | 'canceled';
-  price: {
-    id: string;
-    metadata?: {
-      firebaseRole?: string;
-    }
-  };
+  items: {
+    price: {
+      id: string;
+      product: {
+        id: string;
+        metadata?: {
+          firebaseRole?: string;
+        };
+      };
+    };
+  }[];
   current_period_end: {
     seconds: number;
   };
@@ -85,7 +89,7 @@ export default function PerfilPage() {
   const { data: subscriptions, isLoading: areSubscriptionsLoading } = useCollection<Subscription>(subscriptionsQuery);
   
   const activeSubscription = subscriptions?.[0];
-  const firebaseRole = activeSubscription?.price?.metadata?.firebaseRole;
+  const firebaseRole = activeSubscription?.items?.[0]?.price?.product?.metadata?.firebaseRole;
   const currentPlan = firebaseRole ? pricingPlans.find(p => p.firebaseRole === firebaseRole) : null;
   const billingDate = activeSubscription ? new Date(activeSubscription.current_period_end.seconds * 1000) : new Date();
 
@@ -301,5 +305,3 @@ export default function PerfilPage() {
     </div>
   );
 }
-
-
