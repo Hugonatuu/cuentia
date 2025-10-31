@@ -80,5 +80,3 @@ export function CharacterCustomizationDialog({
     </Dialog>
   );
 }
-
-    
