@@ -14,6 +14,8 @@
  *   Only the user can manage their own stories.
  * - /users/{userId}/characters/{characterId}: Stores characters created by the user.
  *   Only the user can manage their own characters.
+ * - /users/{userId}/checkout_sessions/{sessionId}: Stores Stripe checkout sessions.
+ *   Only the user can create their own checkout sessions.
  * - /subscriptions/{subscriptionId}: Stores subscription plans. Read access is
  *   public, write access is restricted.
  * - /predefinedCharacters/{characterId}: Stores predefined characters. Read
@@ -36,48 +38,45 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Secure user profiles. Users can read all profiles, but only write their own.
+     * @description Secure user profiles and their subcollections.
      * @path /users/{userId}
-     * @allow (create, update, delete) auth.uid == userId (isOwner)
-     * @allow (get, list) public read
-     * @deny (create, update, delete) if auth.uid != userId
-     * @principle Enforces document ownership for writes, allows public reads.
      */
     match /users/{userId} {
       allow get, list: if true;
       allow create: if request.auth.uid == userId;
       allow update: if isExistingOwner(userId);
       allow delete: if isExistingOwner(userId);
-    }
 
-    /**
-     * @description Secure stories created by each user. Only the owner can manage their stories.
-     * @path /users/{userId}/stories/{storyId}
-     * @allow (create, update, delete) auth.uid == userId (isOwner)
-     * @allow (get, list) if isOwner(userId);
-     * @deny (create, update, delete) if auth.uid != userId
-     * @principle Enforces document ownership for writes, restricts read access to the owner.
-     */
-    match /users/{userId}/stories/{storyId} {
-      allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
-    }
+      /**
+       * @description Secure stories created by each user. Only the owner can manage their stories.
+       * @path /users/{userId}/stories/{storyId}
+       */
+      match /stories/{storyId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
 
-    /**
-     * @description Secure characters created by each user. Only the owner can manage their characters.
-     * @path /users/{userId}/characters/{characterId}
-     * @allow (create, update, delete) auth.uid == userId (isOwner)
-     * @allow (get, list) if isOwner(userId);
-     * @deny (create, update, delete) if auth.uid != userId
-     * @principle Enforces document ownership for writes, restricts read access to the owner.
-     */
-    match /users/{userId}/characters/{characterId} {
-      allow get, list: if isOwner(userId);
-      allow create: if isOwner(userId);
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
+      /**
+       * @description Secure characters created by each user. Only the owner can manage their characters.
+       * @path /users/{userId}/characters/{characterId}
+       */
+      match /characters/{characterId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+      
+      /**
+       * @description Secure checkout sessions. Users can only create their own.
+       * @path /users/{userId}/checkout_sessions/{sessionId}
+       */
+      match /checkout_sessions/{sessionId} {
+        allow create: if isOwner(userId);
+        allow get, list, update, delete: if false; // Only the Firebase extension should manage these.
+      }
     }
 
     /**
