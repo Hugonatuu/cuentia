@@ -31,13 +31,18 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { collection, query, where } from 'firebase/firestore';
 import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
-import { loadStripe } from '@stripe/stripe-js';
 
 
 interface Subscription {
   id: string;
   status: 'active' | 'trialing' | 'past_due' | 'canceled';
   priceId: string;
+  price: {
+    id: string;
+    product: {
+      id: string;
+    }
+  };
 }
 
 export default function PreciosPage() {
@@ -75,26 +80,11 @@ export default function PreciosPage() {
       return;
     }
 
-    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-    if (!publishableKey) {
-        toast({
-            variant: "destructive",
-            title: "Error de Configuración",
-            description: "La clave publicable de Stripe no está configurada.",
-        });
-        return;
-    }
-
     setIsLoading(priceId);
 
     try {
-      const sessionId = await createCheckoutSession(firestore, user.uid, priceId);
-      const stripe = await loadStripe(publishableKey);
-      if (stripe) {
-        await stripe.redirectToCheckout({ sessionId });
-      } else {
-        throw new Error("No se pudo cargar Stripe.");
-      }
+      await createCheckoutSession(firestore, user.uid, priceId);
+      // The function will handle the redirection.
     } catch (error) {
       console.error('Error handling subscription:', error);
       toast({
@@ -102,8 +92,11 @@ export default function PreciosPage() {
         title: 'Error al procesar el pago',
         description: error instanceof Error ? error.message : 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
       });
-      setIsLoading(null);
-    } 
+    } finally {
+        // Only set loading to null if it hasn't redirected.
+        // If redirection is successful, the component will unmount.
+        setIsLoading(null);
+    }
   };
 
 
@@ -195,7 +188,7 @@ export default function PreciosPage() {
                       plan={plan}
                       onCtaClick={() => handleSubscription(plan.stripePriceId)}
                       isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
-                      isCurrentUserPlan={activeSubscription?.priceId === plan.stripePriceId}
+                      isCurrentUserPlan={activeSubscription?.price?.id === plan.stripePriceId}
                       hasActiveSubscription={!!activeSubscription}
                     />
                   </div>

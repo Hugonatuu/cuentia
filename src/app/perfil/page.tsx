@@ -9,9 +9,9 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { userProfile } from '@/lib/placeholder-data';
+import { pricingPlans, userProfile } from '@/lib/placeholder-data';
 import { Skeleton } from '@/components/ui/skeleton';
-import { userStoriesCollectionRef } from '@/firebase/firestore/references';
+import { userStoriesCollectionRef, customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
 import { BookOpen, Hourglass, CreditCard, AlertTriangle, Calendar, Gift, Star, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
@@ -19,6 +19,7 @@ import { es } from 'date-fns/locale';
 import EditDisplayName from './components/EditDisplayName';
 import EditAvatar from './components/EditAvatar';
 import { CreditsInfoDialog } from './components/CreditsInfoDialog';
+import { query, where, getDocs } from 'firebase/firestore';
 
 
 interface Story {
@@ -28,6 +29,21 @@ interface Story {
   pdfUrl?: string;
   status: 'generating' | 'completed';
 }
+
+interface Subscription {
+  id: string;
+  status: 'active' | 'trialing' | 'past_due' | 'canceled';
+  price: {
+      id: string;
+      product: {
+          id: string;
+      }
+  }
+  current_period_end: {
+    seconds: number;
+  };
+}
+
 
 export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
@@ -46,7 +62,18 @@ export default function PerfilPage() {
     return userStoriesCollectionRef(firestore, user.uid);
   }, [firestore, user]);
 
+  const subscriptionsQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    const subsRef = customerSubscriptionsCollectionRef(firestore, user.uid);
+    return query(subsRef, where('status', 'in', ['trialing', 'active']));
+  }, [firestore, user]);
+
   const { data: stories, isLoading: areStoriesLoading } = useCollection<Story>(userStoriesQuery);
+  const { data: subscriptions, isLoading: areSubscriptionsLoading } = useCollection<Subscription>(subscriptionsQuery);
+  
+  const activeSubscription = subscriptions?.[0];
+  const currentPlan = activeSubscription ? pricingPlans.find(p => p.stripePriceId === activeSubscription.price.id) : null;
+  const billingDate = activeSubscription ? new Date(activeSubscription.current_period_end.seconds * 1000) : new Date();
 
   if (isUserLoading || !user || !user.emailVerified) {
     return (
@@ -105,35 +132,47 @@ export default function PerfilPage() {
                   <TabsTrigger value="payg">Créditos Pay As You Go</TabsTrigger>
                 </TabsList>
                 <TabsContent value="subscription" className="mt-4">
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-start">
-                        <div className='space-y-1'>
-                            <p className="text-lg font-bold text-primary">{userProfile.subscription}</p>
-                            <p className="text-sm text-muted-foreground flex items-center gap-2">
-                                <Calendar className="h-4 w-4" />
-                                <span>Fecha de facturación: {format(userProfile.billingStartDate, 'dd MMM yyyy', { locale: es })}</span>
-                            </p>
-                        </div>
-                        <Button variant="outline">Gestionar mi suscripción</Button>
-                    </div>
-
-                    <div className="space-y-2 pt-2">
-                        <div className="flex items-center justify-between">
-                            <p className="font-semibold text-sm">Créditos restantes del plan</p>
-                            <Button variant="link" size="sm" className="p-0 h-auto" onClick={() => setIsCreditsInfoOpen(true)}>
-                                <Info className="mr-1 h-4 w-4" />
-                                ¿Cómo funcionan?
+                 {areSubscriptionsLoading ? (
+                    <Skeleton className="h-24 w-full" />
+                 ) : currentPlan ? (
+                    <div className="space-y-4">
+                        <div className="flex justify-between items-start">
+                            <div className='space-y-1'>
+                                <p className="text-lg font-bold text-primary">{currentPlan.name}</p>
+                                <p className="text-sm text-muted-foreground flex items-center gap-2">
+                                    <Calendar className="h-4 w-4" />
+                                    <span>Próxima facturación: {format(billingDate, 'dd MMM yyyy', { locale: es })}</span>
+                                </p>
+                            </div>
+                            <Button asChild variant="outline">
+                              <Link href="/precios">Gestionar mi suscripción</Link>
                             </Button>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <Progress value={subscriptionCreditPercentage} className="flex-grow" />
-                            <span className="font-bold text-sm">
-                                {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
-                                {userProfile.subscriptionCredits.total.toLocaleString()}
-                            </span>
+                        <div className="space-y-2 pt-2">
+                            <div className="flex items-center justify-between">
+                                <p className="font-semibold text-sm">Créditos restantes del plan</p>
+                                <Button variant="link" size="sm" className="p-0 h-auto" onClick={() => setIsCreditsInfoOpen(true)}>
+                                    <Info className="mr-1 h-4 w-4" />
+                                    ¿Cómo funcionan?
+                                </Button>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <Progress value={subscriptionCreditPercentage} className="flex-grow" />
+                                <span className="font-bold text-sm">
+                                    {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
+                                    {currentPlan.credits.split(' ')[0]}
+                                </span>
+                            </div>
                         </div>
                     </div>
-                  </div>
+                 ) : (
+                    <div className="text-center py-6">
+                        <p className="text-muted-foreground mb-4">No tienes una suscripción activa.</p>
+                        <Button asChild>
+                            <Link href="/precios">Ver Planes</Link>
+                        </Button>
+                    </div>
+                 )}
                 </TabsContent>
                 <TabsContent value="payg" className="mt-4">
                   <div className="flex justify-between items-center">
