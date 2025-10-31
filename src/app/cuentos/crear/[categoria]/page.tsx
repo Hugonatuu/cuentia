@@ -1,10 +1,9 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
 import { useUser, useFirestore } from '@/firebase';
-import { addDoc } from 'firebase/firestore';
-import { userStoriesCollectionRef } from '@/firebase/firestore/references';
+import { addDoc, runTransaction, doc } from 'firebase/firestore';
+import { userStoriesCollectionRef, userDocRef } from '@/firebase/firestore/references';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -213,38 +212,51 @@ export default function CrearCuentoPage() {
 
     setIsSubmitting(true);
     
-    const characterImagesText = data.characters
-      .filter(c => !c.visual_description)
-      .map(c => {
-        const baseCharacter = c.character;
-        const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
-        return `${baseCharacter.name}:\n${imageUrl}`;
-    }).join('\n\n');
-    
-    const personalizacionText = data.characters
-      .filter(c => c.visual_description)
-      .map(c => {
-        const baseCharacter = c.character;
-        const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
-        return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.visual_description}`;
-      }).join('\n\n');
+     try {
+        // --- Transaction to update credit count ---
+        const userRef = userDocRef(firestore, user.uid);
+        await runTransaction(firestore, async (transaction) => {
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists()) {
+                throw "El documento del usuario no existe.";
+            }
+            const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
+            const newCreditCount = currentCreditCount + totalCredits;
+            transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+        });
+        // --- End Transaction ---
 
-    const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
-      const isPredefined = 'imageUrl' in character;
-      
-      const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
+        const characterImagesText = data.characters
+          .filter(c => !c.visual_description)
+          .map(c => {
+            const baseCharacter = c.character;
+            const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
+            return `${baseCharacter.name}:\n${imageUrl}`;
+        }).join('\n\n');
+        
+        const personalizacionText = data.characters
+          .filter(c => c.visual_description)
+          .map(c => {
+            const baseCharacter = c.character;
+            const imageUrl = 'avatarUrl' in baseCharacter ? baseCharacter.avatarUrl : baseCharacter.imageUrl;
+            return `nombre: ${baseCharacter.name}\nurl: ${imageUrl}\ndescripcion: ${c.visual_description}`;
+          }).join('\n\n');
 
-      return { 
-        name: character.name,
-        gender: character.gender,
-        age: character.age,
-        description: (isPredefined ? (character as PredefinedCharacter).description : '') || '',
-        species: character.species,
-        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
-      };
-    });
+        const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
+          const isPredefined = 'imageUrl' in character;
+          
+          const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
 
-    try {
+          return { 
+            name: character.name,
+            gender: character.gender,
+            age: character.age,
+            description: (isPredefined ? (character as PredefinedCharacter).description : '') || '',
+            species: character.species,
+            visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
+          };
+        });
+
         const storiesColRef = userStoriesCollectionRef(firestore, user.uid);
         
         const storyData = {
@@ -312,6 +324,19 @@ export default function CrearCuentoPage() {
             title: 'Error al generar el cuento',
             description: errorMessage,
         });
+
+        // Rollback credit count if something fails after transaction
+        const userRef = userDocRef(firestore, user.uid);
+        await runTransaction(firestore, async (transaction) => {
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists()) {
+                return; // Can't rollback if doc doesn't exist
+            }
+            const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
+            const newCreditCount = Math.max(0, currentCreditCount - totalCredits);
+            transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+        });
+
     } finally {
         setIsSubmitting(false);
     }

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -20,8 +19,8 @@ import AuthPopup from '@/components/core/AuthPopup';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 import { addDocumentNonBlocking } from '@/firebase/non-blocking-updates';
-import { serverTimestamp } from 'firebase/firestore';
-import { userCharactersCollectionRef } from '@/firebase/firestore/references';
+import { serverTimestamp, runTransaction, doc } from 'firebase/firestore';
+import { userCharactersCollectionRef, userDocRef } from '@/firebase/firestore/references';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
@@ -29,6 +28,9 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 interface WebhookResponse {
     avatarUrl: string;
 }
+
+const AVATAR_CREDIT_COST = 500;
+
 
 export default function CrearPersonajePage() {
     const { user, isUserLoading } = useUser();
@@ -116,16 +118,29 @@ export default function CrearPersonajePage() {
         setIsLoading(true);
         setGeneratedAvatar(null);
 
-        const formData = new FormData();
-        formData.append('characterName', characterName.trim());
-        formData.append('species', finalSpecies);
-        formData.append('gender', gender);
-        formData.append('age', age.trim());
-        selectedFiles.forEach((file) => {
-            formData.append('images', file);
-        });
-
         try {
+             // --- Transaction to update credit count ---
+            const userRef = userDocRef(firestore, user.uid);
+            await runTransaction(firestore, async (transaction) => {
+                const userDoc = await transaction.get(userRef);
+                if (!userDoc.exists()) {
+                    throw "El documento del usuario no existe.";
+                }
+                const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
+                const newCreditCount = currentCreditCount + AVATAR_CREDIT_COST;
+                transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+            });
+            // --- End Transaction ---
+
+            const formData = new FormData();
+            formData.append('characterName', characterName.trim());
+            formData.append('species', finalSpecies);
+            formData.append('gender', gender);
+            formData.append('age', age.trim());
+            selectedFiles.forEach((file) => {
+                formData.append('images', file);
+            });
+            
             const response = await fetch('https://natuai-n8n.kl7z6h.easypanel.host/webhook/90d5d462-d86c-455b-88d6-39192765c718', {
                 method: 'POST',
                 body: formData,
@@ -168,12 +183,23 @@ export default function CrearPersonajePage() {
             setSelectedFiles([]);
 
         } catch (error) {
-            console.error('Error al llamar al webhook o guardar en Firestore:', error);
+            console.error('Error al llamar al webhook, actualizar créditos o guardar en Firestore:', error);
             const errorMessage = error instanceof Error ? error.message : 'Hubo un problema al contactar el servidor.';
             toast({
                 variant: 'destructive',
                 title: 'Error al generar el avatar',
                 description: errorMessage,
+            });
+             // Rollback credit count if webhook fails
+            const userRef = userDocRef(firestore, user.uid);
+            await runTransaction(firestore, async (transaction) => {
+                const userDoc = await transaction.get(userRef);
+                if (!userDoc.exists()) {
+                    return; // Can't rollback if doc doesn't exist
+                }
+                const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
+                const newCreditCount = Math.max(0, currentCreditCount - AVATAR_CREDIT_COST);
+                transaction.update(userRef, { monthlyCreditCount: newCreditCount });
             });
         } finally {
             setIsLoading(false);
@@ -385,7 +411,7 @@ export default function CrearPersonajePage() {
               <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
                   <CreditCard className="h-5 w-5 text-primary" />
                   <span className="text-sm font-bold text-primary">
-                      Coste Total: 500 créditos
+                      Coste Total: {AVATAR_CREDIT_COST} créditos
                   </span>
               </Card>
               <Button type="submit" size="lg" className="shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-0.5" disabled={isLoading}>
@@ -424,7 +450,3 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
-
-    
-
-    

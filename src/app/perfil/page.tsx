@@ -20,6 +20,7 @@ import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
 import { useCollection } from '@/firebase/firestore/use-collection'; // Import useCollection
 import { watchUserSubscription } from '@/lib/firestore'; // Import the new function
+import { updateDoc } from 'firebase/firestore';
 
 interface Story {
   id: string;
@@ -32,6 +33,7 @@ interface Story {
 interface UserProfile {
     stripeRole?: string;
     monthlyCreditCount?: number;
+    current_period_start?: { seconds: number; nanoseconds: number };
 }
 
 export default function PerfilPage() {
@@ -47,6 +49,13 @@ export default function PerfilPage() {
     }
   }, [user, isUserLoading, router]);
 
+  const userRef = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return userDocRef(firestore, user.uid);
+  }, [firestore, user]);
+
+  const { data: userProfile, isLoading: isProfileLoading } = useDoc<UserProfile>(userRef);
+
   // Observe subscription changes and update the user's role
   useEffect(() => {
     if (firestore && user?.uid) {
@@ -55,15 +64,8 @@ export default function PerfilPage() {
       });
       return () => unsubscribe(); // Cleanup listener on unmount
     }
-  }, [firestore, user]);
+  }, [firestore, user?.uid]);
 
-
-  const userRef = useMemoFirebase(() => {
-    if (!firestore || !user) return null;
-    return userDocRef(firestore, user.uid);
-  }, [firestore, user]);
-
-  const { data: userProfile, isLoading: isProfileLoading } = useDoc<UserProfile>(userRef);
 
   const userStoriesQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -110,7 +112,7 @@ export default function PerfilPage() {
   const planLimits = role ? getPlanLimits(role) : 0;
   const creditsUsed = userProfile?.monthlyCreditCount || 0;
   const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
-  const billingDate = new Date(); // Placeholder for billing date
+  const billingDate = userProfile?.current_period_start ? new Date(userProfile.current_period_start.seconds * 1000) : new Date();
 
   return (
     <div className="container mx-auto py-12">
