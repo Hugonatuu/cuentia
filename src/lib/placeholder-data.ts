@@ -40,7 +40,6 @@ export const pricingPlans = [
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
-      'Personajes ilimitados',
       'Acceso anticipado a novedades',
       'Exportación en alta calidad'
     ],
@@ -54,7 +53,6 @@ export const pricingPlans = [
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
-      'Personajes ilimitados',
       'Acceso anticipado a novedades',
       'Exportación en alta calidad'
     ],
@@ -68,7 +66,6 @@ export const pricingPlans = [
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
-      'Personajes ilimitados',
       'Acceso anticipado a novedades',
       'Exportación en alta calidad'
     ],
@@ -82,7 +79,6 @@ export const pricingPlans = [
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
-      'Personajes ilimitados',
       'Acceso anticipado a novedades',
       'Exportación en alta calidad'
     ],
