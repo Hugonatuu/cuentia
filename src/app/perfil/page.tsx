@@ -2,25 +2,24 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, useMemoFirebase, useDoc, updateDocumentNonBlocking } from '@/firebase';
+import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { pricingPlans } from '@/lib/placeholder-data';
 import { Skeleton } from '@/components/ui/skeleton';
-import { userStoriesCollectionRef, customerSubscriptionsCollectionRef, userDocRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass, CreditCard, AlertTriangle, Calendar, Gift, Star, Info } from 'lucide-react';
+import { userStoriesCollectionRef, userDocRef } from '@/firebase/firestore/references';
+import { BookOpen, Hourglass, CreditCard, Calendar, Gift, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import EditDisplayName from './components/EditDisplayName';
 import EditAvatar from './components/EditAvatar';
 import { CreditsInfoDialog } from './components/CreditsInfoDialog';
-import { query, where } from 'firebase/firestore';
 import { getPlanLimits } from '@/lib/plans';
-
+import { useCollection } from '@/firebase/firestore/use-collection'; // Import useCollection
+import { watchUserSubscription } from '@/lib/firestore'; // Import the new function
 
 interface Story {
   id: string;
@@ -35,31 +34,12 @@ interface UserProfile {
     monthlyAudioCount?: number;
 }
 
-interface Subscription {
-  id: string;
-  status: 'active' | 'trialing' | 'past_due' | 'canceled';
-  items: {
-    price: {
-      id: string;
-      product: {
-        id: string;
-        metadata?: {
-          firebaseRole?: string;
-        };
-      };
-    };
-  }[];
-  current_period_end: {
-    seconds: number;
-  };
-}
-
-
 export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
   const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
+  const [currentUserRole, setCurrentUserRole] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isUserLoading && (!user || !user.emailVerified)) {
@@ -67,44 +47,32 @@ export default function PerfilPage() {
     }
   }, [user, isUserLoading, router]);
 
+  // Observe subscription changes and update the user's role
+  useEffect(() => {
+    if (firestore && user?.uid) {
+      const unsubscribe = watchUserSubscription(firestore, user.uid, (newRole) => {
+        setCurrentUserRole(newRole);
+      });
+      return () => unsubscribe(); // Cleanup listener on unmount
+    }
+  }, [firestore, user]);
+
+
   const userRef = useMemoFirebase(() => {
     if (!firestore || !user) return null;
     return userDocRef(firestore, user.uid);
   }, [firestore, user]);
 
-  const { data: userProfile } = useDoc<UserProfile>(userRef);
+  const { data: userProfile, isLoading: isProfileLoading } = useDoc<UserProfile>(userRef);
 
   const userStoriesQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
     return userStoriesCollectionRef(firestore, user.uid);
   }, [firestore, user]);
 
-  const subscriptionsQuery = useMemoFirebase(() => {
-    if (!firestore || !user) return null;
-    const subsRef = customerSubscriptionsCollectionRef(firestore, user.uid);
-    return query(subsRef, where('status', 'in', ['trialing', 'active']));
-  }, [firestore, user]);
-
   const { data: stories, isLoading: areStoriesLoading } = useCollection<Story>(userStoriesQuery);
-  const { data: subscriptions, isLoading: areSubscriptionsLoading } = useCollection<Subscription>(subscriptionsQuery);
-  
-  const activeSubscription = subscriptions?.[0];
-  const firebaseRole = activeSubscription?.items?.[0]?.price?.product?.metadata?.firebaseRole;
-  const currentPlan = firebaseRole ? pricingPlans.find(p => p.firebaseRole === firebaseRole) : null;
-  const billingDate = activeSubscription ? new Date(activeSubscription.current_period_end.seconds * 1000) : new Date();
 
-  useEffect(() => {
-    if (firebaseRole && userRef && userProfile?.stripeRole !== firebaseRole) {
-      updateDocumentNonBlocking(userRef, { stripeRole: firebaseRole });
-    }
-  }, [firebaseRole, userRef, userProfile]);
-
-  const planLimits = userProfile?.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
-  const creditsUsed = userProfile?.monthlyAudioCount || 0;
-  const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
-
-
-  if (isUserLoading || !user || !user.emailVerified) {
+  if (isUserLoading || isProfileLoading || !user || !user.emailVerified) {
     return (
       <div className="container mx-auto py-12">
         <div className="grid gap-10 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
@@ -138,6 +106,11 @@ export default function PerfilPage() {
     );
   }
 
+  const role = userProfile?.stripeRole || currentUserRole;
+  const planLimits = role ? getPlanLimits(role) : 0;
+  const creditsUsed = userProfile?.monthlyAudioCount || 0;
+  const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
+  const billingDate = new Date(); // Placeholder for billing date
 
   return (
     <div className="container mx-auto py-12">
@@ -160,13 +133,11 @@ export default function PerfilPage() {
                   <TabsTrigger value="payg">Créditos Pay As You Go</TabsTrigger>
                 </TabsList>
                 <TabsContent value="subscription" className="mt-4">
-                 {areSubscriptionsLoading ? (
-                    <Skeleton className="h-24 w-full" />
-                 ) : currentPlan ? (
+                 {role ? (
                     <div className="space-y-4">
                         <div className="flex justify-between items-start">
                             <div className='space-y-1'>
-                                <p className="text-lg font-bold text-primary">{currentPlan.name}</p>
+                                <p className="text-lg font-bold text-primary capitalize">{role}</p>
                                 <p className="text-sm text-muted-foreground flex items-center gap-2">
                                     <Calendar className="h-4 w-4" />
                                     <span>Próxima facturación: {format(billingDate, 'dd MMM yyyy', { locale: es })}</span>
