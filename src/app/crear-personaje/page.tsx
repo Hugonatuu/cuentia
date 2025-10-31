@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser, useFirestore } from '@/firebase';
+import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -23,11 +23,17 @@ import { serverTimestamp, runTransaction, doc } from 'firebase/firestore';
 import { userCharactersCollectionRef, userDocRef } from '@/firebase/firestore/references';
 import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-
+import { getPlanLimits } from '@/lib/plans';
 
 interface WebhookResponse {
     avatarUrl: string;
 }
+
+interface UserProfile {
+    stripeRole?: string;
+    monthlyCreditCount?: number;
+}
+
 
 const AVATAR_CREDIT_COST = 500;
 
@@ -47,6 +53,12 @@ export default function CrearPersonajePage() {
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [generatedAvatar, setGeneratedAvatar] = useState<{name: string, url: string} | null>(null);
 
+    const userRef = useMemoFirebase(() => {
+        if (!firestore || !user) return null;
+        return userDocRef(firestore, user.uid);
+    }, [firestore, user]);
+
+    const { data: userProfile } = useDoc<UserProfile>(userRef);
 
     useEffect(() => {
         const newPreviewUrls = selectedFiles.map(file => URL.createObjectURL(file));
@@ -94,7 +106,7 @@ export default function CrearPersonajePage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!user) {
+        if (!user || !userProfile) {
             handleInteraction();
             return;
         }
@@ -114,6 +126,21 @@ export default function CrearPersonajePage() {
             toast({ variant: 'destructive', title: 'Fotos insuficientes', description: 'Por favor, sube entre 2 y 4 fotos para generar el avatar.' });
             return;
         }
+        
+        // --- Credit Check ---
+        const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
+        const creditsUsed = userProfile.monthlyCreditCount || 0;
+        const remainingCredits = planLimits - creditsUsed;
+
+        if (remainingCredits < AVATAR_CREDIT_COST) {
+            toast({
+                variant: 'destructive',
+                title: 'Créditos insuficientes',
+                description: `Necesitas ${AVATAR_CREDIT_COST} créditos para crear un avatar, pero solo te quedan ${remainingCredits}.`,
+            });
+            return;
+        }
+        // --- End Credit Check ---
 
         setIsLoading(true);
         setGeneratedAvatar(null);

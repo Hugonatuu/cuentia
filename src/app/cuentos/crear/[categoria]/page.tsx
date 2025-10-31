@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser, useFirestore } from '@/firebase';
+import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { addDoc, runTransaction, doc } from 'firebase/firestore';
 import { userStoriesCollectionRef, userDocRef } from '@/firebase/firestore/references';
 import { Button } from '@/components/ui/button';
@@ -49,6 +49,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { getPlanLimits } from '@/lib/plans';
+
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; };
@@ -107,6 +109,11 @@ const formSchema = z.object({
 
 type StoryFormValues = z.infer<typeof formSchema>;
 
+interface UserProfile {
+    stripeRole?: string;
+    monthlyCreditCount?: number;
+}
+
 export default function CrearCuentoPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
@@ -119,6 +126,13 @@ export default function CrearCuentoPage() {
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
+  
+  const userRef = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return userDocRef(firestore, user.uid);
+  }, [firestore, user]);
+
+  const { data: userProfile } = useDoc<UserProfile>(userRef);
 
   const categoria = Array.isArray(params.categoria)
     ? params.categoria[0]
@@ -194,10 +208,25 @@ export default function CrearCuentoPage() {
   };
 
   async function onSubmit(data: StoryFormValues) {
-    if (!user || !firestore) {
+    if (!user || !firestore || !userProfile) {
       handleInteraction();
       return;
     }
+    
+     // --- Credit Check ---
+    const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
+    const creditsUsed = userProfile.monthlyCreditCount || 0;
+    const remainingCredits = planLimits - creditsUsed;
+
+    if (remainingCredits < totalCredits) {
+        toast({
+            variant: 'destructive',
+            title: 'Créditos insuficientes',
+            description: `Necesitas ${totalCredits} créditos para crear este cuento, pero solo te quedan ${remainingCredits}.`,
+        });
+        return;
+    }
+    // --- End Credit Check ---
 
     const webhookUrl = webhookUrls[data.imageCount];
 
