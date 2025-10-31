@@ -1,6 +1,6 @@
 'use client';
 
-import { addDoc, onSnapshot, Firestore } from 'firebase/firestore';
+import { addDoc, onSnapshot, Firestore, Unsubscribe } from 'firebase/firestore';
 import { loadStripe } from '@stripe/stripe-js';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -11,13 +11,15 @@ export async function createCheckoutSession(
   userId: string,
   priceId: string
 ): Promise<void> {
-
   const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
   if (!publishableKey) {
-    throw new Error('La clave publicable de Stripe no está configurada. Por favor, añádela a tu archivo .env.local');
+    throw new Error(
+      'La clave publicable de Stripe no está configurada. Por favor, añádela a tu archivo .env.local'
+    );
   }
 
   const checkoutSessionsRef = customerCheckoutSessionsCollectionRef(db, userId);
+  let unsubscribe: Unsubscribe | null = null;
 
   try {
     const docRef = await addDoc(checkoutSessionsRef, {
@@ -27,19 +29,27 @@ export async function createCheckoutSession(
       mode: 'subscription',
     });
 
-    onSnapshot(docRef, async (snap) => {
-      const { error, url } = snap.data() || {};
+    unsubscribe = onSnapshot(docRef, async (snap) => {
+      const data = snap.data();
+      const { error, sessionId } = data || {};
+
       if (error) {
         console.error(`An error occurred: ${error.message}`);
-        errorEmitter.emit('permission-error', new FirestorePermissionError({
-          path: docRef.path,
-          operation: 'get',
-        }));
+        if (unsubscribe) unsubscribe();
+        errorEmitter.emit(
+          'permission-error',
+          new FirestorePermissionError({
+            path: docRef.path,
+            operation: 'get',
+          })
+        );
       }
-      if (url) {
+      
+      if (sessionId) {
+        if (unsubscribe) unsubscribe();
         const stripe = await loadStripe(publishableKey);
         if (stripe) {
-          await stripe.redirectToCheckout({ sessionId: snap.id });
+          await stripe.redirectToCheckout({ sessionId });
         }
       }
     });
