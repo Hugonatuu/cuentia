@@ -1,0 +1,47 @@
+{
+    "HomePage": {
+      "title": "Crea cuentos que cobran vida en segundos",
+      "subtitle": "Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.",
+      "cta": "✨ Crear mi cuento ✨",
+      "howItWorksTitle": "CÓMO FUNCIONA",
+      "step1Title": "1. CREA TU PERSONAJE",
+      "step1Description": "Sube una foto, crea una versión mágica de ti, de tu mascota o de quien quieras... ¡y todos los personajes que imagines!",
+      "step1Cta": "Crear personaje",
+      "step2Title": "2. Elige qué personaje quieres que aparezca en tu cuento",
+      "step2Description": "Puedes elegir entre los personajes que has creado o usar los personajes predefinidos de Cuentia. ¡Combina como quieras!",
+      "step2Cta": "Ver personajes",
+      "step3Title": "3. Escribe los puntos clave y el objetivo de aprendizaje",
+      "step3Description": "¡Deja volar tu imaginación! Añade los puntos principales, un objetivo de aprendizaje y dale tu toque personal.",
+      "step4Title": "4. Añade los últimos detalles de personalización a tu libro",
+      "step4Description": "Añade una dedicatoria especial y una imagen en la contraportada para hacerlo aún más único.",
+      "examplesTitle": "Cuentos creados con Cuentia",
+      "noStories": "Aún no hay cuentos en la comunidad.",
+      "faqTitle": "Preguntas Frecuentes",
+      "faq1Question": "¿Cómo funciona la creación de avatares?",
+      "faq1Answer": "Subes varias fotos y nuestra IA genera un personaje animado que podrás usar en todos tus cuentos.",
+      "faq2Question": "¿Qué son los créditos?",
+      "faq2Answer": "Los créditos son la moneda de Cuentia para generar cuentos e ilustraciones.",
+      "faq3Question": "¿Puedo usar los cuentos comercialmente?",
+      "faq3Answer": "Sí, con los planes de suscripción tienes derechos de uso incluso comercial.",
+      "faq4Question": "¿Cuántos créditos cuesta crear un cuento?",
+      "faq4Answer": "Los cuentos ilustrados más básicos cuestan 800 créditos.",
+      "finalCtaTitle": "¿Listo para crear magia?",
+      "finalCtaDescription": "Únete a la comunidad de Cuentia y empieza a dar vida a tus historias.",
+      "finalCtaButton": "Regístrate gratis"
+    },
+    "Navigation": {
+      "home": "Inicio",
+      "create": "💫 Crear cuento",
+      "characters": "Personajes",
+      "community": "Comunidad",
+      "pricing": "Precios",
+      "login": "Iniciar sesión",
+      "register": "Registrarse",
+      "profile": "Mi perfil",
+      "logout": "Cerrar sesión"
+    },
+    "Footer": {
+      "createdBy": "Creado con 💜 para pequeños lectores.",
+      "copy": "© {year} Cuentia. Todos los derechos reservados."
+    }
+  }

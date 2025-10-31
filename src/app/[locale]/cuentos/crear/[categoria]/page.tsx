@@ -2,29 +2,29 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser, useFirestore } from '@/firebase';
+import { useUser, useFirestore } from '@/app/[locale]/firebase';
 import { addDoc } from 'firebase/firestore';
-import { userStoriesCollectionRef } from '@/firebase/firestore/references';
-import { Button } from '@/components/ui/button';
+import { userStoriesCollectionRef } from '@/app/[locale]/firebase/firestore/references';
+import { Button } from '@/app/[locale]/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+} from '@/app/[locale]/components/ui/card';
+import { Input } from '@/app/[locale]/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
+} from '@/app/[locale]/components/ui/select';
+import { Textarea } from '@/app/[locale]/components/ui/textarea';
 import { Loader2, Sparkles, CreditCard, Info, PlusCircle, BookHeart, Lightbulb } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
-import AuthPopup from '@/components/core/AuthPopup';
+import { Skeleton } from '@/app/[locale]/components/ui/skeleton';
+import AuthPopup from '@/app/[locale]/components/core/AuthPopup';
 import { useParams, useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -36,12 +36,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from '@/app/[locale]/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { CharacterSlot } from '../components/CharacterSlot';
 import { CharacterWithCustomization, PredefinedCharacter } from '../components/types';
-import { Switch } from '@/components/ui/switch';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Switch } from '@/app/[locale]/components/ui/switch';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/app/[locale]/components/ui/tooltip';
 import Image from 'next/image';
 import { serverTimestamp } from 'firebase/firestore';
 import {
@@ -49,7 +49,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/app/[locale]/components/ui/dropdown-menu';
 
 const categoryDetails: {
   [key: string]: { title: string; description: string; };
@@ -238,9 +238,9 @@ export default function CrearCuentoPage() {
         name: character.name,
         gender: character.gender,
         age: character.age,
-        description: (isPredefined ? (character as PredefinedCharacter).description : '') || '',
+        description: isPredefined ? (character as PredefinedCharacter).description : '',
         species: character.species,
-        visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
+        visual_description: visual_description || '',
       };
     });
 
