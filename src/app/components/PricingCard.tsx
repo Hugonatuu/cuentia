@@ -2,10 +2,8 @@
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useUser } from "@/firebase";
-import { useRouter } from "next/navigation";
 
 type PricingPlan = {
   name: string;
@@ -13,25 +11,18 @@ type PricingPlan = {
   credits: string;
   features: string[];
   isFeatured: boolean;
-  cta: string;
+  stripePriceId: string;
 };
 
 type PricingCardProps = {
   plan: PricingPlan;
+  onCtaClick: () => void;
+  isLoading: boolean;
 };
 
-export default function PricingCard({ plan }: PricingCardProps) {
-  const { user } = useUser();
-  const router = useRouter();
-
-  const handleCtaClick = () => {
-    if (!user) {
-      router.push('/registro');
-    } else {
-      // TODO: Implement subscription logic for logged-in users
-      console.log(`Redirecting to subscription page for ${plan.name}`);
-    }
-  };
+export default function PricingCard({ plan, onCtaClick, isLoading }: PricingCardProps) {
+  
+  const ctaText = plan.isFeatured ? 'Plan Actual' : 'Cambiar Plan';
 
   return (
     <Card className={cn("flex flex-col", plan.isFeatured ? "border-primary ring-2 ring-primary shadow-lg" : "")}>
@@ -56,9 +47,10 @@ export default function PricingCard({ plan }: PricingCardProps) {
       <CardFooter>
         <Button 
           className={cn("w-full", plan.isFeatured ? "" : "bg-accent text-accent-foreground hover:bg-accent/90")}
-          onClick={handleCtaClick}
+          onClick={onCtaClick}
+          disabled={isLoading || plan.isFeatured}
         >
-          {plan.cta}
+          {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ctaText}
         </Button>
       </CardFooter>
     </Card>

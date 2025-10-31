@@ -24,12 +24,53 @@ import {
   AlertTriangle,
   Star,
 } from 'lucide-react';
+import { useUser, useFirestore } from '@/firebase';
+import { createCheckoutSession } from '@/lib/stripe';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { Loader2 } from 'lucide-react';
 
 export default function PreciosPage() {
   const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
   const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState<string | null>(null);
+
+  const { user } = useUser();
+  const firestore = useFirestore();
+  const router = useRouter();
+  const { toast } = useToast();
 
   const payAsYouGoCredits = payAsYouGoEuros * 1000;
+
+  const handleSubscription = async (priceId: string) => {
+    if (!user) {
+      router.push('/registro');
+      return;
+    }
+    if (!firestore) {
+      toast({
+        variant: 'destructive',
+        title: 'Error',
+        description: 'No se pudo conectar a la base de datos.',
+      });
+      return;
+    }
+
+    setIsLoading(priceId);
+    try {
+      await createCheckoutSession(firestore, user.uid, priceId);
+      // The page will redirect to Stripe Checkout.
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      toast({
+        variant: 'destructive',
+        title: 'Error al suscribirse',
+        description: 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
+      });
+      setIsLoading(null);
+    }
+  };
+
 
   return (
     <div className="container mx-auto py-12">
@@ -119,11 +160,9 @@ export default function PreciosPage() {
                       plan={{
                         ...plan,
                         isFeatured: plan.name === userProfile.subscription,
-                        cta:
-                          plan.name === userProfile.subscription
-                            ? 'Plan Actual'
-                            : 'Cambiar Plan',
                       }}
+                      onCtaClick={() => handleSubscription(plan.stripePriceId)}
+                      isLoading={isLoading === plan.stripePriceId}
                     />
                   </div>
                 ))}

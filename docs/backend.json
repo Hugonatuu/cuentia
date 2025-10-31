@@ -129,35 +129,51 @@
         "age"
       ]
     },
-    "Subscription": {
+    "SubscriptionPlan": {
       "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "Subscription",
+      "title": "SubscriptionPlan",
       "type": "object",
-      "description": "Represents a user's subscription plan.",
+      "description": "Represents a subscription plan available for purchase.",
       "properties": {
         "id": {
           "type": "string",
           "description": "Unique identifier for the subscription."
         },
-        "planName": {
+        "name": {
           "type": "string",
           "description": "Name of the subscription plan (e.g., Artista, Magico)."
         },
-        "creditLimit": {
+        "credits": {
           "type": "number",
           "description": "Number of credits included in the subscription plan."
         },
         "price": {
           "type": "number",
           "description": "Price of the subscription plan."
+        },
+        "stripePriceId": {
+            "type": "string",
+            "description": "The ID of the price in Stripe."
         }
       },
       "required": [
         "id",
-        "planName",
-        "creditLimit",
-        "price"
+        "name",
+        "credits",
+        "price",
+        "stripePriceId"
       ]
+    },
+    "StripeSubscription": {
+        "title": "Stripe Subscription",
+        "description": "Represents a user's subscription data from Stripe.",
+        "type": "object",
+        "properties": {
+            "status": {
+                "type": "string",
+                "description": "The status of the subscription (e.g., 'active', 'trialing', 'past_due')."
+            }
+        }
     },
     "PredefinedCharacter": {
       "title": "Predefined Character",
@@ -257,6 +273,27 @@
                   }
                 ]
               }
+            },
+            {
+              "path": "checkout_sessions/{sessionId}",
+              "definition": {
+                "entityName": "CheckoutSession",
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                },
+                "description": "Manages Stripe checkout sessions for a user."
+              }
+            },
+            {
+              "path": "subscriptions/{subscriptionId}",
+              "definition": {
+                "entityName": "StripeSubscription",
+                "schema": {
+                  "$ref": "#/entities/StripeSubscription"
+                },
+                "description": "Stores user subscription data from Stripe."
+              }
             }
           ]
         }
@@ -282,11 +319,11 @@
         }
       },
       {
-        "path": "/subscriptions/{subscriptionId}",
+        "path": "/subscriptionPlans/{planId}",
         "definition": {
-          "entityName": "Subscription",
+          "entityName": "SubscriptionPlan",
           "schema": {
-            "$ref": "#/entities/Subscription"
+            "$ref": "#/entities/SubscriptionPlan"
           },
           "description": "Stores subscription plans. Not user-specific, so stored at the root level.",
           "params": [

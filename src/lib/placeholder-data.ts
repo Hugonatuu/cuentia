@@ -1,4 +1,3 @@
-
 import placeholderImages from './placeholder-images.json';
 import { subMonths } from 'date-fns';
 
@@ -32,6 +31,7 @@ export const pricingPlans = [
     features: ['Paga solo por lo que usas', 'Ideal para empezar'],
     isFeatured: false,
     cta: 'Comprar Créditos',
+    stripePriceId: 'price_1PWTtPChy4xYm2argB3iH9mC' // Reemplazar con tu priceId de Stripe
   },
   {
     name: 'Plan Artista',
@@ -45,6 +45,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
+    stripePriceId: 'price_1PWTsvChy4xYm2ar4H7Z45XL' // Reemplazar con tu priceId de Stripe
   },
   {
     name: 'Plan Mágico',
@@ -58,6 +59,7 @@ export const pricingPlans = [
     ],
     isFeatured: true,
     cta: 'Suscribirse',
+    stripePriceId: 'price_1PWTtFChy4xYm2arvQYot38g' // Reemplazar con tu priceId de Stripe
   },
   {
     name: 'Plan Especial',
@@ -71,6 +73,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
+    stripePriceId: 'price_1PWTt9Chy4xYm2arJbT8xU6R' // Reemplazar con tu priceId de Stripe
   },
   {
     name: 'Plan King',
@@ -84,6 +87,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
+    stripePriceId: 'price_1PWTt4Chy4xYm2arM27x9OTh' // Reemplazar con tu priceId de Stripe
   },
 ];
 
