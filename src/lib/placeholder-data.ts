@@ -32,7 +32,8 @@ export const pricingPlans = [
     features: ['Paga solo por lo que usas', 'Ideal para empezar'],
     isFeatured: false,
     cta: 'Comprar Créditos',
-    stripePriceId: 'price_1PWTtPChy4xYm2argB3iH9mC' // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1PWTtPChy4xYm2argB3iH9mC', // Reemplazar con tu priceId de Stripe
+    firebaseRole: 'payg',
   },
   {
     name: 'Plan Artista',
@@ -46,7 +47,8 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1SOLjlArzx82mGRMHeoYsotv' // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1SOLjlArzx82mGRMHeoYsotv', // Reemplazar con tu priceId de Stripe
+    firebaseRole: 'artist',
   },
   {
     name: 'Plan Mágico',
@@ -60,7 +62,8 @@ export const pricingPlans = [
     ],
     isFeatured: true,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTtFChy4xYm2arvQYot38g' // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1PWTtFChy4xYm2arvQYot38g', // Reemplazar con tu priceId de Stripe
+    firebaseRole: 'magic',
   },
   {
     name: 'Plan Especial',
@@ -74,7 +77,8 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTt9Chy4xYm2arJbT8xU6R' // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1PWTt9Chy4xYm2arJbT8xU6R', // Reemplazar con tu priceId de Stripe
+    firebaseRole: 'special',
   },
   {
     name: 'Plan King',
@@ -88,7 +92,8 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTt4Chy4xYm2arM27x9OTh' // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1PWTt4Chy4xYm2arM27x9OTh', // Reemplazar con tu priceId de Stripe
+    firebaseRole: 'king',
   },
 ];
 

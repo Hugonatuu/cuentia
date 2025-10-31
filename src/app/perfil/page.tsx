@@ -3,15 +3,15 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useUser, useFirestore, useCollection, useMemoFirebase, useDoc, updateDocumentNonBlocking } from '@/firebase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { pricingPlans, userProfile } from '@/lib/placeholder-data';
+import { pricingPlans } from '@/lib/placeholder-data';
 import { Skeleton } from '@/components/ui/skeleton';
-import { userStoriesCollectionRef, customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
+import { userStoriesCollectionRef, customerSubscriptionsCollectionRef, userDocRef } from '@/firebase/firestore/references';
 import { BookOpen, Hourglass, CreditCard, AlertTriangle, Calendar, Gift, Star, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
@@ -19,7 +19,8 @@ import { es } from 'date-fns/locale';
 import EditDisplayName from './components/EditDisplayName';
 import EditAvatar from './components/EditAvatar';
 import { CreditsInfoDialog } from './components/CreditsInfoDialog';
-import { query, where, getDocs } from 'firebase/firestore';
+import { query, where } from 'firebase/firestore';
+import { getPlanLimits } from '@/lib/plans';
 
 
 interface Story {
@@ -30,6 +31,11 @@ interface Story {
   status: 'generating' | 'completed';
 }
 
+interface UserProfile {
+    stripeRole?: string;
+    monthlyAudioCount?: number;
+}
+
 interface Subscription {
   id: string;
   status: 'active' | 'trialing' | 'past_due' | 'canceled';
@@ -37,6 +43,9 @@ interface Subscription {
       id: string;
       product: {
           id: string;
+      },
+      metadata?: {
+        firebaseRole?: string;
       }
   }
   current_period_end: {
@@ -57,6 +66,13 @@ export default function PerfilPage() {
     }
   }, [user, isUserLoading, router]);
 
+  const userRef = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return userDocRef(firestore, user.uid);
+  }, [firestore, user]);
+
+  const { data: userProfile } = useDoc<UserProfile>(userRef);
+
   const userStoriesQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
     return userStoriesCollectionRef(firestore, user.uid);
@@ -72,8 +88,20 @@ export default function PerfilPage() {
   const { data: subscriptions, isLoading: areSubscriptionsLoading } = useCollection<Subscription>(subscriptionsQuery);
   
   const activeSubscription = subscriptions?.[0];
-  const currentPlan = activeSubscription ? pricingPlans.find(p => p.stripePriceId === activeSubscription.price.id) : null;
+  const firebaseRole = activeSubscription?.price?.metadata?.firebaseRole;
+  const currentPlan = firebaseRole ? pricingPlans.find(p => p.firebaseRole === firebaseRole) : null;
   const billingDate = activeSubscription ? new Date(activeSubscription.current_period_end.seconds * 1000) : new Date();
+
+  useEffect(() => {
+    if (firebaseRole && userRef && userProfile?.stripeRole !== firebaseRole) {
+      updateDocumentNonBlocking(userRef, { stripeRole: firebaseRole });
+    }
+  }, [firebaseRole, userRef, userProfile]);
+
+  const planLimits = userProfile?.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
+  const creditsUsed = userProfile?.monthlyAudioCount || 0;
+  const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
+
 
   if (isUserLoading || !user || !user.emailVerified) {
     return (
@@ -109,7 +137,6 @@ export default function PerfilPage() {
     );
   }
 
-  const subscriptionCreditPercentage = (userProfile.subscriptionCredits.current / userProfile.subscriptionCredits.total) * 100;
 
   return (
     <div className="container mx-auto py-12">
@@ -159,8 +186,8 @@ export default function PerfilPage() {
                             <div className="flex items-center gap-4">
                                 <Progress value={subscriptionCreditPercentage} className="flex-grow" />
                                 <span className="font-bold text-sm">
-                                    {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
-                                    {currentPlan.credits.split(' ')[0]}
+                                    {(planLimits - creditsUsed).toLocaleString()} /{' '}
+                                    {planLimits.toLocaleString()}
                                 </span>
                             </div>
                         </div>
@@ -181,7 +208,7 @@ export default function PerfilPage() {
                       <div className="flex items-center gap-4">
                         <Gift className="h-6 w-6 text-primary" />
                         <span className="font-bold text-xl">
-                          {userProfile.payAsYouGoCredits.current.toLocaleString()}
+                          0
                         </span>
                       </div>
                     </div>
@@ -277,3 +304,4 @@ export default function PerfilPage() {
     </div>
   );
 }
+
