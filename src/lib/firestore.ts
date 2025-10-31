@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -12,6 +13,27 @@ import {
   Timestamp,
 } from 'firebase/firestore';
 
+interface Subscription {
+    id: string;
+    status: 'active' | 'trialing' | 'past_due' | 'incomplete' | 'canceled';
+    price: {
+        id: string;
+        metadata: {
+            firebaseRole?: string;
+        }
+    };
+    items: {
+        price: {
+            id: string;
+            metadata: {
+                firebaseRole?: string;
+            }
+        }
+    }[];
+    current_period_start: Timestamp;
+}
+
+
 /**
  * Escucha los cambios en las suscripciones de un usuario y actualiza su rol y ciclo de facturación.
  * @param db - La instancia de Firestore.
@@ -25,24 +47,38 @@ export function watchUserSubscription(
   onRoleChange?: (newRole: string | null) => void
 ) {
   const subscriptionsRef = collection(db, `customers/${userId}/subscriptions`);
+  // Query for all non-canceled subscriptions to apply priority logic client-side.
   const q = query(
     subscriptionsRef,
-    where('status', 'in', ['trialing', 'active'])
+    where('status', 'in', ['trialing', 'active', 'past_due', 'incomplete'])
   );
 
   const unsubscribe = onSnapshot(q, async (snapshot) => {
     if (snapshot.empty) {
-      console.log('No active subscriptions found.');
+      console.log('No relevant subscriptions found.');
       await updateUserRole(db, userId, null, null, null, onRoleChange);
       return;
     }
 
-    const primarySubscriptionDoc = snapshot.docs[0];
-    const primarySubscription = primarySubscriptionDoc.data();
-    const subscriptionId = primarySubscriptionDoc.id;
+    const subscriptions = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Subscription));
+    
+    // Priority logic to find the primary subscription
+    let primarySubscription = 
+      subscriptions.find(sub => ['active', 'trialing'].includes(sub.status)) ||
+      subscriptions.find(sub => ['past_due', 'incomplete'].includes(sub.status)) ||
+      null;
+
+    if (!primarySubscription) {
+        console.log('No active or recoverable subscription found.');
+        await updateUserRole(db, userId, null, null, null, onRoleChange);
+        return;
+    }
+
+    const subscriptionId = primarySubscription.id;
     const isActive = ['active', 'trialing'].includes(primarySubscription.status);
     
-    const priceData = primarySubscription.items && primarySubscription.items[0]?.price;
+    // Correct path to metadata
+    const priceData = primarySubscription.price || (primarySubscription.items && primarySubscription.items[0]?.price);
     const newRole = isActive ? (priceData?.metadata?.firebaseRole || null) : null;
     
     // Obtener la fecha de inicio del período actual de la suscripción
@@ -80,23 +116,25 @@ async function updateUserRole(
 
     const updates: { [key: string]: any } = {
       stripeRole: newRole,
-      subscriptionId: subscriptionId,
+      subscriptionId: subscriptionId, // Always keep the subscriptionId if one exists
     };
 
-    // Comprobar si el ciclo de facturación ha cambiado
+    // Check if the billing cycle has changed
     if (newPeriodStart && (!currentPeriodStart || newPeriodStart.toMillis() !== currentPeriodStart.toMillis())) {
       console.log('New billing cycle detected. Resetting credit count.');
-      updates.monthlyCreditCount = 0; // Reiniciar el contador de créditos
-      updates.current_period_start = newPeriodStart; // Actualizar la fecha de inicio del período
-    } else if (newRole === null) {
-      // Si no hay plan, no hay fecha de inicio de período
+      updates.monthlyCreditCount = 0; // Reset credit count
+      updates.current_period_start = newPeriodStart; // Update period start date
+    }
+
+    // If there is no longer a relevant subscription, clear billing info
+    if (newRole === null && subscriptionId === null) {
       updates.current_period_start = null;
       updates.subscriptionId = null;
     }
 
     await updateDoc(userDocRef, updates);
 
-    console.log(`User role updated to: ${newRole}. Updates:`, updates);
+    console.log(`User role updated to: ${newRole}. Subscription ID: ${subscriptionId}. Updates:`, updates);
     if (onRoleChange) {
       onRoleChange(newRole);
     }
