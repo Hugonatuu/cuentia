@@ -31,15 +31,20 @@ export async function createCheckoutSession(
   };
 
   try {
+    // 1. Create the document and get its reference.
     const docRef = await addDoc(checkoutSessionsRef, data);
 
+    // 2. Set up a listener on that specific document reference.
     onSnapshot(docRef, async (snap) => {
       const { error, url } = snap.data() || {};
+      
       if (error) {
         console.error(`An error occurred: ${error.message}`);
         // Optionally, use toast to show error to the user
       }
+
       if (url) {
+        // 3. Redirect to Stripe when the URL is available.
         const stripe = await loadStripe(
           process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
         );
@@ -47,24 +52,26 @@ export async function createCheckoutSession(
           await stripe.redirectToCheckout({ sessionId: snap.id });
         }
       }
-    }, (error) => {
+    }, 
+    (error) => {
+      // This is the error handler for the snapshot listener itself.
       const permissionError = new FirestorePermissionError({
         path: docRef.path,
-        operation: 'get',
+        operation: 'get', // Listening is a 'get' or 'list' operation.
       });
       errorEmitter.emit('permission-error', permissionError);
-      console.error('Snapshot listener error:', error);
+      console.error('Snapshot listener permission error:', error);
     });
 
   } catch (error) {
+    // This catches errors during the initial document creation (addDoc).
     const permissionError = new FirestorePermissionError({
       path: `users/${userId}/checkout_sessions`,
       operation: 'create',
       requestResourceData: data,
     });
     errorEmitter.emit('permission-error', permissionError);
-    // This console.error is for developer debugging; the emitted error will be shown in the UI.
-    console.error('Error creating checkout session document:', error);
-    throw permissionError; // Re-throw to be caught by the calling function's try/catch
+    // Re-throw to be caught by the calling function's UI if needed.
+    throw permissionError;
   }
 }
