@@ -1,6 +1,6 @@
 'use client';
 
-import { addDoc, onSnapshot, Firestore, doc } from 'firebase/firestore';
+import { addDoc, onSnapshot, Firestore } from 'firebase/firestore';
 import { loadStripe } from '@stripe/stripe-js';
 import { errorEmitter } from '@/firebase/error-emitter';
 import { FirestorePermissionError } from '@/firebase/errors';
@@ -23,43 +23,37 @@ export async function createCheckoutSession(
   try {
     const docRef = await addDoc(checkoutSessionsRef, data);
 
-    return new Promise<void>((resolve, reject) => {
-      const unsubscribe = onSnapshot(
-        docRef,
-        async (snap) => {
-          const { error, url } = snap.data() || {};
-
-          if (error) {
-            unsubscribe();
-            console.error(`An error occurred: ${error.message}`);
-            reject(new Error(error.message));
-          }
-
-          if (url) {
-            unsubscribe();
-            const stripe = await loadStripe(
-              process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-            );
-            if (stripe) {
-              await stripe.redirectToCheckout({ sessionId: snap.id });
-              resolve();
-            } else {
-              reject(new Error('Stripe.js failed to load.'));
-            }
-          }
-        },
-        (error) => {
-          unsubscribe();
-          const permissionError = new FirestorePermissionError({
-            path: docRef.path,
-            operation: 'get',
-          });
-          errorEmitter.emit('permission-error', permissionError);
-          console.error('Snapshot listener permission error:', error);
-          reject(permissionError);
+    // Listen to the document, when the url is available, redirect
+    onSnapshot(
+      docRef,
+      async (snap) => {
+        const { error, url } = snap.data() || {};
+        if (error) {
+          // Show an error to your customer and inspect your Cloud Function logs in the Firebase console.
+          console.error(`An error occurred: ${error.message}`);
+          // We could reject the promise here, but the page will be stuck in a loading state.
+          // It's often better to show a toast message to the user.
         }
-      );
-    });
+        if (url) {
+          // We have a Stripe Checkout URL, let's redirect.
+          const stripe = await loadStripe(
+            process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+          );
+          if (stripe) {
+            stripe.redirectToCheckout({ sessionId: snap.id });
+          }
+        }
+      },
+      (error) => {
+        // General snapshot listener error
+        const permissionError = new FirestorePermissionError({
+          path: docRef.path,
+          operation: 'get',
+        });
+        errorEmitter.emit('permission-error', permissionError);
+        console.error('Snapshot listener permission error:', error);
+      }
+    );
   } catch (error) {
     const permissionError = new FirestorePermissionError({
       path: checkoutSessionsRef.path,
