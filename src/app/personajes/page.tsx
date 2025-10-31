@@ -74,7 +74,8 @@ export default function PersonajesPage() {
 
   const confirmDelete = () => {
     if (characterToDelete && firestore && user) {
-      const characterDocRef = doc(firestore, `users/${user.uid}/characters/${characterToDelete.id}`);
+      // Note: The reference now points to the 'customers' collection
+      const characterDocRef = doc(firestore, `customers/${user.uid}/characters/${characterToDelete.id}`);
       deleteDocumentNonBlocking(characterDocRef);
     }
     setCharacterToDelete(null);
@@ -246,5 +247,7 @@ export default function PersonajesPage() {
     </div>
   );
 }
+
+    
 
     

@@ -2,82 +2,60 @@
  * @fileoverview Firestore Security Rules for the application.
  *
  * Core Philosophy:
- * This ruleset enforces a strict user-ownership model for user-generated content
- * (stories, characters), ensuring that only the authenticated user who created
- * the content can modify or delete it. Public read access is granted where
- * appropriate (e.g., predefined characters, community stories).
+ * This ruleset enforces a strict user-ownership model for all user-related data,
+ * which is consolidated under the /customers/{userId} collection. This includes
+ * user profiles, generated content (stories, characters), and billing information.
+ * Public read access is granted where appropriate (e.g., predefined characters, community stories).
  *
  * Data Structure:
- * - /users/{userId}: Stores user profile information.  Only the user can write
- *   to their own profile.  Read access is public.
- * - /users/{userId}/stories/{storyId}: Stores stories created by the user.
- *   Only the user can manage their own stories.
- * - /users/{userId}/characters/{characterId}: Stores characters created by the user.
- *   Only the user can manage their own characters.
+ * - /customers/{userId}: Stores user profile information and all related subcollections.
+ *   Only the authenticated user can manage their own data.
+ * - /customers/{userId}/stories/{storyId}: Stores stories created by the user.
+ * - /customers/{userId}/characters/{characterId}: Stores characters created by the user.
  * - /customers/{userId}/checkout_sessions/{sessionId}: Stores Stripe checkout sessions.
- *   Only the user can create and read their own checkout sessions.
  * - /customers/{userId}/subscriptions/{subscriptionId}: Stores Stripe subscription data.
- *   Only the user can read their own subscription data.
- * - /subscriptions/{subscriptionId}: Stores subscription plans. Read access is
- *   public, write access is restricted.
- * - /predefinedCharacters/{characterId}: Stores predefined characters. Read
- *   access is public, write access is restricted.
- * - /communityStories/{storyId}: Stores community stories. Read access is
-
+ * - /subscriptions/{subscriptionId}: Stores subscription plans. Read access is public.
+ * - /predefinedCharacters/{characterId}: Stores predefined characters. Read access is public.
+ * - /communityStories/{storyId}: Stores community stories. Read access is public.
  *
  * Key Security Decisions:
- * - Users can only read and write their own profile data and their associated
- *   stories and characters.
- * - Listing of user profiles is implicitly denied via the security rules structure.
+ * - Users can only read and write their own customer document and all its subcollections.
+ * - Listing of customer documents is implicitly denied.
  * - Subscription plans, predefined characters, and community stories are
  *   publicly readable but not writable by end-users.
- *
- * Denormalization for Authorization:
- * - Stories and characters are stored under the user's document. To create simpler, more performant rules, denormalize (copy) data required for an authorization decision directly onto the documents being secured.
  */
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
     /**
-     * @description Secure user profiles and their subcollections.
-     * @path /users/{userId}
-     */
-    match /users/{userId} {
-      allow get, list: if true;
-      allow create: if request.auth.uid == userId;
-      allow update: if isExistingOwner(userId);
-      allow delete: if isExistingOwner(userId);
-
-      /**
-       * @description Secure stories created by each user. Only the owner can manage their stories.
-       * @path /users/{userId}/stories/{storyId}
-       */
-      match /stories/{storyId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId);
-        allow update: if isExistingOwner(userId);
-        allow delete: if isExistingOwner(userId);
-      }
-
-      /**
-       * @description Secure characters created by each user. Only the owner can manage their characters.
-       * @path /users/{userId}/characters/{characterId}
-       */
-      match /characters/{characterId} {
-        allow get, list: if isOwner(userId);
-        allow create: if isOwner(userId);
-        allow update: if isExistingOwner(userId);
-        allow delete: if isExistingOwner(userId);
-      }
-    }
-    
-    /**
-     * @description Secure customer data, related to Stripe billing.
+     * @description Secure customer data, including profile, billing, and user-generated content.
      * @path /customers/{userId}
      */
     match /customers/{userId} {
-        allow get, list, create, update, delete: if isOwner(userId);
+        allow get: if isOwner(userId);
+        allow create: if request.auth.uid == userId;
+        allow update, delete: if isExistingOwner(userId);
+
+        /**
+        * @description Secure stories created by each user. Only the owner can manage their stories.
+        * @path /customers/{userId}/stories/{storyId}
+        */
+        match /stories/{storyId} {
+            allow get, list: if isOwner(userId);
+            allow create: if isOwner(userId);
+            allow update, delete: if isExistingOwner(userId);
+        }
+
+        /**
+        * @description Secure characters created by each user. Only the owner can manage their characters.
+        * @path /customers/{userId}/characters/{characterId}
+        */
+        match /characters/{characterId} {
+            allow get, list: if isOwner(userId);
+            allow create: if isOwner(userId);
+            allow update, delete: if isExistingOwner(userId);
+        }
 
         /**
         * @description Secure checkout sessions. Users can only create and read their own.
@@ -102,43 +80,28 @@ service cloud.firestore {
     /**
      * @description Subscription plans are publicly readable, but not writable by end-users.
      * @path /subscriptions/{subscriptionId}
-     * @allow (get, list) public read
-     * @deny (create, update, delete) end-user writes
-     * @principle Allows public reads, restricts writes.
      */
     match /subscriptions/{subscriptionId} {
       allow get, list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow create, update, delete: if false;
     }
 
     /**
      * @description Predefined characters are publicly readable, but not writable by end-users.
      * @path /predefinedCharacters/{characterId}
-     * @allow (get, list) public read
-     * @deny (create, update, delete) end-user writes
-     * @principle Allows public reads, restricts writes.
      */
     match /predefinedCharacters/{characterId} {
       allow get, list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow create, update, delete: if false;
     }
 
     /**
      * @description Community stories are publicly readable, but not writable by end-users.
      * @path /communityStories/{storyId}
-     * @allow (get, list) public read
-     * @deny (create, update, delete) end-user writes
-     * @principle Allows public reads, restricts writes.
      */
     match /communityStories/{storyId} {
       allow get, list: if true;
-      allow create: if false;
-      allow update: if false;
-      allow delete: if false;
+      allow create, update, delete: if false;
     }
 
     //------------------- Helper functions -----------------------

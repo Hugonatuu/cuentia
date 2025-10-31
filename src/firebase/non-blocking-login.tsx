@@ -20,7 +20,8 @@ function createUserDocument(user: UserCredential['user']) {
   if (!user) return;
 
   const { firestore } = initializeFirebase();
-  const userRef = doc(firestore, 'users', user.uid);
+  // Create document in 'customers' collection instead of 'users'
+  const userRef = doc(firestore, 'customers', user.uid);
   const userData = {
     email: user.email,
     displayName: user.displayName,
@@ -96,3 +97,5 @@ export function initiateGoogleSignIn(authInstance: Auth): void {
       console.error('Google Sign-In Error:', error);
     });
 }
+
+    

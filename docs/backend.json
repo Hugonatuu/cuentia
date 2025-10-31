@@ -244,43 +244,19 @@
   "firestore": {
     "structure": [
       {
-        "path": "/users/{userId}",
+        "path": "/customers/{userId}",
         "definition": {
           "entityName": "UserProfile",
           "schema": {
             "$ref": "#/entities/UserProfile"
           },
-          "description": "Stores public-facing user profiles. Uses path-based ownership for write operations, but may be publicly readable.",
-          "params": [
+          "description": "Stores all customer-specific data, including profile, billing, and user-generated content.",
+           "params": [
             {
               "name": "userId",
               "description": "The unique identifier of the user, matching the Firebase Auth UID."
             }
           ],
-          "subcollections": [
-            {
-              "path": "characters/{characterId}",
-              "definition": {
-                "entityName": "Character",
-                "schema": {
-                  "$ref": "#/entities/Character"
-                },
-                "description": "Stores characters created by the user.",
-                "params": [
-                  {
-                    "name": "characterId",
-                    "description": "The unique identifier of the character."
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      {
-        "path": "/customers/{userId}",
-        "definition": {
-          "description": "Stores customer-specific data, primarily related to Stripe billing.",
           "subcollections": [
             {
               "path": "checkout_sessions/{sessionId}",
@@ -302,26 +278,38 @@
                 },
                 "description": "Stores user subscription data from Stripe."
               }
-            }
-          ]
-        }
-      },
-       {
-        "path": "/users/{userId}/stories/{storyId}",
-        "definition": {
-          "entityName": "Story",
-          "schema": {
-            "$ref": "#/entities/Story"
-          },
-          "description": "Stores stories created by each user. Uses path-based ownership for private user data.",
-          "params": [
-            {
-              "name": "userId",
-              "description": "The unique identifier of the user."
             },
             {
-              "name": "storyId",
-              "description": "The unique identifier of the story."
+              "path": "stories/{storyId}",
+              "definition": {
+                "entityName": "Story",
+                "schema": {
+                  "$ref": "#/entities/Story"
+                },
+                "description": "Stores stories created by the user.",
+                "params": [
+                  {
+                    "name": "storyId",
+                    "description": "The unique identifier of the story."
+                  }
+                ]
+              }
+            },
+             {
+              "path": "characters/{characterId}",
+              "definition": {
+                "entityName": "Character",
+                "schema": {
+                  "$ref": "#/entities/Character"
+                },
+                "description": "Stores characters created by the user.",
+                "params": [
+                  {
+                    "name": "characterId",
+                    "description": "The unique identifier of the character."
+                  }
+                ]
+              }
             }
           ]
         }
