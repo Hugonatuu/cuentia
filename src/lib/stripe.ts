@@ -11,56 +11,42 @@ export async function createCheckoutSession(
   userId: string,
   priceId: string
 ): Promise<void> {
+
+  const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  if (!publishableKey) {
+    throw new Error('La clave publicable de Stripe no está configurada. Por favor, añádela a tu archivo .env.local');
+  }
+
   const checkoutSessionsRef = customerCheckoutSessionsCollectionRef(db, userId);
 
-  const data = {
-    price: priceId,
-    success_url: window.location.origin + '/perfil',
-    cancel_url: window.location.origin + '/precios',
-    mode: 'subscription',
-  };
-
   try {
-    const docRef = await addDoc(checkoutSessionsRef, data);
+    const docRef = await addDoc(checkoutSessionsRef, {
+      price: priceId,
+      success_url: window.location.origin + '/perfil',
+      cancel_url: window.location.origin + '/precios',
+      mode: 'subscription',
+    });
 
-    // Listen to the document, when the url is available, redirect
-    onSnapshot(
-      docRef,
-      async (snap) => {
-        const { error, url } = snap.data() || {};
-        if (error) {
-          // Show an error to your customer and inspect your Cloud Function logs in the Firebase console.
-          console.error(`An error occurred: ${error.message}`);
-          // We could reject the promise here, but the page will be stuck in a loading state.
-          // It's often better to show a toast message to the user.
-        }
-        if (url) {
-          // We have a Stripe Checkout URL, let's redirect.
-          const stripe = await loadStripe(
-            process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-          );
-          if (stripe) {
-            stripe.redirectToCheckout({ sessionId: snap.id });
-          }
-        }
-      },
-      (error) => {
-        // General snapshot listener error
-        const permissionError = new FirestorePermissionError({
+    onSnapshot(docRef, async (snap) => {
+      const { error, url } = snap.data() || {};
+      if (error) {
+        console.error(`An error occurred: ${error.message}`);
+        errorEmitter.emit('permission-error', new FirestorePermissionError({
           path: docRef.path,
           operation: 'get',
-        });
-        errorEmitter.emit('permission-error', permissionError);
-        console.error('Snapshot listener permission error:', error);
+        }));
       }
-    );
-  } catch (error) {
-    const permissionError = new FirestorePermissionError({
-      path: checkoutSessionsRef.path,
-      operation: 'create',
-      requestResourceData: data,
+      if (url) {
+        const stripe = await loadStripe(publishableKey);
+        if (stripe) {
+          await stripe.redirectToCheckout({ sessionId: snap.id });
+        }
+      }
     });
-    errorEmitter.emit('permission-error', permissionError);
-    throw permissionError;
+  } catch (error) {
+    console.error('Error creating checkout session document:', error);
+    if (error instanceof Error && error.name === 'FirebaseError') {
+      errorEmitter.emit('permission-error', error as FirestorePermissionError);
+    }
   }
 }
