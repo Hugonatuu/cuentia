@@ -26,6 +26,7 @@ export async function createCheckoutSession(
     price: priceId,
     success_url: window.location.origin,
     cancel_url: window.location.origin,
+    mode: 'subscription', // This is the fix
   };
 
   try {
