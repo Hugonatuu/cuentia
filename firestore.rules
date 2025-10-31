@@ -70,13 +70,22 @@ service cloud.firestore {
       }
       
       /**
-       * @description Secure checkout sessions. Users can only create their own.
+       * @description Secure checkout sessions. Users can only create and read their own.
        * @path /users/{userId}/checkout_sessions/{sessionId}
        */
       match /checkout_sessions/{sessionId} {
         allow create: if isOwner(userId);
         allow get: if isOwner(userId);
         allow list, update, delete: if false; // Only the Firebase extension should manage these.
+      }
+      
+      /**
+       * @description Secure subscriptions. Users can only read their own subscription data.
+       * @path /users/{userId}/subscriptions/{subscriptionId}
+       */
+      match /subscriptions/{subscriptionId} {
+        allow get, list: if isOwner(userId);
+        allow create, update, delete: if false; // Only the Firebase extension should manage these.
       }
     }
 
