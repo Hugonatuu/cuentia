@@ -1,3 +1,4 @@
+
 import placeholderImages from './placeholder-images.json';
 import { subMonths } from 'date-fns';
 
@@ -45,7 +46,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTsvChy4xYm2ar4H7Z45XL' // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1SOLjlArzx82mGRMHeoYsotv' // Reemplazar con tu priceId de Stripe
   },
   {
     name: 'Plan Mágico',
