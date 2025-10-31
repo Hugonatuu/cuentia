@@ -31,6 +31,8 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { collection, query, where } from 'firebase/firestore';
 import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
+import { loadStripe } from '@stripe/stripe-js';
+
 
 interface Subscription {
   id: string;
@@ -73,21 +75,35 @@ export default function PreciosPage() {
       return;
     }
 
+    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    if (!publishableKey) {
+        toast({
+            variant: "destructive",
+            title: "Error de Configuración",
+            description: "La clave publicable de Stripe no está configurada.",
+        });
+        return;
+    }
+
     setIsLoading(priceId);
+
     try {
-      await createCheckoutSession(firestore, user.uid, priceId);
-      // La redirección es manejada dentro de createCheckoutSession
+      const sessionId = await createCheckoutSession(firestore, user.uid, priceId);
+      const stripe = await loadStripe(publishableKey);
+      if (stripe) {
+        await stripe.redirectToCheckout({ sessionId });
+      } else {
+        throw new Error("No se pudo cargar Stripe.");
+      }
     } catch (error) {
-      console.error('Error creating checkout session:', error);
+      console.error('Error handling subscription:', error);
       toast({
         variant: 'destructive',
-        title: 'Error al suscribirse',
-        description: 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
+        title: 'Error al procesar el pago',
+        description: error instanceof Error ? error.message : 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
       });
-    } finally {
-      // El setIsLoading se mantiene en true porque la página debería redirigir.
-      // Si el usuario vuelve, se reiniciará.
-    }
+      setIsLoading(null);
+    } 
   };
 
 
