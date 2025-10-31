@@ -39,9 +39,9 @@ export function watchUserSubscription(
     const primarySubscription = snapshot.docs[0].data();
     const isActive = ['active', 'trialing'].includes(primarySubscription.status);
     
-    // La metadata con 'firebaseRole' está en el objeto 'plan'
-    const planData = primarySubscription.plan;
-    const newRole = isActive ? (planData?.metadata?.firebaseRole || null) : null;
+    // Acceder al firebaseRole a través de la ruta correcta: items[0].price.metadata.firebaseRole
+    const priceData = primarySubscription.items && primarySubscription.items[0]?.price;
+    const newRole = isActive ? (priceData?.metadata?.firebaseRole || null) : null;
 
     updateUserRole(db, userId, newRole, onRoleChange);
   });
