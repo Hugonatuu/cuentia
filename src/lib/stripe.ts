@@ -45,6 +45,12 @@ export async function createCheckoutSession(
           await stripe.redirectToCheckout({ sessionId: snap.id });
         }
       }
+    }, (error) => {
+      const permissionError = new FirestorePermissionError({
+        path: docRef.path,
+        operation: 'get',
+      });
+      errorEmitter.emit('permission-error', permissionError);
     });
   } catch (error) {
     const permissionError = new FirestorePermissionError({
