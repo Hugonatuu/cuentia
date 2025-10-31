@@ -30,6 +30,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 import { collection, query, where } from 'firebase/firestore';
+import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
 
 interface Subscription {
   id: string;
@@ -51,7 +52,7 @@ export default function PreciosPage() {
 
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
-    const subsRef = collection(firestore, 'users', user.uid, 'subscriptions');
+    const subsRef = customerSubscriptionsCollectionRef(firestore, user.uid);
     return query(subsRef, where('status', 'in', ['trialing', 'active']));
   }, [firestore, user]);
 
@@ -188,3 +189,5 @@ export default function PreciosPage() {
     </div>
   );
 }
+
+    

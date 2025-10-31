@@ -10,6 +10,7 @@ const createCollection = <T>(db: Firestore, path: string) => {
 
 // References to root collections
 export const usersCollectionRef = (db: Firestore) => createCollection(db, 'users');
+export const customersCollectionRef = (db: Firestore) => createCollection(db, 'customers');
 export const predefinedCharactersCollectionRef = (db: Firestore) => createCollection(db, 'predefinedCharacters');
 export const communityStoriesCollectionRef = (db: Firestore) => createCollection(db, 'communityStories');
 
@@ -23,6 +24,15 @@ export const userStoriesCollectionRef = (db: Firestore, userId: string) => {
     return createCollection(db, `users/${userId}/stories`);
 };
 
+export const customerCheckoutSessionsCollectionRef = (db: Firestore, userId: string) => {
+    return createCollection(db, `customers/${userId}/checkout_sessions`);
+};
+
+export const customerSubscriptionsCollectionRef = (db: Firestore, userId: string) => {
+    return createCollection(db, `customers/${userId}/subscriptions`);
+};
+
+
 // Document references
 export const userDocRef = (db: Firestore, userId: string) => {
     return doc(db, 'users', userId) as DocumentReference;
@@ -35,3 +45,5 @@ export const storyDocRef = (db: Firestore, userId: string, storyId: string) => {
 export const communityStoryDocRef = (db: Firestore, storyId: string) => {
     return doc(db, 'communityStories', storyId) as DocumentReference;
 };
+
+    

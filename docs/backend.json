@@ -273,7 +273,15 @@
                   }
                 ]
               }
-            },
+            }
+          ]
+        }
+      },
+      {
+        "path": "/customers/{userId}",
+        "definition": {
+          "description": "Stores customer-specific data, primarily related to Stripe billing.",
+          "subcollections": [
             {
               "path": "checkout_sessions/{sessionId}",
               "definition": {
@@ -369,3 +377,5 @@
     ]
   }
 }
+
+    
