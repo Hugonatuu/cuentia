@@ -723,9 +723,9 @@ export default function CrearCuentoPage() {
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-2xl font-semibold">Idioma</CardTitle>
-              <CardDescription>
+                <div className="mt-2 text-sm text-foreground p-3 bg-white border border-destructive rounded-lg">
                 🎯 Asegúrate de escribir los detalles de tu historia en el mismo idioma en el que vas a crear el cuento, para que todo encaje a la perfección.
-              </CardDescription>
+              </div>
             </CardHeader>
             <CardContent>
               <FormField
