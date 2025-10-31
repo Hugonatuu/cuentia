@@ -10,7 +10,6 @@ type PricingPlan = {
   price: string;
   credits: string;
   features: string[];
-  isFeatured: boolean;
   stripePriceId: string;
 };
 
@@ -18,14 +17,19 @@ type PricingCardProps = {
   plan: PricingPlan;
   onCtaClick: () => void;
   isLoading: boolean;
+  isCurrentUserPlan: boolean;
+  hasActiveSubscription: boolean;
 };
 
-export default function PricingCard({ plan, onCtaClick, isLoading }: PricingCardProps) {
+export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUserPlan, hasActiveSubscription }: PricingCardProps) {
   
-  const ctaText = plan.isFeatured ? 'Plan Actual' : 'Cambiar Plan';
+  let ctaText = 'Suscribirse';
+  if (hasActiveSubscription) {
+    ctaText = isCurrentUserPlan ? 'Plan Actual' : 'Cambiar Plan';
+  }
 
   return (
-    <Card className={cn("flex flex-col", plan.isFeatured ? "border-primary ring-2 ring-primary shadow-lg" : "")}>
+    <Card className={cn("flex flex-col", isCurrentUserPlan ? "border-primary ring-2 ring-primary shadow-lg" : "")}>
       <CardHeader>
         <CardTitle>{plan.name}</CardTitle>
         <CardDescription>{plan.credits}</CardDescription>
@@ -46,9 +50,9 @@ export default function PricingCard({ plan, onCtaClick, isLoading }: PricingCard
       </CardContent>
       <CardFooter>
         <Button 
-          className={cn("w-full", plan.isFeatured ? "" : "bg-accent text-accent-foreground hover:bg-accent/90")}
+          className={cn("w-full", !isCurrentUserPlan ? "bg-accent text-accent-foreground hover:bg-accent/90" : "")}
           onClick={onCtaClick}
-          disabled={isLoading || plan.isFeatured}
+          disabled={isLoading || isCurrentUserPlan}
         >
           {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ctaText}
         </Button>

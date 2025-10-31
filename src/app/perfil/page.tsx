@@ -33,6 +33,7 @@ export default function PerfilPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
+  const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && (!user || !user.emailVerified)) {
@@ -85,6 +86,7 @@ export default function PerfilPage() {
 
   return (
     <div className="container mx-auto py-12">
+      <CreditsInfoDialog isOpen={isCreditsInfoOpen} onOpenChange={setIsCreditsInfoOpen} />
       <div className="grid gap-10 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <div className="flex flex-col items-center text-center">
           <EditAvatar user={user} />
@@ -116,13 +118,19 @@ export default function PerfilPage() {
                     </div>
 
                     <div className="space-y-2 pt-2">
-                        <p className="font-semibold text-sm">Créditos restantes del plan</p>
+                        <div className="flex items-center justify-between">
+                            <p className="font-semibold text-sm">Créditos restantes del plan</p>
+                            <Button variant="link" size="sm" className="p-0 h-auto" onClick={() => setIsCreditsInfoOpen(true)}>
+                                <Info className="mr-1 h-4 w-4" />
+                                ¿Cómo funcionan?
+                            </Button>
+                        </div>
                         <div className="flex items-center gap-4">
-                        <Progress value={subscriptionCreditPercentage} className="flex-grow" />
-                        <span className="font-bold text-sm">
-                            {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
-                            {userProfile.subscriptionCredits.total.toLocaleString()}
-                        </span>
+                            <Progress value={subscriptionCreditPercentage} className="flex-grow" />
+                            <span className="font-bold text-sm">
+                                {userProfile.subscriptionCredits.current.toLocaleString()} /{' '}
+                                {userProfile.subscriptionCredits.total.toLocaleString()}
+                            </span>
                         </div>
                     </div>
                   </div>

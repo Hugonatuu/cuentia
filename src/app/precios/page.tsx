@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/alert';
 import { Slider } from '@/components/ui/slider';
 import { CreditsInfoDialog } from '@/app/perfil/components/CreditsInfoDialog';
-import { pricingPlans, userProfile } from '@/lib/placeholder-data';
+import { pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import {
   Info,
@@ -24,11 +24,18 @@ import {
   AlertTriangle,
   Star,
 } from 'lucide-react';
-import { useUser, useFirestore } from '@/firebase';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { createCheckoutSession } from '@/lib/stripe';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
+import { collection, query, where } from 'firebase/firestore';
+
+interface Subscription {
+  id: string;
+  status: 'active' | 'trialing' | 'past_due' | 'canceled';
+  priceId: string;
+}
 
 export default function PreciosPage() {
   const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
@@ -41,6 +48,15 @@ export default function PreciosPage() {
   const { toast } = useToast();
 
   const payAsYouGoCredits = payAsYouGoEuros * 1000;
+
+  const subscriptionsQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    const subsRef = collection(firestore, 'users', user.uid, 'subscriptions');
+    return query(subsRef, where('status', 'in', ['trialing', 'active']));
+  }, [firestore, user]);
+
+  const { data: subscriptions, isLoading: isLoadingSubscriptions } = useCollection<Subscription>(subscriptionsQuery);
+  const activeSubscription = subscriptions?.[0];
 
   const handleSubscription = async (priceId: string) => {
     if (!user) {
@@ -59,7 +75,6 @@ export default function PreciosPage() {
     setIsLoading(priceId);
     try {
       await createCheckoutSession(firestore, user.uid, priceId);
-      // The page will redirect to Stripe Checkout.
     } catch (error) {
       console.error('Error creating checkout session:', error);
       toast({
@@ -67,6 +82,7 @@ export default function PreciosPage() {
         title: 'Error al suscribirse',
         description: 'Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.',
       });
+    } finally {
       setIsLoading(null);
     }
   };
@@ -156,13 +172,12 @@ export default function PreciosPage() {
                 .filter((p) => p.name !== 'Pay as you go')
                 .map((plan) => (
                   <div key={plan.name} className="flex flex-col">
-                    <PricingCard
-                      plan={{
-                        ...plan,
-                        isFeatured: plan.name === userProfile.subscription,
-                      }}
+                     <PricingCard
+                      plan={plan}
                       onCtaClick={() => handleSubscription(plan.stripePriceId)}
-                      isLoading={isLoading === plan.stripePriceId}
+                      isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
+                      isCurrentUserPlan={activeSubscription?.priceId === plan.stripePriceId}
+                      hasActiveSubscription={!!activeSubscription}
                     />
                   </div>
                 ))}
