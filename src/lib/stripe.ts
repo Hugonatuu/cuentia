@@ -8,33 +8,50 @@ import {
   Firestore,
 } from 'firebase/firestore';
 import { loadStripe } from '@stripe/stripe-js';
+import { errorEmitter } from '@/firebase/error-emitter';
+import { FirestorePermissionError } from '@/firebase/errors';
 
 export async function createCheckoutSession(
   db: Firestore,
   userId: string,
   priceId: string
 ) {
-  const checkoutSessionsRef = collection(db, 'users', userId, 'checkout_sessions');
-
-  const docRef = await addDoc(checkoutSessionsRef, {
+  const checkoutSessionsRef = collection(
+    db,
+    'users',
+    userId,
+    'checkout_sessions'
+  );
+  const data = {
     price: priceId,
     success_url: window.location.origin,
     cancel_url: window.location.origin,
-  });
+  };
 
-  onSnapshot(docRef, async (snap) => {
-    const { error, url } = snap.data() || {};
-    if (error) {
-      console.error(`An error occurred: ${error.message}`);
-      // Optionally, show a toast to the user
-    }
-    if (url) {
-      const stripe = await loadStripe(
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-      );
-      if (stripe) {
-        await stripe.redirectToCheckout({ sessionId: snap.id });
+  try {
+    const docRef = await addDoc(checkoutSessionsRef, data);
+
+    onSnapshot(docRef, async (snap) => {
+      const { error, url } = snap.data() || {};
+      if (error) {
+        console.error(`An error occurred: ${error.message}`);
+        // Optionally, show a toast to the user
       }
-    }
-  });
+      if (url) {
+        const stripe = await loadStripe(
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+        );
+        if (stripe) {
+          await stripe.redirectToCheckout({ sessionId: snap.id });
+        }
+      }
+    });
+  } catch (error) {
+    const permissionError = new FirestorePermissionError({
+      path: `users/${userId}/checkout_sessions`,
+      operation: 'create',
+      requestResourceData: data,
+    });
+    errorEmitter.emit('permission-error', permissionError);
+  }
 }
