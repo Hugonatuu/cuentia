@@ -40,14 +40,11 @@ interface Subscription {
   id: string;
   status: 'active' | 'trialing' | 'past_due' | 'canceled';
   price: {
-      id: string;
-      product: {
-          id: string;
-      },
-      metadata?: {
-        firebaseRole?: string;
-      }
-  }
+    id: string;
+    metadata?: {
+      firebaseRole?: string;
+    }
+  };
   current_period_end: {
     seconds: number;
   };
@@ -304,4 +301,5 @@ export default function PerfilPage() {
     </div>
   );
 }
+
 

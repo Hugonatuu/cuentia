@@ -182,11 +182,16 @@
                 "type": "string",
                 "description": "The status of the subscription (e.g., 'active', 'trialing', 'past_due')."
             },
-            "metadata": {
+            "price": {
                 "type": "object",
                 "properties": {
-                    "firebaseRole": {
-                        "type": "string"
+                    "metadata": {
+                        "type": "object",
+                        "properties": {
+                            "firebaseRole": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }
@@ -382,5 +387,3 @@
     ]
   }
 }
-
-    
