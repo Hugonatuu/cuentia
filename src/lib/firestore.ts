@@ -33,11 +33,13 @@ export function watchUserSubscription(
   const unsubscribe = onSnapshot(q, async (snapshot) => {
     if (snapshot.empty) {
       console.log('No active subscriptions found.');
-      await updateUserRole(db, userId, null, null, onRoleChange);
+      await updateUserRole(db, userId, null, null, null, onRoleChange);
       return;
     }
 
-    const primarySubscription = snapshot.docs[0].data();
+    const primarySubscriptionDoc = snapshot.docs[0];
+    const primarySubscription = primarySubscriptionDoc.data();
+    const subscriptionId = primarySubscriptionDoc.id;
     const isActive = ['active', 'trialing'].includes(primarySubscription.status);
     
     const priceData = primarySubscription.items && primarySubscription.items[0]?.price;
@@ -46,7 +48,7 @@ export function watchUserSubscription(
     // Obtener la fecha de inicio del período actual de la suscripción
     const newPeriodStart = primarySubscription.current_period_start as Timestamp;
 
-    await updateUserRole(db, userId, newRole, newPeriodStart, onRoleChange);
+    await updateUserRole(db, userId, newRole, newPeriodStart, subscriptionId, onRoleChange);
   });
 
   return unsubscribe;
@@ -58,6 +60,7 @@ export function watchUserSubscription(
  * @param userId - El ID del usuario.
  * @param newRole - El nuevo rol a establecer.
  * @param newPeriodStart - El timestamp del inicio del nuevo período de facturación.
+ * @param subscriptionId - El ID de la suscripción.
  * @param onRoleChange - (Opcional) Callback para notificar el cambio de rol.
  */
 async function updateUserRole(
@@ -65,6 +68,7 @@ async function updateUserRole(
     userId: string, 
     newRole: string | null,
     newPeriodStart: Timestamp | null,
+    subscriptionId: string | null,
     onRoleChange?: (newRole: string | null) => void
 ) {
   const userDocRef = doc(db, `customers/${userId}`);
@@ -76,6 +80,7 @@ async function updateUserRole(
 
     const updates: { [key: string]: any } = {
       stripeRole: newRole,
+      subscriptionId: subscriptionId,
     };
 
     // Comprobar si el ciclo de facturación ha cambiado
@@ -86,6 +91,7 @@ async function updateUserRole(
     } else if (newRole === null) {
       // Si no hay plan, no hay fecha de inicio de período
       updates.current_period_start = null;
+      updates.subscriptionId = null;
     }
 
     await updateDoc(userDocRef, updates);

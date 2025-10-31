@@ -34,6 +34,10 @@
           "type": "string",
           "format": "date-time",
           "description": "The start date of the current billing cycle from Stripe."
+        },
+        "subscriptionId": {
+          "type": "string",
+          "description": "The ID of the user's active Stripe subscription."
         }
       },
       "required": ["email", "createdAt"]

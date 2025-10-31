@@ -34,6 +34,7 @@ interface UserProfile {
     stripeRole?: string;
     monthlyCreditCount?: number;
     current_period_start?: { seconds: number; nanoseconds: number };
+    subscriptionId?: string;
 }
 
 const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
