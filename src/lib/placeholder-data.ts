@@ -62,13 +62,13 @@ export const pricingPlans = [
     ],
     isFeatured: true,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTtFChy4xYm2arvQYot38g', // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1SOPcmArzx82mGRMotEgmX4s',
     firebaseRole: 'magic',
   },
   {
     name: 'Plan Especial',
     price: '23,99€',
-    credits: '30.000 créditos / mes',
+    credits: '35.000 créditos / mes',
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
@@ -77,7 +77,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTt9Chy4xYm2arJbT8xU6R', // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1SOPhIArzx82mGRMhfWnqmsQ',
     firebaseRole: 'special',
   },
   {
@@ -92,7 +92,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1PWTt4Chy4xYm2arM27x9OTh', // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1SOPiZArzx82mGRMiKURQm8i',
     firebaseRole: 'king',
   },
 ];
@@ -122,5 +122,3 @@ export const characterSubNav = [
   { href: '/personajes/mis-personajes', label: 'Mis Personajes' },
   { href: '/personajes/crear-avatar', label: 'Crear Avatar' },
 ]
-
-    
