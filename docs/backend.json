@@ -26,9 +26,9 @@
           "description": "The user's subscription role from Stripe.",
           "enum": ["artist", "magic", "special", "king"]
         },
-        "monthlyAudioCount": {
+        "monthlyCreditCount": {
             "type": "number",
-            "description": "The number of audio credits used in the current billing cycle."
+            "description": "The number of credits used in the current billing cycle."
         },
         "current_period_start": {
           "type": "string",

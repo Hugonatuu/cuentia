@@ -31,7 +31,7 @@ interface Story {
 
 interface UserProfile {
     stripeRole?: string;
-    monthlyAudioCount?: number;
+    monthlyCreditCount?: number;
 }
 
 export default function PerfilPage() {
@@ -108,7 +108,7 @@ export default function PerfilPage() {
 
   const role = userProfile?.stripeRole || currentUserRole;
   const planLimits = role ? getPlanLimits(role) : 0;
-  const creditsUsed = userProfile?.monthlyAudioCount || 0;
+  const creditsUsed = userProfile?.monthlyCreditCount || 0;
   const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
   const billingDate = new Date(); // Placeholder for billing date
 

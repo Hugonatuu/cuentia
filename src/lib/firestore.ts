@@ -80,8 +80,8 @@ async function updateUserRole(
 
     // Comprobar si el ciclo de facturación ha cambiado
     if (newPeriodStart && (!currentPeriodStart || newPeriodStart.toMillis() !== currentPeriodStart.toMillis())) {
-      console.log('New billing cycle detected. Resetting audio count.');
-      updates.monthlyAudioCount = 0; // Reiniciar el contador de audios
+      console.log('New billing cycle detected. Resetting credit count.');
+      updates.monthlyCreditCount = 0; // Reiniciar el contador de créditos
       updates.current_period_start = newPeriodStart; // Actualizar la fecha de inicio del período
     } else if (newRole === null) {
       // Si no hay plan, no hay fecha de inicio de período
@@ -95,6 +95,6 @@ async function updateUserRole(
       onRoleChange(newRole);
     }
   } catch (error) {
-    console.error('Error updating user role or audio count:', error);
+    console.error('Error updating user role or credit count:', error);
   }
 }
