@@ -163,12 +163,6 @@ export default function PreciosPage() {
         </div>
 
         <div>
-           <Alert variant="destructive" className="mb-4">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
-                Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
-              </AlertDescription>
-            </Alert>
           <Card>
             <CardHeader className="relative">
               <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
@@ -202,6 +196,12 @@ export default function PreciosPage() {
                 </Card>
               ))}
             </CardContent>
+            <Alert variant="destructive" className="m-6 mt-0">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
+              </AlertDescription>
+            </Alert>
           </Card>
         </div>
 
