@@ -162,46 +162,48 @@ export default function PreciosPage() {
           </Button>
         </div>
 
-        <Card>
-          <CardHeader className="relative">
-            <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
-            <CardDescription>
-              Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
-            </CardDescription>
-            <Alert variant="destructive" className="absolute top-4 right-4 max-w-xs">
+        <div>
+           <Alert variant="destructive" className="mb-4">
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
                 Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
               </AlertDescription>
             </Alert>
-          </CardHeader>
-          <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {creditPacks.map((pack) => (
-              <Card key={pack.priceId} className="flex flex-col text-center justify-between p-6 bg-background">
-                <div>
-                    {pack.bonus && (
-                        <div className="mb-2 text-sm font-bold text-green-600">{pack.bonus}</div>
-                    )}
-                    <div className="mb-4">
-                        <span className="text-4xl font-bold">{pack.euros}</span>
-                    </div>
-                    <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
-                        <Gem className="h-5 w-5" />
-                        <span>{pack.credits} créditos</span>
-                    </p>
-                </div>
-                <Button 
-                    className="w-full mt-6"
-                    onClick={() => handlePurchase(pack.priceId, 'payment')}
-                    disabled={isLoading === pack.priceId}
-                >
-                    {isLoading === pack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
-                    Comprar
-                </Button>
-              </Card>
-            ))}
-          </CardContent>
-        </Card>
+          <Card>
+            <CardHeader className="relative">
+              <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
+              <CardDescription>
+                Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {creditPacks.map((pack) => (
+                <Card key={pack.priceId} className="flex flex-col text-center justify-between p-6 bg-background">
+                  <div>
+                      {pack.bonus && (
+                          <div className="mb-2 text-sm font-bold text-green-600">{pack.bonus}</div>
+                      )}
+                      <div className="mb-4">
+                          <span className="text-4xl font-bold">{pack.euros}</span>
+                      </div>
+                      <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
+                          <Gem className="h-5 w-5" />
+                          <span>{pack.credits} créditos</span>
+                      </p>
+                  </div>
+                  <Button 
+                      className="w-full mt-6"
+                      onClick={() => handlePurchase(pack.priceId, 'payment')}
+                      disabled={isLoading === pack.priceId}
+                  >
+                      {isLoading === pack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                      Comprar
+                  </Button>
+                </Card>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
 
         <div className="relative pt-8">
           <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
