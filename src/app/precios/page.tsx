@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -19,6 +18,7 @@ import {
   Star,
   Loader2,
   Gem,
+  AlertTriangle,
 } from 'lucide-react';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { createCheckoutSession } from '@/lib/stripe';
@@ -27,6 +27,7 @@ import { useToast } from '@/hooks/use-toast';
 import { collection, query, where } from 'firebase/firestore';
 import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
 import { cn } from '@/lib/utils';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface Subscription {
   id: string;
@@ -162,18 +163,24 @@ export default function PreciosPage() {
         </div>
 
         <Card>
-          <CardHeader>
+          <CardHeader className="relative">
             <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
             <CardDescription>
               Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
             </CardDescription>
+            <Alert variant="destructive" className="absolute top-4 right-4 max-w-xs">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertDescription>
+                Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
+              </AlertDescription>
+            </Alert>
           </CardHeader>
           <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {creditPacks.map((pack) => (
               <Card key={pack.priceId} className="flex flex-col text-center justify-between p-6 bg-background">
                 <div>
                     {pack.bonus && (
-                        <div className="mb-2 text-sm font-bold text-destructive">{pack.bonus}</div>
+                        <div className="mb-2 text-sm font-bold text-green-600">{pack.bonus}</div>
                     )}
                     <div className="mb-4">
                         <span className="text-4xl font-bold">{pack.euros}</span>
@@ -234,4 +241,3 @@ export default function PreciosPage() {
     </div>
   );
 }
-
