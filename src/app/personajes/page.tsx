@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from '@/components/ui/skeleton';
-import { X, Info } from 'lucide-react';
+import { X, Info, Sparkles, Cat, User as UserIcon, Star } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +28,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from '@/lib/utils';
 
 interface Character {
   id: string;
@@ -38,6 +39,8 @@ interface Character {
   age: string;
 }
 
+type Category = 'Christmas' | 'Animal' | 'Fantasy' | 'Humans' | 'Other';
+
 interface PredefinedCharacter {
   id: string;
   name: string;
@@ -47,13 +50,24 @@ interface PredefinedCharacter {
   species: string;
   gender: string;
   age: string;
+  category: Category;
 }
+
+const categories: { name: Category | 'All'; icon: React.ElementType }[] = [
+    { name: 'Fantasy', icon: Sparkles },
+    { name: 'Animal', icon: Cat },
+    { name: 'Humans', icon: UserIcon },
+    { name: 'Christmas', icon: Star },
+    { name: 'Other', icon: Info },
+];
+
 
 export default function PersonajesPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
   const [characterToDelete, setCharacterToDelete] = useState<Character | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
 
   const userCharactersQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -74,12 +88,15 @@ export default function PersonajesPage() {
 
   const confirmDelete = () => {
     if (characterToDelete && firestore && user) {
-      // Note: The reference now points to the 'customers' collection
       const characterDocRef = doc(firestore, `customers/${user.uid}/characters/${characterToDelete.id}`);
       deleteDocumentNonBlocking(characterDocRef);
     }
     setCharacterToDelete(null);
   };
+
+  const filteredPredefinedCharacters = selectedCategory === 'All'
+    ? predefinedCharacters
+    : predefinedCharacters?.filter(char => char.category === selectedCategory);
 
 
   return (
@@ -190,6 +207,28 @@ export default function PersonajesPage() {
 
       <div className="mb-12">
         <h2 className="text-3xl font-bold mb-6">Personajes Predefinidos</h2>
+
+        <div className="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+            <Button
+                variant={selectedCategory === 'All' ? 'default' : 'outline'}
+                onClick={() => setSelectedCategory('All')}
+                className="rounded-full"
+            >
+                Todos
+            </Button>
+          {categories.map(({ name, icon: Icon }) => (
+            <Button
+              key={name}
+              variant={selectedCategory === name ? 'default' : 'outline'}
+              onClick={() => setSelectedCategory(name)}
+              className="rounded-full"
+            >
+              <Icon className="mr-2 h-4 w-4" />
+              {name}
+            </Button>
+          ))}
+        </div>
+
          {arePredefinedCharactersLoading ? (
              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                {[...Array(10)].map((_, i) => (
@@ -199,9 +238,9 @@ export default function PersonajesPage() {
                 </div>
               ))}
             </div>
-         ) : predefinedCharacters && predefinedCharacters.length > 0 ? (
+         ) : filteredPredefinedCharacters && filteredPredefinedCharacters.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {predefinedCharacters.map((character) => (
+              {filteredPredefinedCharacters.map((character) => (
                 <TooltipProvider key={character.id}>
                   <Tooltip>
                     <Card
@@ -236,10 +275,10 @@ export default function PersonajesPage() {
          ) : (
             <div className="text-center py-16 border-2 border-dashed rounded-lg">
                 <h2 className="text-xl font-semibold text-gray-700">
-                    No hay personajes predefinidos
+                    No hay personajes en esta categoría
                 </h2>
                 <p className="text-muted-foreground mt-2">
-                    Pronto habrá una selección de personajes listos para la aventura.
+                    Pronto habrá más personajes listos para la aventura.
                 </p>
             </div>
          )}
@@ -247,7 +286,3 @@ export default function PersonajesPage() {
     </div>
   );
 }
-
-    
-
-    
