@@ -15,22 +15,23 @@ export async function createCheckoutSession(
   const checkoutSessionsRef = customerCheckoutSessionsCollectionRef(db, userId);
 
   const sessionData: { 
-    price: string; 
+    price?: string; 
     mode: CheckoutMode;
     success_url: string; 
     cancel_url: string;
-    quantity?: number;
     line_items?: {price: string, quantity: number}[];
   } = {
-    price: priceId,
     mode: mode,
     success_url: window.location.origin + '/perfil',
     cancel_url: window.location.origin + '/precios',
   };
 
   if (mode === 'payment') {
-    delete sessionData.price;
+    // For 'payment' mode, use line_items to specify quantity
     sessionData.line_items = [{price: priceId, quantity}];
+  } else {
+    // For 'subscription' mode, use the price field
+    sessionData.price = priceId;
   }
 
   // 1. Create a new checkout session document in Firestore.
