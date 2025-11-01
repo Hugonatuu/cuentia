@@ -155,7 +155,7 @@ export default function CrearCuentoPage() {
       initialPhrase: '',
       finalPhrase: '',
       characters: [],
-      language: 'es-ES',
+      language: 'es',
     },
   });
 
@@ -167,6 +167,7 @@ export default function CrearCuentoPage() {
   const watchedLearningObjective = form.watch('learningObjective');
   const watchedInitialPhrase = form.watch('initialPhrase');
   const watchedFinalPhrase = form.watch('finalPhrase');
+  const watchedLanguage = form.watch('language');
 
   useEffect(() => {
     let credits = 0;
@@ -272,18 +273,22 @@ export default function CrearCuentoPage() {
           }).join('\n\n');
 
         const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
-          const isPredefined = 'imageUrl' in character;
-          
-          const { avatarUrl, imageUrl, createdAt, id, imageHint, ...restOfCharacter } = character as any;
-
-          return { 
-            name: character.name,
-            gender: character.gender,
-            age: character.age,
-            description: (isPredefined ? (character as PredefinedCharacter).description : '') || '',
-            species: character.species,
-            visual_description: (isPredefined ? (character as PredefinedCharacter).imageHint : visual_description) || '',
-          };
+            const isPredefined = 'imageUrl' in character;
+            const lang = data.language.substring(0, 2); // 'es', 'en', etc.
+            
+            const predefinedChar = isPredefined ? (character as PredefinedCharacter) : null;
+    
+            return {
+                name: character.name,
+                // For predefined, get the localized value. For user-created, use the direct value.
+                gender: predefinedChar ? predefinedChar.gender[lang] || predefinedChar.gender['es'] : character.gender,
+                age: character.age,
+                description: predefinedChar ? predefinedChar.description[lang] || predefinedChar.description['es'] : '',
+                species: predefinedChar ? predefinedChar.species[lang] || predefinedChar.species['es'] : character.species,
+                // `visual_description` comes from user input for their own characters
+                // `imageHint` is the equivalent for predefined characters
+                visual_description: isPredefined ? predefinedChar?.imageHint || '' : visual_description || '',
+            };
         });
 
         const storiesColRef = userStoriesCollectionRef(firestore, user.uid);
@@ -298,7 +303,10 @@ export default function CrearCuentoPage() {
           prompt: data.prompt || '',
           initialPhrase: data.initialPhrase || '',
           finalPhrase: data.finalPhrase || '',
-          characters: charactersForWebhook, // Simplified characters for Firestore
+          characters: data.characters.map(({character}) => {
+             const { id, createdAt, ...rest } = character as any;
+             return rest;
+          }),
           status: 'generating',
           createdAt: serverTimestamp(),
           coverImageUrl: '',
@@ -798,14 +806,12 @@ export default function CrearCuentoPage() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="es-ES">Español (España)</SelectItem>
-                        <SelectItem value="es-419">Español (Latino)</SelectItem>
-                        <SelectItem value="en-US">Inglés</SelectItem>
-                        <SelectItem value="fr-FR">Francés</SelectItem>
-                        <SelectItem value="it-IT">Italiano</SelectItem>
-                        <SelectItem value="de-DE">Alemán</SelectItem>
-                        <SelectItem value="pt-BR">Portugués (Brasil)</SelectItem>
-                        <SelectItem value="pt-PT">Portugués (Portugal)</SelectItem>
+                        <SelectItem value="es">Español</SelectItem>
+                        <SelectItem value="en">Inglés</SelectItem>
+                        <SelectItem value="fr">Francés</SelectItem>
+                        <SelectItem value="it">Italiano</SelectItem>
+                        <SelectItem value="de">Alemán</SelectItem>
+                        <SelectItem value="pt">Portugués</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
