@@ -3,20 +3,38 @@
 import { addDoc, onSnapshot, Firestore } from 'firebase/firestore';
 import { customerCheckoutSessionsCollectionRef } from '@/firebase/firestore/references';
 
+type CheckoutMode = 'payment' | 'subscription';
+
 export async function createCheckoutSession(
   db: Firestore,
   userId: string,
-  priceId: string
+  priceId: string,
+  mode: CheckoutMode,
+  quantity: number = 1,
 ): Promise<void> {
   const checkoutSessionsRef = customerCheckoutSessionsCollectionRef(db, userId);
 
-  // 1. Create a new checkout session document in Firestore.
-  const docRef = await addDoc(checkoutSessionsRef, {
+  const sessionData: { 
+    price: string; 
+    mode: CheckoutMode;
+    success_url: string; 
+    cancel_url: string;
+    quantity?: number;
+    line_items?: {price: string, quantity: number}[];
+  } = {
     price: priceId,
-    mode: 'subscription', // Specify subscription mode
+    mode: mode,
     success_url: window.location.origin + '/perfil',
     cancel_url: window.location.origin + '/precios',
-  });
+  };
+
+  if (mode === 'payment') {
+    delete sessionData.price;
+    sessionData.line_items = [{price: priceId, quantity}];
+  }
+
+  // 1. Create a new checkout session document in Firestore.
+  const docRef = await addDoc(checkoutSessionsRef, sessionData);
 
   // 2. Wait for the CheckoutSession to get a URL from the Stripe extension.
   onSnapshot(docRef, (snap) => {

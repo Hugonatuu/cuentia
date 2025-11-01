@@ -23,12 +23,12 @@ import {
   CreditCard,
   AlertTriangle,
   Star,
+  Loader2
 } from 'lucide-react';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { createCheckoutSession } from '@/lib/stripe';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
 import { collection, query, where } from 'firebase/firestore';
 import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
 
@@ -71,6 +71,7 @@ export default function PreciosPage() {
   const { toast } = useToast();
 
   const payAsYouGoCredits = payAsYouGoEuros * 1000;
+  const payAsYouGoPriceId = 'price_1SOgjcArzx82mGRMyoqGhfQZ';
 
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -81,13 +82,13 @@ export default function PreciosPage() {
   const { data: subscriptions, isLoading: isLoadingSubscriptions } = useCollection<Subscription>(subscriptionsQuery);
   const activeSubscription = subscriptions?.[0];
 
-  const handleSubscription = async (priceId: string) => {
+  const handleSubscription = async (priceId: string, mode: 'subscription' | 'payment', quantity: number = 1) => {
     if (!user) {
       router.push('/registro');
       return;
     }
 
-    if (activeSubscription) {
+    if (mode === 'subscription' && activeSubscription) {
         window.location.assign(STRIPE_BILLING_PORTAL_URL);
         return;
     }
@@ -104,7 +105,7 @@ export default function PreciosPage() {
     setIsLoading(priceId);
 
     try {
-      await createCheckoutSession(firestore, user.uid, priceId);
+      await createCheckoutSession(firestore, user.uid, priceId, mode, quantity);
       // The function will handle the redirection.
     } catch (error) {
       console.error('Error handling subscription:', error);
@@ -154,7 +155,7 @@ export default function PreciosPage() {
               <div className="flex-grow space-y-2">
                 <div className="flex justify-between font-medium">
                   <span>{payAsYouGoEuros}€</span>
-                  <span>{payAsYouGoCredits} créditos</span>
+                  <span>{payAsYouGoCredits.toLocaleString()} créditos</span>
                 </div>
                 <Slider
                   value={[payAsYouGoEuros]}
@@ -164,8 +165,8 @@ export default function PreciosPage() {
                   step={1}
                 />
               </div>
-              <Button>
-                <CreditCard className="mr-2 h-4 w-4" />
+              <Button onClick={() => handleSubscription(payAsYouGoPriceId, 'payment', payAsYouGoEuros)} disabled={isLoading === payAsYouGoPriceId}>
+                 {isLoading === payAsYouGoPriceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                 Comprar Créditos
               </Button>
             </div>
@@ -204,7 +205,7 @@ export default function PreciosPage() {
                   <div key={plan.name} className="flex flex-col">
                      <PricingCard
                       plan={plan}
-                      onCtaClick={() => handleSubscription(plan.stripePriceId)}
+                      onCtaClick={() => handleSubscription(plan.stripePriceId, 'subscription')}
                       isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
                       isCurrentUserPlan={activeSubscription?.items?.[0]?.price.id === plan.stripePriceId}
                       hasActiveSubscription={!!activeSubscription}

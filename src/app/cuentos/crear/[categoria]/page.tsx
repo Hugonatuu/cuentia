@@ -112,6 +112,7 @@ type StoryFormValues = z.infer<typeof formSchema>;
 interface UserProfile {
     stripeRole?: string;
     monthlyCreditCount?: number;
+    payAsYouGoCredits?: number;
 }
 
 export default function CrearCuentoPage() {
@@ -216,14 +217,16 @@ export default function CrearCuentoPage() {
     
      // --- Credit Check ---
     const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
-    const creditsUsed = userProfile.monthlyCreditCount || 0;
-    const remainingCredits = planLimits - creditsUsed;
-
-    if (remainingCredits < totalCredits) {
+    const monthlyCreditsUsed = userProfile.monthlyCreditCount || 0;
+    const availableMonthlyCredits = planLimits - monthlyCreditsUsed;
+    const payAsYouGoCredits = userProfile.payAsYouGoCredits || 0;
+    const totalAvailableCredits = availableMonthlyCredits + payAsYouGoCredits;
+    
+    if (totalAvailableCredits < totalCredits) {
         toast({
             variant: 'destructive',
             title: 'Créditos insuficientes',
-            description: `Necesitas ${totalCredits} créditos para crear este cuento, pero solo te quedan ${remainingCredits}.`,
+            description: `Necesitas ${totalCredits} créditos para crear este cuento, pero solo te quedan ${totalAvailableCredits}.`,
         });
         return;
     }
@@ -250,9 +253,28 @@ export default function CrearCuentoPage() {
             if (!userDoc.exists()) {
                 throw "El documento del usuario no existe.";
             }
-            const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
-            const newCreditCount = currentCreditCount + totalCredits;
-            transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+            const currentProfile = userDoc.data() as UserProfile;
+            const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
+            const currentPayAsYouGo = currentProfile.payAsYouGoCredits || 0;
+            const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
+
+            let monthlyCreditsToDebit = 0;
+            let payAsYouGoCreditsToDebit = 0;
+            
+            if (availableMonthly > 0) {
+                monthlyCreditsToDebit = Math.min(totalCredits, availableMonthly);
+            }
+
+            const remainingCost = totalCredits - monthlyCreditsToDebit;
+
+            if (remainingCost > 0) {
+                 payAsYouGoCreditsToDebit = Math.min(remainingCost, currentPayAsYouGo);
+            }
+
+            transaction.update(userRef, { 
+                monthlyCreditCount: currentMonthlyUsed + monthlyCreditsToDebit,
+                payAsYouGoCredits: currentPayAsYouGo - payAsYouGoCreditsToDebit,
+            });
         });
         // --- End Transaction ---
 
@@ -364,12 +386,28 @@ export default function CrearCuentoPage() {
         const userRef = userDocRef(firestore, user.uid);
         await runTransaction(firestore, async (transaction) => {
             const userDoc = await transaction.get(userRef);
-            if (!userDoc.exists()) {
+             if (!userDoc.exists()) {
                 return; // Can't rollback if doc doesn't exist
             }
-            const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
-            const newCreditCount = Math.max(0, currentCreditCount - totalCredits);
-            transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+            const currentProfile = userDoc.data() as UserProfile;
+            const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
+            const currentPayAsYouGo = currentProfile.payAsYouGoCredits || 0;
+            const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
+
+            let monthlyCreditsToDebit = 0;
+            if (availableMonthly > 0) {
+                monthlyCreditsToDebit = Math.min(totalCredits, availableMonthly);
+            }
+            const remainingCost = totalCredits - monthlyCreditsToDebit;
+            let payAsYouGoCreditsToDebit = 0;
+            if (remainingCost > 0) {
+                 payAsYouGoCreditsToDebit = Math.min(remainingCost, currentPayAsYouGo);
+            }
+
+            transaction.update(userRef, { 
+                monthlyCreditCount: currentMonthlyUsed - monthlyCreditsToDebit,
+                payAsYouGoCredits: currentPayAsYouGo + payAsYouGoCreditsToDebit,
+            });
         });
 
     } finally {

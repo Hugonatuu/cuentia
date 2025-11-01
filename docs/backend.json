@@ -30,6 +30,10 @@
             "type": "number",
             "description": "The number of credits used in the current billing cycle."
         },
+        "payAsYouGoCredits": {
+            "type": "number",
+            "description": "The number of non-expiring credits purchased by the user."
+        },
         "current_period_start": {
           "type": "string",
           "format": "date-time",
@@ -230,6 +234,18 @@
           "type": "object",
           "description": "A brief description of the character's personality and role in multiple languages.",
           "properties": {
+            "es": { "type": "string" },
+            "en": { "type": "string" },
+            "it": { "type": "string" },
+            "fr": { "type": "string" },
+            "de": { "type": "string" },
+            "pt": { "type": "string" }
+          }
+        },
+        "visual_description": {
+          "type": "object",
+          "description": "A brief description of the character's visual appearance for this story, in multiple languages.",
+           "properties": {
             "es": { "type": "string" },
             "en": { "type": "string" },
             "it": { "type": "string" },

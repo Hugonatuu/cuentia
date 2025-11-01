@@ -33,6 +33,7 @@ interface Story {
 interface UserProfile {
     stripeRole?: string;
     monthlyCreditCount?: number;
+    payAsYouGoCredits?: number;
     current_period_start?: { seconds: number; nanoseconds: number };
     subscriptionId?: string;
 }
@@ -114,6 +115,7 @@ export default function PerfilPage() {
   const role = userProfile?.stripeRole || currentUserRole;
   const planLimits = role ? getPlanLimits(role) : 0;
   const creditsUsed = userProfile?.monthlyCreditCount || 0;
+  const payAsYouGoCredits = userProfile?.payAsYouGoCredits || 0;
   const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
   const billingDate = userProfile?.current_period_start ? new Date(userProfile.current_period_start.seconds * 1000) : new Date();
 
@@ -185,7 +187,7 @@ export default function PerfilPage() {
                       <div className="flex items-center gap-4">
                         <Gift className="h-6 w-6 text-primary" />
                         <span className="font-bold text-xl">
-                          0
+                          {payAsYouGoCredits.toLocaleString()}
                         </span>
                       </div>
                     </div>

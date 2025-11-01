@@ -33,6 +33,7 @@ interface WebhookResponse {
 interface UserProfile {
     stripeRole?: string;
     monthlyCreditCount?: number;
+    payAsYouGoCredits?: number;
 }
 
 
@@ -158,14 +159,16 @@ export default function CrearPersonajePage() {
         
         // --- Credit Check ---
         const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
-        const creditsUsed = userProfile.monthlyCreditCount || 0;
-        const remainingCredits = planLimits - creditsUsed;
-
-        if (remainingCredits < AVATAR_CREDIT_COST) {
+        const monthlyCreditsUsed = userProfile.monthlyCreditCount || 0;
+        const availableMonthlyCredits = planLimits - monthlyCreditsUsed;
+        const payAsYouGoCredits = userProfile.payAsYouGoCredits || 0;
+        const totalAvailableCredits = availableMonthlyCredits + payAsYouGoCredits;
+        
+        if (totalAvailableCredits < AVATAR_CREDIT_COST) {
             toast({
                 variant: 'destructive',
                 title: 'Créditos insuficientes',
-                description: `Necesitas ${AVATAR_CREDIT_COST} créditos para crear un avatar, pero solo te quedan ${remainingCredits}.`,
+                description: `Necesitas ${AVATAR_CREDIT_COST} créditos para crear un avatar, pero solo te quedan ${totalAvailableCredits}.`,
             });
             return;
         }
@@ -183,9 +186,29 @@ export default function CrearPersonajePage() {
                 if (!userDoc.exists()) {
                     throw "El documento del usuario no existe.";
                 }
-                const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
-                const newCreditCount = currentCreditCount + AVATAR_CREDIT_COST;
-                transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+                
+                const currentProfile = userDoc.data() as UserProfile;
+                const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
+                const currentPayAsYouGo = currentProfile.payAsYouGoCredits || 0;
+                const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
+
+                let monthlyDebit = 0;
+                let paygDebit = 0;
+                
+                if (availableMonthly > 0) {
+                    monthlyDebit = Math.min(AVATAR_CREDIT_COST, availableMonthly);
+                }
+
+                const remainingCost = AVATAR_CREDIT_COST - monthlyDebit;
+
+                if (remainingCost > 0) {
+                     paygDebit = Math.min(remainingCost, currentPayAsYouGo);
+                }
+
+                transaction.update(userRef, { 
+                    monthlyCreditCount: currentMonthlyUsed + monthlyDebit,
+                    payAsYouGoCredits: currentPayAsYouGo - paygDebit,
+                });
             });
             // --- End Transaction ---
             
@@ -256,9 +279,25 @@ export default function CrearPersonajePage() {
                 if (!userDoc.exists()) {
                     return; // Can't rollback if doc doesn't exist
                 }
-                const currentCreditCount = userDoc.data().monthlyCreditCount || 0;
-                const newCreditCount = Math.max(0, currentCreditCount - AVATAR_CREDIT_COST);
-                transaction.update(userRef, { monthlyCreditCount: newCreditCount });
+                const currentProfile = userDoc.data() as UserProfile;
+                const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
+                const currentPayAsYouGo = currentProfile.payAsYouGoCredits || 0;
+                const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
+
+                let monthlyDebit = 0;
+                if (availableMonthly > 0) {
+                    monthlyDebit = Math.min(AVATAR_CREDIT_COST, availableMonthly);
+                }
+                const remainingCost = AVATAR_CREDIT_COST - monthlyDebit;
+                let paygDebit = 0;
+                if (remainingCost > 0) {
+                     paygDebit = Math.min(remainingCost, currentPayAsYouGo);
+                }
+
+                transaction.update(userRef, { 
+                    monthlyCreditCount: currentMonthlyUsed - monthlyDebit,
+                    payAsYouGoCredits: currentPayAsYouGo + paygDebit,
+                });
             });
             setGenerationModalOpen(false); // Close modal on error
         } finally {

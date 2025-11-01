@@ -26,16 +26,6 @@ export const mainNavLinks = [
 
 export const pricingPlans = [
   {
-    name: 'Pay as you go',
-    price: '1€',
-    credits: '1.000 créditos',
-    features: ['Paga solo por lo que usas', 'Ideal para empezar'],
-    isFeatured: false,
-    cta: 'Comprar Créditos',
-    stripePriceId: 'price_1PWTtPChy4xYm2argB3iH9mC', // Reemplazar con tu priceId de Stripe
-    firebaseRole: 'payg',
-  },
-  {
     name: 'Plan Artista',
     price: '9,99€',
     credits: '12.000 créditos / mes',
