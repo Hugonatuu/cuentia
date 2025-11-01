@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { UploadCloud, Sparkles, Loader2, X, CreditCard } from "lucide-react";
+import { UploadCloud, Sparkles, Loader2, X, CreditCard, Wand } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useToast } from '@/hooks/use-toast';
@@ -312,19 +312,22 @@ export default function CrearPersonajePage() {
         }}>
             <DialogContent className="sm:max-w-md text-center">
                 <DialogHeader>
-                    <DialogTitle>
-                        {isLoading ? 'Generando tu Avatar' : '¡Avatar Listo!'}
+                    <DialogTitle className="font-headline text-3xl">
+                        {isLoading ? 'Creando Magia...' : '¡Avatar Listo!'}
                     </DialogTitle>
                      <DialogDescription>
-                        {isLoading ? 'Esto puede tardar un momento. Por favor, no salgas de la página.' : `Tu avatar "${generatedAvatar?.name}" ha sido creado.`}
+                        {isLoading ? 'Estamos dando vida a tu personaje. Por favor, no salgas de la página.' : `Tu avatar "${generatedAvatar?.name}" ha sido creado.`}
                     </DialogDescription>
                 </DialogHeader>
-                <div className="flex items-center justify-center p-8">
+                <div className="flex items-center justify-center p-8 min-h-[250px]">
                     {isLoading ? (
-                        <Loader2 className="h-16 w-16 text-primary animate-spin" />
+                        <div className="flex flex-col items-center gap-4 text-primary">
+                            <Wand className="h-16 w-16 animate-pulse" />
+                            <p className="font-semibold text-lg">Generando...</p>
+                        </div>
                     ) : generatedAvatar ? (
-                        <div className="space-y-4">
-                            <Card className="overflow-hidden shadow-lg">
+                        <div className="space-y-4 animate-in fade-in zoom-in-95 duration-500">
+                            <Card className="overflow-hidden shadow-lg border-2 border-primary">
                                 <Image 
                                     src={generatedAvatar.url}
                                     alt={`Avatar para ${generatedAvatar.name}`}
@@ -543,5 +546,3 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
-
-    
