@@ -71,7 +71,7 @@ export default function PreciosPage() {
   const { toast } = useToast();
 
   const payAsYouGoCredits = payAsYouGoEuros * 1000;
-  const payAsYouGoPriceId = 'price_1SOgjcArzx82mGRMyoqGhfQZ';
+  const payAsYouGoPriceId = 'price_1SOhGIArzx82mGRMqNl7F5Vm';
 
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
