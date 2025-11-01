@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -9,21 +10,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '@/components/ui/alert';
-import { Slider } from '@/components/ui/slider';
 import { CreditsInfoDialog } from '@/app/perfil/components/CreditsInfoDialog';
 import { pricingPlans } from '@/lib/placeholder-data';
 import PricingCard from '../components/PricingCard';
 import {
   Info,
   CreditCard,
-  AlertTriangle,
   Star,
-  Loader2
+  Loader2,
+  Gem,
 } from 'lucide-react';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { createCheckoutSession } from '@/lib/stripe';
@@ -31,7 +26,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { collection, query, where } from 'firebase/firestore';
 import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
-
+import { cn } from '@/lib/utils';
 
 interface Subscription {
   id: string;
@@ -58,10 +53,36 @@ interface Subscription {
   }[];
 }
 
+const creditPacks = [
+  {
+    euros: '5€',
+    credits: '5.000',
+    priceId: 'price_1SOhZfArzx82mGRMGnt8jg5G',
+    bonus: '',
+  },
+  {
+    euros: '10€',
+    credits: '10.500',
+    priceId: 'price_1SOhckArzx82mGRMjWaXuHaL',
+    bonus: '+5% extra',
+  },
+  {
+    euros: '15€',
+    credits: '16.500',
+    priceId: 'price_1SOhd4Arzx82mGRMCssu0q2r',
+    bonus: '+10% extra',
+  },
+  {
+    euros: '20€',
+    credits: '23.000',
+    priceId: 'price_1SOhdeArzx82mGRMayZfFMXt',
+    bonus: '+15% extra',
+  },
+];
+
 const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
 
 export default function PreciosPage() {
-  const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
   const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<string | null>(null);
 
@@ -69,9 +90,6 @@ export default function PreciosPage() {
   const firestore = useFirestore();
   const router = useRouter();
   const { toast } = useToast();
-
-  const payAsYouGoCredits = payAsYouGoEuros * 1000;
-  const payAsYouGoPriceId = 'price_1SOhGIArzx82mGRMqNl7F5Vm';
 
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -82,7 +100,7 @@ export default function PreciosPage() {
   const { data: subscriptions, isLoading: isLoadingSubscriptions } = useCollection<Subscription>(subscriptionsQuery);
   const activeSubscription = subscriptions?.[0];
 
-  const handleSubscription = async (priceId: string, mode: 'subscription' | 'payment', quantity: number = 1) => {
+  const handlePurchase = async (priceId: string, mode: 'subscription' | 'payment') => {
     if (!user) {
       router.push('/registro');
       return;
@@ -105,7 +123,7 @@ export default function PreciosPage() {
     setIsLoading(priceId);
 
     try {
-      await createCheckoutSession(firestore, user.uid, priceId, mode, quantity);
+      await createCheckoutSession(firestore, user.uid, priceId, mode);
       // The function will handle the redirection.
     } catch (error) {
       console.error('Error handling subscription:', error);
@@ -135,7 +153,7 @@ export default function PreciosPage() {
         </p>
       </div>
 
-      <div className="space-y-8 max-w-7xl mx-auto">
+      <div className="space-y-12 max-w-7xl mx-auto">
         <div className="flex justify-start mb-4">
           <Button variant="outline" onClick={() => setIsCreditsInfoOpen(true)}>
             <Info className="mr-2 h-4 w-4" />
@@ -145,39 +163,36 @@ export default function PreciosPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Modelo Pay As You Go</CardTitle>
+            <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
             <CardDescription>
-              Paga únicamente por lo que vas a usar
+              Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6 pt-2">
-            <div className="flex items-center gap-6">
-              <div className="flex-grow space-y-2">
-                <div className="flex justify-between font-medium">
-                  <span>{payAsYouGoEuros}€</span>
-                  <span>{payAsYouGoCredits.toLocaleString()} créditos</span>
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {creditPacks.map((pack) => (
+              <Card key={pack.priceId} className="flex flex-col text-center justify-between p-6 bg-background">
+                <div>
+                    {pack.bonus && (
+                        <div className="mb-2 text-sm font-bold text-destructive">{pack.bonus}</div>
+                    )}
+                    <div className="mb-4">
+                        <span className="text-4xl font-bold">{pack.euros}</span>
+                    </div>
+                    <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
+                        <Gem className="h-5 w-5" />
+                        <span>{pack.credits} créditos</span>
+                    </p>
                 </div>
-                <Slider
-                  value={[payAsYouGoEuros]}
-                  onValueChange={(value) => setPayAsYouGoEuros(value[0])}
-                  min={5}
-                  max={50}
-                  step={1}
-                />
-              </div>
-              <Button onClick={() => handleSubscription(payAsYouGoPriceId, 'payment', payAsYouGoEuros)} disabled={isLoading === payAsYouGoPriceId}>
-                 {isLoading === payAsYouGoPriceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
-                Comprar Créditos
-              </Button>
-            </div>
-            <Alert variant="destructive" className="mt-4">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle>Aviso</AlertTitle>
-              <AlertDescription>
-                Con este modelo los créditos cuestan un 20% más que en las
-                suscripciones.
-              </AlertDescription>
-            </Alert>
+                <Button 
+                    className="w-full mt-6"
+                    onClick={() => handlePurchase(pack.priceId, 'payment')}
+                    disabled={isLoading === pack.priceId}
+                >
+                    {isLoading === pack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                    Comprar
+                </Button>
+              </Card>
+            ))}
           </CardContent>
         </Card>
 
@@ -186,16 +201,16 @@ export default function PreciosPage() {
             <div className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
               <Star className="h-5 w-5" />
               <span className="text-sm font-bold tracking-wider">
-                RECOMENDADO
+                MEJOR RELACIÓN CALIDAD/PRECIO
               </span>
             </div>
           </div>
           <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
             <CardHeader>
-              <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
+              <CardTitle>✨ Suscríbete y ahorra en cada crédito</CardTitle>
               <CardDescription>
                 Disfruta de nuevas actualizaciones antes que nadie, funciones
-                premium y un 20 % más de créditos por el mismo precio.
+                premium y un precio por crédito mucho más reducido.
               </CardDescription>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -205,7 +220,7 @@ export default function PreciosPage() {
                   <div key={plan.name} className="flex flex-col">
                      <PricingCard
                       plan={plan}
-                      onCtaClick={() => handleSubscription(plan.stripePriceId, 'subscription')}
+                      onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}
                       isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
                       isCurrentUserPlan={activeSubscription?.items?.[0]?.price.id === plan.stripePriceId}
                       hasActiveSubscription={!!activeSubscription}
@@ -219,3 +234,4 @@ export default function PreciosPage() {
     </div>
   );
 }
+
