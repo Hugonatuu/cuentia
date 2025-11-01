@@ -38,7 +38,7 @@ import {
 } from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { CharacterSlot } from '../components/CharacterSlot';
-import { CharacterWithCustomization, PredefinedCharacter } from '../components/types';
+import { Character, CharacterWithCustomization, PredefinedCharacter } from '../components/types';
 import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import Image from 'next/image';
@@ -274,17 +274,18 @@ export default function CrearCuentoPage() {
 
         const charactersForWebhook = data.characters.map(({ character, visual_description }) => {
             const isPredefined = 'imageUrl' in character;
-            const lang = data.language.substring(0, 2); // 'es', 'en', etc.
+            const lang = data.language.substring(0, 2) as keyof PredefinedCharacter['description'];
             
             const predefinedChar = isPredefined ? (character as PredefinedCharacter) : null;
-    
+            const userChar = !isPredefined ? (character as Character) : null;
+
             return {
                 name: character.name,
-                gender: predefinedChar ? predefinedChar.gender[lang] || predefinedChar.gender['es'] : character.gender,
+                gender: predefinedChar ? (predefinedChar.gender[lang] || predefinedChar.gender['es']) : (userChar?.gender[lang] || userChar?.gender['es']),
                 age: character.age,
-                description: predefinedChar ? predefinedChar.description[lang] || predefinedChar.description['es'] : '',
-                species: predefinedChar ? predefinedChar.species[lang] || predefinedChar.species['es'] : character.species,
-                visual_description: isPredefined ? predefinedChar.visual_description[lang] || predefinedChar.visual_description['es'] : visual_description || '',
+                description: predefinedChar ? (predefinedChar.description[lang] || predefinedChar.description['es']) : '',
+                species: predefinedChar ? (predefinedChar.species[lang] || predefinedChar.species['es']) : (userChar?.species[lang] || userChar?.species['es']),
+                visual_description: isPredefined ? (predefinedChar.visual_description[lang] || predefinedChar.visual_description['es']) : visual_description || '',
             };
         });
 
