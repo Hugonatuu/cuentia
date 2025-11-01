@@ -166,7 +166,7 @@ export default function PreciosPage() {
           <Card>
             <CardHeader className="relative">
               <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
-              <CardDescription>
+              <CardDescription className="font-semibold text-primary pt-2">
                 Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
               </CardDescription>
             </CardHeader>
@@ -197,7 +197,7 @@ export default function PreciosPage() {
               ))}
             </CardContent>
             <div className="flex justify-center pb-6">
-                <Alert variant="destructive" className="w-auto">
+                 <Alert variant="destructive" className="w-auto">
                     <AlertTriangle className="h-4 w-4" />
                     <AlertDescription>
                         Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
