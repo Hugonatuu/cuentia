@@ -121,17 +121,28 @@
           "format": "date-time"
         },
         "species": {
-          "type": "string",
-          "description": "The species of the character (e.g., person, dog, cat)."
+          "type": "object",
+          "description": "The species of the character in multiple languages.",
+          "properties": {
+            "es": { "type": "string" },
+            "en": { "type": "string" },
+            "it": { "type": "string" },
+            "fr": { "type": "string" },
+            "de": { "type": "string" },
+            "pt": { "type": "string" }
+          }
         },
         "gender": {
-          "type": "string",
-          "description": "The gender of the character.",
-          "enum": [
-            "male",
-            "female",
-            "neutral"
-          ]
+          "type": "object",
+          "description": "The gender of the character in multiple languages.",
+          "properties": {
+            "es": { "type": "string" },
+            "en": { "type": "string" },
+            "it": { "type": "string" },
+            "fr": { "type": "string" },
+            "de": { "type": "string" },
+            "pt": { "type": "string" }
+          }
         },
         "age": {
           "type": "number",

@@ -37,6 +37,21 @@ interface UserProfile {
 
 const AVATAR_CREDIT_COST = 500;
 
+const speciesTranslations = {
+    human: { es: 'Humano', en: 'Human', it: 'Umano', fr: 'Humain', de: 'Mensch', pt: 'Humano' },
+    dog: { es: 'Perro', en: 'Dog', it: 'Cane', fr: 'Chien', de: 'Hund', pt: 'Cachorro' },
+    cat: { es: 'Gato', en: 'Cat', it: 'Gatto', fr: 'Chat', de: 'Katze', pt: 'Gato' },
+    bird: { es: 'Pájaro', en: 'Bird', it: 'Uccello', fr: 'Oiseau', de: 'Vogel', pt: 'Pássaro' },
+    rabbit: { es: 'Conejo', en: 'Rabbit', it: 'Coniglio', fr: 'Lapin', de: 'Kaninchen', pt: 'Coelho' },
+    hamster: { es: 'Hámster', en: 'Hamster', it: 'Criceto', fr: 'Hamster', de: 'Hamster', pt: 'Hamster' },
+    fish: { es: 'Pez', en: 'Fish', it: 'Pesce', fr: 'Poisson', de: 'Fisch', pt: 'Peixe' },
+};
+
+const genderTranslations = {
+    male: { es: 'Masculino', en: 'Male', it: 'Maschio', fr: 'Masculin', de: 'Männlich', pt: 'Masculino' },
+    female: { es: 'Femenino', en: 'Female', it: 'Femmina', fr: 'Féminin', de: 'Weiblich', pt: 'Feminino' },
+    neutral: { es: 'Neutro', en: 'Neutral', it: 'Neutro', fr: 'Neutre', de: 'Neutral', pt: 'Neutro' },
+};
 
 export default function CrearPersonajePage() {
     const { user, isUserLoading } = useUser();
@@ -116,9 +131,10 @@ export default function CrearPersonajePage() {
             return;
         }
 
-        const finalSpecies = species === 'Otro' ? otherSpecies.trim() : species;
+        const isOtherSpecies = species === 'Otro';
+        const finalSpeciesKey = isOtherSpecies ? otherSpecies.trim().toLowerCase() : species;
 
-        if (!characterName.trim() || !finalSpecies || !gender || !age.trim()) {
+        if (!characterName.trim() || !finalSpeciesKey || !gender || !age.trim()) {
             toast({ variant: 'destructive', title: 'Campos incompletos', description: 'Por favor, completa todos los campos del personaje.' });
             return;
         }
@@ -158,11 +174,12 @@ export default function CrearPersonajePage() {
                 transaction.update(userRef, { monthlyCreditCount: newCreditCount });
             });
             // --- End Transaction ---
-
+            
             const formData = new FormData();
             formData.append('characterName', characterName.trim());
-            formData.append('species', finalSpecies);
-            formData.append('gender', gender);
+            const speciesValue = isOtherSpecies ? otherSpecies.trim() : (speciesTranslations[finalSpeciesKey as keyof typeof speciesTranslations]?.es || finalSpeciesKey);
+            formData.append('species', speciesValue);
+            formData.append('gender', genderTranslations[gender as keyof typeof genderTranslations]?.es || gender);
             formData.append('age', age.trim());
             selectedFiles.forEach((file) => {
                 formData.append('images', file);
@@ -184,14 +201,21 @@ export default function CrearPersonajePage() {
                 throw new Error("La respuesta del servidor no incluyó una URL de avatar.");
             }
             
+            // Prepare multilingual data for Firestore
+            const speciesData = isOtherSpecies 
+                ? { es: otherSpecies.trim(), en: otherSpecies.trim(), it: otherSpecies.trim(), fr: otherSpecies.trim(), de: otherSpecies.trim(), pt: otherSpecies.trim() }
+                : speciesTranslations[finalSpeciesKey as keyof typeof speciesTranslations];
+
+            const genderData = genderTranslations[gender as keyof typeof genderTranslations];
+
             // Guardar en Firestore
             const charactersColRef = userCharactersCollectionRef(firestore, user.uid);
             addDocumentNonBlocking(charactersColRef, {
                 name: characterName.trim(),
                 avatarUrl: result.avatarUrl,
-                species: finalSpecies,
-                gender,
-                age: age.trim(),
+                species: speciesData,
+                gender: genderData,
+                age: Number(age.trim()),
                 createdAt: serverTimestamp()
             });
             
@@ -309,13 +333,13 @@ export default function CrearPersonajePage() {
                                 <SelectValue placeholder="Selecciona una especie" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="Humano">Humano</SelectItem>
-                                <SelectItem value="Perro">Perro</SelectItem>
-                                <SelectItem value="Gato">Gato</SelectItem>
-                                <SelectItem value="Pájaro">Pájaro</SelectItem>
-                                <SelectItem value="Conejo">Conejo</SelectItem>
-                                <SelectItem value="Hámster">Hámster</SelectItem>
-                                <SelectItem value="Pez">Pez</SelectItem>
+                                <SelectItem value="human">Humano</SelectItem>
+                                <SelectItem value="dog">Perro</SelectItem>
+                                <SelectItem value="cat">Gato</SelectItem>
+                                <SelectItem value="bird">Pájaro</SelectItem>
+                                <SelectItem value="rabbit">Conejo</SelectItem>
+                                <SelectItem value="hamster">Hámster</SelectItem>
+                                <SelectItem value="fish">Pez</SelectItem>
                                 <SelectItem value="Otro">Otro</SelectItem>
                             </SelectContent>
                         </Select>
@@ -341,9 +365,9 @@ export default function CrearPersonajePage() {
                                 <SelectValue placeholder="Selecciona un género" />
                             </SelectTrigger>
                             <SelectContent>
-                                <SelectItem value="masculino">Masculino</SelectItem>
-                                <SelectItem value="femenino">Femenino</SelectItem>
-                                <SelectItem value="neutro">Neutro</SelectItem>
+                                <SelectItem value="male">Masculino</SelectItem>
+                                <SelectItem value="female">Femenino</SelectItem>
+                                <SelectItem value="neutral">Neutro</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -481,4 +505,3 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
-    
