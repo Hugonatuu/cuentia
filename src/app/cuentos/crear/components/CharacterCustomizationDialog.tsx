@@ -62,7 +62,7 @@ export function CharacterCustomizationDialog({
             <Label htmlFor="visual_description">Cambios para este cuento</Label>
             <Textarea
               id="visual_description"
-              placeholder="Ej: Quiero que en este libro Hugo lleve ropa de abrigo y una gorra azul."
+              placeholder="Ej: Ponle a mi personaje ropa de abrigo y una gorra roja"
               value={visualDescription}
               onChange={(e) => setVisualDescription(e.target.value)}
               className="min-h-[100px]"
