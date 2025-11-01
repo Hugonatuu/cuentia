@@ -12,6 +12,7 @@ export interface PredefinedCharacter {
   id: string;
   name: string;
   description: Record<string, string>;
+  visual_description: Record<string, string>;
   imageUrl: string;
   species: Record<string, string>;
   gender: Record<string, string>;

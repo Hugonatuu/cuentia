@@ -280,14 +280,11 @@ export default function CrearCuentoPage() {
     
             return {
                 name: character.name,
-                // For predefined, get the localized value. For user-created, use the direct value.
                 gender: predefinedChar ? predefinedChar.gender[lang] || predefinedChar.gender['es'] : character.gender,
                 age: character.age,
                 description: predefinedChar ? predefinedChar.description[lang] || predefinedChar.description['es'] : '',
                 species: predefinedChar ? predefinedChar.species[lang] || predefinedChar.species['es'] : character.species,
-                // `visual_description` comes from user input for their own characters
-                // `imageHint` is the equivalent for predefined characters
-                visual_description: isPredefined ? predefinedChar?.imageHint || '' : visual_description || '',
+                visual_description: isPredefined ? predefinedChar.visual_description[lang] || predefinedChar.visual_description['es'] : visual_description || '',
             };
         });
 
