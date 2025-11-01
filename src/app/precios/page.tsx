@@ -219,7 +219,7 @@ export default function PreciosPage() {
           <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
             <CardHeader>
               <CardTitle>✨ Suscríbete y ahorra en cada crédito</CardTitle>
-              <CardDescription>
+              <CardDescription className="font-semibold text-primary">
                 Disfruta de nuevas actualizaciones antes que nadie, funciones
                 premium y un precio por crédito mucho más reducido.
               </CardDescription>
