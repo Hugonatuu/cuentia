@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@/components/ui/dialog';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -67,6 +68,8 @@ export default function CrearPersonajePage() {
     const { toast } = useToast();
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [generatedAvatar, setGeneratedAvatar] = useState<{name: string, url: string} | null>(null);
+    const [isGenerationModalOpen, setGenerationModalOpen] = useState(false);
+
 
     const userRef = useMemoFirebase(() => {
         if (!firestore || !user) return null;
@@ -117,6 +120,16 @@ export default function CrearPersonajePage() {
         setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
     };
 
+    const resetForm = () => {
+        setCharacterName('');
+        setSpecies('');
+        setOtherSpecies('');
+        setGender('');
+        setAge('');
+        setSelectedFiles([]);
+        setGeneratedAvatar(null);
+    }
+
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -160,6 +173,7 @@ export default function CrearPersonajePage() {
 
         setIsLoading(true);
         setGeneratedAvatar(null);
+        setGenerationModalOpen(true);
 
         try {
              // --- Transaction to update credit count ---
@@ -226,12 +240,6 @@ export default function CrearPersonajePage() {
                 description: `El avatar "${characterName.trim()}" se ha guardado en tu colección.`,
             });
             
-            setCharacterName('');
-            setSpecies('');
-            setOtherSpecies('');
-            setGender('');
-            setAge('');
-            setSelectedFiles([]);
 
         } catch (error) {
             console.error('Error al llamar al webhook, actualizar créditos o guardar en Firestore:', error);
@@ -252,6 +260,7 @@ export default function CrearPersonajePage() {
                 const newCreditCount = Math.max(0, currentCreditCount - AVATAR_CREDIT_COST);
                 transaction.update(userRef, { monthlyCreditCount: newCreditCount });
             });
+            setGenerationModalOpen(false); // Close modal on error
         } finally {
             setIsLoading(false);
         }
@@ -292,6 +301,53 @@ export default function CrearPersonajePage() {
             actionText="Registrarse"
             redirectPath="/registro"
         />
+
+        <Dialog open={isGenerationModalOpen} onOpenChange={(open) => {
+            if (!open) {
+                setGenerationModalOpen(false);
+                if(generatedAvatar) {
+                    resetForm();
+                }
+            }
+        }}>
+            <DialogContent className="sm:max-w-md text-center">
+                <DialogHeader>
+                    <DialogTitle>
+                        {isLoading ? 'Generando tu Avatar' : '¡Avatar Listo!'}
+                    </DialogTitle>
+                     <DialogDescription>
+                        {isLoading ? 'Esto puede tardar un momento. Por favor, no salgas de la página.' : `Tu avatar "${generatedAvatar?.name}" ha sido creado.`}
+                    </DialogDescription>
+                </DialogHeader>
+                <div className="flex items-center justify-center p-8">
+                    {isLoading ? (
+                        <Loader2 className="h-16 w-16 text-primary animate-spin" />
+                    ) : generatedAvatar ? (
+                        <div className="space-y-4">
+                            <Card className="overflow-hidden shadow-lg">
+                                <Image 
+                                    src={generatedAvatar.url}
+                                    alt={`Avatar para ${generatedAvatar.name}`}
+                                    width={400}
+                                    height={400}
+                                    className="w-full h-auto object-cover"
+                                />
+                            </Card>
+                            <h3 className="text-xl font-bold">{generatedAvatar.name}</h3>
+                        </div>
+                    ) : null}
+                </div>
+                {!isLoading && (
+                    <DialogFooter>
+                        <DialogClose asChild>
+                            <Button type="button">Cerrar</Button>
+                        </DialogClose>
+                    </DialogFooter>
+                )}
+            </DialogContent>
+        </Dialog>
+
+
         <div className="text-center mb-12">
           <h1 className="font-headline text-4xl md:text-5xl text-gray-800">
             Crea tu Avatar Personalizado
@@ -484,24 +540,8 @@ export default function CrearPersonajePage() {
               </Button>
             </div>
         </form>
-
-        {generatedAvatar && (
-            <div className="mt-12 text-left border-t pt-8">
-                <h3 className="text-2xl font-bold text-center mb-6">¡Avatar Generado!</h3>
-                <Card className="max-w-xs mx-auto overflow-hidden shadow-lg">
-                    <Image 
-                        src={generatedAvatar.url}
-                        alt={`Avatar para ${generatedAvatar.name}`}
-                        width={400}
-                        height={400}
-                        className="w-full h-auto object-cover"
-                    />
-                    <CardHeader>
-                        <CardTitle className="text-center">{generatedAvatar.name}</CardTitle>
-                    </CardHeader>
-                </Card>
-            </div>
-        )}
     </div>
   );
 }
+
+    
