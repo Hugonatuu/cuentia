@@ -77,7 +77,7 @@ export function watchUserSubscription(
     const subscriptionId = primarySubscription.id;
     const isActive = ['active', 'trialing'].includes(primarySubscription.status);
     
-    // Correct path to metadata
+    // Correct path to metadata, checking `price` first, then `items` array as a fallback.
     const priceData = primarySubscription.price || (primarySubscription.items && primarySubscription.items[0]?.price);
     const newRole = isActive ? (priceData?.metadata?.firebaseRole || null) : null;
     
