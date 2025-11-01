@@ -197,12 +197,12 @@ export default function PreciosPage() {
               ))}
             </CardContent>
             <div className="flex justify-center pb-6">
-                 <Alert variant="destructive" className="w-auto">
-                    <AlertTriangle className="h-4 w-4" />
-                    <AlertDescription>
-                        Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
-                    </AlertDescription>
-                </Alert>
+              <Alert variant="destructive" className="w-auto">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertDescription>
+                      Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
+                  </AlertDescription>
+              </Alert>
             </div>
           </Card>
         </div>
@@ -212,7 +212,7 @@ export default function PreciosPage() {
             <div className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
               <Star className="h-5 w-5" />
               <span className="text-sm font-bold tracking-wider">
-                MEJOR RELACIÓN CALIDAD/PRECIO
+                RECOMENDADO
               </span>
             </div>
           </div>
