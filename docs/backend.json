@@ -134,7 +134,7 @@
           ]
         },
         "age": {
-          "type": "string",
+          "type": "number",
           "description": "The age of the character."
         }
       },
@@ -396,3 +396,5 @@
     ]
   }
 }
+
+    

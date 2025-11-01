@@ -349,15 +349,19 @@ export default function CrearPersonajePage() {
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="age">Edad</Label>
-                        <Input 
-                            id="age" 
-                            placeholder="Ej: 7, adulto, cachorro..."
+                        <Input
+                            id="age"
+                            type="number"
+                            placeholder="Ej: 8"
                             value={age}
-                            onChange={(e) => setAge(e.target.value)}
+                            onChange={(e) => {
+                                if (e.target.value.length <= 2) {
+                                    setAge(e.target.value);
+                                }
+                            }}
                             required
-                            maxLength={30}
                         />
-                         <div className="text-xs text-right text-muted-foreground">{age.length}/30</div>
+                         <div className="text-xs text-right text-muted-foreground">{age.length}/2</div>
                     </div>
                 </div>
             </CardContent>
@@ -477,3 +481,4 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
+    
