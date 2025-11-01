@@ -196,12 +196,14 @@ export default function PreciosPage() {
                 </Card>
               ))}
             </CardContent>
-            <Alert variant="destructive" className="m-6 mt-0">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertDescription>
-                Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
-              </AlertDescription>
-            </Alert>
+            <div className="flex justify-center pb-6">
+                <Alert variant="destructive" className="w-auto">
+                    <AlertTriangle className="h-4 w-4" />
+                    <AlertDescription>
+                        Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
+                    </AlertDescription>
+                </Alert>
+            </div>
           </Card>
         </div>
 
