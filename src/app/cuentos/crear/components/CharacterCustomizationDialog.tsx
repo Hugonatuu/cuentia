@@ -14,6 +14,8 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import type { AnyCharacter } from './types';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { AlertTriangle } from 'lucide-react';
 
 interface CharacterCustomizationDialogProps {
   isOpen: boolean;
@@ -68,6 +70,12 @@ export function CharacterCustomizationDialog({
             />
           </div>
         </div>
+        <Alert variant="destructive">
+          <AlertTriangle className="h-4 w-4" />
+          <AlertDescription>
+            Escribe la personalización en el mismo idioma en el que vas a generar el cuento.
+          </AlertDescription>
+        </Alert>
         <DialogFooter>
           <Button type="button" variant="secondary" onClick={() => onOpenChange(false)}>
             Cancelar
