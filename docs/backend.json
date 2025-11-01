@@ -128,9 +128,9 @@
           "type": "string",
           "description": "The gender of the character.",
           "enum": [
-            "masculino",
-            "femenino",
-            "neutro"
+            "male",
+            "female",
+            "neutral"
           ]
         },
         "age": {
@@ -216,8 +216,16 @@
           "description": "The name of the character."
         },
         "description": {
-          "type": "string",
-          "description": "A brief description of the character's personality and role."
+          "type": "object",
+          "description": "A brief description of the character's personality and role in multiple languages.",
+          "properties": {
+            "es": { "type": "string" },
+            "en": { "type": "string" },
+            "it": { "type": "string" },
+            "fr": { "type": "string" },
+            "de": { "type": "string" },
+            "pt": { "type": "string" }
+          }
         },
         "imageUrl": {
           "type": "string",
@@ -225,12 +233,28 @@
           "description": "The URL for the character's image."
         },
         "species": {
-          "type": "string",
-          "description": "The species of the character."
+          "type": "object",
+          "description": "The species of the character in multiple languages.",
+          "properties": {
+            "es": { "type": "string" },
+            "en": { "type": "string" },
+            "it": { "type": "string" },
+            "fr": { "type": "string" },
+            "de": { "type": "string" },
+            "pt": { "type": "string" }
+          }
         },
         "gender": {
-          "type": "string",
-          "description": "The gender of the character."
+          "type": "object",
+          "description": "The gender of the character in multiple languages.",
+          "properties": {
+            "es": { "type": "string" },
+            "en": { "type": "string" },
+            "it": { "type": "string" },
+            "fr": { "type": "string" },
+            "de": { "type": "string" },
+            "pt": { "type": "string" }
+          }
         },
         "age": {
           "type": "string",
@@ -396,5 +420,3 @@
     ]
   }
 }
-
-    
