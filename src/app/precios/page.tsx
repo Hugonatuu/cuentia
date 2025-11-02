@@ -143,26 +143,28 @@ export default function PreciosPage() {
         </div>
 
         <Card>
-            <CardHeader>
-               <CardTitle>Paquete de Créditos</CardTitle>
-                <CardDescription className="font-semibold text-primary !mt-4">
-                  Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
+          <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex-grow">
+                <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
+                <CardDescription className="text-muted-foreground mt-1">
+                    Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
                 </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                    <p className="text-2xl font-bold text-primary">{creditPack.credits} créditos</p>
-                    <p className="text-lg text-muted-foreground font-semibold">por {creditPack.euros}</p>
+            </div>
+            <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-4">
+                 <div className="text-center sm:text-left">
+                    <p className="text-xl font-bold text-primary">{creditPack.credits} créditos</p>
+                    <p className="text-sm text-muted-foreground font-semibold">por {creditPack.euros}</p>
                 </div>
                  <Button
                     onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                     disabled={isLoading === creditPack.priceId}
-                    className="w-full md:w-auto"
+                    className="w-full sm:w-auto"
                 >
                     {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                     Comprar
                 </Button>
-            </CardContent>
+            </div>
+          </CardContent>
         </Card>
 
         <div className="relative pt-8">
