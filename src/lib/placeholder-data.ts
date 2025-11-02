@@ -42,8 +42,8 @@ export const pricingPlans = [
   },
   {
     name: 'Plan Mágico',
-    price: '14,99€',
-    credits: '19.000 créditos / mes',
+    price: '9,99€',
+    credits: '12.500 créditos / mes',
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
@@ -57,8 +57,8 @@ export const pricingPlans = [
   },
   {
     name: 'Plan Especial',
-    price: '23,99€',
-    credits: '35.000 créditos / mes',
+    price: '14,99€',
+    credits: '19.000 créditos / mes',
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
@@ -72,8 +72,8 @@ export const pricingPlans = [
   },
   {
     name: 'Plan King',
-    price: '39,99€',
-    credits: '55.000 créditos / mes',
+    price: '23,99€',
+    credits: '33.000 créditos / mes',
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
