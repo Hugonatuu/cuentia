@@ -14,6 +14,7 @@ import {
   runTransaction,
   serverTimestamp,
   writeBatch,
+  setDoc,
 } from 'firebase/firestore';
 
 interface Subscription {
@@ -194,7 +195,7 @@ async function processOneTimePayment(db: Firestore, userId: string, paymentId: s
     try {
         await runTransaction(db, async (transaction) => {
             const receiptDoc = await transaction.get(receiptRef);
-            if (receiptDoc.exists) {
+            if (receiptDoc.exists()) {
                 console.log(`Payment ${paymentId} already processed.`);
                 return;
             }
@@ -207,7 +208,8 @@ async function processOneTimePayment(db: Firestore, userId: string, paymentId: s
             const currentCredits = userDoc.data().payAsYouGoCredits || 0;
             const newCredits = currentCredits + 5000;
 
-            transaction.update(userRef, { payAsYouGoCredits: newCredits });
+            // Use set with merge:true to create the field if it doesn't exist
+            transaction.set(userRef, { payAsYouGoCredits: newCredits }, { merge: true });
             transaction.set(receiptRef, { appliedAt: serverTimestamp() });
         });
         console.log(`Successfully processed payment ${paymentId} and added 5000 credits.`);
