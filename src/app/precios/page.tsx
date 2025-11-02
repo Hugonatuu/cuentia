@@ -19,6 +19,7 @@ import {
   Loader2,
   Gem,
   AlertTriangle,
+  Check,
 } from 'lucide-react';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { createCheckoutSession } from '@/lib/stripe';
@@ -145,16 +146,23 @@ export default function PreciosPage() {
         <Card className="max-w-3xl mx-auto">
           <CardContent className="p-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-12">
-              <div className="flex-grow">
-                <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
-                <CardDescription className="font-bold text-foreground mt-1">
-                  Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual.
-                </CardDescription>
+              <div className="flex-grow space-y-4">
+                <div>
+                    <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
+                    <CardDescription className="font-bold text-foreground mt-1">
+                    Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual.
+                    </CardDescription>
+                </div>
+                <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-sm text-muted-foreground">Acceso a todas las funciones</span>
+                    </li>
+                </ul>
                  <Button
                   onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                   disabled={isLoading === creditPack.priceId}
                   size="sm"
-                  className="mt-4"
                 >
                   {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                   Comprar
@@ -171,7 +179,8 @@ export default function PreciosPage() {
         </Card>
 
         <div className="flex justify-center">
-            <Alert className="w-auto inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white border-0">
+            <Alert className="w-auto inline-flex items-center gap-3">
+                 <Gem className="h-5 w-5" />
                 <AlertTitle className='font-semibold'>¡Hasta un 40 % más de créditos con el modelo de suscripción!</AlertTitle>
             </Alert>
         </div>
