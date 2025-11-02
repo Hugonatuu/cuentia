@@ -143,26 +143,27 @@ export default function PreciosPage() {
         </div>
 
         <Card>
-          <CardContent className="p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex-grow">
+          <CardContent className="p-6">
+            <div className="flex flex-col gap-4">
+              <div>
                 <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
                 <CardDescription className="text-muted-foreground mt-1">
-                    Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
+                  Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
                 </CardDescription>
-            </div>
-            <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-4">
-                 <div className="text-center sm:text-left">
-                    <p className="text-xl font-bold text-primary">{creditPack.credits} créditos</p>
-                    <p className="text-sm text-muted-foreground font-semibold">por {creditPack.euros}</p>
+              </div>
+              <div className="flex flex-col items-start gap-2">
+                <div className="text-left">
+                  <p className="text-xl font-bold text-primary">{creditPack.credits} créditos</p>
+                  <p className="text-sm text-muted-foreground font-semibold">por {creditPack.euros}</p>
                 </div>
-                 <Button
-                    onClick={() => handlePurchase(creditPack.priceId, 'payment')}
-                    disabled={isLoading === creditPack.priceId}
-                    className="w-full sm:w-auto"
+                <Button
+                  onClick={() => handlePurchase(creditPack.priceId, 'payment')}
+                  disabled={isLoading === creditPack.priceId}
                 >
-                    {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
-                    Comprar
+                  {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                  Comprar
                 </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -178,7 +179,7 @@ export default function PreciosPage() {
           </div>
           <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
             <CardHeader>
-              <CardTitle>✨ Suscríbete y ahorra en cada crédito</CardTitle>
+              <CardTitle className="text-2xl font-bold">✨ Suscríbete y ahorra en cada crédito</CardTitle>
               <CardDescription className="font-bold text-primary !mt-2">
                 Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un precio por crédito mucho más reducido.
               </CardDescription>
