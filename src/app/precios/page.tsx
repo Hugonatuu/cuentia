@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -171,9 +170,15 @@ export default function PreciosPage() {
           </CardContent>
         </Card>
 
+        <div className="flex justify-center">
+            <Alert className="w-auto inline-flex items-center gap-3 bg-gradient-to-r from-pink-500 to-yellow-500 text-white border-0">
+                <Gem className="h-5 w-5" />
+                <AlertTitle className='font-semibold text-lg'>¡Hasta un 40 % más de créditos con el modelo de suscripción!</AlertTitle>
+            </Alert>
+        </div>
 
-        <div className="relative pt-8">
-          <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
+        <div className="relative">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
             <div className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
               <Star className="h-5 w-5" />
               <span className="text-sm font-bold tracking-wider">
@@ -181,8 +186,8 @@ export default function PreciosPage() {
               </span>
             </div>
           </div>
-          <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
-            <CardHeader>
+          <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25 pt-6">
+            <CardHeader className="pt-0">
               <CardTitle className="text-2xl font-bold">✨ Suscríbete y ahorra en cada crédito</CardTitle>
               <CardDescription className="font-bold text-primary !mt-2">
                 Más cuentos, más magia: consigue hasta un 40 % extra de créditos con tu plan mensual.
