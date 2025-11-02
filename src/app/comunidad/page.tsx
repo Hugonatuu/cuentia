@@ -79,9 +79,9 @@ export default function ComunidadPage() {
                 <DropdownMenuItem
                     key={lang}
                     onSelect={() => setSelectedLanguage(lang as 'all' | CommunityStory['language'])}
+                    className="justify-center"
                 >
-                    <span className="mr-2 text-lg">{emoji}</span>
-                    <span>{label}</span>
+                    <span className="text-2xl">{emoji}</span>
                 </DropdownMenuItem>
                 ))}
             </DropdownMenuContent>
