@@ -143,43 +143,32 @@ export default function PreciosPage() {
         </div>
 
         <div>
-          <Card>
-            <CardHeader className="relative">
-              <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
-              <CardDescription className="font-bold text-primary pt-2">
-                Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-6 bg-background rounded-lg">
-                <div className="text-center">
-                  <div className="mb-4">
-                    <span className="text-4xl font-bold">{creditPack.euros}</span>
-                  </div>
-                  <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
-                    <Gem className="h-5 w-5" />
-                    <span>{creditPack.credits} créditos</span>
-                  </p>
+           <Card>
+            <CardContent className="p-6">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div className="text-center md:text-left">
+                        <h3 className="text-2xl font-bold">Paquete de Créditos</h3>
+                        <p className="text-muted-foreground">¿Necesitas un extra? Recarga tus créditos cuando quieras.</p>
+                    </div>
+                    <div className="flex items-center gap-6 bg-background rounded-lg p-4 border">
+                        <div className="text-center">
+                            <span className="text-4xl font-bold">{creditPack.euros}</span>
+                            <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
+                                <Gem className="h-5 w-5" />
+                                <span>{creditPack.credits} créditos</span>
+                            </p>
+                        </div>
+                        <Button
+                            size="lg"
+                            onClick={() => handlePurchase(creditPack.priceId, 'payment')}
+                            disabled={isLoading === creditPack.priceId}
+                        >
+                            {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                            Comprar
+                        </Button>
+                    </div>
                 </div>
-                <Button 
-                  className="w-full md:w-auto"
-                  size="lg"
-                  onClick={() => handlePurchase(creditPack.priceId, 'payment')}
-                  disabled={isLoading === creditPack.priceId}
-                >
-                  {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
-                  Comprar
-                </Button>
-              </div>
             </CardContent>
-            <div className="flex justify-center pb-6">
-                 <Alert variant="destructive" className="w-auto">
-                  <AlertTriangle className="h-4 w-4" />
-                  <AlertDescription>
-                      Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
-                  </AlertDescription>
-              </Alert>
-            </div>
           </Card>
         </div>
 
