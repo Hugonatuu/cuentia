@@ -143,26 +143,26 @@ export default function PreciosPage() {
         </div>
 
         <Card>
-          <CardContent className="p-6 grid md:grid-cols-2 items-center gap-8">
-            <div className="space-y-2">
+            <CardHeader>
                <CardTitle>Paquete de Créditos</CardTitle>
                 <CardDescription className="font-semibold text-primary !mt-4">
                   Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
                 </CardDescription>
-            </div>
-            <div className="flex flex-col items-center justify-center text-center gap-3 bg-accent/20 p-6 rounded-lg">
-                <p className="text-2xl font-bold text-primary">{creditPack.credits} créditos</p>
-                <p className="text-lg text-muted-foreground font-semibold">por {creditPack.euros}</p>
+            </CardHeader>
+            <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-4">
+                    <p className="text-2xl font-bold text-primary">{creditPack.credits} créditos</p>
+                    <p className="text-lg text-muted-foreground font-semibold">por {creditPack.euros}</p>
+                </div>
                  <Button
                     onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                     disabled={isLoading === creditPack.priceId}
-                    className="w-full max-w-xs mt-2"
+                    className="w-full md:w-auto"
                 >
                     {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                     Comprar
                 </Button>
-            </div>
-          </CardContent>
+            </CardContent>
         </Card>
 
         <div className="relative pt-8">
@@ -197,7 +197,7 @@ export default function PreciosPage() {
                       </div>
                     ))}
                 </div>
-                <div className="mt-6 flex justify-center">
+                 <div className="mt-6 flex justify-center">
                     <Alert variant="destructive" className="w-auto inline-flex">
                         <AlertTriangle className="h-4 w-4" />
                         <AlertTitle className='font-semibold'>Aviso</AlertTitle>
