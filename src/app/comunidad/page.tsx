@@ -28,13 +28,13 @@ interface CommunityStory {
 }
 
 const languageCategories = [
-  { lang: 'all', emoji: '🌍', label: 'Todos' },
-  { lang: 'es', emoji: '🇪🇸', label: 'Español' },
+  { lang: 'all', emoji: '🌍', label: 'All' },
+  { lang: 'es', emoji: '🇪🇸', label: 'Spanish' },
   { lang: 'en', emoji: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', label: 'English' },
-  { lang: 'fr', emoji: '🇫🇷', label: 'Français' },
-  { lang: 'it', emoji: '🇮🇹', label: 'Italiano' },
-  { lang: 'de', emoji: '🇩🇪', label: 'Deutsch' },
-  { lang: 'pt', emoji: '🇵🇹', label: 'Português' },
+  { lang: 'fr', emoji: '🇫🇷', label: 'French' },
+  { lang: 'it', emoji: '🇮🇹', label: 'Italian' },
+  { lang: 'de', emoji: '🇩🇪', label: 'German' },
+  { lang: 'pt', emoji: '🇵🇹', label: 'Portuguese' },
 ];
 
 
@@ -53,7 +53,7 @@ export default function ComunidadPage() {
     ? stories
     : stories?.filter(story => story.language === selectedLanguage);
 
-  const selectedLanguageLabel = languageCategories.find(l => l.lang === selectedLanguage)?.label || 'Todos';
+  const selectedLanguageLabel = languageCategories.find(l => l.lang === selectedLanguage)?.label || 'All';
 
   return (
     <div className="container mx-auto py-12">
@@ -70,7 +70,7 @@ export default function ComunidadPage() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="min-w-[150px]">
-                    Idioma: {selectedLanguageLabel}
+                    Language: {selectedLanguageLabel}
                     <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
             </DropdownMenuTrigger>
