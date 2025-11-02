@@ -315,6 +315,29 @@
         }
       },
       "required": ["title", "coverImageUrl", "pdfUrl"]
+    },
+    "StripePayment": {
+      "title": "Stripe Payment",
+      "description": "Represents a payment event from Stripe.",
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "The status of the payment (e.g., 'succeeded')."
+        }
+      }
+    },
+    "AppliedPayment": {
+      "title": "Applied Payment Receipt",
+      "description": "A receipt to mark a payment as having been processed to prevent duplicates.",
+      "type": "object",
+      "properties": {
+        "appliedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of when the payment was processed."
+        }
+      }
     }
   },
   "auth": {
@@ -359,6 +382,22 @@
                   "$ref": "#/entities/StripeSubscription"
                 },
                 "description": "Stores user subscription data from Stripe."
+              }
+            },
+             {
+              "path": "payments/{paymentId}",
+              "definition": {
+                "entityName": "StripePayment",
+                "schema": { "$ref": "#/entities/StripePayment" },
+                "description": "Stores payment events from Stripe for one-time purchases."
+              }
+            },
+            {
+              "path": "payments_applied/{paymentId}",
+              "definition": {
+                "entityName": "AppliedPayment",
+                "schema": { "$ref": "#/entities/AppliedPayment" },
+                "description": "Stores receipts for payments that have been processed to grant credits."
               }
             },
             {

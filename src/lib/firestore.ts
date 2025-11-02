@@ -11,6 +11,9 @@ import {
   getDoc,
   Firestore,
   Timestamp,
+  runTransaction,
+  serverTimestamp,
+  writeBatch,
 } from 'firebase/firestore';
 
 interface Subscription {
@@ -31,6 +34,13 @@ interface Subscription {
         }
     }[];
     current_period_start: Timestamp;
+}
+
+interface Payment {
+    id: string;
+    status: 'succeeded' | 'processing' | 'requires_action';
+    amount: number;
+    items?: { price: { id: string } }[];
 }
 
 
@@ -141,4 +151,68 @@ async function updateUserRole(
   } catch (error) {
     console.error('Error updating user role or credit count:', error);
   }
+}
+
+/**
+ * Listens for successful one-time payments and adds credits to the user's account.
+ * @param db The Firestore instance.
+ * @param userId The ID of the user.
+ * @returns An unsubscribe function for the listener.
+ */
+export function watchSuccessfulPayments(db: Firestore, userId: string) {
+    const paymentsRef = collection(db, `customers/${userId}/payments`);
+    const q = query(paymentsRef, where('status', '==', 'succeeded'));
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+        snapshot.docChanges().forEach(async (change) => {
+            if (change.type === 'added') {
+                const payment = { id: change.doc.id, ...change.doc.data() } as Payment;
+                // Check if the payment contains the specific credit pack
+                 const isCreditPack = payment.items?.some(
+                    (item) => item.price.id === 'price_1SOhZfArzx82mGRMGnt8jg5G'
+                );
+
+                if (isCreditPack) {
+                    await processOneTimePayment(db, userId, payment.id);
+                }
+            }
+        });
+    });
+
+    return unsubscribe;
+}
+
+/**
+ * Processes a one-time payment in a secure transaction to add credits.
+ * @param db The Firestore instance.
+ * @param userId The ID of the user.
+ * @param paymentId The ID of the payment document.
+ */
+async function processOneTimePayment(db: Firestore, userId: string, paymentId: string) {
+    const userRef = doc(db, `customers/${userId}`);
+    const receiptRef = doc(db, `customers/${userId}/payments_applied`, paymentId);
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const receiptDoc = await transaction.get(receiptRef);
+            if (receiptDoc.exists) {
+                console.log(`Payment ${paymentId} already processed.`);
+                return;
+            }
+
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists()) {
+                throw new Error(`User document for ${userId} not found.`);
+            }
+
+            const currentCredits = userDoc.data().payAsYouGoCredits || 0;
+            const newCredits = currentCredits + 5000;
+
+            transaction.update(userRef, { payAsYouGoCredits: newCredits });
+            transaction.set(receiptRef, { appliedAt: serverTimestamp() });
+        });
+        console.log(`Successfully processed payment ${paymentId} and added 5000 credits.`);
+    } catch (error) {
+        console.error(`Error processing payment ${paymentId}:`, error);
+    }
 }

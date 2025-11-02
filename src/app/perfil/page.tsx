@@ -20,7 +20,7 @@ import EditAvatar from './components/EditAvatar';
 import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
 import { useCollection } from '@/firebase/firestore/use-collection'; 
-import { watchUserSubscription } from '@/lib/firestore'; 
+import { watchUserSubscription, watchSuccessfulPayments } from '@/lib/firestore'; 
 import { updateDoc } from 'firebase/firestore';
 
 interface Story {
@@ -64,10 +64,17 @@ export default function PerfilPage() {
   // Observe subscription changes and update the user's role
   useEffect(() => {
     if (firestore && user?.uid) {
-      const unsubscribe = watchUserSubscription(firestore, user.uid, (newRole) => {
+      const unsubscribeSub = watchUserSubscription(firestore, user.uid, (newRole) => {
         setCurrentUserRole(newRole);
       });
-      return () => unsubscribe(); // Cleanup listener on unmount
+
+      // Listen for successful payments
+      const unsubscribePayments = watchSuccessfulPayments(firestore, user.uid);
+
+      return () => {
+        unsubscribeSub(); // Cleanup subscription listener on unmount
+        unsubscribePayments(); // Cleanup payment listener on unmount
+      };
     }
   }, [firestore, user?.uid]);
 
