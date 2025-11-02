@@ -153,10 +153,6 @@ export default function PerfilPage() {
                         <div className="flex justify-between items-start">
                             <div className='space-y-1'>
                                 <p className="text-lg font-bold text-primary capitalize">{role}</p>
-                                <p className="text-sm text-muted-foreground flex items-center gap-2">
-                                    <Calendar className="h-4 w-4" />
-                                    <span>Próxima facturación: {format(billingDate, 'dd MMM yyyy', { locale: es })}</span>
-                                </p>
                             </div>
                             <Button asChild variant="outline">
                               <a href={STRIPE_BILLING_PORTAL_URL} target="_blank" rel="noopener noreferrer">Gestionar mi suscripción</a>
