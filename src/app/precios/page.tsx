@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -143,37 +142,36 @@ export default function PreciosPage() {
           </Button>
         </div>
 
-        <div>
-          <Card>
-            <CardHeader>
-                <CardTitle>Paquete de Créditos</CardTitle>
-                <CardDescription className="font-bold text-primary">
-                  Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-6">
-                    <div className="flex items-center gap-6 bg-background rounded-lg p-4 border w-full sm:w-auto justify-center">
-                        <div className="text-center">
-                            <span className="text-4xl font-bold">{creditPack.euros}</span>
-                            <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
-                                <Gem className="h-5 w-5" />
-                                <span>{creditPack.credits} créditos</span>
-                            </p>
-                        </div>
-                        <Button
-                            size="lg"
-                            onClick={() => handlePurchase(creditPack.priceId, 'payment')}
-                            disabled={isLoading === creditPack.priceId}
-                        >
-                            {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
-                            Comprar
-                        </Button>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="md:pr-8">
+              <h2 className="text-3xl font-bold mb-2">Paquete de Créditos</h2>
+              <p className="text-lg text-muted-foreground">
+                Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
+              </p>
+            </div>
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+                  <div className="flex items-center gap-4">
+                    <Gem className="h-10 w-10 text-primary" />
+                    <div>
+                      <p className="text-2xl font-bold">{creditPack.credits} créditos</p>
+                      <p className="text-xl text-muted-foreground">{creditPack.euros}</p>
                     </div>
+                  </div>
+                  <Button
+                    size="lg"
+                    onClick={() => handlePurchase(creditPack.priceId, 'payment')}
+                    disabled={isLoading === creditPack.priceId}
+                    className="w-full sm:w-auto"
+                  >
+                    {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                    Comprar
+                  </Button>
                 </div>
-            </CardContent>
-        </Card>
-        </div>
+              </CardContent>
+            </Card>
+          </div>
 
         <div className="relative pt-8">
           <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
