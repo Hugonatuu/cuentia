@@ -144,21 +144,22 @@ export default function PreciosPage() {
 
         <Card>
           <CardContent className="p-6">
-            <div className="flex flex-col gap-4">
-              <div>
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              <div className="flex-grow">
                 <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
                 <CardDescription className="text-muted-foreground mt-1">
                   Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
                 </CardDescription>
               </div>
-              <div className="flex flex-col items-start gap-2">
-                <div className="text-left">
+              <div className="flex flex-col items-center gap-2">
+                 <div className="text-center">
                   <p className="text-xl font-bold text-primary">{creditPack.credits} créditos</p>
                   <p className="text-sm text-muted-foreground font-semibold">por {creditPack.euros}</p>
                 </div>
                 <Button
                   onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                   disabled={isLoading === creditPack.priceId}
+                  size="sm"
                 >
                   {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                   Comprar
@@ -167,6 +168,7 @@ export default function PreciosPage() {
             </div>
           </CardContent>
         </Card>
+
 
         <div className="relative pt-8">
           <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
