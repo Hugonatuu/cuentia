@@ -167,8 +167,7 @@ export function watchSuccessfulPayments(db: Firestore, userId: string) {
         snapshot.docChanges().forEach(async (change) => {
             if (change.type === 'added') {
                 const payment = { id: change.doc.id, ...change.doc.data() } as Payment;
-                // Check if the payment contains the specific credit pack
-                 const isCreditPack = payment.items?.some(
+                const isCreditPack = payment.items?.some(
                     (item) => item.price.id === 'price_1SOhZfArzx82mGRMGnt8jg5G'
                 );
 
