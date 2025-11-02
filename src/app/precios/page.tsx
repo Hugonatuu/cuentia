@@ -219,15 +219,6 @@ export default function PreciosPage() {
                       </div>
                     ))}
                 </div>
-                 <div className="mt-6 flex justify-center">
-                    <Alert variant="destructive" className="w-auto inline-flex">
-                        <AlertTriangle className="h-4 w-4" />
-                        <AlertTitle className='font-semibold'>Aviso</AlertTitle>
-                        <AlertDescription>
-                            Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
-                        </AlertDescription>
-                    </Alert>
-                </div>
             </CardContent>
           </Card>
         </div>
