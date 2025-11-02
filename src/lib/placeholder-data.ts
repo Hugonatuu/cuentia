@@ -27,8 +27,8 @@ export const mainNavLinks = [
 export const pricingPlans = [
   {
     name: 'Plan Artista',
-    price: '9,99€',
-    credits: '12.000 créditos / mes',
+    price: '6,99€',
+    credits: '8.000 créditos / mes',
     features: [
       'Acceso a todas las funciones',
       'Soporte prioritario',
