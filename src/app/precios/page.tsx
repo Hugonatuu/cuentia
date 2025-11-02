@@ -142,15 +142,15 @@ export default function PreciosPage() {
           </Button>
         </div>
 
-        <Card>
+        <Card className="max-w-3xl mx-auto">
           <CardContent className="p-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-12">
               <div className="flex-grow">
                 <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
                 <CardDescription className="text-foreground font-semibold mt-1">
                   Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual.
                 </CardDescription>
-                <Button
+                 <Button
                   onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                   disabled={isLoading === creditPack.priceId}
                   size="sm"
@@ -161,7 +161,7 @@ export default function PreciosPage() {
                 </Button>
               </div>
               <div className="flex flex-col items-center gap-2 shrink-0">
-                <div className="text-center p-4 border-2 border-primary rounded-lg bg-primary/10">
+                <div className="text-center p-4 border border-primary rounded-lg bg-primary/10">
                   <p className="text-xl font-bold text-primary">5.000 créditos</p>
                   <p className="text-sm text-muted-foreground font-semibold">por 5€</p>
                 </div>
