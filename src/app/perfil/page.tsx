@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -137,7 +138,7 @@ export default function PerfilPage() {
               <Tabs defaultValue="subscription">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="subscription">Mi suscripción</TabsTrigger>
-                  <TabsTrigger value="payg">Créditos Pay As You Go</TabsTrigger>
+                  <TabsTrigger value="payg">Créditos Comprados</TabsTrigger>
                 </TabsList>
                 <TabsContent value="subscription" className="mt-4">
                  {role ? (
