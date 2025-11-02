@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -148,7 +149,7 @@ export default function PreciosPage() {
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div className="text-center md:text-left">
                         <h3 className="text-2xl font-bold">Paquete de Créditos</h3>
-                        <p className="text-muted-foreground">¿Necesitas un extra? Recarga tus créditos cuando quieras.</p>
+                        <p className="text-muted-foreground">Perfecto para probar la app o recargar tus créditos cuando se te acaben los de tu suscripción.</p>
                     </div>
                     <div className="flex items-center gap-6 bg-background rounded-lg p-4 border">
                         <div className="text-center">
@@ -185,24 +186,34 @@ export default function PreciosPage() {
             <CardHeader>
               <CardTitle>✨ Suscríbete y ahorra en cada crédito</CardTitle>
               <CardDescription className="font-bold text-primary">
-                Disfruta de nuevas actualizaciones antes que nadie, funciones
-                premium y un precio por crédito mucho más reducido.
+                Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un precio por crédito mucho más reducido.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {pricingPlans
-                .filter((p) => p.name !== 'Pay as you go')
-                .map((plan) => (
-                  <div key={plan.name} className="flex flex-col">
-                     <PricingCard
-                      plan={plan}
-                      onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}
-                      isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
-                      isCurrentUserPlan={activeSubscription?.items?.[0]?.price.id === plan.stripePriceId}
-                      hasActiveSubscription={!!activeSubscription}
-                    />
-                  </div>
-                ))}
+            <CardContent>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {pricingPlans
+                    .filter((p) => p.name !== 'Pay as you go')
+                    .map((plan) => (
+                      <div key={plan.name} className="flex flex-col">
+                        <PricingCard
+                          plan={plan}
+                          onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}
+                          isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
+                          isCurrentUserPlan={activeSubscription?.items?.[0]?.price.id === plan.stripePriceId}
+                          hasActiveSubscription={!!activeSubscription}
+                        />
+                      </div>
+                    ))}
+                </div>
+                 <div className="mt-6 flex justify-center">
+                    <Alert variant="destructive" className="w-auto inline-flex">
+                        <AlertTriangle className="h-4 w-4" />
+                        <AlertTitle className='font-semibold'>Aviso</AlertTitle>
+                        <AlertDescription>
+                            Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
+                        </AlertDescription>
+                    </Alert>
+                </div>
             </CardContent>
           </Card>
         </div>
@@ -210,3 +221,5 @@ export default function PreciosPage() {
     </div>
   );
 }
+
+    
