@@ -145,12 +145,14 @@ export default function PreciosPage() {
 
         <div>
            <Card>
-            <CardContent className="p-6">
+            <CardHeader>
+                <CardTitle>Paquete de Créditos</CardTitle>
+                <CardDescription className="font-semibold text-primary">
+                    Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="text-center md:text-left">
-                        <h3 className="text-2xl font-bold">Paquete de Créditos</h3>
-                        <p className="text-muted-foreground">Perfecto para probar la app o recargar tus créditos cuando se te acaben los de tu suscripción.</p>
-                    </div>
                     <div className="flex items-center gap-6 bg-background rounded-lg p-4 border">
                         <div className="text-center">
                             <span className="text-4xl font-bold">{creditPack.euros}</span>
@@ -221,5 +223,3 @@ export default function PreciosPage() {
     </div>
   );
 }
-
-    
