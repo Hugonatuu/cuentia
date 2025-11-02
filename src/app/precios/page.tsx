@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -161,7 +162,7 @@ export default function PreciosPage() {
                 </Button>
               </div>
               <div className="flex flex-col items-center gap-2 shrink-0">
-                <div className="text-center p-4 border border-primary rounded-lg bg-primary/10">
+                <div className="text-center p-4 border-2 border-primary rounded-lg bg-primary/10">
                   <p className="text-xl font-bold text-primary">5.000 créditos</p>
                   <p className="text-sm text-muted-foreground font-semibold">por 5€</p>
                 </div>
@@ -184,7 +185,7 @@ export default function PreciosPage() {
             <CardHeader>
               <CardTitle className="text-2xl font-bold">✨ Suscríbete y ahorra en cada crédito</CardTitle>
               <CardDescription className="font-bold text-primary !mt-2">
-                Disfruta de nuevas actualizaciones antes que nadie, funciones premium y un precio por crédito mucho más reducido.
+                Más cuentos, más magia: consigue hasta un 40 % extra de créditos con tu plan mensual.
               </CardDescription>
             </CardHeader>
             <CardContent>
