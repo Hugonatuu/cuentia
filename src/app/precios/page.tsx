@@ -150,20 +150,21 @@ export default function PreciosPage() {
                 <CardDescription className="text-muted-foreground mt-1">
                   Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
                 </CardDescription>
-              </div>
-              <div className="flex flex-col items-center gap-2">
-                 <div className="text-center">
-                  <p className="text-xl font-bold text-primary">{creditPack.credits} créditos</p>
-                  <p className="text-sm text-muted-foreground font-semibold">por {creditPack.euros}</p>
-                </div>
                 <Button
                   onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                   disabled={isLoading === creditPack.priceId}
                   size="sm"
+                  className="mt-4"
                 >
                   {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                   Comprar
                 </Button>
+              </div>
+              <div className="flex flex-col items-center gap-2 shrink-0">
+                 <div className="text-center">
+                  <p className="text-xl font-bold text-primary">{creditPack.credits} créditos</p>
+                  <p className="text-sm text-muted-foreground font-semibold">por {creditPack.euros}</p>
+                </div>
               </div>
             </div>
           </CardContent>
