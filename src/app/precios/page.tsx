@@ -147,7 +147,7 @@ export default function PreciosPage() {
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-12">
               <div className="flex-grow">
                 <CardTitle className="text-xl">Paquete de Créditos</CardTitle>
-                <CardDescription className="text-foreground font-semibold mt-1">
+                <CardDescription className="font-bold text-foreground mt-1">
                   Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual.
                 </CardDescription>
                  <Button
@@ -189,7 +189,7 @@ export default function PreciosPage() {
             <CardHeader className="pt-0">
               <CardTitle className="text-2xl font-bold">✨ Suscríbete y ahorra en cada crédito</CardTitle>
               <CardDescription className="font-bold text-primary !mt-2">
-                Más cuentos, más magia: consigue hasta un 40 % extra de créditos con tu plan mensual.
+                Sin ataduras, sin riesgos: cancela cuando quieras y disfruta de pagos seguros con Stripe
               </CardDescription>
             </CardHeader>
             <CardContent>
