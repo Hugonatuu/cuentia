@@ -144,16 +144,16 @@ export default function PreciosPage() {
         </div>
 
         <div>
-           <Card>
+          <Card>
             <CardHeader>
                 <CardTitle>Paquete de Créditos</CardTitle>
-                <CardDescription className="font-semibold text-primary">
-                    Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
+                <CardDescription className="font-bold text-primary">
+                  Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                    <div className="flex items-center gap-6 bg-background rounded-lg p-4 border">
+                <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-6">
+                    <div className="flex items-center gap-6 bg-background rounded-lg p-4 border w-full sm:w-auto justify-center">
                         <div className="text-center">
                             <span className="text-4xl font-bold">{creditPack.euros}</span>
                             <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
@@ -172,7 +172,7 @@ export default function PreciosPage() {
                     </div>
                 </div>
             </CardContent>
-          </Card>
+        </Card>
         </div>
 
         <div className="relative pt-8">
@@ -207,7 +207,7 @@ export default function PreciosPage() {
                       </div>
                     ))}
                 </div>
-                 <div className="mt-6 flex justify-center">
+                <div className="mt-6 flex justify-center">
                     <Alert variant="destructive" className="w-auto inline-flex">
                         <AlertTriangle className="h-4 w-4" />
                         <AlertTitle className='font-semibold'>Aviso</AlertTitle>
