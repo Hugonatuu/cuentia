@@ -75,6 +75,15 @@ service cloud.firestore {
             allow get, list: if isOwner(userId);
             allow create, update, delete: if false; // Only the Firebase extension should manage these.
         }
+        
+        /**
+        * @description Secure payments. Users can only read their own payment data.
+        * @path /customers/{userId}/payments/{paymentId}
+        */
+        match /payments/{paymentId} {
+            allow get, list: if isOwner(userId);
+            allow create, update, delete: if false; // Only the Firebase extension should manage these.
+        }
     }
 
     /**
@@ -133,5 +142,3 @@ service cloud.firestore {
     }
   }
 }
-
-    
