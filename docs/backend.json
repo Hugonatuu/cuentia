@@ -312,9 +312,14 @@
           "type": "string",
           "format": "uri",
           "description": "The URL for the story's PDF file."
+        },
+        "language": {
+            "type": "string",
+            "description": "The language of the story.",
+            "enum": ["es", "en", "fr", "it", "de", "pt"]
         }
       },
-      "required": ["title", "coverImageUrl", "pdfUrl"]
+      "required": ["title", "coverImageUrl", "pdfUrl", "language"]
     },
     "StripePayment": {
       "title": "Stripe Payment",

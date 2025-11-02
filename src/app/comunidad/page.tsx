@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,10 +17,23 @@ interface CommunityStory {
   title: string;
   coverImageUrl: string;
   pdfUrl: string;
+  language: 'es' | 'en' | 'fr' | 'it' | 'de' | 'pt';
 }
+
+const languageCategories = [
+  { lang: 'all', emoji: '🌍', label: 'Todos' },
+  { lang: 'es', emoji: '🇪🇸', label: 'Español' },
+  { lang: 'en', emoji: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', label: 'English' },
+  { lang: 'fr', emoji: '🇫🇷', label: 'Français' },
+  { lang: 'it', emoji: '🇮🇹', label: 'Italiano' },
+  { lang: 'de', emoji: '🇩🇪', label: 'Deutsch' },
+  { lang: 'pt', emoji: '🇵🇹', label: 'Português' },
+];
+
 
 export default function ComunidadPage() {
   const firestore = useFirestore();
+  const [selectedLanguage, setSelectedLanguage] = useState<'all' | CommunityStory['language']>('all');
   
   const communityStoriesQuery = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -27,6 +41,11 @@ export default function ComunidadPage() {
   }, [firestore]);
 
   const { data: stories, isLoading, error } = useCollection<CommunityStory>(communityStoriesQuery);
+
+  const filteredStories = selectedLanguage === 'all'
+    ? stories
+    : stories?.filter(story => story.language === selectedLanguage);
+
 
   return (
     <div className="container mx-auto py-12">
@@ -38,6 +57,20 @@ export default function ComunidadPage() {
           Descubre las historias creadas por otros soñadores como tú. Inspírate, comparte y deja que la magia de sus cuentos te transporte a nuevos mundos.
         </p>
       </div>
+
+       <div className="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+        {languageCategories.map(({ lang, emoji, label }) => (
+            <Button
+              key={lang}
+              variant={selectedLanguage === lang ? 'default' : 'outline'}
+              onClick={() => setSelectedLanguage(lang as 'all' | CommunityStory['language'])}
+              className="rounded-full text-lg px-6 py-3"
+            >
+              <span className="mr-2">{emoji}</span>
+              {label}
+            </Button>
+          ))}
+        </div>
 
       {isLoading && (
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -60,9 +93,9 @@ export default function ComunidadPage() {
         </Alert>
       )}
 
-      {!isLoading && !error && stories && stories.length > 0 && (
+      {!isLoading && !error && filteredStories && filteredStories.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {stories.map((story) => (
+          {filteredStories.map((story) => (
             <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
               <CardContent className="p-0">
                 <Link href={`/comunidad/leer/${story.id}`}>
@@ -90,14 +123,14 @@ export default function ComunidadPage() {
           ))}
         </div>
       )}
-       {!isLoading && !error && (!stories || stories.length === 0) && (
+       {!isLoading && !error && (!filteredStories || filteredStories.length === 0) && (
          <div className="text-center py-16 border-2 border-dashed rounded-lg">
             <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
             <h2 className="mt-4 text-xl font-bold tracking-tight text-gray-800">
-                Aún no hay cuentos en la comunidad
+                Aún no hay cuentos en esta categoría
             </h2>
             <p className="mt-1 text-md text-muted-foreground">
-                ¡Sé el primero en compartir tu creación!
+                ¡Explora otras lenguas o sé el primero en compartir!
             </p>
         </div>
       )}
