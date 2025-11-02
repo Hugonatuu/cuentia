@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import Image from 'next/image';
@@ -21,7 +21,7 @@ import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
 import { useCollection } from '@/firebase/firestore/use-collection'; 
 import { watchUserSubscription, watchSuccessfulPayments } from '@/lib/firestore'; 
-import { updateDoc, collection, query, where } from 'firebase/firestore';
+import { updateDoc, collection, query, where, Firestore } from 'firebase/firestore';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface Story {
@@ -70,7 +70,7 @@ export default function PerfilPage() {
 
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
-    const subsRef = collection(db, `customers/${user.uid}/subscriptions`);
+    const subsRef = collection(firestore as Firestore, `customers/${user.uid}/subscriptions`);
     return query(subsRef, where('status', 'in', ['active', 'trialing', 'past_due', 'incomplete']));
   }, [firestore, user]);
 
