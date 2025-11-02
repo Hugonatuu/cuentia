@@ -84,6 +84,15 @@ service cloud.firestore {
             allow get, list: if isOwner(userId);
             allow create, update, delete: if false; // Only the Firebase extension should manage these.
         }
+        
+        /**
+         * @description Allow the client to write payment receipts for transactional integrity.
+         * @path /customers/{userId}/payments_applied/{paymentId}
+         */
+        match /payments_applied/{paymentId} {
+            allow get, create: if isOwner(userId);
+            allow list, update, delete: if false;
+        }
     }
 
     /**
