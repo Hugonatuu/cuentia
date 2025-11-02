@@ -37,7 +37,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1SOLjlArzx82mGRMHeoYsotv', // Reemplazar con tu priceId de Stripe
+    stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W', 
     firebaseRole: 'artist',
   },
   {
@@ -52,7 +52,7 @@ export const pricingPlans = [
     ],
     isFeatured: true,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1SOPcmArzx82mGRMotEgmX4s',
+    stripePriceId: 'price_1SP1UDArzx82mGRMZPvzXqXL',
     firebaseRole: 'magic',
   },
   {
@@ -67,7 +67,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1SOPhIArzx82mGRMhfWnqmsQ',
+    stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6',
     firebaseRole: 'special',
   },
   {
@@ -82,7 +82,7 @@ export const pricingPlans = [
     ],
     isFeatured: false,
     cta: 'Suscribirse',
-    stripePriceId: 'price_1SOPiZArzx82mGRMiKURQm8i',
+    stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz',
     firebaseRole: 'king',
   },
 ];
