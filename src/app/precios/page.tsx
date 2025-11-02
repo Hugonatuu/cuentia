@@ -54,32 +54,12 @@ interface Subscription {
   }[];
 }
 
-const creditPacks = [
-  {
-    euros: '5€',
-    credits: '5.000',
-    priceId: 'price_1SOhZfArzx82mGRMGnt8jg5G',
-    bonus: '',
-  },
-  {
-    euros: '10€',
-    credits: '10.500',
-    priceId: 'price_1SOhckArzx82mGRMjWaXuHaL',
-    bonus: '+5% extra',
-  },
-  {
-    euros: '15€',
-    credits: '16.500',
-    priceId: 'price_1SOhd4Arzx82mGRMCssu0q2r',
-    bonus: '+10% extra',
-  },
-  {
-    euros: '20€',
-    credits: '23.000',
-    priceId: 'price_1SOhdeArzx82mGRMayZfFMXt',
-    bonus: '+15% extra',
-  },
-];
+const creditPack = {
+  euros: '5€',
+  credits: '5.000',
+  priceId: 'price_1SOhZfArzx82mGRMGnt8jg5G',
+};
+
 
 const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
 
@@ -166,38 +146,34 @@ export default function PreciosPage() {
           <Card>
             <CardHeader className="relative">
               <CardTitle>Paquetes de Créditos (Pay As You Go)</CardTitle>
-              <CardDescription className="font-semibold text-primary pt-2">
+              <CardDescription className="font-bold text-primary pt-2">
                 Compra créditos que no caducan. Ideal para empezar o para proyectos puntuales.
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {creditPacks.map((pack) => (
-                <Card key={pack.priceId} className="flex flex-col text-center justify-between p-6 bg-background">
-                  <div>
-                      {pack.bonus && (
-                          <div className="mb-2 text-sm font-bold text-green-600">{pack.bonus}</div>
-                      )}
-                      <div className="mb-4">
-                          <span className="text-4xl font-bold">{pack.euros}</span>
-                      </div>
-                      <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
-                          <Gem className="h-5 w-5" />
-                          <span>{pack.credits} créditos</span>
-                      </p>
+            <CardContent>
+              <div className="flex flex-col md:flex-row items-center justify-center gap-6 p-6 bg-background rounded-lg">
+                <div className="text-center">
+                  <div className="mb-4">
+                    <span className="text-4xl font-bold">{creditPack.euros}</span>
                   </div>
-                  <Button 
-                      className="w-full mt-6"
-                      onClick={() => handlePurchase(pack.priceId, 'payment')}
-                      disabled={isLoading === pack.priceId}
-                  >
-                      {isLoading === pack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
-                      Comprar
-                  </Button>
-                </Card>
-              ))}
+                  <p className="flex items-center justify-center gap-2 text-lg font-semibold text-primary">
+                    <Gem className="h-5 w-5" />
+                    <span>{creditPack.credits} créditos</span>
+                  </p>
+                </div>
+                <Button 
+                  className="w-full md:w-auto"
+                  size="lg"
+                  onClick={() => handlePurchase(creditPack.priceId, 'payment')}
+                  disabled={isLoading === creditPack.priceId}
+                >
+                  {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                  Comprar
+                </Button>
+              </div>
             </CardContent>
             <div className="flex justify-center pb-6">
-              <Alert variant="destructive" className="w-auto">
+                 <Alert variant="destructive" className="w-auto">
                   <AlertTriangle className="h-4 w-4" />
                   <AlertDescription>
                       Aviso: Con el modelo de suscripción obtienes hasta un 45 % más de créditos al mes.
@@ -219,7 +195,7 @@ export default function PreciosPage() {
           <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
             <CardHeader>
               <CardTitle>✨ Suscríbete y ahorra en cada crédito</CardTitle>
-              <CardDescription className="font-semibold text-primary">
+              <CardDescription className="font-bold text-primary">
                 Disfruta de nuevas actualizaciones antes que nadie, funciones
                 premium y un precio por crédito mucho más reducido.
               </CardDescription>
