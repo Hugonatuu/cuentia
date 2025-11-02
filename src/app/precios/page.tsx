@@ -179,9 +179,11 @@ export default function PreciosPage() {
         </Card>
 
         <div className="flex justify-center">
-            <Alert className="w-auto inline-flex items-center gap-3">
-                 <Gem className="h-5 w-5" />
-                <AlertTitle className='font-semibold'>¡Hasta un 40 % más de créditos con el modelo de suscripción!</AlertTitle>
+             <Alert className="w-auto inline-flex items-center gap-3 bg-gradient-to-r from-blue-400 to-purple-500 text-white border-0">
+                <Gem className="h-5 w-5" />
+                <AlertTitle className="font-semibold">
+                    ¡Hasta un 40 % más de créditos con el modelo de suscripción!
+                </AlertTitle>
             </Alert>
         </div>
 
