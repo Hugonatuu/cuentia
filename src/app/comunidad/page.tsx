@@ -6,11 +6,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen } from "lucide-react";
+import { BookOpen, ChevronDown } from "lucide-react";
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { communityStoriesCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 
 interface CommunityStory {
   id: string;
@@ -46,6 +53,7 @@ export default function ComunidadPage() {
     ? stories
     : stories?.filter(story => story.language === selectedLanguage);
 
+  const selectedLanguageLabel = languageCategories.find(l => l.lang === selectedLanguage)?.label || 'Todos';
 
   return (
     <div className="container mx-auto py-12">
@@ -58,19 +66,27 @@ export default function ComunidadPage() {
         </p>
       </div>
 
-       <div className="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
-        {languageCategories.map(({ lang, emoji, label }) => (
-            <Button
-              key={lang}
-              variant={selectedLanguage === lang ? 'default' : 'outline'}
-              onClick={() => setSelectedLanguage(lang as 'all' | CommunityStory['language'])}
-              className="rounded-full text-lg px-6 py-3"
-            >
-              <span className="mr-2">{emoji}</span>
-              {label}
-            </Button>
-          ))}
-        </div>
+       <div className="mb-8 flex justify-center">
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="min-w-[150px]">
+                    Idioma: {selectedLanguageLabel}
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                {languageCategories.map(({ lang, emoji, label }) => (
+                <DropdownMenuItem
+                    key={lang}
+                    onSelect={() => setSelectedLanguage(lang as 'all' | CommunityStory['language'])}
+                >
+                    <span className="mr-2 text-lg">{emoji}</span>
+                    <span>{label}</span>
+                </DropdownMenuItem>
+                ))}
+            </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
       {isLoading && (
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
