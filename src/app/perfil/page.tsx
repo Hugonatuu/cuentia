@@ -11,7 +11,7 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef, userDocRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass, CreditCard, Calendar, Gift, Info } from 'lucide-react';
+import { BookOpen, Hourglass, CreditCard, Calendar, Gift, Info, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -21,7 +21,8 @@ import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
 import { useCollection } from '@/firebase/firestore/use-collection'; 
 import { watchUserSubscription, watchSuccessfulPayments } from '@/lib/firestore'; 
-import { updateDoc } from 'firebase/firestore';
+import { updateDoc, collection, query, where } from 'firebase/firestore';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface Story {
   id: string;
@@ -37,6 +38,12 @@ interface UserProfile {
     payAsYouGoCredits?: number;
     current_period_start?: { seconds: number; nanoseconds: number };
     subscriptionId?: string;
+    subscriptionStatus?: 'active' | 'trialing' | 'past_due' | 'incomplete' | 'canceled';
+}
+
+interface Subscription {
+  id: string;
+  status: 'active' | 'trialing' | 'past_due' | 'incomplete' | 'canceled';
 }
 
 const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
@@ -60,6 +67,20 @@ export default function PerfilPage() {
   }, [firestore, user]);
 
   const { data: userProfile, isLoading: isProfileLoading } = useDoc<UserProfile>(userRef);
+
+  const subscriptionsQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    const subsRef = collection(db, `customers/${user.uid}/subscriptions`);
+    return query(subsRef, where('status', 'in', ['active', 'trialing', 'past_due', 'incomplete']));
+  }, [firestore, user]);
+
+  const { data: subscriptions } = useCollection<Subscription>(subscriptionsQuery);
+  
+  const primarySubscription = useMemo(() => {
+    if (!subscriptions) return null;
+    return subscriptions.find(s => ['active', 'trialing'].includes(s.status)) || subscriptions.find(s => ['past_due', 'incomplete'].includes(s.status)) || null;
+  }, [subscriptions]);
+
 
   // Observe subscription changes and update the user's role
   useEffect(() => {
@@ -125,7 +146,8 @@ export default function PerfilPage() {
   const creditsUsed = userProfile?.monthlyCreditCount || 0;
   const payAsYouGoCredits = userProfile?.payAsYouGoCredits || 0;
   const subscriptionCreditPercentage = planLimits > 0 ? (creditsUsed / planLimits) * 100 : 0;
-  const billingDate = userProfile?.current_period_start ? new Date(userProfile.current_period_start.seconds * 1000) : new Date();
+  const isSubscriptionPastDue = primarySubscription?.status === 'past_due' || primarySubscription?.status === 'incomplete';
+
 
   return (
     <div className="container mx-auto py-12">
@@ -148,16 +170,27 @@ export default function PerfilPage() {
                   <TabsTrigger value="payg">Créditos Comprados</TabsTrigger>
                 </TabsList>
                 <TabsContent value="subscription" className="mt-4">
-                 {role ? (
+                 {primarySubscription ? (
                     <div className="space-y-4">
                         <div className="flex justify-between items-start">
                             <div className='space-y-1'>
-                                <p className="text-lg font-bold text-primary capitalize">{role}</p>
+                                <p className="text-lg font-bold text-primary capitalize">{role || primarySubscription.id}</p>
                             </div>
                             <Button asChild variant="outline">
                               <a href={STRIPE_BILLING_PORTAL_URL} target="_blank" rel="noopener noreferrer">Gestionar mi suscripción</a>
                             </Button>
                         </div>
+
+                         {isSubscriptionPastDue && (
+                          <Alert variant="destructive">
+                            <AlertTriangle className="h-4 w-4" />
+                            <AlertTitle>Fallo en el pago</AlertTitle>
+                            <AlertDescription>
+                              Ha habido un problema con el pago de tu suscripción. Por favor, actualiza tu método de pago.
+                            </AlertDescription>
+                          </Alert>
+                        )}
+                        
                         <div className="space-y-2 pt-2">
                             <div className="flex items-center justify-between">
                                 <p className="font-semibold text-sm">Créditos restantes del plan</p>
@@ -169,7 +202,7 @@ export default function PerfilPage() {
                             <div className="flex items-center gap-4">
                                 <Progress value={subscriptionCreditPercentage} className="flex-grow" />
                                 <span className="font-bold text-sm">
-                                    {(planLimits - creditsUsed).toLocaleString()} /{' '}
+                                    {isSubscriptionPastDue ? 0 : (planLimits - creditsUsed).toLocaleString()} /{' '}
                                     {planLimits.toLocaleString()}
                                 </span>
                             </div>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -32,7 +33,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface Subscription {
   id: string;
-  status: 'active' | 'trialing' | 'past_due' | 'canceled';
+  status: 'active' | 'trialing' | 'past_due' | 'canceled' | 'incomplete';
   price: {
     id: string;
     product: {
@@ -76,11 +77,15 @@ export default function PreciosPage() {
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
     const subsRef = customerSubscriptionsCollectionRef(firestore, user.uid);
-    return query(subsRef, where('status', 'in', ['trialing', 'active']));
+    return query(subsRef, where('status', 'in', ['trialing', 'active', 'past_due', 'incomplete']));
   }, [firestore, user]);
 
   const { data: subscriptions, isLoading: isLoadingSubscriptions } = useCollection<Subscription>(subscriptionsQuery);
-  const activeSubscription = subscriptions?.[0];
+  
+  const activeSubscription = subscriptions?.find(s => ['active', 'trialing'].includes(s.status));
+  const pastDueSubscription = subscriptions?.find(s => ['past_due', 'incomplete'].includes(s.status));
+  const primarySubscription = activeSubscription || pastDueSubscription;
+
 
   const handlePurchase = async (priceId: string, mode: 'subscription' | 'payment') => {
     if (!user) {
@@ -88,7 +93,7 @@ export default function PreciosPage() {
       return;
     }
 
-    if (mode === 'subscription' && activeSubscription) {
+    if (mode === 'subscription' && primarySubscription) {
         window.location.assign(STRIPE_BILLING_PORTAL_URL);
         return;
     }
@@ -213,8 +218,8 @@ export default function PreciosPage() {
                           plan={plan}
                           onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}
                           isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
-                          isCurrentUserPlan={activeSubscription?.items?.[0]?.price.id === plan.stripePriceId}
-                          hasActiveSubscription={!!activeSubscription}
+                          isCurrentUserPlan={primarySubscription?.items?.[0]?.price.id === plan.stripePriceId}
+                          hasActiveSubscription={!!primarySubscription}
                         />
                       </div>
                     ))}

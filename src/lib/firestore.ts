@@ -90,12 +90,12 @@ export function watchUserSubscription(
     
     // Correct path to metadata: subscription.items[0].price.metadata.firebaseRole
     const priceData = primarySubscription.items && primarySubscription.items[0]?.price;
-    const newRole = isActive ? (priceData?.metadata?.firebaseRole || null) : null;
+    const newRole = priceData?.metadata?.firebaseRole || null;
     
-    // Obtener la fecha de inicio del período actual de la suscripción
     const newPeriodStart = primarySubscription.current_period_start as Timestamp;
 
-    await updateUserRole(db, userId, newRole, newPeriodStart, subscriptionId, onRoleChange);
+    // Only grant the role if the subscription is active. If it's past_due, the role is null.
+    await updateUserRole(db, userId, isActive ? newRole : null, newPeriodStart, subscriptionId, onRoleChange);
   });
 
   return unsubscribe;
@@ -201,14 +201,9 @@ async function processOneTimePayment(db: Firestore, userId: string, paymentId: s
             }
 
             const userDoc = await transaction.get(userRef);
-            if (!userDoc.exists()) {
-                throw new Error(`User document for ${userId} not found.`);
-            }
-
-            const currentCredits = userDoc.data().payAsYouGoCredits || 0;
+            const currentCredits = userDoc.exists() ? userDoc.data().payAsYouGoCredits || 0 : 0;
             const newCredits = currentCredits + 5000;
-
-            // Use set with merge:true to create the field if it doesn't exist
+            
             transaction.set(userRef, { payAsYouGoCredits: newCredits }, { merge: true });
             transaction.set(receiptRef, { appliedAt: serverTimestamp() });
         });
