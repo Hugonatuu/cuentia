@@ -69,7 +69,7 @@ export default function ComunidadPage() {
        <div className="mb-8 flex justify-center">
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="min-w-[150px]">
+                <Button variant="default" className="min-w-[150px]">
                     Language: {selectedLanguageLabel}
                     <ChevronDown className="ml-2 h-4 w-4" />
                 </Button>
@@ -79,10 +79,9 @@ export default function ComunidadPage() {
                 <DropdownMenuItem
                     key={lang}
                     onSelect={() => setSelectedLanguage(lang as 'all' | CommunityStory['language'])}
-                    className="justify-center"
                 >
-                  <span className="flex items-center gap-2 text-base">
-                    <span className="text-2xl">{emoji}</span> {label}
+                  <span className="flex items-center gap-2">
+                    <span className="text-xl">{emoji}</span> {label}
                   </span>
                 </DropdownMenuItem>
                 ))}
