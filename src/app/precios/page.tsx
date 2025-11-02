@@ -142,36 +142,34 @@ export default function PreciosPage() {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="md:pr-8">
-              <h2 className="text-3xl font-bold mb-2">Paquete de Créditos</h2>
-              <p className="text-lg text-muted-foreground">
+        <Card>
+            <CardHeader>
+                <CardTitle>Paquete de Créditos</CardTitle>
+                <CardDescription>
                 Perfecto para probar la app antes de pagar una suscripcion o recargar tus créditos cuando se te acaben los de tu suscripción.
-              </p>
-            </div>
-            <Card>
-              <CardContent className="p-6">
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-                  <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4">
                     <Gem className="h-10 w-10 text-primary" />
                     <div>
-                      <p className="text-2xl font-bold">{creditPack.credits} créditos</p>
-                      <p className="text-xl text-muted-foreground">{creditPack.euros}</p>
+                    <p className="text-2xl font-bold">{creditPack.credits} créditos</p>
+                    <p className="text-xl text-muted-foreground">{creditPack.euros}</p>
                     </div>
-                  </div>
-                  <Button
+                </div>
+                <Button
                     size="lg"
                     onClick={() => handlePurchase(creditPack.priceId, 'payment')}
                     disabled={isLoading === creditPack.priceId}
                     className="w-full sm:w-auto"
-                  >
+                >
                     {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
                     Comprar
-                  </Button>
+                </Button>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+            </CardContent>
+        </Card>
 
         <div className="relative pt-8">
           <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
