@@ -129,10 +129,10 @@ export default function PersonajesPage() {
       {!isUserLoading && !user && (
          <Card className="mb-12 bg-primary/10 border-primary/50">
             <CardContent className="p-6 flex flex-col items-center justify-center text-center gap-4">
-                 <p className="text-lg font-medium text-primary-foreground/90">
+                <p className="text-lg font-medium text-foreground">
                     Sube una foto tuya, de tu mascota, o de quien tu quieras y crea un personaje único.
                 </p>
-                <p className="text-lg font-medium text-primary-foreground/90">
+                 <p className="text-lg font-medium text-foreground">
                     💫¡Regístrate y deja que la magia comience! 💫
                 </p>
                 <Button asChild className="shrink-0">
