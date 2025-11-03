@@ -1177,7 +1177,69 @@ export default function CrearCuentoPage() {
                     </CardContent>
                 </Card>
                 
-                 <Card className="shadow-lg">
+                <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-semibold">Contenido de las páginas</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        <FormItem>
+                          <FormLabel>Número de páginas</FormLabel>
+                          <Select
+                            onValueChange={(value) => setNumberOfPages(parseInt(value, 10))}
+                            defaultValue={String(numberOfPages)}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecciona el número de páginas" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Array.from({ length: 15 }, (_, i) => 6 + i).map(num => (
+                                <SelectItem key={num} value={String(num)}>
+                                  {num} páginas
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                           {Array.from({ length: numberOfPages }).map((_, index) => (
+                            <FormField
+                                key={index}
+                                control={illustrateForm.control}
+                                name={`pages.${index}`}
+                                render={({ field }) => (
+                                <FormItem>
+                                    <div className="flex justify-between items-center">
+                                        <FormLabel>Página {index + 1}</FormLabel>
+                                        <div className="flex items-center gap-2">
+                                            <label htmlFor={`illustrate-switch-${index}`} className="text-sm font-medium text-primary">Ilustrar</label>
+                                            <Switch
+                                                id={`illustrate-switch-${index}`}
+                                                checked={illustratedPages.has(index)}
+                                                onCheckedChange={() => handleIllustrationToggle(index)}
+                                                className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-pink-500 data-[state=checked]:to-yellow-500"
+                                            />
+                                        </div>
+                                    </div>
+                                    <FormControl>
+                                    <Textarea
+                                        placeholder={`Escribe aquí el texto para la página ${index + 1}...`}
+                                        {...field}
+                                        rows={6}
+                                    />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                                )}
+                            />
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <Card className="shadow-lg">
                     <CardHeader>
                         <CardTitle className="text-2xl font-semibold">Toques Mágicos (Opcional)</CardTitle>
                     </CardHeader>
@@ -1296,68 +1358,6 @@ export default function CrearCuentoPage() {
                                     />
                                 </div>
                             )}
-                        </div>
-                    </CardContent>
-                </Card>
-
-                <Card className="shadow-lg">
-                    <CardHeader>
-                        <CardTitle className="text-2xl font-semibold">Contenido de las páginas</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                        <FormItem>
-                          <FormLabel>Número de páginas</FormLabel>
-                          <Select
-                            onValueChange={(value) => setNumberOfPages(parseInt(value, 10))}
-                            defaultValue={String(numberOfPages)}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Selecciona el número de páginas" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {Array.from({ length: 15 }, (_, i) => 6 + i).map(num => (
-                                <SelectItem key={num} value={String(num)}>
-                                  {num} páginas
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                           {Array.from({ length: numberOfPages }).map((_, index) => (
-                            <FormField
-                                key={index}
-                                control={illustrateForm.control}
-                                name={`pages.${index}`}
-                                render={({ field }) => (
-                                <FormItem>
-                                    <div className="flex justify-between items-center">
-                                        <FormLabel>Página {index + 1}</FormLabel>
-                                        <div className="flex items-center gap-2">
-                                            <label htmlFor={`illustrate-switch-${index}`} className="text-sm font-medium text-primary">Ilustrar</label>
-                                            <Switch
-                                                id={`illustrate-switch-${index}`}
-                                                checked={illustratedPages.has(index)}
-                                                onCheckedChange={() => handleIllustrationToggle(index)}
-                                                className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-pink-500 data-[state=checked]:to-yellow-500"
-                                            />
-                                        </div>
-                                    </div>
-                                    <FormControl>
-                                    <Textarea
-                                        placeholder={`Escribe aquí el texto para la página ${index + 1}...`}
-                                        {...field}
-                                        rows={6}
-                                    />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                                )}
-                            />
-                            ))}
                         </div>
                     </CardContent>
                 </Card>
