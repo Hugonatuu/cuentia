@@ -99,7 +99,7 @@ const learningObjectiveSuggestions = [
 ];
 
 
-const formSchema = z.object({
+const createFormSchema = z.object({
   title: z.string().min(1, 'El título es obligatorio.').max(35, 'El título no puede tener más de 35 caracteres.'),
   learningObjective: z.string().max(200, 'El objetivo de aprendizaje no puede exceder los 200 caracteres.').optional(),
   readerAge: z.string().min(1, 'La edad es obligatoria.'),
@@ -113,7 +113,7 @@ const formSchema = z.object({
   language: z.string().min(1, 'Debes seleccionar un idioma.'),
 });
 
-type StoryFormValues = z.infer<typeof formSchema>;
+type CreateStoryFormValues = z.infer<typeof createFormSchema>;
 
 interface UserProfile {
     stripeRole?: string;
@@ -129,6 +129,9 @@ const createIllustrateFormSchema = (pageCount: number) => z.object({
   }).refine(pages => pages.length === pageCount, {
     message: `Debes completar las ${pageCount} páginas.`,
   }),
+  initialPhrase: z.string().max(150, 'La frase no puede tener más de 150 caracteres.').optional(),
+  finalPhrase: z.string().max(150, 'La frase no puede tener más de 150 caracteres.').optional(),
+  backCoverImage: z.instanceof(File).optional(),
 });
 
 
@@ -167,8 +170,8 @@ export default function CrearCuentoPage() {
     description: 'Rellena los detalles y deja que la magia haga el resto.',
   };
 
-  const form = useForm<StoryFormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CreateStoryFormValues>({
+    resolver: zodResolver(createFormSchema),
     defaultValues: {
       title: '',
       learningObjective: '',
@@ -191,14 +194,20 @@ export default function CrearCuentoPage() {
       title: '',
       characters: [],
       pages: Array(numberOfPages).fill(''),
+      initialPhrase: '',
+      finalPhrase: '',
     },
   });
 
   useEffect(() => {
+    const currentPages = illustrateForm.getValues('pages');
     illustrateForm.reset({
         title: illustrateForm.getValues('title'),
         characters: illustrateForm.getValues('characters'),
-        pages: Array(numberOfPages).fill('').map((_, i) => illustrateForm.getValues(`pages.${i}`) || '')
+        pages: Array(numberOfPages).fill('').map((_, i) => currentPages[i] || ''),
+        initialPhrase: illustrateForm.getValues('initialPhrase'),
+        finalPhrase: illustrateForm.getValues('finalPhrase'),
+        backCoverImage: illustrateForm.getValues('backCoverImage'),
     });
   }, [numberOfPages, illustrateForm]);
 
@@ -211,6 +220,9 @@ export default function CrearCuentoPage() {
   const watchedInitialPhrase = form.watch('initialPhrase');
   const watchedFinalPhrase = form.watch('finalPhrase');
   const watchedLanguage = form.watch('language');
+  
+  const illustrateWatchedInitialPhrase = illustrateForm.watch('initialPhrase');
+  const illustrateWatchedFinalPhrase = illustrateForm.watch('finalPhrase');
 
   useEffect(() => {
     let credits = 0;
@@ -239,17 +251,25 @@ export default function CrearCuentoPage() {
     }
   };
 
-  const handleBackCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBackCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>, formType: 'create' | 'illustrate') => {
     const file = event.target.files?.[0];
     if (file) {
-      form.setValue('backCoverImage', file);
+      if (formType === 'create') {
+        form.setValue('backCoverImage', file);
+      } else {
+        illustrateForm.setValue('backCoverImage', file);
+      }
       const reader = new FileReader();
       reader.onloadend = () => {
         setBackCoverPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
     } else {
-      form.setValue('backCoverImage', undefined);
+       if (formType === 'create') {
+        form.setValue('backCoverImage', undefined);
+      } else {
+        illustrateForm.setValue('backCoverImage', undefined);
+      }
       setBackCoverPreview(null);
     }
   };
@@ -266,7 +286,7 @@ export default function CrearCuentoPage() {
         });
     };
 
-  async function onSubmit(data: StoryFormValues) {
+  async function onSubmit(data: CreateStoryFormValues) {
     if (!user || !firestore || !userProfile) {
       handleInteraction();
       return;
@@ -527,6 +547,8 @@ export default function CrearCuentoPage() {
             createdAt: serverTimestamp(),
             coverImageUrl: '',
             pdfUrl: '',
+            initialPhrase: data.initialPhrase || '',
+            finalPhrase: data.finalPhrase || '',
         };
         const storyDocRef = await addDoc(storiesColRef, storyData);
         if (!storyDocRef) throw new Error('No se pudo crear el documento del cuento.');
@@ -553,6 +575,12 @@ export default function CrearCuentoPage() {
         formData.append('characterImagesText', characterImagesText);
         formData.append('personalizacion', personalizacionText);
         formData.append('pages', JSON.stringify(pagesWithIllustrationInfo));
+        formData.append('initialPhrase', data.initialPhrase || '');
+        formData.append('finalPhrase', data.finalPhrase || '');
+
+        if (data.backCoverImage) {
+          formData.append('backCoverImage', data.backCoverImage);
+        }
 
         // --- Call Webhook ---
         const response = await fetch('https://natuai-n8n.kl7z6h.easypanel.host/webhook/7cd69962-5db3-4ff7-813e-3f493310a1c8', {
@@ -959,7 +987,7 @@ export default function CrearCuentoPage() {
                                 <FormField
                                     control={form.control}
                                     name="backCoverImage"
-                                    render={({ field }) => (
+                                    render={() => (
                                         <FormItem>
                                             <FormLabel>Imagen de contraportada</FormLabel>
                                             <FormControl>
@@ -975,7 +1003,7 @@ export default function CrearCuentoPage() {
                                                             type="file" 
                                                             accept="image/*"
                                                             className="hidden"
-                                                            onChange={handleBackCoverImageChange} 
+                                                            onChange={(e) => handleBackCoverImageChange(e, 'create')} 
                                                         />
                                                     </label>
                                                     {backCoverPreview && (
@@ -1146,6 +1174,129 @@ export default function CrearCuentoPage() {
                             </FormItem>
                             )}
                         />
+                    </CardContent>
+                </Card>
+                
+                 <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-semibold">Toques Mágicos (Opcional)</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
+                        <div className="flex items-center space-x-3">
+                            <Switch
+                            id="illustrate-show-dedication"
+                            checked={showDedication}
+                            onCheckedChange={setShowDedication}
+                            />
+                            <FormLabel htmlFor="illustrate-show-dedication" className="text-base font-semibold cursor-pointer">
+                            Añadir una dedicatoria especial
+                            </FormLabel>
+                        </div>
+                        {showDedication && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 animate-in fade-in-0 duration-300">
+                            <FormField
+                                control={illustrateForm.control}
+                                name="initialPhrase"
+                                render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                    Frase al inicio del cuento
+                                    </FormLabel>
+                                    <FormControl>
+                                    <Input
+                                        placeholder="Para mi querido Leo, con todo mi amor."
+                                        {...field}
+                                        maxLength={150}
+                                    />
+                                    </FormControl>
+                                    <div className="flex justify-between">
+                                        <FormMessage />
+                                        <div className="text-xs text-right text-muted-foreground">{(illustrateWatchedInitialPhrase || '').length}/150</div>
+                                    </div>
+                                </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={illustrateForm.control}
+                                name="finalPhrase"
+                                render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>
+                                    Frase al final del cuento
+                                    </FormLabel>
+                                    <FormControl>
+                                    <Input
+                                        placeholder="De tu Mamá, que te quiere con locura."
+                                        {...field}
+                                        maxLength={150}
+                                    />
+                                    </FormControl>
+                                    <div className="flex justify-between">
+                                        <FormMessage />
+                                        <div className="text-xs text-right text-muted-foreground">{(illustrateWatchedFinalPhrase || '').length}/150</div>
+                                    </div>
+                                </FormItem>
+                                )}
+                            />
+                            </div>
+                        )}
+                        </div>
+
+                        <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
+                            <div className="flex items-center space-x-3">
+                                <Switch
+                                    id="illustrate-show-back-cover-image"
+                                    checked={showBackCoverImage}
+                                    onCheckedChange={setShowBackCoverImage}
+                                />
+                                <FormLabel htmlFor="illustrate-show-back-cover-image" className="text-base font-semibold cursor-pointer">
+                                    Añadir una imagen en la contraportada
+                                </FormLabel>
+                            </div>
+                            {showBackCoverImage && (
+                                <div className="pt-4 animate-in fade-in-0 duration-300">
+                                    <FormField
+                                        control={illustrateForm.control}
+                                        name="backCoverImage"
+                                        render={() => (
+                                            <FormItem>
+                                                <FormLabel>Imagen de contraportada</FormLabel>
+                                                <FormControl>
+                                                    <div className="flex items-center gap-4">
+                                                        <label htmlFor="illustrate-back-cover-upload" className="cursor-pointer">
+                                                            <div className="flex items-center gap-2 rounded-md border border-input px-4 py-2 hover:bg-accent">
+                                                                <PlusCircle className="h-4 w-4" />
+                                                                <span>{backCoverPreview ? 'Cambiar imagen' : 'Subir imagen'}</span>
+                                                            </div>
+
+                                                            <input 
+                                                                id="illustrate-back-cover-upload"
+                                                                type="file" 
+                                                                accept="image/*"
+                                                                className="hidden"
+                                                                onChange={(e) => handleBackCoverImageChange(e, 'illustrate')} 
+                                                            />
+                                                        </label>
+                                                        {backCoverPreview && (
+                                                            <div className="relative w-20 h-20">
+                                                                <Image
+                                                                    src={backCoverPreview}
+                                                                    alt="Vista previa de la contraportada"
+                                                                    fill
+                                                                    className="rounded-md object-cover"
+                                                                />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </CardContent>
                 </Card>
 
