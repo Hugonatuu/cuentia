@@ -123,6 +123,7 @@ interface UserProfile {
 
 const createIllustrateFormSchema = (pageCount: number) => z.object({
   title: z.string().min(1, 'El título es obligatorio.').max(50, 'El título no puede exceder los 50 caracteres.'),
+  readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
   characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
   pages: z.array(z.string().max(500, 'Cada página no puede exceder los 500 caracteres.')).refine(pages => pages.every(p => p.trim() !== ''), {
     message: 'Debes completar todas las páginas.',
@@ -192,6 +193,7 @@ export default function CrearCuentoPage() {
     resolver: zodResolver(illustrateFormSchema),
     defaultValues: {
       title: '',
+      readerName: '',
       characters: [],
       pages: Array(numberOfPages).fill(''),
       initialPhrase: '',
@@ -203,6 +205,7 @@ export default function CrearCuentoPage() {
     const currentPages = illustrateForm.getValues('pages');
     illustrateForm.reset({
         title: illustrateForm.getValues('title'),
+        readerName: illustrateForm.getValues('readerName'),
         characters: illustrateForm.getValues('characters'),
         pages: Array(numberOfPages).fill('').map((_, i) => currentPages[i] || ''),
         initialPhrase: illustrateForm.getValues('initialPhrase'),
@@ -221,6 +224,7 @@ export default function CrearCuentoPage() {
   const watchedFinalPhrase = form.watch('finalPhrase');
   const watchedLanguage = form.watch('language');
   
+  const illustrateWatchedReaderName = illustrateForm.watch('readerName');
   const illustrateWatchedInitialPhrase = illustrateForm.watch('initialPhrase');
   const illustrateWatchedFinalPhrase = illustrateForm.watch('finalPhrase');
 
@@ -537,6 +541,7 @@ export default function CrearCuentoPage() {
         const storyData = {
             userId: user.uid,
             title: data.title,
+            readerName: data.readerName,
             characters: data.characters.map(({ character }) => {
                 const { id, createdAt, ...rest } = character as any;
                 return rest;
@@ -570,6 +575,7 @@ export default function CrearCuentoPage() {
 
         const formData = new FormData();
         formData.append('title', data.title);
+        formData.append('readerName', data.readerName);
         formData.append('storyId', storyDocRef.id);
         formData.append('userId', user.uid);
         formData.append('characterImagesText', characterImagesText);
@@ -1127,6 +1133,34 @@ export default function CrearCuentoPage() {
                                 </FormItem>
                             )}
                         />
+                        <FormField
+                          control={illustrateForm.control}
+                          name="readerName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <div className="flex items-center gap-2">
+                                <FormLabel>Nombre del Lector</FormLabel>
+                                <TooltipProvider>
+                                  <Tooltip>
+                                    <TooltipTrigger asChild>
+                                      <Info className="h-4 w-4 text-muted-foreground cursor-pointer" />
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      <p>Pon el nombre del lector para personalizar la primera pagina del libro</p>
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+                              </div>
+                              <FormControl>
+                                <Input placeholder="Leo" {...field} maxLength={20} />
+                              </FormControl>
+                              <div className="flex justify-between">
+                                    <FormMessage />
+                                    <div className="text-xs text-right text-muted-foreground">{(illustrateWatchedReaderName || '').length}/20</div>
+                                </div>
+                            </FormItem>
+                          )}
+                        />
                     </CardContent>
                 </Card>
 
@@ -1381,3 +1415,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
