@@ -130,7 +130,7 @@ export default function PersonajesPage() {
          <Card className="mb-12 bg-accent/20 border-accent/50">
             <CardContent className="p-6 flex flex-col md:flex-row items-center justify-center text-center md:text-left gap-6">
                 <p className="text-lg font-medium text-accent-foreground/90">
-                    ¿Quieres crear tus propios protagonistas? <br/>Regístrate para dar vida a tus ideas.
+                    Sube una foto tuya, de tu mascota, o de quien tu quieras y crea un personaje único.  💫¡Regístrate y deja que la magia comience! 💫
                 </p>
                 <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 shrink-0">
                     <Link href="/registro">Crear Personaje</Link>
