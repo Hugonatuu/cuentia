@@ -336,8 +336,8 @@ export default function CrearPersonajePage() {
         <AuthPopup
             isOpen={isPopupOpen}
             onOpenChange={setPopupOpen}
-            title="Regístrate para crear tu personaje"
-            description="¡Regístrate y comienza a generar tus propios avatares para tus historias!"
+            title="✨ ¡Regístrate para crear tu personaje! ✨"
+            description="¡Únete a la magia! Crea una cuenta y comienza a generar tus propios avatares para tus historias."
             actionText="Registrarse"
             redirectPath="/registro"
         />
@@ -586,5 +586,3 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
-
-    

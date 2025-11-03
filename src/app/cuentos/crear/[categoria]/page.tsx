@@ -652,8 +652,8 @@ export default function CrearCuentoPage() {
       <AuthPopup
         isOpen={isPopupOpen}
         onOpenChange={setPopupOpen}
-        title="Regístrate para crear tu cuento"
-        description="¡Regístrate y comienza a generar tus propias historias!"
+        title="✨ ¡Regístrate para crear tu cuento! ✨"
+        description="¡Únete a la magia! Crea una cuenta para empezar a generar tus propias historias y personajes únicos."
         actionText="Registrarse"
         redirectPath="/registro"
       />
@@ -1413,5 +1413,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
