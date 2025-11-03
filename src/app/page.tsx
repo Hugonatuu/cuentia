@@ -289,7 +289,7 @@ export default function Home() {
             )}
              <div className="text-center mt-8">
               <p className="max-w-2xl mx-auto text-lg text-gray-800 mt-4">
-                ¡Busca más cuentos en tu idioma aquí! 🌍
+                🌍 ¡Busca más cuentos en tu idioma aquí! 🌍
               </p>
               <Button asChild className="mt-4">
                 <Link href="/comunidad">
