@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -963,8 +964,8 @@ export default function CrearCuentoPage() {
                         <CardDescription>Rellena el título y el contenido de cada página.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <Alert>
-                            <Sparkles className="h-4 w-4" />
+                        <Alert className="bg-yellow-100 border-yellow-300 text-yellow-800">
+                            <Sparkles className="h-4 w-4 !text-yellow-800" />
                             <AlertTitle>¡Dale vida a tus páginas!</AlertTitle>
                             <AlertDescription>
                                 Cada página que elijas ilustrar tiene un coste adicional de 100 créditos.
