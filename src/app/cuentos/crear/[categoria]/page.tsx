@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -122,6 +123,7 @@ interface UserProfile {
 
 const createIllustrateFormSchema = (pageCount: number) => z.object({
   title: z.string().min(1, 'El título es obligatorio.').max(50, 'El título no puede exceder los 50 caracteres.'),
+  characters: z.array(z.custom<CharacterWithCustomization>()).min(1, 'Debes seleccionar al menos un personaje.').max(4, 'Puedes seleccionar hasta 4 personajes.'),
   pages: z.array(z.string().max(500, 'Cada página no puede exceder los 500 caracteres.')).refine(pages => pages.every(p => p.trim() !== ''), {
     message: 'Debes completar todas las páginas.',
   }).refine(pages => pages.length === pageCount, {
@@ -187,6 +189,7 @@ export default function CrearCuentoPage() {
     resolver: zodResolver(illustrateFormSchema),
     defaultValues: {
       title: '',
+      characters: [],
       pages: Array(numberOfPages).fill(''),
     },
   });
@@ -194,6 +197,7 @@ export default function CrearCuentoPage() {
   useEffect(() => {
     illustrateForm.reset({
         title: illustrateForm.getValues('title'),
+        characters: illustrateForm.getValues('characters'),
         pages: Array(numberOfPages).fill('').map((_, i) => illustrateForm.getValues(`pages.${i}`) || '')
     });
   }, [numberOfPages, illustrateForm]);
@@ -984,6 +988,61 @@ export default function CrearCuentoPage() {
                                 </FormItem>
                             )}
                         />
+                    </CardContent>
+                </Card>
+
+                 <Card className="shadow-lg">
+                    <CardHeader className="flex flex-row items-center justify-between">
+                        <CardTitle className="text-2xl font-semibold">Personajes</CardTitle>
+                        <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
+                        <p className="text-sm">Elige hasta 4 personajes para tu historia.</p>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <FormField
+                            control={illustrateForm.control}
+                            name="characters"
+                            render={({ field }) => (
+                            <FormItem>
+                                <FormControl>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        {[...Array(4)].map((_, index) => (
+                                            <CharacterSlot
+                                                key={index}
+                                                characterWithCustomization={field.value[index]}
+                                                allSelectedCharacters={field.value.map(c => c.character)}
+                                                onSelect={(character) => {
+                                                    const newCharacters = [...field.value];
+                                                    newCharacters[index] = { character, visual_description: '' };
+                                                    field.onChange(newCharacters.filter(c => c !== undefined));
+                                                }}
+                                                onRemove={() => {
+                                                    const newCharacters = field.value.filter((_, i) => i !== index);
+                                                    field.onChange(newCharacters);
+                                                }}
+                                                onUpdateCustomization={(visual_description) => {
+                                                const newCharacters = [...field.value];
+                                                if (newCharacters[index]) {
+                                                    newCharacters[index].visual_description = visual_description;
+                                                    field.onChange(newCharacters);
+                                                }
+                                                }}
+                                            />
+                                        ))}
+                                    </div>
+                                </FormControl>
+                                <FormMessage className="pt-2" />
+                            </FormItem>
+                            )}
+                        />
+                    </CardContent>
+                </Card>
+
+                <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-semibold">Contenido de las páginas</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
                         <FormItem>
                           <FormLabel>Número de páginas</FormLabel>
                           <Select
@@ -1040,6 +1099,7 @@ export default function CrearCuentoPage() {
                         </div>
                     </CardContent>
                 </Card>
+
                 <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
                     <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
                         <CreditCard className="h-5 w-5 text-primary" />
