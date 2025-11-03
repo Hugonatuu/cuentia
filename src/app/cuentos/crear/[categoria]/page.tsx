@@ -76,6 +76,8 @@ const creditCosts = {
     '20': 2400,
   },
   customization: 100,
+  illustrateBase: 200,
+  illustratePerPage: 100,
 };
 
 const learningObjectiveSuggestions = [
@@ -139,6 +141,8 @@ export default function CrearCuentoPage() {
   const [backCoverPreview, setBackCoverPreview] = useState<string | null>(null);
   const [totalCredits, setTotalCredits] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState<number>(6);
+  const [illustratedPages, setIllustratedPages] = useState<Set<number>>(new Set());
+  const [illustrateCredits, setIllustrateCredits] = useState(creditCosts.illustrateBase);
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -217,6 +221,11 @@ export default function CrearCuentoPage() {
     setTotalCredits(credits);
   }, [watchedImageCount, watchedCharacters]);
 
+   useEffect(() => {
+    const newCredits = creditCosts.illustrateBase + illustratedPages.size * creditCosts.illustratePerPage;
+    setIllustrateCredits(newCredits);
+  }, [illustratedPages]);
+
 
   const handleInteraction = () => {
     if (!user && !isUserLoading) {
@@ -238,6 +247,18 @@ export default function CrearCuentoPage() {
       setBackCoverPreview(null);
     }
   };
+  
+    const handleIllustrationToggle = (pageIndex: number) => {
+        setIllustratedPages(prev => {
+            const newSet = new Set(prev);
+            if (newSet.has(pageIndex)) {
+                newSet.delete(pageIndex);
+            } else {
+                newSet.add(pageIndex);
+            }
+            return newSet;
+        });
+    };
 
   async function onSubmit(data: StoryFormValues) {
     if (!user || !firestore || !userProfile) {
@@ -442,7 +463,7 @@ export default function CrearCuentoPage() {
 
   async function onIllustrateSubmit(data: IllustrateFormValues) {
     // TODO: Implement submission logic for illustrating a story
-    console.log('Ilustrar cuento:', data);
+    console.log('Ilustrar cuento:', data, `Páginas a ilustrar: ${[...illustratedPages]}`);
     toast({
         title: 'Función en desarrollo',
         description: 'La ilustración de cuentos escritos estará disponible próximamente.',
@@ -975,7 +996,7 @@ export default function CrearCuentoPage() {
                           </Select>
                           <FormMessage />
                         </FormItem>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div className="space-y-8">
                            {Array.from({ length: numberOfPages }).map((_, index) => (
                             <FormField
                                 key={index}
@@ -983,7 +1004,18 @@ export default function CrearCuentoPage() {
                                 name={`pages.${index}`}
                                 render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Página {index + 1}</FormLabel>
+                                    <div className="flex justify-between items-center">
+                                        <FormLabel>Página {index + 1}</FormLabel>
+                                        <div className="flex items-center gap-2">
+                                            <label htmlFor={`illustrate-switch-${index}`} className="text-sm font-medium text-primary">Ilustrar</label>
+                                            <Switch
+                                                id={`illustrate-switch-${index}`}
+                                                checked={illustratedPages.has(index)}
+                                                onCheckedChange={() => handleIllustrationToggle(index)}
+                                                className="data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-pink-500 data-[state=checked]:to-yellow-500"
+                                            />
+                                        </div>
+                                    </div>
                                     <FormControl>
                                     <Textarea
                                         placeholder={`Escribe aquí el texto para la página ${index + 1}...`}
@@ -999,8 +1031,14 @@ export default function CrearCuentoPage() {
                         </div>
                     </CardContent>
                 </Card>
-                <div className="flex justify-center pt-4">
-                     <Button type="submit" size="lg" disabled={isSubmitting}>
+                <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
+                    <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
+                        <CreditCard className="h-5 w-5 text-primary" />
+                        <span className="text-sm font-bold text-primary">
+                            Coste Total: {illustrateCredits} créditos
+                        </span>
+                    </Card>
+                    <Button type="submit" size="lg" disabled={isSubmitting}>
                         {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <BookImage className="mr-2 h-5 w-5" />}
                         Ilustrar mi Cuento
                     </Button>
@@ -1012,3 +1050,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
