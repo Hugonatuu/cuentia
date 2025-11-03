@@ -232,14 +232,6 @@ export default function Home() {
               <h2 className="font-headline text-4xl md:text-5xl text-gray-800 animate-in fade-in zoom-in-95 duration-500">
                 Cuentos creados con Cuentia
               </h2>
-              <p className="max-w-2xl mx-auto text-lg text-muted-foreground mt-4">
-                Busca más cuentos en tu idioma aqui
-              </p>
-              <Button asChild className="mt-4">
-                <Link href="/comunidad">
-                  Cuentos de la comunidad
-                </Link>
-              </Button>
             </div>
             <Carousel
               opts={{
@@ -295,6 +287,16 @@ export default function Home() {
                     No hay cuentos en la comunidad todavía.
                 </div>
             )}
+             <div className="text-center mt-8">
+              <p className="max-w-2xl mx-auto text-lg text-gray-800 mt-4">
+                Busca más cuentos en tu idioma aqui
+              </p>
+              <Button asChild className="mt-4">
+                <Link href="/comunidad">
+                  Cuentos de la comunidad
+                </Link>
+              </Button>
+            </div>
           </div>
         </section>
 
