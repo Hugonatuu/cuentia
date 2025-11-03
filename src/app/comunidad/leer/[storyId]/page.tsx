@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import { useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { communityStoryDocRef } from '@/firebase/firestore/references';
@@ -39,6 +39,25 @@ export default function CommunityStoryViewerPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pdfFile, setPdfFile] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [pageWidth, setPageWidth] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function updateSize() {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        const isDoublePage = currentPage > 1 && numPages && currentPage < numPages;
+        // We'll aim for about 90% of container width, capped at a reasonable max.
+        const targetWidth = Math.min(containerWidth * 0.9, isDoublePage ? 800 : 500);
+        setPageWidth(isDoublePage ? targetWidth / 2 : targetWidth);
+      }
+    }
+    
+    window.addEventListener('resize', updateSize);
+    updateSize(); // Initial size calculation
+    
+    return () => window.removeEventListener('resize', updateSize);
+  }, [currentPage, numPages]);
 
   useEffect(() => {
     if (story?.pdfUrl) {
@@ -133,7 +152,7 @@ export default function CommunityStoryViewerPage() {
   }
 
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-8" ref={containerRef}>
       <div className="text-center mb-8">
         <h1 className="font-headline text-4xl md:text-5xl text-gray-800">{story.title}</h1>
         {pdfFile && (
@@ -157,16 +176,16 @@ export default function CommunityStoryViewerPage() {
             file={pdfFile}
             onLoadSuccess={onDocumentLoadSuccess}
             onLoadError={(error) => console.error("Error al cargar el PDF:", error.message)}
-            loading={<Skeleton className="h-[80vh] w-[50vw]"/>}
+            loading={<Skeleton className="h-[80vh] w-full max-w-[500px]"/>}
             className="flex justify-center items-start gap-2"
           >
-            {getPageNumbersToRender().map(pageNumber => (
+            {pageWidth > 0 && getPageNumbersToRender().map(pageNumber => (
                 <div key={pageNumber} className="shadow-lg">
                     <Page 
                         pageNumber={pageNumber} 
                         renderTextLayer={false}
                         renderAnnotationLayer={false}
-                        width={window.innerWidth > 768 ? (currentPage === 1 ? 500 : 400) : 300}
+                        width={pageWidth}
                     />
                 </div>
             ))}
