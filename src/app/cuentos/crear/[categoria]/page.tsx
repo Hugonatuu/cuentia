@@ -51,6 +51,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { getPlanLimits } from '@/lib/plans';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 
 const categoryDetails: {
@@ -962,6 +963,13 @@ export default function CrearCuentoPage() {
                         <CardDescription>Rellena el título y el contenido de cada página.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
+                        <Alert>
+                            <Sparkles className="h-4 w-4" />
+                            <AlertTitle>¡Dale vida a tus páginas!</AlertTitle>
+                            <AlertDescription>
+                                Cada página que elijas ilustrar tiene un coste adicional de 100 créditos.
+                            </AlertDescription>
+                        </Alert>
                         <FormField
                             control={illustrateForm.control}
                             name="title"
