@@ -12,9 +12,7 @@ export default function Footer() {
         </div>
         
         <div className="flex items-center justify-center md:justify-end flex-1">
-          <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Cuentia. Todos los derechos reservados.
-          </p>
+          
         </div>
       </div>
     </footer>

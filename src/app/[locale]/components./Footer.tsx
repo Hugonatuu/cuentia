@@ -11,14 +11,10 @@ export default function Footer() {
           </Link>
         </div>
         <div className="flex items-center justify-center flex-1">
-          <p className="text-center text-sm leading-loose text-muted-foreground">
-            Creado con 💜 para pequeños lectores.
-          </p>
+          
         </div>
         <div className="flex items-center justify-center md:justify-end flex-1">
-          <p className="text-center text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Cuentia. Todos los derechos reservados.
-          </p>
+          
         </div>
       </div>
     </footer>
