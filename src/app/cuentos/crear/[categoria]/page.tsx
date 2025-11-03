@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Sparkles, CreditCard, Info, PlusCircle, BookHeart, Lightbulb } from 'lucide-react';
+import { Loader2, Sparkles, CreditCard, Info, PlusCircle, BookHeart, Lightbulb, Pencil, BookImage } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useParams, useRouter } from 'next/navigation';
@@ -50,6 +50,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { getPlanLimits } from '@/lib/plans';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 
 const categoryDetails: {
@@ -115,6 +116,14 @@ interface UserProfile {
     payAsYouGoCredits?: number;
 }
 
+const illustrateFormSchema = z.object({
+  title: z.string().min(1, 'El título es obligatorio.').max(50, 'El título no puede exceder los 50 caracteres.'),
+  pages: z.array(z.string().max(500, 'Cada página no puede exceder los 500 caracteres.')).length(20, 'Debes completar las 20 páginas.'),
+});
+
+type IllustrateFormValues = z.infer<typeof illustrateFormSchema>;
+
+
 export default function CrearCuentoPage() {
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
@@ -159,6 +168,14 @@ export default function CrearCuentoPage() {
       language: 'es',
     },
   });
+  
+  const illustrateForm = useForm<IllustrateFormValues>({
+    resolver: zodResolver(illustrateFormSchema),
+    defaultValues: {
+      title: '',
+      pages: Array(20).fill(''),
+    },
+  });
 
   const watchedImageCount = form.watch('imageCount');
   const watchedCharacters = form.watch('characters');
@@ -173,12 +190,10 @@ export default function CrearCuentoPage() {
   useEffect(() => {
     let credits = 0;
     
-    // Calculate credits for images
     if (watchedImageCount && creditCosts.images[watchedImageCount as keyof typeof creditCosts.images]) {
       credits += creditCosts.images[watchedImageCount as keyof typeof creditCosts.images];
     }
 
-    // Calculate credits for character customizations
     if (watchedCharacters) {
       const customizationCount = watchedCharacters.filter(c => c && c.visual_description).length;
       credits += customizationCount * creditCosts.customization;
@@ -215,7 +230,6 @@ export default function CrearCuentoPage() {
       return;
     }
     
-     // --- Credit Check ---
     const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
     const monthlyCreditsUsed = userProfile.monthlyCreditCount || 0;
     const availableMonthlyCredits = planLimits - monthlyCreditsUsed;
@@ -230,7 +244,6 @@ export default function CrearCuentoPage() {
         });
         return;
     }
-    // --- End Credit Check ---
 
     const webhookUrl = webhookUrls[data.imageCount];
 
@@ -246,7 +259,6 @@ export default function CrearCuentoPage() {
     setIsSubmitting(true);
     
      try {
-        // --- Transaction to update credit count ---
         const userRef = userDocRef(firestore, user.uid);
         await runTransaction(firestore, async (transaction) => {
             const userDoc = await transaction.get(userRef);
@@ -276,7 +288,6 @@ export default function CrearCuentoPage() {
                 payAsYouGoCredits: currentPayAsYouGo - payAsYouGoCreditsToDebit,
             });
         });
-        // --- End Transaction ---
 
         const characterImagesText = data.characters
           .filter(c => !c.visual_description)
@@ -382,12 +393,11 @@ export default function CrearCuentoPage() {
             description: errorMessage,
         });
 
-        // Rollback credit count if something fails after transaction
         const userRef = userDocRef(firestore, user.uid);
         await runTransaction(firestore, async (transaction) => {
             const userDoc = await transaction.get(userRef);
              if (!userDoc.exists()) {
-                return; // Can't rollback if doc doesn't exist
+                return;
             }
             const currentProfile = userDoc.data() as UserProfile;
             const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
@@ -413,6 +423,15 @@ export default function CrearCuentoPage() {
     } finally {
         setIsSubmitting(false);
     }
+  }
+
+  async function onIllustrateSubmit(data: IllustrateFormValues) {
+    // TODO: Implement submission logic for illustrating a story
+    console.log('Ilustrar cuento:', data);
+    toast({
+        title: 'Función en desarrollo',
+        description: 'La ilustración de cuentos escritos estará disponible próximamente.',
+    });
   }
 
   if (isUserLoading) {
@@ -450,442 +469,510 @@ export default function CrearCuentoPage() {
         actionText="Registrarse"
         redirectPath="/registro"
       />
-      <div className="text-center mb-12">
-          <h1 className="font-headline text-4xl md:text-5xl text-gray-800">
-            {details.title}
-          </h1>
-          <p className="max-w-xl mx-auto text-primary mt-4 font-body">
-            {details.description}
-          </p>
-      </div>
+      
+      <Tabs defaultValue="create" className="w-full">
+        <div className="flex justify-center mb-8">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+                <TabsTrigger value="create"><Pencil className="mr-2 h-4 w-4" />Crea tu cuento</TabsTrigger>
+                <TabsTrigger value="illustrate"><BookImage className="mr-2 h-4 w-4" />Ilustra tu cuento</TabsTrigger>
+            </TabsList>
+        </div>
 
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-          <Card className="shadow-lg overflow-visible">
-            <CardHeader>
-                <CardTitle className="text-2xl font-semibold">1. Datos principales del cuento</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-               <FormField
-                control={form.control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Título del Cuento</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="El misterio del bosque encantado"
-                        {...field}
-                        maxLength={35}
-                      />
-                    </FormControl>
-                    <div className="flex justify-between">
-                        <FormMessage />
-                        <div className="text-xs text-right text-muted-foreground">{watchedTitle.length}/35</div>
-                    </div>
-                  </FormItem>
-                )}
-              />
+        <div className="text-center mb-12">
+            <h1 className="font-headline text-4xl md:text-5xl text-gray-800">
+                {details.title}
+            </h1>
+            <p className="max-w-xl mx-auto text-primary mt-4 font-body">
+                {details.description}
+            </p>
+        </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="readerAge"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Edad del Lector</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
+        <TabsContent value="create">
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+              <Card className="shadow-lg overflow-visible">
+                <CardHeader>
+                    <CardTitle className="text-2xl font-semibold">1. Datos principales del cuento</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Título del Cuento</FormLabel>
                         <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecciona una edad" />
-                          </SelectTrigger>
+                          <Input
+                            placeholder="El misterio del bosque encantado"
+                            {...field}
+                            maxLength={35}
+                          />
                         </FormControl>
-                        <SelectContent>
-                          <SelectItem value="3-5">3-5 años</SelectItem>
-                          <SelectItem value="6-8">6-8 años</SelectItem>
-                          <SelectItem value="9-12">9-12 años</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="readerName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <div className="flex items-center gap-2">
-                        <FormLabel>Nombre del Lector</FormLabel>
-                        <TooltipProvider>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Info className="h-4 w-4 text-muted-foreground cursor-pointer" />
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p>Pon el nombre del lector para personalizar la primera pagina del libro</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </div>
-                      <FormControl>
-                        <Input placeholder="Leo" {...field} maxLength={20} />
-                      </FormControl>
-                       <div className="flex justify-between">
+                        <div className="flex justify-between">
                             <FormMessage />
-                            <div className="text-xs text-right text-muted-foreground">{watchedReaderName.length}/20</div>
+                            <div className="text-xs text-right text-muted-foreground">{watchedTitle.length}/35</div>
                         </div>
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </CardContent>
-          </Card>
-          
-          <Card className="shadow-lg">
-            <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-2xl font-semibold">2. Personajes</CardTitle>
-                <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
-                  <p className="text-sm">Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</p>
-                </div>
-            </CardHeader>
-            <CardContent>
-                <FormField
-                    control={form.control}
-                    name="characters"
-                    render={({ field }) => (
-                    <FormItem>
-                        <FormControl>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {[...Array(4)].map((_, index) => (
-                                    <CharacterSlot
-                                        key={index}
-                                        characterWithCustomization={field.value[index]}
-                                        allSelectedCharacters={field.value.map(c => c.character)}
-                                        onSelect={(character) => {
-                                            const newCharacters = [...field.value];
-                                            newCharacters[index] = { character, visual_description: '' };
-                                            field.onChange(newCharacters.filter(c => c !== undefined));
-
-                                        }}
-                                        onRemove={() => {
-                                            const newCharacters = field.value.filter((_, i) => i !== index);
-                                            field.onChange(newCharacters);
-                                        }}
-                                        onUpdateCustomization={(visual_description) => {
-                                        const newCharacters = [...field.value];
-                                        if (newCharacters[index]) {
-                                            newCharacters[index].visual_description = visual_description;
-                                            field.onChange(newCharacters);
-                                        }
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        </FormControl>
-                        <FormMessage className="pt-2" />
-                    </FormItem>
+                      </FormItem>
                     )}
-                />
-            </CardContent>
-          </Card>
-          
-          <Card className="shadow-lg">
-            <CardHeader>
-                <div className="flex flex-row items-center justify-between">
-                  <CardTitle className="text-2xl font-semibold">3. Detalles de la historia</CardTitle>
-                   <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
-                      <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
-                   </div>
-                </div>
-                 <div className="mt-2 text-sm text-foreground p-3 bg-accent/20 border border-accent/50 rounded-lg">
-                  💡 Consejo: te recomendamos escribir los detalles en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.
-                </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-               <FormField
-                control={form.control}
-                name="prompt"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Puntos Clave de la Trama (Opcional)</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga."
-                        rows={4}
-                        maxLength={220}
-                        {...field}
-                      />
-                    </FormControl>
-                    <div className="flex justify-between">
-                        <FormMessage />
-                        <div className="text-xs text-right text-muted-foreground">{(watchedPrompt || '').length}/220</div>
-                    </div>
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="learningObjective"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="flex items-center justify-between">
-                        <FormLabel>
-                          Objetivo de Aprendizaje (Opcional)
-                        </FormLabel>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Button type="button" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
-                                    <Lightbulb className="mr-2 h-4 w-4" />
-                                    Ideas
-                                </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                                {learningObjectiveSuggestions.map((suggestion, index) => (
-                                    <DropdownMenuItem key={index} onSelect={() => form.setValue('learningObjective', suggestion)}>
-                                        {suggestion}
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </div>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Ej: Enseñar a Leo la importancia de la amistad y el trabajo en equipo."
-                        maxLength={200}
-                        {...field}
-                      />
-                    </FormControl>
-                    <div className="flex justify-between">
-                        <FormMessage />
-                        <div className="text-xs text-right text-muted-foreground">{(watchedLearningObjective || '').length}/200</div>
-                    </div>
-                  </FormItem>
-                )}
-              />
+                  />
 
-              <FormField
-                    control={form.control}
-                    name="imageCount"
-                    render={({ field }) => (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="readerAge"
+                      render={({ field }) => (
                         <FormItem>
-                        <FormLabel>
-                            ¿Cuántas imágenes quieres añadir a tu cuento?
-                        </FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <FormLabel>Edad del Lector</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
                             <FormControl>
-                            <SelectTrigger>
-                                <SelectValue placeholder="Selecciona una cantidad" />
-                            </SelectTrigger>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecciona una edad" />
+                              </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                            <SelectItem value="4">4 imágenes + portada (800cd)</SelectItem>
-                            <SelectItem value="12">12 imágenes + Portada (1.500cd)</SelectItem>
-                            <SelectItem value="20">20 imágenes + Portada (2.400cd)</SelectItem>
+                              <SelectItem value="3-5">3-5 años</SelectItem>
+                              <SelectItem value="6-8">6-8 años</SelectItem>
+                              <SelectItem value="9-12">9-12 años</SelectItem>
                             </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="readerName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <div className="flex items-center gap-2">
+                            <FormLabel>Nombre del Lector</FormLabel>
+                            <TooltipProvider>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Info className="h-4 w-4 text-muted-foreground cursor-pointer" />
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>Pon el nombre del lector para personalizar la primera pagina del libro</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+                          </div>
+                          <FormControl>
+                            <Input placeholder="Leo" {...field} maxLength={20} />
+                          </FormControl>
+                          <div className="flex justify-between">
+                                <FormMessage />
+                                <div className="text-xs text-right text-muted-foreground">{watchedReaderName.length}/20</div>
+                            </div>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="shadow-lg">
+                <CardHeader className="flex flex-row items-center justify-between">
+                    <CardTitle className="text-2xl font-semibold">2. Personajes</CardTitle>
+                    <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
+                      <p className="text-sm">Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!</p>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <FormField
+                        control={form.control}
+                        name="characters"
+                        render={({ field }) => (
+                        <FormItem>
+                            <FormControl>
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {[...Array(4)].map((_, index) => (
+                                        <CharacterSlot
+                                            key={index}
+                                            characterWithCustomization={field.value[index]}
+                                            allSelectedCharacters={field.value.map(c => c.character)}
+                                            onSelect={(character) => {
+                                                const newCharacters = [...field.value];
+                                                newCharacters[index] = { character, visual_description: '' };
+                                                field.onChange(newCharacters.filter(c => c !== undefined));
+
+                                            }}
+                                            onRemove={() => {
+                                                const newCharacters = field.value.filter((_, i) => i !== index);
+                                                field.onChange(newCharacters);
+                                            }}
+                                            onUpdateCustomization={(visual_description) => {
+                                            const newCharacters = [...field.value];
+                                            if (newCharacters[index]) {
+                                                newCharacters[index].visual_description = visual_description;
+                                                field.onChange(newCharacters);
+                                            }
+                                            }}
+                                        />
+                                    ))}
+                                </div>
+                            </FormControl>
+                            <FormMessage className="pt-2" />
+                        </FormItem>
+                        )}
+                    />
+                </CardContent>
+              </Card>
+              
+              <Card className="shadow-lg">
+                <CardHeader>
+                    <div className="flex flex-row items-center justify-between">
+                      <CardTitle className="text-2xl font-semibold">3. Detalles de la historia</CardTitle>
+                      <div className="w-fit bg-primary text-primary-foreground px-3 py-1 rounded-lg">
+                          <p className="text-sm">Añade los toques finales para que tu cuento sea único.</p>
+                      </div>
+                    </div>
+                    <div className="mt-2 text-sm text-foreground p-3 bg-accent/20 border border-accent/50 rounded-lg">
+                      💡 Consejo: te recomendamos escribir los detalles en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.
+                    </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="prompt"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Puntos Clave de la Trama (Opcional)</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga."
+                            rows={4}
+                            maxLength={220}
+                            {...field}
+                          />
+                        </FormControl>
+                        <div className="flex justify-between">
+                            <FormMessage />
+                            <div className="text-xs text-right text-muted-foreground">{(watchedPrompt || '').length}/220</div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="learningObjective"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center justify-between">
+                            <FormLabel>
+                              Objetivo de Aprendizaje (Opcional)
+                            </FormLabel>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button type="button" size="sm" className="bg-accent text-accent-foreground hover:bg-accent/90">
+                                        <Lightbulb className="mr-2 h-4 w-4" />
+                                        Ideas
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent align="end">
+                                    {learningObjectiveSuggestions.map((suggestion, index) => (
+                                        <DropdownMenuItem key={index} onSelect={() => form.setValue('learningObjective', suggestion)}>
+                                            {suggestion}
+                                        </DropdownMenuItem>
+                                    ))}
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        </div>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Ej: Enseñar a Leo la importancia de la amistad y el trabajo en equipo."
+                            maxLength={200}
+                            {...field}
+                          />
+                        </FormControl>
+                        <div className="flex justify-between">
+                            <FormMessage />
+                            <div className="text-xs text-right text-muted-foreground">{(watchedLearningObjective || '').length}/200</div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                        control={form.control}
+                        name="imageCount"
+                        render={({ field }) => (
+                            <FormItem>
+                            <FormLabel>
+                                ¿Cuántas imágenes quieres añadir a tu cuento?
+                            </FormLabel>
+                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Selecciona una cantidad" />
+                                </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                <SelectItem value="4">4 imágenes + portada (800cd)</SelectItem>
+                                <SelectItem value="12">12 imágenes + Portada (1.500cd)</SelectItem>
+                                <SelectItem value="20">20 imágenes + Portada (2.400cd)</SelectItem>
+                                </SelectContent>
+                            </Select>
+                            <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </CardContent>
+              </Card>
+              
+              <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle className="text-2xl font-semibold">4. Toques Mágicos (Opcional)</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
+                      <div className="flex items-center space-x-3">
+                        <Switch
+                          id="show-dedication"
+                          checked={showDedication}
+                          onCheckedChange={setShowDedication}
+                        />
+                        <FormLabel htmlFor="show-dedication" className="text-base font-semibold cursor-pointer">
+                          Añadir una dedicatoria especial
+                        </FormLabel>
+                      </div>
+                      {showDedication && (
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 animate-in fade-in-0 duration-300">
+                          <FormField
+                            control={form.control}
+                            name="initialPhrase"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Frase al inicio del cuento
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="Para mi querido Leo, con todo mi amor."
+                                    {...field}
+                                    maxLength={150}
+                                  />
+                                </FormControl>
+                                <div className="flex justify-between">
+                                    <FormMessage />
+                                    <div className="text-xs text-right text-muted-foreground">{(watchedInitialPhrase || '').length}/150</div>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="finalPhrase"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>
+                                  Frase al final del cuento
+                                </FormLabel>
+                                <FormControl>
+                                  <Input
+                                    placeholder="De tu Mamá, que te quiere con locura."
+                                    {...field}
+                                    maxLength={150}
+                                  />
+                                </FormControl>
+                                <div className="flex justify-between">
+                                    <FormMessage />
+                                    <div className="text-xs text-right text-muted-foreground">{(watchedFinalPhrase || '').length}/150</div>
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
+                        <div className="flex items-center space-x-3">
+                            <Switch
+                                id="show-back-cover-image"
+                                checked={showBackCoverImage}
+                                onCheckedChange={setShowBackCoverImage}
+                            />
+                            <FormLabel htmlFor="show-back-cover-image" className="text-base font-semibold cursor-pointer">
+                                Añadir una imagen en la contraportada
+                            </FormLabel>
+                        </div>
+                        {showBackCoverImage && (
+                            <div className="pt-4 animate-in fade-in-0 duration-300">
+                                <FormField
+                                    control={form.control}
+                                    name="backCoverImage"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Imagen de contraportada</FormLabel>
+                                            <FormControl>
+                                                <div className="flex items-center gap-4">
+                                                    <label htmlFor="back-cover-upload" className="cursor-pointer">
+                                                        <div className="flex items-center gap-2 rounded-md border border-input px-4 py-2 hover:bg-accent">
+                                                            <PlusCircle className="h-4 w-4" />
+                                                            <span>{backCoverPreview ? 'Cambiar imagen' : 'Subir imagen'}</span>
+                                                        </div>
+
+                                                        <input 
+                                                            id="back-cover-upload"
+                                                            type="file" 
+                                                            accept="image/*"
+                                                            className="hidden"
+                                                            onChange={handleBackCoverImageChange} 
+                                                        />
+                                                    </label>
+                                                    {backCoverPreview && (
+                                                        <div className="relative w-20 h-20">
+                                                            <Image
+                                                                src={backCoverPreview}
+                                                                alt="Vista previa de la contraportada"
+                                                                fill
+                                                                className="rounded-md object-cover"
+                                                            />
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        )}
+                    </div>
+                </CardContent>
+              </Card>
+
+              <Card className="shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-semibold">Idioma</CardTitle>
+                    <div className="mt-2 text-sm text-foreground p-3 bg-white border border-destructive rounded-lg">
+                    🎯 Asegúrate de escribir los detalles de tu historia en el mismo idioma en el que vas a crear el cuento, para que todo encaje a la perfección.
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <FormField
+                    control={form.control}
+                    name="language"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Idioma del Cuento</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Selecciona un idioma" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="es">Español</SelectItem>
+                            <SelectItem value="en">Inglés</SelectItem>
+                            <SelectItem value="fr">Francés</SelectItem>
+                            <SelectItem value="it">Italiano</SelectItem>
+                            <SelectItem value="de">Alemán</SelectItem>
+                            <SelectItem value="pt">Portugués</SelectItem>
+                          </SelectContent>
                         </Select>
                         <FormMessage />
-                        </FormItem>
+                      </FormItem>
                     )}
-                />
-            </CardContent>
-          </Card>
-          
-           <Card className="shadow-lg">
-            <CardHeader>
-                <CardTitle className="text-2xl font-semibold">4. Toques Mágicos (Opcional)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-                <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
-                  <div className="flex items-center space-x-3">
-                    <Switch
-                      id="show-dedication"
-                      checked={showDedication}
-                      onCheckedChange={setShowDedication}
-                    />
-                    <FormLabel htmlFor="show-dedication" className="text-base font-semibold cursor-pointer">
-                      Añadir una dedicatoria especial
-                    </FormLabel>
+                  />
+                </CardContent>
+              </Card>
+
+
+                <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
+                    <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
+                        <CreditCard className="h-5 w-5 text-primary" />
+                        <span className="text-sm font-bold text-primary">
+                            Coste Total: {totalCredits} créditos
+                        </span>
+                    </Card>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-0.5"
+                      disabled={isSubmitting || totalCredits === 0}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Generando...
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="mr-2 h-5 w-5" />
+                          Crear mi Cuento Mágico
+                        </>
+                      )}
+                    </Button>
                   </div>
-                  {showDedication && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 animate-in fade-in-0 duration-300">
-                      <FormField
-                        control={form.control}
-                        name="initialPhrase"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Frase al inicio del cuento
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Para mi querido Leo, con todo mi amor."
-                                {...field}
-                                maxLength={150}
-                              />
-                            </FormControl>
-                             <div className="flex justify-between">
-                                <FormMessage />
-                                <div className="text-xs text-right text-muted-foreground">{(watchedInitialPhrase || '').length}/150</div>
-                            </div>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="finalPhrase"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>
-                              Frase al final del cuento
-                            </FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="De tu Mamá, que te quiere con locura."
-                                {...field}
-                                maxLength={150}
-                              />
-                            </FormControl>
-                            <div className="flex justify-between">
-                                <FormMessage />
-                                <div className="text-xs text-right text-muted-foreground">{(watchedFinalPhrase || '').length}/150</div>
-                            </div>
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                <div className="space-y-4 rounded-lg border bg-card-foreground/5 p-4">
-                    <div className="flex items-center space-x-3">
-                        <Switch
-                            id="show-back-cover-image"
-                            checked={showBackCoverImage}
-                            onCheckedChange={setShowBackCoverImage}
+            </form>
+          </Form>
+        </TabsContent>
+        
+        <TabsContent value="illustrate">
+           <Form {...illustrateForm}>
+            <form onSubmit={illustrateForm.handleSubmit(onIllustrateSubmit)} className="space-y-10">
+                <Card className="shadow-lg">
+                    <CardHeader>
+                        <CardTitle className="text-2xl font-semibold">Escribe tu Cuento</CardTitle>
+                        <CardDescription>Rellena el título y el contenido de cada una de las 20 páginas.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        <FormField
+                            control={illustrateForm.control}
+                            name="title"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Título del Cuento</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="El viaje inolvidable de Leo" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
                         />
-                        <FormLabel htmlFor="show-back-cover-image" className="text-base font-semibold cursor-pointer">
-                            Añadir una imagen en la contraportada
-                        </FormLabel>
-                    </div>
-                    {showBackCoverImage && (
-                        <div className="pt-4 animate-in fade-in-0 duration-300">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                           {Array.from({ length: 20 }).map((_, index) => (
                             <FormField
-                                control={form.control}
-                                name="backCoverImage"
+                                key={index}
+                                control={illustrateForm.control}
+                                name={`pages.${index}`}
                                 render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Imagen de contraportada</FormLabel>
-                                        <FormControl>
-                                            <div className="flex items-center gap-4">
-                                                <label htmlFor="back-cover-upload" className="cursor-pointer">
-                                                    <div className="flex items-center gap-2 rounded-md border border-input px-4 py-2 hover:bg-accent">
-                                                        <PlusCircle className="h-4 w-4" />
-                                                        <span>{backCoverPreview ? 'Cambiar imagen' : 'Subir imagen'}</span>
-                                                    </div>
-
-                                                    <input 
-                                                        id="back-cover-upload"
-                                                        type="file" 
-                                                        accept="image/*"
-                                                        className="hidden"
-                                                        onChange={handleBackCoverImageChange} 
-                                                    />
-                                                </label>
-                                                {backCoverPreview && (
-                                                    <div className="relative w-20 h-20">
-                                                        <Image
-                                                            src={backCoverPreview}
-                                                            alt="Vista previa de la contraportada"
-                                                            fill
-                                                            className="rounded-md object-cover"
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
+                                <FormItem>
+                                    <FormLabel>Página {index + 1}</FormLabel>
+                                    <FormControl>
+                                    <Textarea
+                                        placeholder={`Escribe aquí el texto para la página ${index + 1}...`}
+                                        {...field}
+                                        rows={6}
+                                    />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
                                 )}
                             />
+                            ))}
                         </div>
-                    )}
-                </div>
-            </CardContent>
-           </Card>
-
-          <Card className="shadow-lg">
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold">Idioma</CardTitle>
-                <div className="mt-2 text-sm text-foreground p-3 bg-white border border-destructive rounded-lg">
-                🎯 Asegúrate de escribir los detalles de tu historia en el mismo idioma en el que vas a crear el cuento, para que todo encaje a la perfección.
-              </div>
-            </CardHeader>
-            <CardContent>
-              <FormField
-                control={form.control}
-                name="language"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Idioma del Cuento</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecciona un idioma" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="es">Español</SelectItem>
-                        <SelectItem value="en">Inglés</SelectItem>
-                        <SelectItem value="fr">Francés</SelectItem>
-                        <SelectItem value="it">Italiano</SelectItem>
-                        <SelectItem value="de">Alemán</SelectItem>
-                        <SelectItem value="pt">Portugués</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-          </Card>
-
-
-            <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
-                <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
-                    <CreditCard className="h-5 w-5 text-primary" />
-                    <span className="text-sm font-bold text-primary">
-                        Coste Total: {totalCredits} créditos
-                    </span>
+                    </CardContent>
                 </Card>
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-0.5"
-                  disabled={isSubmitting || totalCredits === 0}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                      Generando...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      Crear mi Cuento Mágico
-                    </>
-                  )}
-                </Button>
-              </div>
-        </form>
-      </Form>
+                <div className="flex justify-center pt-4">
+                     <Button type="submit" size="lg" disabled={isSubmitting}>
+                        {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <BookImage className="mr-2 h-5 w-5" />}
+                        Ilustrar mi Cuento
+                    </Button>
+                </div>
+            </form>
+          </Form>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
