@@ -37,7 +37,7 @@ interface UserProfile {
 }
 
 
-const AVATAR_CREDIT_COST = 500;
+const AVATAR_CREDIT_COST = 300;
 
 const speciesTranslations = {
     human: { es: 'Humano', en: 'Human', it: 'Umano', fr: 'Humain', de: 'Mensch', pt: 'Humano' },
@@ -193,7 +193,6 @@ export default function CrearPersonajePage() {
                 const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
 
                 let monthlyDebit = 0;
-                let paygDebit = 0;
                 
                 if (availableMonthly > 0) {
                     monthlyDebit = Math.min(AVATAR_CREDIT_COST, availableMonthly);
