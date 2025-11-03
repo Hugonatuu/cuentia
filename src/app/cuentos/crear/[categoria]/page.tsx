@@ -996,7 +996,7 @@ export default function CrearCuentoPage() {
                           </Select>
                           <FormMessage />
                         </FormItem>
-                        <div className="space-y-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                            {Array.from({ length: numberOfPages }).map((_, index) => (
                             <FormField
                                 key={index}
@@ -1050,5 +1050,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
