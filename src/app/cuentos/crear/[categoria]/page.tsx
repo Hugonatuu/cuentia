@@ -468,12 +468,123 @@ export default function CrearCuentoPage() {
   }
 
   async function onIllustrateSubmit(data: IllustrateFormValues) {
-    // TODO: Implement submission logic for illustrating a story
-    console.log('Ilustrar cuento:', data, `Páginas a ilustrar: ${[...illustratedPages]}`);
-    toast({
-        title: 'Función en desarrollo',
-        description: 'La ilustración de cuentos escritos estará disponible próximamente.',
-    });
+    if (!user || !firestore || !userProfile) {
+        handleInteraction();
+        return;
+    }
+     const totalCost = illustrateCredits;
+
+    const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
+    const monthlyCreditsUsed = userProfile.monthlyCreditCount || 0;
+    const availableMonthlyCredits = planLimits - monthlyCreditsUsed;
+    const payAsYouGoCredits = userProfile.payAsYouGoCredits || 0;
+    const totalAvailableCredits = availableMonthlyCredits + payAsYouGoCredits;
+
+    if (totalAvailableCredits < totalCost) {
+        toast({
+            variant: 'destructive',
+            title: 'Créditos insuficientes',
+            description: `Necesitas ${totalCost} créditos para ilustrar este cuento, pero solo te quedan ${totalAvailableCredits}.`,
+        });
+        return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+        // --- Debit Credits ---
+        const userRef = userDocRef(firestore, user.uid);
+        await runTransaction(firestore, async (transaction) => {
+            const userDoc = await transaction.get(userRef);
+            if (!userDoc.exists()) throw "El documento del usuario no existe.";
+            
+            const currentProfile = userDoc.data() as UserProfile;
+            const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
+            const currentPayAsYouGo = currentProfile.payAsYouGoCredits || 0;
+            const availableMonthly = getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed;
+            
+            let monthlyDebit = Math.min(totalCost, availableMonthly);
+            let paygDebit = Math.max(0, totalCost - monthlyDebit);
+
+            transaction.update(userRef, { 
+                monthlyCreditCount: currentMonthlyUsed + monthlyDebit,
+                payAsYouGoCredits: currentPayAsYouGo - paygDebit,
+            });
+        });
+
+        // --- Prepare Data ---
+        const storiesColRef = userStoriesCollectionRef(firestore, user.uid);
+        const storyData = {
+            userId: user.uid,
+            title: data.title,
+            characters: data.characters.map(({ character }) => {
+                const { id, createdAt, ...rest } = character as any;
+                return rest;
+            }),
+            pages: data.pages,
+            illustratedPages: Array.from(illustratedPages),
+            status: 'generating_illustration',
+            createdAt: serverTimestamp(),
+            coverImageUrl: '',
+            pdfUrl: '',
+        };
+        const storyDocRef = await addDoc(storiesColRef, storyData);
+        if (!storyDocRef) throw new Error('No se pudo crear el documento del cuento.');
+
+        const characterImagesText = data.characters
+            .filter(c => !c.visual_description)
+            .map(c => `${c.character.name}:\n${'avatarUrl' in c.character ? c.character.avatarUrl : c.character.imageUrl}`)
+            .join('\n\n');
+
+        const personalizacionText = data.characters
+            .filter(c => c.visual_description)
+            .map(c => `nombre: ${c.character.name}\nurl: ${'avatarUrl' in c.character ? c.character.avatarUrl : c.character.imageUrl}\ndescripcion: ${c.visual_description}`)
+            .join('\n\n');
+
+        const pagesWithIllustrationInfo = data.pages.map((text, index) => ({
+            text,
+            illustration: illustratedPages.has(index) ? 'si' : 'no',
+        }));
+
+        const formData = new FormData();
+        formData.append('title', data.title);
+        formData.append('storyId', storyDocRef.id);
+        formData.append('userId', user.uid);
+        formData.append('characterImagesText', characterImagesText);
+        formData.append('personalizacion', personalizacionText);
+        formData.append('pages', JSON.stringify(pagesWithIllustrationInfo));
+
+        // --- Call Webhook ---
+        const response = await fetch('https://natuai-n8n.kl7z6h.easypanel.host/webhook/7cd69962-5db3-4ff7-813e-3f493310a1c8', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error del webhook del servidor: ${response.status} - ${errorText}`);
+        }
+
+        toast({
+            title: '¡Tu cuento se está ilustrando!',
+            description: 'Recibirás una notificación cuando esté listo.',
+        });
+        
+        illustrateForm.reset();
+        setIllustratedPages(new Set());
+        router.push('/perfil');
+
+    } catch (error) {
+        console.error('Error al enviar para ilustrar:', error);
+        toast({
+            variant: 'destructive',
+            title: 'Error al ilustrar el cuento',
+            description: error instanceof Error ? error.message : 'Hubo un problema al contactar el servidor.',
+        });
+        // TODO: Implement credit rollback on failure
+    } finally {
+        setIsSubmitting(false);
+    }
   }
 
   if (isUserLoading) {
