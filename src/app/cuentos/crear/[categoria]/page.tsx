@@ -1110,17 +1110,10 @@ export default function CrearCuentoPage() {
             <form onSubmit={illustrateForm.handleSubmit(onIllustrateSubmit)} className="space-y-10">
                 <Card className="shadow-lg">
                     <CardHeader>
-                        <CardTitle className="text-2xl font-semibold">Escribe tu Cuento</CardTitle>
+                        <CardTitle className="text-2xl font-semibold">1. Datos principales del cuento</CardTitle>
                         <CardDescription>Rellena el título y el contenido de cada página.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <Alert className="bg-yellow-100 border-yellow-300 text-yellow-800">
-                            <Sparkles className="h-4 w-4 !text-yellow-800" />
-                            <AlertTitle>¡Dale vida a tus páginas!</AlertTitle>
-                            <AlertDescription>
-                                Cada página que elijas illustrar tiene un coste adicional de 100 créditos.
-                            </AlertDescription>
-                        </Alert>
                         <FormField
                             control={illustrateForm.control}
                             name="title"
@@ -1217,6 +1210,13 @@ export default function CrearCuentoPage() {
                         <CardTitle className="text-2xl font-semibold">Contenido de las páginas</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-6">
+                        <Alert className="bg-yellow-100 border-yellow-300 text-yellow-800">
+                            <Sparkles className="h-4 w-4 !text-yellow-800" />
+                            <AlertTitle>¡Dale vida a tus páginas!</AlertTitle>
+                            <AlertDescription>
+                                Cada página que elijas illustrar tiene un coste adicional de 100 créditos.
+                            </AlertDescription>
+                        </Alert>
                         <FormItem>
                           <FormLabel>Número de páginas</FormLabel>
                           <Select
