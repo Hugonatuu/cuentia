@@ -116,12 +116,17 @@ interface UserProfile {
     payAsYouGoCredits?: number;
 }
 
-const illustrateFormSchema = z.object({
+const createIllustrateFormSchema = (pageCount: number) => z.object({
   title: z.string().min(1, 'El título es obligatorio.').max(50, 'El título no puede exceder los 50 caracteres.'),
-  pages: z.array(z.string().max(500, 'Cada página no puede exceder los 500 caracteres.')).length(20, 'Debes completar las 20 páginas.'),
+  pages: z.array(z.string().max(500, 'Cada página no puede exceder los 500 caracteres.')).refine(pages => pages.every(p => p.trim() !== ''), {
+    message: 'Debes completar todas las páginas.',
+  }).refine(pages => pages.length === pageCount, {
+    message: `Debes completar las ${pageCount} páginas.`,
+  }),
 });
 
-type IllustrateFormValues = z.infer<typeof illustrateFormSchema>;
+
+type IllustrateFormValues = z.infer<ReturnType<typeof createIllustrateFormSchema>>;
 
 
 export default function CrearCuentoPage() {
@@ -133,6 +138,7 @@ export default function CrearCuentoPage() {
   const [showBackCoverImage, setShowBackCoverImage] = useState(false);
   const [backCoverPreview, setBackCoverPreview] = useState<string | null>(null);
   const [totalCredits, setTotalCredits] = useState(0);
+  const [numberOfPages, setNumberOfPages] = useState<number>(6);
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -168,14 +174,23 @@ export default function CrearCuentoPage() {
       language: 'es',
     },
   });
+
+  const illustrateFormSchema = createIllustrateFormSchema(numberOfPages);
   
   const illustrateForm = useForm<IllustrateFormValues>({
     resolver: zodResolver(illustrateFormSchema),
     defaultValues: {
       title: '',
-      pages: Array(20).fill(''),
+      pages: Array(numberOfPages).fill(''),
     },
   });
+
+  useEffect(() => {
+    illustrateForm.reset({
+        title: illustrateForm.getValues('title'),
+        pages: Array(numberOfPages).fill('').map((_, i) => illustrateForm.getValues(`pages.${i}`) || '')
+    });
+  }, [numberOfPages, illustrateForm]);
 
   const watchedImageCount = form.watch('imageCount');
   const watchedCharacters = form.watch('characters');
@@ -923,7 +938,7 @@ export default function CrearCuentoPage() {
                 <Card className="shadow-lg">
                     <CardHeader>
                         <CardTitle className="text-2xl font-semibold">Escribe tu Cuento</CardTitle>
-                        <CardDescription>Rellena el título y el contenido de cada una de las 20 páginas.</CardDescription>
+                        <CardDescription>Rellena el título y el contenido de cada página.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                         <FormField
@@ -939,8 +954,29 @@ export default function CrearCuentoPage() {
                                 </FormItem>
                             )}
                         />
+                        <FormItem>
+                          <FormLabel>Número de páginas</FormLabel>
+                          <Select
+                            onValueChange={(value) => setNumberOfPages(parseInt(value, 10))}
+                            defaultValue={String(numberOfPages)}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Selecciona el número de páginas" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {Array.from({ length: 15 }, (_, i) => 6 + i).map(num => (
+                                <SelectItem key={num} value={String(num)}>
+                                  {num} páginas
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                           {Array.from({ length: 20 }).map((_, index) => (
+                           {Array.from({ length: numberOfPages }).map((_, index) => (
                             <FormField
                                 key={index}
                                 control={illustrateForm.control}
