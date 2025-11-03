@@ -569,6 +569,7 @@ export default function CrearCuentoPage() {
             .join('\n\n');
 
         const pagesWithIllustrationInfo = data.pages.map((text, index) => ({
+            page_number: index + 1,
             text,
             illustration: illustratedPages.has(index) ? 'si' : 'no',
         }));
@@ -1117,7 +1118,7 @@ export default function CrearCuentoPage() {
                             <Sparkles className="h-4 w-4 !text-yellow-800" />
                             <AlertTitle>¡Dale vida a tus páginas!</AlertTitle>
                             <AlertDescription>
-                                Cada página que elijas ilustrar tiene un coste adicional de 100 créditos.
+                                Cada página que elijas illustrar tiene un coste adicional de 100 créditos.
                             </AlertDescription>
                         </Alert>
                         <FormField
