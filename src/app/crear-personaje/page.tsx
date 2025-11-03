@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -193,6 +194,7 @@ export default function CrearPersonajePage() {
                 const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
 
                 let monthlyDebit = 0;
+                let paygDebit = 0;
                 
                 if (availableMonthly > 0) {
                     monthlyDebit = Math.min(AVATAR_CREDIT_COST, availableMonthly);
@@ -584,3 +586,5 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
+
+    
