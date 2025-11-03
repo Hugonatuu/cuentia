@@ -29,6 +29,7 @@ interface CommunityStory {
   id: string;
   title: string;
   coverImageUrl: string;
+  urlPage: string;
 }
 
 export default function Home() {
@@ -56,7 +57,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white overflow-hidden">
             <Image
-              src="/cuentos/mi-nueva-imagen.jpg"
+              src="https://cuentia.s3.eu-north-1.amazonaws.com/De+la+web/mi-nueva-imagen.jpg"
               alt="Cuentos mágicos"
               fill
               className="object-cover animate-zoom-in"
@@ -261,7 +262,7 @@ export default function Home() {
                     className="basis-1/2 md:basis-1/3 lg:basis-1/5"
                   >
                     <div className="p-1">
-                       <Link href={`/comunidad/leer/${story.id}`}>
+                       <Link href={`/comunidad/leer/${story.urlPage}`}>
                           <Card className="overflow-hidden group">
                             <CardContent className="p-0">
                               <Image
