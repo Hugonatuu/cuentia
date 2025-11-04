@@ -1,9 +1,10 @@
 
+
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { useUser, useFirestore, useDoc, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -11,7 +12,7 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Skeleton } from '@/components/ui/skeleton';
 import { userStoriesCollectionRef, userDocRef } from '@/firebase/firestore/references';
-import { BookOpen, Hourglass, CreditCard, Calendar, Gift, Info, AlertTriangle } from 'lucide-react';
+import { BookOpen, Hourglass, CreditCard, Calendar, Gift, Info, AlertTriangle, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
@@ -21,15 +22,26 @@ import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
 import { useCollection } from '@/firebase/firestore/use-collection'; 
 import { watchUserSubscription, watchSuccessfulPayments } from '@/lib/firestore'; 
-import { updateDoc, collection, query, where, Firestore } from 'firebase/firestore';
+import { doc, collection, query, where, Firestore } from 'firebase/firestore';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 
 interface Story {
   id: string;
   title: string;
   coverImageUrl: string;
   pdfUrl?: string;
-  status: 'generating' | 'completed';
+  status: 'generating' | 'completed' | 'generating_illustration';
 }
 
 interface UserProfile {
@@ -54,6 +66,7 @@ export default function PerfilPage() {
   const router = useRouter();
   const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
   const [currentUserRole, setCurrentUserRole] = useState<string | null>(null);
+  const [storyToDelete, setStoryToDelete] = useState<Story | null>(null);
 
   useEffect(() => {
     if (!isUserLoading && (!user || !user.emailVerified)) {
@@ -107,6 +120,18 @@ export default function PerfilPage() {
 
   const { data: stories, isLoading: areStoriesLoading } = useCollection<Story>(userStoriesQuery);
 
+  const handleDeleteClick = (story: Story) => {
+    setStoryToDelete(story);
+  };
+
+  const confirmDelete = () => {
+    if (storyToDelete && firestore && user) {
+      const storyDocRef = doc(firestore, `customers/${user.uid}/stories/${storyToDelete.id}`);
+      deleteDocumentNonBlocking(storyDocRef);
+    }
+    setStoryToDelete(null);
+  };
+
   if (isUserLoading || isProfileLoading || !user || !user.emailVerified) {
     return (
       <div className="container mx-auto py-12">
@@ -152,6 +177,21 @@ export default function PerfilPage() {
   return (
     <div className="container mx-auto py-12">
       <CreditsInfoDialog isOpen={isCreditsInfoOpen} onOpenChange={setIsCreditsInfoOpen} />
+      <AlertDialog open={!!storyToDelete} onOpenChange={(isOpen) => !isOpen && setStoryToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Estás seguro de que quieres eliminar este cuento?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta acción no se puede deshacer. Se eliminará permanentemente "{storyToDelete?.title}".
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setStoryToDelete(null)}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Eliminar</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       <div className="grid gap-10 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
         <div className="flex flex-col items-center text-center">
           <EditAvatar user={user} />
@@ -266,9 +306,17 @@ export default function PerfilPage() {
                         return (
                             <Card
                             key={story.id}
-                            className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col"
+                            className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col group"
                             >
                                 <CardContent className="p-0 relative">
+                                    <Button
+                                        variant="destructive"
+                                        size="icon"
+                                        className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity"
+                                        onClick={() => handleDeleteClick(story)}
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </Button>
                                     <Image
                                         src={story.coverImageUrl || '/placeholder-cover.png'}
                                         alt={story.title || 'Portada del cuento'}

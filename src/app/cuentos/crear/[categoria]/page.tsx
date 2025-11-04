@@ -3,7 +3,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { useUser, useFirestore, useDoc, useMemoFirebase, useCollection } from '@/firebase';
 import { addDoc, runTransaction, doc } from 'firebase/firestore';
 import { userStoriesCollectionRef, userDocRef } from '@/firebase/firestore/references';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -121,6 +130,12 @@ interface UserProfile {
     payAsYouGoCredits?: number;
 }
 
+interface Story {
+  id: string;
+  status: 'generating' | 'completed' | 'generating_illustration';
+}
+
+
 const createIllustrateFormSchema = (pageCount: number) => z.object({
   title: z.string().min(1, 'El título es obligatorio.').max(50, 'El título no puede exceder los 50 caracteres.'),
   readerName: z.string().min(1, 'El nombre del lector es obligatorio.').max(20, 'El nombre no puede tener más de 20 caracteres.'),
@@ -151,6 +166,7 @@ export default function CrearCuentoPage() {
   const [numberOfPages, setNumberOfPages] = useState<number>(6);
   const [illustratedPages, setIllustratedPages] = useState<Set<number>>(new Set());
   const [illustrateCredits, setIllustrateCredits] = useState(creditCosts.illustrateBase);
+  const [showGeneratingPopup, setShowGeneratingPopup] = useState(false);
   const params = useParams();
   const router = useRouter();
   const { toast } = useToast();
@@ -161,6 +177,16 @@ export default function CrearCuentoPage() {
   }, [firestore, user]);
 
   const { data: userProfile } = useDoc<UserProfile>(userRef);
+
+   const userStoriesQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    return userStoriesCollectionRef(firestore, user.uid);
+  }, [firestore, user]);
+  
+  const { data: stories } = useCollection<Story>(userStoriesQuery);
+
+  const isStoryGenerating = stories?.some(s => s.status === 'generating' || s.status === 'generating_illustration') || false;
+
 
   const categoria = Array.isArray(params.categoria)
     ? params.categoria[0]
@@ -294,6 +320,11 @@ export default function CrearCuentoPage() {
     if (!user || !firestore || !userProfile) {
       handleInteraction();
       return;
+    }
+
+    if (isStoryGenerating) {
+        setShowGeneratingPopup(true);
+        return;
     }
     
     const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
@@ -496,6 +527,12 @@ export default function CrearCuentoPage() {
         handleInteraction();
         return;
     }
+
+    if (isStoryGenerating) {
+        setShowGeneratingPopup(true);
+        return;
+    }
+
      const totalCost = illustrateCredits;
 
     const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
@@ -657,6 +694,19 @@ export default function CrearCuentoPage() {
         actionText="Registrarse"
         redirectPath="/registro"
       />
+      <AlertDialog open={showGeneratingPopup} onOpenChange={setShowGeneratingPopup}>
+        <AlertDialogContent>
+            <AlertDialogHeader>
+                <AlertDialogTitle>¡Ups! Aún hay un cuento en el horno 🧁</AlertDialogTitle>
+                <AlertDialogDescription>
+                    Espera un poquito y podrás crear el siguiente.
+                </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+                <AlertDialogAction>Entendido</AlertDialogAction>
+            </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       
       <Tabs defaultValue="create" className="w-full">
         <div className="flex justify-center mb-8">
@@ -1086,7 +1136,7 @@ export default function CrearCuentoPage() {
                       type="submit"
                       size="lg"
                       className="shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-0.5"
-                      disabled={isSubmitting || totalCredits === 0}
+                      disabled={isSubmitting || totalCredits === 0 || isStoryGenerating}
                     >
                       {isSubmitting ? (
                         <>
@@ -1401,7 +1451,7 @@ export default function CrearCuentoPage() {
                             Coste Total: {illustrateCredits} créditos
                         </span>
                     </Card>
-                    <Button type="submit" size="lg" disabled={isSubmitting}>
+                    <Button type="submit" size="lg" disabled={isSubmitting || isStoryGenerating}>
                         {isSubmitting ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : <BookImage className="mr-2 h-5 w-5" />}
                         Ilustrar mi Cuento
                     </Button>
