@@ -709,7 +709,7 @@ export default function CrearCuentoPage() {
                 </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-                <AlertDialogAction>Entendido</AlertDialogAction>
+                <AlertDialogAction onClick={() => router.push('/perfil')}>Entendido</AlertDialogAction>
             </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
