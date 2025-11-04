@@ -56,6 +56,27 @@ interface UserProfile {
 interface Subscription {
   id: string;
   status: 'active' | 'trialing' | 'past_due' | 'incomplete' | 'canceled';
+  price: {
+    id: string;
+    product: {
+      id: string;
+    },
+    metadata: {
+        firebaseRole?: string;
+    }
+  };
+  items: {
+    price: {
+        id: string;
+        product: {
+            id: string;
+        },
+        metadata: {
+            firebaseRole?: string;
+        }
+    }
+  }[];
+  current_period_start: Timestamp;
 }
 
 const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
@@ -84,7 +105,7 @@ export default function PerfilPage() {
   const subscriptionsQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
     const subsRef = collection(firestore as Firestore, `customers/${user.uid}/subscriptions`);
-    return query(subsRef, where('status', 'in', ['active', 'trialing', 'past_due', 'incomplete']));
+    return query(subsRef, where('status', 'in', ['trialing', 'active', 'past_due', 'incomplete']));
   }, [firestore, user]);
 
   const { data: subscriptions } = useCollection<Subscription>(subscriptionsQuery);
