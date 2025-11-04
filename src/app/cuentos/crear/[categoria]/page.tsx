@@ -281,6 +281,12 @@ export default function CrearCuentoPage() {
     }
   };
 
+  const handleFormInteraction = () => {
+    if (isStoryGenerating) {
+        setShowGeneratingPopup(true);
+    }
+  };
+
   const handleBackCoverImageChange = (event: React.ChangeEvent<HTMLInputElement>, formType: 'create' | 'illustrate') => {
     const file = event.target.files?.[0];
     if (file) {
@@ -685,7 +691,7 @@ export default function CrearCuentoPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-5xl py-12">
+    <div className="container mx-auto max-w-5xl py-12" onFocus={handleFormInteraction}>
       <AuthPopup
         isOpen={isPopupOpen}
         onOpenChange={setPopupOpen}
