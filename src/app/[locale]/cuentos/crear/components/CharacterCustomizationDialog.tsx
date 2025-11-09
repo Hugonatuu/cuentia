@@ -9,11 +9,13 @@ import {
   DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/app/[locale]/components/ui/dialog';
-import { Button } from '@/app/[locale]/components/ui/button';
-import { Textarea } from '@/app/[locale]/components/ui/textarea';
-import { Label } from '@/app/[locale]/components/ui/label';
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import type { AnyCharacter } from './types';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useTranslations } from 'next-intl';
 
 interface CharacterCustomizationDialogProps {
   isOpen: boolean;
@@ -30,6 +32,7 @@ export function CharacterCustomizationDialog({
   initialVisualDescription,
   onSave,
 }: CharacterCustomizationDialogProps) {
+  const t = useTranslations('CharacterCustomizationDialog');
   const [visualDescription, setVisualDescription] = useState(initialVisualDescription);
 
   const handleSave = () => {
@@ -41,11 +44,11 @@ export function CharacterCustomizationDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Personalizar a {character.name}</DialogTitle>
+          <DialogTitle>{t('title', { characterName: character.name })}</DialogTitle>
           <DialogDescription>
-            Añade detalles visuales específicos para este personaje solo para este cuento.
+            {t('description')}
             <br />
-            <span className="font-semibold text-primary">(+100cd por personalización)</span>
+            <span className="font-semibold text-primary">{t('cost')}</span>
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-4 items-start gap-4 py-4">
@@ -58,27 +61,30 @@ export function CharacterCustomizationDialog({
             />
           </div>
           <div className="col-span-3 grid w-full gap-1.5">
-            <Label htmlFor="visual_description">Cambios para este cuento</Label>
+            <Label htmlFor="visual_description">{t('changes')}</Label>
             <Textarea
               id="visual_description"
-              placeholder="Ej: Quiero que en este libro Hugo lleve ropa de abrigo y una gorra azul."
+              placeholder={t('placeholder')}
               value={visualDescription}
               onChange={(e) => setVisualDescription(e.target.value)}
               className="min-h-[100px]"
             />
           </div>
         </div>
+        <Alert variant="destructive" className="text-foreground">
+          <AlertDescription>
+            {t('alert')}
+          </AlertDescription>
+        </Alert>
         <DialogFooter>
           <Button type="button" variant="secondary" onClick={() => onOpenChange(false)}>
-            Cancelar
+            {t('cancel')}
           </Button>
           <Button type="button" onClick={handleSave}>
-            Guardar Cambios
+            {t('save')}
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-
-    

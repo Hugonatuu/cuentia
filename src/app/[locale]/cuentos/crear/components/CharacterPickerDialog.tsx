@@ -1,18 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/app/[locale]/firebase';
-import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/app/[locale]/firebase/firestore/references';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/app/[locale]/components/ui/dialog';
-import { Button } from '@/app/[locale]/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/[locale]/components/ui/tabs';
-import { Card, CardContent } from '@/app/[locale]/components/ui/card';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { ScrollArea } from '@/app/[locale]/components/ui/scroll-area';
-import { Skeleton } from '@/app/[locale]/components/ui/skeleton';
+import {useRouter } from "@/i18n/navigation";
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
 import { PlusCircle } from 'lucide-react';
 import type { Character, PredefinedCharacter, AnyCharacter } from './types';
+import { useTranslations } from 'next-intl';
 
 interface CharacterPickerDialogProps {
   isOpen: boolean;
@@ -41,6 +42,8 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
 );
 
 const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type }: { characters: AnyCharacter[] | null; onSelect: (char: AnyCharacter) => void; excludedIds: string[]; isLoading: boolean; type: 'user' | 'predefined' }) => {
+  const t = useTranslations('CharacterPickerDialog');
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -55,7 +58,7 @@ const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type }: {
   }
 
   if (!characters || characters.length === 0) {
-    return <p className="text-muted-foreground text-center py-8">No hay personajes {type === 'user' ? 'creados' : 'predefinidos'}.</p>;
+    return <p className="text-muted-foreground text-center py-8">{t('noCharactersMessage', { type: type === 'user' ? t('userType') : t('predefinedType') })}</p>;
   }
 
   return (
@@ -74,6 +77,7 @@ const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type }: {
 
 
 export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter, excludedIds }: CharacterPickerDialogProps) {
+  const t = useTranslations('CharacterPickerDialog');
   const { user } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
@@ -100,21 +104,21 @@ export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter,
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl h-[80vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle>Elige un Personaje</DialogTitle>
+          <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>
-            Selecciona un personaje para tu historia. Los personajes ya elegidos están desactivados.
+            {t('description')}
           </DialogDescription>
         </DialogHeader>
         
         <Tabs defaultValue="my-characters" className="flex-grow flex flex-col">
           <div className='flex justify-between items-center pr-1'>
             <TabsList>
-                <TabsTrigger value="my-characters">Mis Personajes</TabsTrigger>
-                <TabsTrigger value="predefined">Predefinidos</TabsTrigger>
+                <TabsTrigger value="my-characters">{t('myCharactersTab')}</TabsTrigger>
+                <TabsTrigger value="predefined">{t('predefinedTab')}</TabsTrigger>
             </TabsList>
              <Button variant="outline" size="sm" onClick={() => router.push('/crear-personaje')}>
                 <PlusCircle className="mr-2 h-4 w-4" />
-                Crear Nuevo
+                {t('createNewButton')}
             </Button>
           </div>
           

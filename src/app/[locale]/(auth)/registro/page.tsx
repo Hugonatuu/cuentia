@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -12,15 +11,17 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
+import { Link, useRouter } from '@/i18n/navigation';
 import { useAuth, useUser } from '@/firebase';
 import {
   initiateEmailSignUp,
   initiateGoogleSignIn,
 } from '@/firebase/non-blocking-login';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
+import { useTranslations } from 'next-intl';
 
 export default function RegisterPage() {
+  const t = useTranslations('RegisterPage');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -52,37 +53,37 @@ export default function RegisterPage() {
     <div className="flex items-center justify-center py-12">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Regístrate</CardTitle>
+          <CardTitle className="text-2xl font-bold">{t('title')}</CardTitle>
           <CardDescription>
-            Crea tu cuenta para empezar a crear cuentos mágicos
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignUp}>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="first-name">Nombre</Label>
+                <Label htmlFor="first-name">{t('firstNameLabel')}</Label>
                 <Input
                   id="first-name"
-                  placeholder="Max"
+                  placeholder={t('firstNamePlaceholder')}
                   required
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="email">Correo electrónico</Label>
+                <Label htmlFor="email">{t('emailLabel')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@ejemplo.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="password">Contraseña</Label>
+                <Label htmlFor="password">{t('passwordLabel')}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -95,7 +96,7 @@ export default function RegisterPage() {
                 type="submit"
                 className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
               >
-                Crear cuenta
+                {t('submitButton')}
               </Button>
             </div>
           </form>
@@ -105,12 +106,12 @@ export default function RegisterPage() {
             onClick={handleGoogleSignIn}
           >
             <GoogleIcon className="mr-2 h-4 w-4" />
-            Registrarse con Google
+            {t('googleButton')}
           </Button>
           <div className="mt-4 text-center text-sm">
-            ¿Ya tienes una cuenta?{' '}
+            {t('loginText')}{' '}
             <Link href="/login" className="underline">
-              Inicia sesión
+              {t('loginLink')}
             </Link>
           </div>
         </CardContent>

@@ -1,15 +1,13 @@
+"use client";
 
-'use client';
-
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/app/[locale]/components/ui/button';
+import { Link, useRouter } from "@/i18n/navigation";
+import { Button } from "@/app/[locale]/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetClose,
-} from '@/app/[locale]/components/ui/sheet';
+} from "@/app/[locale]/components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,13 +15,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/app/[locale]/components/ui/dropdown-menu';
-import { Menu, UserCircle, LogOut } from 'lucide-react';
-import { useUser, useAuth } from '@/app/[locale]/firebase';
-import { mainNavLinks } from '@/lib/placeholder-data';
-import { Avatar, AvatarFallback, AvatarImage } from '@/app/[locale]/components/ui/avatar';
-import { signOut } from 'firebase/auth';
-import Logo from '@/app/[locale]/components/core/Logo';
+} from "@/app/[locale]/components/ui/dropdown-menu";
+import { Menu, UserCircle, LogOut } from "lucide-react";
+import { useUser, useAuth } from "@/app/[locale]/firebase";
+import { mainNavLinks } from "@/lib/placeholder-data";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/app/[locale]/components/ui/avatar";
+import { signOut } from "firebase/auth";
+import Logo from "@/app/[locale]/components/core/Logo";
 
 export default function Header() {
   const { user, isUserLoading } = useUser();
@@ -33,7 +35,7 @@ export default function Header() {
   const handleLogout = async () => {
     if (auth) {
       await signOut(auth);
-      router.push('/');
+      router.push("/");
     }
   };
 
@@ -48,17 +50,17 @@ export default function Header() {
             <Logo width={140} height={32} />
           </Link>
         </div>
-        
+
         <nav className="hidden gap-8 md:flex justify-center mr-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-semibold text-foreground/80 transition-colors hover:text-foreground"
-              >
-                {link.label}
-              </Link>
-            ))}
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-semibold text-foreground/80 transition-colors hover:text-foreground"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex-1 flex items-center justify-end space-x-2 mr-4">
@@ -70,7 +72,12 @@ export default function Header() {
                 <Button className="flex items-center gap-2">
                   <span>Mi Perfil</span>
                   <Avatar className="h-8 w-8">
-                    {user.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || user.email || ''} />}
+                    {user.photoURL && (
+                      <AvatarImage
+                        src={user.photoURL}
+                        alt={user.displayName || user.email || ""}
+                      />
+                    )}
                     <AvatarFallback>
                       {user.displayName
                         ? user.displayName.charAt(0)
@@ -83,7 +90,7 @@ export default function Header() {
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
                     <p className="text-sm font-medium leading-none">
-                      {user.displayName || 'Usuario'}
+                      {user.displayName || "Usuario"}
                     </p>
                     <p className="text-xs leading-none text-muted-foreground">
                       {user.email}
@@ -117,55 +124,55 @@ export default function Header() {
               </Button>
             </div>
           )}
-          </div>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Abrir menú</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <div className="flex h-full flex-col">
-                <div className="mb-6 flex items-center">
-                  <Link href="/" className="mr-6 flex items-center space-x-2">
-                     <Logo width={140} height={32} />
-                  </Link>
-                </div>
-                <nav className="flex flex-col gap-4">
-                  {navLinks.map((link) => (
-                    <SheetClose asChild key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-lg font-medium text-foreground"
-                      >
-                        {link.label}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                </nav>
-                <div className="mt-auto flex flex-col gap-2">
-                  {!isUserLoading && !isUserVerified && (
-                    <>
-                      <SheetClose asChild>
-                        <Button variant="outline" asChild>
-                          <Link href="/login">Iniciar Sesión</Link>
-                        </Button>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <Button
-                          className="bg-accent text-accent-foreground hover:bg-accent/90"
-                          asChild
-                        >
-                          <Link href="/registro">Registrarse</Link>
-                        </Button>
-                      </SheetClose>
-                    </>
-                  )}
-                </div>
+        </div>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="icon" className="md:hidden">
+              <Menu className="h-5 w-5" />
+              <span className="sr-only">Abrir menú</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right">
+            <div className="flex h-full flex-col">
+              <div className="mb-6 flex items-center">
+                <Link href="/" className="mr-6 flex items-center space-x-2">
+                  <Logo width={140} height={32} />
+                </Link>
               </div>
-            </SheetContent>
-          </Sheet>
+              <nav className="flex flex-col gap-4">
+                {navLinks.map((link) => (
+                  <SheetClose asChild key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-lg font-medium text-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </SheetClose>
+                ))}
+              </nav>
+              <div className="mt-auto flex flex-col gap-2">
+                {!isUserLoading && !isUserVerified && (
+                  <>
+                    <SheetClose asChild>
+                      <Button variant="outline" asChild>
+                        <Link href="/login">Iniciar Sesión</Link>
+                      </Button>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Button
+                        className="bg-accent text-accent-foreground hover:bg-accent/90"
+                        asChild
+                      >
+                        <Link href="/registro">Registrarse</Link>
+                      </Button>
+                    </SheetClose>
+                  </>
+                )}
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );

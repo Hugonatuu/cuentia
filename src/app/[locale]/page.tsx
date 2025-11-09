@@ -1,38 +1,40 @@
 
 'use client';
 
-import Link from "next/link";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/app/[locale]/components/ui/accordion";
-import { Button } from "@/app/[locale]/components/ui/button";
-import { Card, CardContent } from "@/app/[locale]/components/ui/card";
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/app/[locale]/components/ui/carousel";
+} from "@/components/ui/carousel";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
-import { useFirestore, useCollection, useMemoFirebase } from '@/app/[locale]/firebase';
-import { communityStoriesCollectionRef } from '@/app/[locale]/firebase/firestore/references';
-import { Skeleton } from "@/app/[locale]/components/ui/skeleton";
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { communityStoriesCollectionRef } from '@/firebase/firestore/references';
+import { Skeleton } from "@/components/ui/skeleton";
+import { Locale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 
 interface CommunityStory {
   id: string;
   title: string;
   coverImageUrl: string;
+  urlPage: string;
 }
 
-export default function Home() {
-
+export default function Home({params}: PageProps<'/[locale]'>) {
+  const t = useTranslations('HomePage')
   const firestore = useFirestore();
   
   const communityStoriesQuery = useMemoFirebase(() => {
@@ -56,7 +58,7 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center text-white overflow-hidden">
             <Image
-              src="/cuentos/mi-nueva-imagen.jpg"
+              src="https://cuentia.s3.eu-north-1.amazonaws.com/De+la+web/mi-nueva-imagen.jpg"
               alt="Cuentos mágicos"
               fill
               className="object-cover animate-zoom-in"
@@ -64,15 +66,14 @@ export default function Home() {
             />
           <div className="relative container mx-auto px-4 text-center z-10">
             <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out">
-              Crea cuentos que cobran vida en segundos
+               {t('title')}
             </h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
-              Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.
-            </p>
+            {t('subtitle')}            </p>
             <div className="flex flex-col items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild className="h-16 px-12 text-xl mt-4">
                 <Link href="/cuentos/crear/aprendizaje">
-                  ✨ Crear mi Cuento ✨
+                  {t('cta')}
                 </Link>
               </Button>
             </div>
@@ -89,7 +90,7 @@ export default function Home() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
               <h2 className="font-headline text-4xl md:text-5xl text-gray-800">
-                CÓMO FUNCIONA
+                {t('howItWorksTitle')}
               </h2>
             </div>
             <div className="relative grid md:grid-cols-2 gap-16 items-center">
@@ -121,14 +122,14 @@ export default function Home() {
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
-                        1. CREA TU PERSONAJE
+                        {t('step1Title')}
                         </h3>
                         <p className="text-lg text-muted-foreground mb-6 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-                        Sube una foto, Crea una versión mágica de ti, de tu mascota o de quien tú quieras… ¡y tantos personajes como imagines!
+                        {t('step1Description')}
                         </p>
                         <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-400">
                           <Button asChild>
-                            <Link href="/crear-personaje">Crear un Personaje</Link>
+                            <Link href="/crear-personaje">{t('step1Cta')}</Link>
                           </Button>
                         </div>
                     </div>
@@ -141,13 +142,14 @@ export default function Home() {
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
-                        2. Elige que personaje quieres que aparezcan en tu cuento
+                        {t('step2Title')}
                         </h3>
                         <p className="text-lg text-muted-foreground mb-6">
-                        Puedes elegir entre los personajes que has created, o usar los personajes predefinidos de Cuentia. ¡Combínalos como quieras!
+                        {t('step2Description')}
                         </p>
                         <Button asChild>
-                        <Link href="/personajes">Ver Personajes</Link>
+                        <Link href="/personajes">{t('step2Cta')}
+                        </Link>
                         </Button>
                     </div>
                 </Card>
@@ -196,10 +198,10 @@ export default function Home() {
                     <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                         <div className="relative z-10">
                             <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
-                                3. Escribe puntos clave y el objetivo de aprendizaje
+                                {t('step3Title')}
                             </h3>
                             <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                            ¡Deja volar tu imaginación! Añade los puntos clave de la trama, un objetivo de aprendizaje y dale tu toque personal a la historia.
+                            {t('step3Description')}
                             </p>
                         </div>
                     </Card>
@@ -211,10 +213,10 @@ export default function Home() {
                 <Card className="inline-block p-8 bg-background shadow-xl border-2 border-primary/20 relative overflow-hidden h-full transition-transform duration-300 hover:scale-105">
                      <div className="relative z-10">
                         <h3 className="font-headline text-3xl md:text-4xl text-primary mb-4">
-                        4. Añade los últimos detalles de personalización a tu libro
+                        {t('step4Title')}
                         </h3>
                         <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-                        Añade una dedicatoria especial y una imagen en la parte de atrás de tu cuento para hacerlo todavía más único.
+                        {t('step4Description')}
                         </p>
                     </div>
                 </Card>
@@ -229,7 +231,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="font-headline text-4xl md:text-5xl text-gray-800 animate-in fade-in zoom-in-95 duration-500">
-                Cuentos creados con Cuentia
+              {t('examplesTitle')}
               </h2>
             </div>
             <Carousel
@@ -261,7 +263,7 @@ export default function Home() {
                     className="basis-1/2 md:basis-1/3 lg:basis-1/5"
                   >
                     <div className="p-1">
-                       <Link href={`/comunidad/leer/${story.id}`}>
+                       <Link href={`/comunidad/leer/${story.urlPage}`}>
                           <Card className="overflow-hidden group">
                             <CardContent className="p-0">
                               <Image
@@ -286,6 +288,16 @@ export default function Home() {
                     No hay cuentos en la comunidad todavía.
                 </div>
             )}
+             <div className="text-center mt-8">
+              <p className="max-w-2xl mx-auto text-lg text-gray-800 mt-4">
+                {t('findStoriestitle')}
+              </p>
+              <Button asChild className="mt-4">
+                <Link href="/comunidad">
+                  {t('communityStories')}
+                </Link>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -294,45 +306,39 @@ export default function Home() {
           <div className="container mx-auto px-4 max-w-3xl">
             <div className="text-center mb-12">
               <h2 className="font-headline text-4xl md:text-5xl text-primary">
-                Preguntas Frecuentes
+              {t('faqTitle')}
               </h2>
             </div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
                 <AccordionTrigger className="text-lg">
-                  ¿Cómo funciona la creación de avatares?
+                {t('faq1Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
-                  Simplemente subes varias fotos de una persona o mascota, y
-                  nuestra IA generará un personaje de dibujos animados que podrás usar
-                  como protagonista en todos tus cuentos.
+                {t('faq1Answer')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger className="text-lg">¿Qué son los créditos?</AccordionTrigger>
+                <AccordionTrigger className="text-lg">{t('faq2Question')}
+                </AccordionTrigger>
                 <AccordionContent className="text-base">
-                  Los créditos son la moneda de Cuentia. Los usas para generar
-                  cuentos e ilustraciones. Cada plan te da una cantidad
-                  diferente de créditos para que des rienda suelta a tu
-                  imaginación.
+                {t('faq2Answer')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
                 <AccordionTrigger className="text-lg">
-                  ¿Puedo usar los cuentos comercialmente?
+                {t('faq3Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
-                  Sí, con nuestros planes de suscripción, tienes plenos
-                  derechos para usar los cuentos e ilustraciones generados como
-                  desees, incluso para proyectos comerciales.
+                {t('faq3Answer')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
                 <AccordionTrigger className="text-lg">
-                  ¿Cuántos créditos cuesta crear un cuento?
+                {t('faq4Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
-                  Los cuentos más básicos ilustrados cuestan 800 créditos. Estos cuentos ya cuentan con varias imágenes de la mejor calidad posible.
+                {t('faq4Answer')}
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -343,16 +349,15 @@ export default function Home() {
         <section className="py-20">
           <div className="container mx-auto px-4 text-center">
             <h2 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
-              ¿Listo para Crear Magia?
+              {t('finalCtaTitle')}
             </h2>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-primary my-8">
-              Únete a la comunidad de Cuentia y empieza a dar vida a las
-              historias que siempre has imaginado. Tu próxima gran aventura te
-              espera.
+            {t('finalCtaDescription')}
             </p>
             <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
               <Link href="/registro">
-                Regístrate Gratis <Sparkles className="ml-2 h-5 w-5" />
+              {t('finalCtaButton')}
+              <Sparkles className="ml-2 h-5 w-5" />
               </Link>
             </Button>
           </div>

@@ -1,17 +1,17 @@
 'use client';
 
-import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/app/[locale]/firebase';
-import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/app/[locale]/firebase/firestore/references';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/app/[locale]/components/ui/dialog';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/app/[locale]/components/ui/tabs';
-import { Card, CardContent } from '@/app/[locale]/components/ui/card';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { ScrollArea } from '@/app/[locale]/components/ui/scroll-area';
-import { Skeleton } from '@/app/[locale]/components/ui/skeleton';
-import { Button } from '@/app/[locale]/components/ui/button';
+import {useRouter} from '@/i18n/navigation';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
-import type { Character, PredefinedCharacter, AnyCharacter } from '@/app/cuentos/crear/components/types';
+import type { Character, PredefinedCharacter, AnyCharacter } from '@/app/[locale]/cuentos/crear/components/types';
 
 interface ProfileAvatarPickerDialogProps {
   isOpen: boolean;
