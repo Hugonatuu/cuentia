@@ -417,17 +417,17 @@ export default function CrearCuentoPage() {
     const payAsYouGoCredits = userProfile.payAsYouGoCredits || 0;
     const totalAvailableCredits = availableMonthlyCredits + payAsYouGoCredits;
 
-    // if (totalAvailableCredits < totalCredits) {
-    //   toast({
-    //     variant: "destructive",
-    //     title: t("insufficientCreditsIllustrateTitle"),
-    //     description: t("insufficientCreditsDescription", {
-    //       needed: totalCredits,
-    //       available: totalAvailableCredits,
-    //     }),
-    //   });
-    //   return;
-    // }
+    if (totalAvailableCredits < totalCredits) {
+      toast({
+        variant: "destructive",
+        title: t("insufficientCreditsIllustrateTitle"),
+        description: t("insufficientCreditsDescription", {
+          needed: totalCredits,
+          available: totalAvailableCredits,
+        }),
+      });
+      return;
+    }
 
     const webhookUrl = webhookUrls[data.imageCount];
 
