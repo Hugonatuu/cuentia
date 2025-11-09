@@ -1,19 +1,22 @@
 import Image from "next/image";
-import Link from "next/link";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/app/[locale]/components/ui/card";
-import { Button } from "@/app/[locale]/components/ui/button";
+import { Link } from "@/i18n/navigation";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { exampleStories } from "@/lib/placeholder-data";
+import { useTranslations } from 'next-intl';
 
 export default function EjemplosPage() {
+  const t = useTranslations('EjemplosPage');
+
   return (
     <div className="container mx-auto py-12">
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
-          Galería de la Imaginación
+          {t('title')}
         </h1>
         <p className="max-w-2xl mx-auto text-lg text-muted-foreground mt-4">
-          Explora los mundos creados con Cuentia. Cada historia es una puerta a una nueva aventura o a un nuevo aprendizaje.
+          {t('description')}
         </p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -38,7 +41,7 @@ export default function EjemplosPage() {
               <Button asChild className="w-full" variant={!story.pdfUrl || story.pdfUrl === '#' ? 'secondary' : 'default'} disabled={!story.pdfUrl || story.pdfUrl === '#'}>
                 <a href={story.pdfUrl} download>
                   <Download className="mr-2 h-4 w-4" />
-                  Descargar
+                  {t('downloadButton')}
                 </a>
               </Button>
             </CardFooter>

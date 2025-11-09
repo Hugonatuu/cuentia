@@ -1,18 +1,18 @@
-
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/app/[locale]/firebase';
-import { storyDocRef } from '@/app/[locale]/firebase/firestore/references';
+import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { storyDocRef } from '@/firebase/firestore/references';
 import { Document, Page, pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
-import { Skeleton } from '@/app/[locale]/components/ui/skeleton';
-import { Button } from '@/app/[locale]/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight, Download, BookOpen } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/app/[locale]/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 // Configure the PDF worker from pdfjs-dist
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
@@ -24,6 +24,7 @@ interface Story {
 }
 
 export default function StoryViewerPage() {
+  const t = useTranslations('StoryViewerPage');
   const { storyId } = useParams();
   const { user } = useUser();
   const firestore = useFirestore();
@@ -135,7 +136,7 @@ export default function StoryViewerPage() {
         <div className="container mx-auto py-12">
             <Alert variant="destructive">
                 <AlertTitle>Error</AlertTitle>
-                <AlertDescription>No se pudo cargar el cuento. Por favor, inténtalo de nuevo.</AlertDescription>
+                <AlertDescription>{t('errors.loadError')}</AlertDescription>
             </Alert>
         </div>
     );
@@ -146,8 +147,8 @@ export default function StoryViewerPage() {
         <div className="container mx-auto py-12">
             <Alert>
                 <BookOpen className="h-4 w-4" />
-                <AlertTitle>Cuento no encontrado</AlertTitle>
-                <AlertDescription>No hemos podido encontrar el cuento que buscas o el PDF aún no está disponible.</AlertDescription>
+                <AlertTitle>{t('errors.notFound')}</AlertTitle>
+                <AlertDescription>{t('errors.notFoundDescription')}</AlertDescription>
             </Alert>
         </div>
     );
@@ -161,7 +162,7 @@ export default function StoryViewerPage() {
           <Button asChild variant="outline" className="mt-4">
               <a href={pdfFile} download={`${story.title}.pdf`}>
                   <Download className="mr-2 h-4 w-4" />
-                  Descargar PDF
+                  {t('controls.download')}
               </a>
           </Button>
         )}
@@ -199,12 +200,17 @@ export default function StoryViewerPage() {
         <div className="mt-8 flex items-center justify-center gap-4">
           <Button onClick={goToPreviousPage} disabled={!canGoPrevious || isTransitioning} variant="outline" size="icon">
             <ChevronLeft />
+            <span className="sr-only">{t('controls.previous')}</span>
           </Button>
           <p className="text-lg font-medium w-28 text-center">
-            Página {currentPage}{currentPage > 1 && numPages > currentPage + 1 ? ` - ${currentPage + 1}` : ''}
+            {currentPage > 1 && numPages > currentPage + 1 
+              ? t('controls.pageRange', { currentPage, nextPage: currentPage + 1 })
+              : t('controls.page', { currentPage })
+            }
           </p>
           <Button onClick={goToNextPage} disabled={!canGoNext || isTransitioning} variant="outline" size="icon">
             <ChevronRight />
+            <span className="sr-only">{t('controls.next')}</span>
           </Button>
         </div>
       )}

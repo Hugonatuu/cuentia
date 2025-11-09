@@ -5,11 +5,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { User, updateProfile } from 'firebase/auth';
-import { useFirestore } from '@/app/[locale]/firebase';
-import { userDocRef } from '@/app/[locale]/firebase/firestore/references';
-import { updateDocumentNonBlocking } from '@/app/[locale]/firebase/non-blocking-updates';
-import { Button } from '@/app/[locale]/components/ui/button';
-import { Input } from '@/app/[locale]/components/ui/input';
+import { useFirestore } from '@/firebase';
+import { userDocRef } from '@/firebase/firestore/references';
+import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Pencil, Save, X, Loader2 } from 'lucide-react';
 
@@ -107,3 +107,5 @@ export default function EditDisplayName({ user }: EditDisplayNameProps) {
     </div>
   );
 }
+
+    

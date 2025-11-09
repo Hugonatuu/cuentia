@@ -141,16 +141,24 @@ const FormDescription = React.forwardRef<
   )
 })
 FormDescription.displayName = "FormDescription"
-
+interface FormMessageProps extends React.HTMLAttributes<HTMLParagraphElement> {
+  t?: (key: string) => string;
+  translationKey?: string;
+}
 const FormMessage = React.forwardRef<
   HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, children, ...props }, ref) => {
-  const { error, formMessageId } = useFormField()
-  const body = error ? String(error?.message ?? "") : children
+  FormMessageProps
+>(({ className, children, t, translationKey, ...props }, ref) => {
+  const { error, formMessageId } = useFormField();
+  
+  // Get the raw error message
+  const rawBody = error ? String(error?.message ?? "") : children;
+  
+  // Apply translation if t function and translationKey are provided
+  const body = t && translationKey ? t(translationKey) : rawBody;
 
   if (!body) {
-    return null
+    return null;
   }
 
   return (
@@ -162,9 +170,10 @@ const FormMessage = React.forwardRef<
     >
       {body}
     </p>
-  )
-})
-FormMessage.displayName = "FormMessage"
+  );
+});
+
+FormMessage.displayName = "FormMessage";
 
 export {
   useFormField,

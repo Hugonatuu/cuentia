@@ -11,10 +11,11 @@ export interface Character {
 export interface PredefinedCharacter {
   id: string;
   name: string;
-  description: string;
+  description: Record<string, string>;
+  visual_description: Record<string, string>;
   imageUrl: string;
-  species: string;
-  gender: string;
+  species: Record<string, string>;
+  gender: Record<string, string>;
   age: string;
   imageHint: string;
 }
@@ -25,5 +26,3 @@ export interface CharacterWithCustomization {
   character: AnyCharacter;
   visual_description: string;
 }
-
-    

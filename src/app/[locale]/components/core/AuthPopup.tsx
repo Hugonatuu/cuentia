@@ -9,8 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/app/[locale]/components/ui/alert-dialog';
-import { useRouter } from 'next/navigation';
-
+import { useRouter } from '@/i18n/navigation';
 interface AuthPopupProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;

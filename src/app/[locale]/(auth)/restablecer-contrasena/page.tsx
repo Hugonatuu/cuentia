@@ -15,9 +15,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function ForgotPasswordPage() {
+  const t = useTranslations('ForgotPasswordPage');
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const auth = useAuth();
@@ -32,19 +34,19 @@ export default function ForgotPasswordPage() {
     try {
       await sendPasswordResetEmail(auth, email);
       toast({
-        title: 'Correo enviado',
-        description: 'Revisa tu bandeja de entrada para restablecer tu contraseña.',
+        title: t('successTitle'),
+        description: t('successDescription'),
       });
       setEmail('');
     } catch (error: any) {
       console.error("Error al enviar el correo de restablecimiento:", error);
-      let description = 'Ocurrió un error. Por favor, inténtalo de nuevo.';
+      let description = t('errorDescription');
       if (error.code === 'auth/user-not-found') {
-        description = 'No se encontró ninguna cuenta con ese correo electrónico.';
+        description = t('userNotFoundDescription');
       }
       toast({
         variant: 'destructive',
-        title: 'Error',
+        title: t('errorTitle'),
         description: description,
       });
     } finally {
@@ -57,22 +59,21 @@ export default function ForgotPasswordPage() {
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">
-            Restablecer Contraseña
+            {t('title')}
           </CardTitle>
           <CardDescription>
-            Introduce tu correo electrónico y te enviaremos un enlace para
-            restablecer tu contraseña.
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handlePasswordReset}>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="email">Correo electrónico</Label>
+                <Label htmlFor="email">{t('emailLabel')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@ejemplo.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -81,14 +82,14 @@ export default function ForgotPasswordPage() {
               </div>
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Enviar enlace
+                {t('submitButton')}
               </Button>
             </div>
           </form>
           <div className="mt-4 text-center text-sm">
-            ¿Recuerdas tu contraseña?{' '}
+            {t('rememberPasswordText')}{' '}
             <Link href="/login" className="underline">
-              Inicia sesión
+              {t('loginLink')}
             </Link>
           </div>
         </CardContent>

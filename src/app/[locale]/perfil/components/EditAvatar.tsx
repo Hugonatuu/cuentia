@@ -2,20 +2,22 @@
 
 import { useState } from 'react';
 import { User, updateProfile } from 'firebase/auth';
-import { useAuth, useFirestore } from '@/app/[locale]/firebase';
-import { userDocRef } from '@/app/[locale]/firebase/firestore/references';
-import { updateDocumentNonBlocking } from '@/app/[locale]/firebase/non-blocking-updates';
-import { Avatar, AvatarFallback, AvatarImage } from '@/app/[locale]/components/ui/avatar';
+import { useAuth, useFirestore } from '@/firebase';
+import { userDocRef } from '@/firebase/firestore/references';
+import { updateDocumentNonBlocking } from '@/firebase/non-blocking-updates';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
 import { Camera, Loader2 } from 'lucide-react';
 import { ProfileAvatarPickerDialog } from './ProfileAvatarPickerDialog'; // Changed import
-import type { AnyCharacter } from '@/app/cuentos/crear/components/types';
+import type { AnyCharacter } from '@/app/[locale]/cuentos/crear/components/types';
+import { useTranslations } from 'next-intl';
 
 interface EditAvatarProps {
   user: User;
 }
 
 export default function EditAvatar({ user }: EditAvatarProps) {
+  const t = useTranslations('EditAvatar');
   const [isUpdating, setIsUpdating] = useState(false);
   const [isPickerDialogOpen, setIsPickerDialogOpen] = useState(false);
   const auth = useAuth();
@@ -47,15 +49,15 @@ export default function EditAvatar({ user }: EditAvatarProps) {
       updateDocumentNonBlocking(userRef, { photoURL: newPhotoURL });
 
       toast({
-        title: '¡Avatar actualizado!',
-        description: 'Tu foto de perfil se ha cambiado correctamente.',
+        title: t('success.title'),
+        description: t('success.description'),
       });
     } catch (error) {
       console.error('Error updating avatar:', error);
       toast({
         variant: 'destructive',
-        title: 'Error al actualizar',
-        description: 'No se pudo cambiar tu foto de perfil. Por favor, inténtalo de nuevo.',
+        title: t('errors.updateError.title'),
+        description: t('errors.updateError.description'),
       });
     } finally {
       setIsUpdating(false);
@@ -72,7 +74,7 @@ export default function EditAvatar({ user }: EditAvatarProps) {
           <Avatar className="h-24 w-24">
             <AvatarImage
               src={user.photoURL || `https://avatar.vercel.sh/${user.uid}.png`}
-              alt={user.displayName || 'Avatar'}
+              alt={user.displayName || t('fallback.alt')}
             />
             <AvatarFallback>
               {user.displayName

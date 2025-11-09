@@ -8,7 +8,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/app/[locale]/components/ui/alert-dialog';
+} from '@/components/ui/alert-dialog';
+import { useTranslations } from 'next-intl';
 
 interface CreditsInfoDialogProps {
   isOpen: boolean;
@@ -19,27 +20,29 @@ export function CreditsInfoDialog({
   isOpen,
   onOpenChange,
 }: CreditsInfoDialogProps) {
+  const t = useTranslations('CreditsInfoDialog');
+
   return (
     <AlertDialog open={isOpen} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>¿Cómo funcionan los créditos?</AlertDialogTitle>
+          <AlertDialogTitle>{t('title')}</AlertDialogTitle>
           <AlertDialogDescription asChild>
             <div className="text-left pt-2 space-y-2 text-foreground">
                 <p>
-                    Cada vez que creas un cuento, tus créditos se usan según el tipo de creación que elijas.
+                    {t('description1')}
                 </p>
                 <p>
-                    Los cuentos más básicos cuestan desde 800 créditos, e incluyen texto + ilustraciones personalizadas.
+                    {t('description2')}
                 </p>
                 <p>
-                    Cuantos más elementos añadas (más páginas, más imágenes o voz narrada), más créditos necesitarás.
+                    {t('description3')}
                 </p>
             </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction>Entendido</AlertDialogAction>
+          <AlertDialogAction>{t('actionButton')}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

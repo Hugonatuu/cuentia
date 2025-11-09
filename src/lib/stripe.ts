@@ -11,6 +11,7 @@ export async function createCheckoutSession(
   priceId: string,
   mode: CheckoutMode,
   quantity: number = 1,
+  locale:string
 ): Promise<void> {
   const checkoutSessionsRef = customerCheckoutSessionsCollectionRef(db, userId);
 
@@ -22,8 +23,8 @@ export async function createCheckoutSession(
     line_items?: {price: string, quantity: number}[];
   } = {
     mode: mode,
-    success_url: window.location.origin + '/perfil',
-    cancel_url: window.location.origin + '/precios',
+    success_url: window.location.origin + `/${locale}/perfil`,
+    cancel_url: window.location.origin + `/${locale}/precios`,
   };
 
   if (mode === 'payment') {

@@ -1,16 +1,14 @@
-
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useUser, useFirestore, useCollection, useMemoFirebase, deleteDocumentNonBlocking } from '@/app/[locale]/firebase';
+import { useUser, useFirestore, useCollection, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
 import Image from 'next/image';
-import { Card, CardContent } from '@/app/[locale]/components/ui/card';
-import { Button } from '@/app/[locale]/components/ui/button';
-import Link from 'next/link';
-import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/app/[locale]/firebase/firestore/references';
-import { Skeleton } from '@/app/[locale]/components/ui/skeleton';
-import { X, Info } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Link , useRouter } from '@/i18n/navigation';
+import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
+import { Skeleton } from '@/components/ui/skeleton';
+import { X, Info, Sparkles, Cat, User as UserIcon, Star } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,14 +18,16 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/app/[locale]/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog";
 import { doc } from 'firebase/firestore';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/app/[locale]/components/ui/tooltip";
+} from "@/components/ui/tooltip";
+import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface Character {
   id: string;
@@ -38,6 +38,8 @@ interface Character {
   age: string;
 }
 
+type Category = 'Christmas' | 'Animal' | 'Fantasy' | 'Humans' | 'Other';
+
 interface PredefinedCharacter {
   id: string;
   name: string;
@@ -47,13 +49,26 @@ interface PredefinedCharacter {
   species: string;
   gender: string;
   age: string;
+  category: Category;
 }
 
+const categories: { name: Category | 'All'; icon: React.ElementType }[] = [
+    { name: 'Fantasy', icon: Sparkles },
+    { name: 'Animal', icon: Cat },
+    { name: 'Humans', icon: UserIcon },
+    { name: 'Christmas', icon: Star },
+    { name: 'Other', icon: Info },
+];
+
+
 export default function PersonajesPage() {
+  const t = useTranslations('PersonajesPage');
+
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
   const [characterToDelete, setCharacterToDelete] = useState<Character | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
 
   const userCharactersQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -74,11 +89,15 @@ export default function PersonajesPage() {
 
   const confirmDelete = () => {
     if (characterToDelete && firestore && user) {
-      const characterDocRef = doc(firestore, `users/${user.uid}/characters/${characterToDelete.id}`);
+      const characterDocRef = doc(firestore, `customers/${user.uid}/characters/${characterToDelete.id}`);
       deleteDocumentNonBlocking(characterDocRef);
     }
     setCharacterToDelete(null);
   };
+
+  const filteredPredefinedCharacters = selectedCategory === 'All'
+    ? predefinedCharacters
+    : predefinedCharacters?.filter(char => char.category === selectedCategory);
 
 
   return (
@@ -86,36 +105,38 @@ export default function PersonajesPage() {
        <AlertDialog open={!!characterToDelete} onOpenChange={(isOpen) => !isOpen && setCharacterToDelete(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
+            <AlertDialogTitle>{t('deleteDialogTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción no se puede deshacer. Esto eliminará permanentemente el personaje
-              "{characterToDelete?.name}" de tus datos.
+              {t('deleteDialogDescription', { characterName: characterToDelete?.name })}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setCharacterToDelete(null)}>Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmDelete}>Eliminar</AlertDialogAction>
+            <AlertDialogCancel onClick={() => setCharacterToDelete(null)}>{t('deleteDialogCancel')}</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmDelete}>{t('deleteDialogConfirm')}</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
 
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
-          Un Mundo de Personajes
+          {t('pageTitle')}
         </h1>
         <p className="max-w-3xl mx-auto text-primary mt-4 font-body">
-          Aquí viven los personajes que darán vida a tus historias. ¡Crea nuevos amigos, a ti mismo o incluso a tu mascota!
+          {t('pageDescription')}
         </p>
       </div>
 
       {!isUserLoading && !user && (
-         <Card className="mb-12 bg-accent/20 border-accent/50">
-            <CardContent className="p-6 flex flex-col md:flex-row items-center justify-center text-center md:text-left gap-6">
-                <p className="text-lg font-medium text-accent-foreground/90">
-                    ¿Quieres crear tus propios protagonistas? <br/>Regístrate para dar vida a tus ideas.
+         <Card className="mb-12 bg-primary/10 border-primary/50">
+            <CardContent className="p-6 flex flex-col items-center justify-center text-center gap-4">
+                <p className="text-lg font-medium text-foreground">
+                    {t('authCardTitle')}
                 </p>
-                <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90 shrink-0">
-                    <Link href="/registro">Crear Personaje</Link>
+                 <p className="text-lg font-medium text-foreground">
+                    {t('authCardSubtitle')}
+                </p>
+                <Button asChild className="shrink-0">
+                    <Link href="/registro">{t('authCardButton')}</Link>
                 </Button>
             </CardContent>
          </Card>
@@ -124,9 +145,9 @@ export default function PersonajesPage() {
       {user && (
         <div className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-3xl font-bold">Mis Personajes</h2>
+            <h2 className="text-3xl font-bold">{t('myCharactersTitle')}</h2>
             <Button asChild>
-                <Link href="/crear-personaje">✨ Crear Nuevo Personaje ✨</Link>
+                <Link href="/crear-personaje">{t('createCharacterButton')}</Link>
             </Button>
           </div>
           {areCharactersLoading ? (
@@ -152,7 +173,7 @@ export default function PersonajesPage() {
                     onClick={() => handleDeleteClick(character)}
                   >
                     <X className="h-4 w-4" />
-                    <span className="sr-only">Eliminar personaje</span>
+                    <span className="sr-only">{t('deleteButtonAriaLabel')}</span>
                   </Button>
                   <CardContent className="p-0 text-center">
                     <div className="aspect-square overflow-hidden">
@@ -174,13 +195,13 @@ export default function PersonajesPage() {
           ) : (
             <div className="text-center py-16 border-2 border-dashed rounded-lg">
               <h2 className="text-xl font-semibold text-gray-700">
-                Aún no has creado ningún personaje
+                {t('noCharactersTitle')}
               </h2>
               <p className="text-muted-foreground mt-2 mb-4">
-                Tu historia está esperando a su protagonista. ¡Crea el primero y deja que la magia comience!
+                {t('noCharactersDescription')}
               </p>
               <Button asChild>
-                <Link href="/crear-personaje">Crear mi primer personaje</Link>
+                <Link href="/crear-personaje">{t('firstCharacterButton')}</Link>
               </Button>
             </div>
           )}
@@ -188,7 +209,29 @@ export default function PersonajesPage() {
       )}
 
       <div className="mb-12">
-        <h2 className="text-3xl font-bold mb-6">Personajes Predefinidos</h2>
+        <h2 className="text-3xl font-bold mb-6">{t('predefinedCharactersTitle')}</h2>
+
+        <div className="mb-8 flex flex-wrap justify-center gap-2 md:gap-4">
+            <Button
+                variant={selectedCategory === 'All' ? 'default' : 'outline'}
+                onClick={() => setSelectedCategory('All')}
+                className="rounded-full"
+            >
+                {t('allCategoriesButton')}
+            </Button>
+          {categories.map(({ name, icon: Icon }) => (
+            <Button
+              key={name}
+              variant={selectedCategory === name ? 'default' : 'outline'}
+              onClick={() => setSelectedCategory(name)}
+              className="rounded-full"
+            >
+              <Icon className="mr-2 h-4 w-4" />
+              {t(`categories.${name.toLowerCase()}`)}
+            </Button>
+          ))}
+        </div>
+
          {arePredefinedCharactersLoading ? (
              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                {[...Array(10)].map((_, i) => (
@@ -198,9 +241,9 @@ export default function PersonajesPage() {
                 </div>
               ))}
             </div>
-         ) : predefinedCharacters && predefinedCharacters.length > 0 ? (
+         ) : filteredPredefinedCharacters && filteredPredefinedCharacters.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-              {predefinedCharacters.map((character) => (
+              {filteredPredefinedCharacters.map((character) => (
                 <TooltipProvider key={character.id}>
                   <Tooltip>
                     <Card
@@ -235,10 +278,10 @@ export default function PersonajesPage() {
          ) : (
             <div className="text-center py-16 border-2 border-dashed rounded-lg">
                 <h2 className="text-xl font-semibold text-gray-700">
-                    No hay personajes predefinidos
+                    {t('noCategoryCharactersTitle')}
                 </h2>
                 <p className="text-muted-foreground mt-2">
-                    Pronto habrá una selección de personajes listos para la aventura.
+                    {t('noCategoryCharactersDescription')}
                 </p>
             </div>
          )}
@@ -246,5 +289,3 @@ export default function PersonajesPage() {
     </div>
   );
 }
-
-    

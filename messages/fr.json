@@ -1,0 +1,51 @@
+{
+  "LocaleSwitcher": {
+    "label": "Change language",
+    "locale": "{locale, select, de {Deutsch} en {English} fr {French} es {Spanish} it {Italian} pt {Portuguese} other {Unknown}}"
+  }, 
+  "HomePage": {
+      "title": "Create stories that come to life in seconds",
+      "subtitle": "Your imagination and AI come together to turn a few words into a magical story full of illustrations.",
+      "cta": "✨ Create my Story ✨",
+      "howItWorksTitle": "HOW IT WORKS",
+      "step1Title": "1. CREATE YOUR CHARACTER",
+      "step1Description": "Upload a photo, create a magical version of yourself, your pet, or anyone you want — and as many characters as you can imagine!",
+      "step1Cta": "Create a Character",
+      "step2Title": "2. Choose which character will appear in your story",
+      "step2Description": "Pick from your own characters or use Cuentia’s presets. Mix and match freely!",
+      "step2Cta": "View Characters",
+      "step3Title": "3. Write key points and the learning objective",
+      "step3Description": "Let your imagination run wild! Add key plot points, a learning goal, and your personal touch.",
+      "step4Title": "4. Add final customization details to your book",
+      "step4Description": "Add a special dedication and a back cover image to make it even more unique.",
+      "examplesTitle": "Stories created with Cuentia",
+      "noStories": "There are no stories in the community yet.",
+      "faqTitle": "Frequently Asked Questions",
+      "faq1Question": "How does avatar creation work?",
+      "faq1Answer": "Upload several photos and our AI generates a cartoon character you can use in your stories.",
+      "faq2Question": "What are credits?",
+      "faq2Answer": "Credits are Cuentia’s currency to generate stories and illustrations.",
+      "faq3Question": "Can I use the stories commercially?",
+      "faq3Answer": "Yes, with subscription plans you get usage rights, even commercially.",
+      "faq4Question": "How many credits to create a story?",
+      "faq4Answer": "Basic illustrated stories cost 800 credits.",
+      "finalCtaTitle": "Ready to create magic?",
+      "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
+      "finalCtaButton": "Sign up for free"
+    },
+    "Navigation": {
+      "home": "Home",
+      "create": "💫 Create Story",
+      "characters": "Characters",
+      "community": "Community",
+      "pricing": "Pricing",
+      "login": "Log In",
+      "register": "Sign Up",
+      "profile": "My Profile",
+      "logout": "Log Out"
+    },
+    "Footer": {
+      "createdBy": "Created with 💜 for little readers.",
+      "copy": "© {year} Cuentia. All rights reserved."
+    }
+  }

@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { Card, CardContent } from '@/app/[locale]/components/ui/card';
-import { Button } from '@/app/[locale]/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Plus, X, Wand, CheckCircle } from 'lucide-react';
 import { CharacterPickerDialog } from './CharacterPickerDialog';
 import { CharacterCustomizationDialog } from './CharacterCustomizationDialog';
 import type { AnyCharacter, CharacterWithCustomization } from './types';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface CharacterSlotProps {
   characterWithCustomization: CharacterWithCustomization | undefined;
@@ -25,6 +26,7 @@ export function CharacterSlot({
   onRemove,
   onUpdateCustomization,
 }: CharacterSlotProps) {
+  const t = useTranslations('CharacterSlot');
   const [isPickerOpen, setPickerOpen] = useState(false);
   const [isCustomizationOpen, setCustomizationOpen] = useState(false);
 
@@ -55,6 +57,7 @@ export function CharacterSlot({
               onClick={onRemove}
             >
               <X className="h-4 w-4" />
+              <span className="sr-only">{t('removeButton')}</span>
             </Button>
              <div className="absolute bottom-0 w-full p-2 bg-black/50 backdrop-blur-sm text-center">
                  <p className="text-white text-sm font-semibold truncate">{character.name}</p>
@@ -69,7 +72,7 @@ export function CharacterSlot({
                 onClick={() => setCustomizationOpen(true)}
             >
                 {hasCustomization ? <CheckCircle className="mr-2 h-4 w-4" /> : <Wand className="mr-2 h-4 w-4" />}
-                {hasCustomization ? "Personalizado" : "Personalizar"}
+                {hasCustomization ? t('customizedButton') : t('customizeButton')}
             </Button>
           )}
         </div>
@@ -95,7 +98,7 @@ export function CharacterSlot({
       >
         <CardContent className="p-0 flex flex-col items-center justify-center text-foreground">
           <Plus className="h-10 w-10" />
-          <p className="mt-2 text-sm font-medium">Añadir</p>
+          <p className="mt-2 text-sm font-medium">{t('addButton')}</p>
         </CardContent>
       </Card>
 

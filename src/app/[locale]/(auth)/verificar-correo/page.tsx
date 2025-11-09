@@ -9,9 +9,12 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { MailCheck } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function VerifyEmailPage() {
+  const t = useTranslations('VerifyEmailPage');
+
   return (
     <div className="flex items-center justify-center py-24">
       <Card className="mx-auto max-w-md text-center">
@@ -20,25 +23,21 @@ export default function VerifyEmailPage() {
             <MailCheck className="h-10 w-10 text-primary" />
           </div>
           <CardTitle className="mt-4 text-2xl font-bold">
-            ¡Ya casi estás! Verifica tu correo
+            {t('title')}
           </CardTitle>
           <CardDescription>
-            Hemos enviado un enlace de verificación a tu correo electrónico. Por
-            favor, haz clic en el enlace para activar tu cuenta y poder iniciar
-            sesión.
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <p className="mb-4 text-sm text-muted-foreground">
-            Una vez verificado, podrás acceder a todas las funciones de
-            Cuentia.
+            {t('afterVerification')}
           </p>
           <Button asChild>
-            <Link href="/login">Ir a Iniciar Sesión</Link>
+            <Link href="/login">{t('loginButton')}</Link>
           </Button>
           <p className="mt-6 text-xs text-muted-foreground">
-            ¿No has recibido el correo? Revisa tu carpeta de spam o contacta
-            con nosotros.
+            {t('noEmailText')}
           </p>
         </CardContent>
       </Card>
