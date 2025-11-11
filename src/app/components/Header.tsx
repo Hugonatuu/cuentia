@@ -142,7 +142,7 @@ export default function Header() {
                         href={link.href}
                         className="text-lg font-medium text-foreground"
                       >
-                        {link.label}
+              {t(link.label)}
                       </Link>
                     </SheetClose>
                   ))}

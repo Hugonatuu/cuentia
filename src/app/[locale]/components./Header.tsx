@@ -26,8 +26,10 @@ import {
 } from "@/app/[locale]/components/ui/avatar";
 import { signOut } from "firebase/auth";
 import Logo from "@/app/[locale]/components/core/Logo";
+import { useTranslations } from "next-intl";
 
 export default function Header() {
+  const t = useTranslations("Navigation");
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
@@ -58,7 +60,7 @@ export default function Header() {
               href={link.href}
               className="text-sm font-semibold text-foreground/80 transition-colors hover:text-foreground"
             >
-              {link.label}
+              {t(link.label)}
             </Link>
           ))}
         </nav>
@@ -146,7 +148,7 @@ export default function Header() {
                       href={link.href}
                       className="text-lg font-medium text-foreground"
                     >
-                      {link.label}
+                      {t(link.label)}
                     </Link>
                   </SheetClose>
                 ))}

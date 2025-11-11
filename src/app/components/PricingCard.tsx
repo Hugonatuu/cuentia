@@ -4,12 +4,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Check, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useMessages, useTranslations } from "next-intl";
 
 type PricingPlan = {
-  name: string;
+  id:string;
+  // name: string;
   price: string;
-  credits: string;
-  features: string[];
+  // credits: string;
+  // features: string[];
   stripePriceId: string;
 };
 
@@ -22,8 +24,12 @@ type PricingCardProps = {
 };
 
 export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUserPlan, hasActiveSubscription }: PricingCardProps) {
-  
-  let ctaText = 'Suscribirse';
+  const t = useTranslations('PreciosPage.pricingPlans')
+  const plans = useMessages()
+  const planFeatures = Object.keys(plans.PreciosPage.pricingPlans[plan.id]['features']);
+console.log('planFeatures',planFeatures[0]);
+
+  let ctaText = t(`${plan.id}.cta`);
   if (hasActiveSubscription) {
     ctaText = isCurrentUserPlan ? 'Plan Actual' : 'Gestionar Plan';
   }
@@ -31,19 +37,19 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
   return (
     <Card className={cn("flex flex-col", isCurrentUserPlan ? "border-primary ring-2 ring-primary shadow-lg" : "")}>
       <CardHeader>
-        <CardTitle>{plan.name}</CardTitle>
-        <CardDescription>{plan.credits}</CardDescription>
+        <CardTitle>{t(`${plan?.id}.name`)}</CardTitle>
+        <CardDescription>{t(`${plan?.id}.credits`)}</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow space-y-4">
         <div className="mb-4">
           <span className="text-4xl font-bold">{plan.price}</span>
-          {plan.name !== 'Pay as you go' && <span className="text-muted-foreground">/mes</span>}
+          {t(`${plan?.id}.name`) !== 'Pay as you go' && <span className="text-muted-foreground">/{t('month')}</span>}
         </div>
         <ul className="space-y-2">
-          {plan.features.map((feature, index) => (
+          {planFeatures.map((feature, index) => (
             <li key={index} className="flex items-start gap-2">
               <Check className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
-              <span className="text-sm text-muted-foreground">{feature}</span>
+              <span className="text-sm text-muted-foreground">{t(`${plan.id}.features.${feature}`)}</span>
             </li>
           ))}
         </ul>

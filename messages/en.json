@@ -240,7 +240,54 @@
     "errorTitle": "Error",
     "errorDescription": "Could not connect to the database.",
     "paymentErrorTitle": "Error processing payment",
-    "paymentErrorDescription": "There was a problem creating the payment session. Please try again."
+    "paymentErrorDescription": "There was a problem creating the payment session. Please try again.",
+      "pricingPlans": {
+        "month":"month",
+        "artista": {
+          "name": "Artist",
+          "credits": "8,000 credits / month",
+          "features": {
+            "allFeatures": "Access to all features",
+            "prioritySupport": "Priority support",
+            "earlyAccess": "Early access to new features",
+            "highQualityExport": "High quality export"
+          },
+          "cta": "Subscribe"
+        },
+        "magic": {
+          "name": "Magic Plan",
+          "credits": "12,500 credits / month",
+          "features": {
+            "allFeatures": "Access to all features",
+            "prioritySupport": "Priority support",
+            "earlyAccess": "Early access to new features",
+            "highQualityExport": "High quality export"
+          },
+          "cta": "Subscribe"
+        },
+        "special": {
+          "name": "Special Plan",
+          "credits": "19,000 credits / month",
+          "features": {
+            "allFeatures": "Access to all features",
+            "prioritySupport": "Priority support",
+            "earlyAccess": "Early access to new features",
+            "highQualityExport": "High quality export"
+          },
+          "cta": "Subscribe"
+        },
+        "king": {
+          "name": "King Plan",
+          "credits": "33,000 credits / month",
+          "features": {
+            "allFeatures": "Access to all features",
+            "prioritySupport": "Priority support",
+            "earlyAccess": "Early access to new features",
+            "highQualityExport": "High quality export"
+          },
+          "cta": "Subscribe"
+        }
+      }
   },
   "Navigation": {
     "Crear Cuento": "💫 Create a Story",

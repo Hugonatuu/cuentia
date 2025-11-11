@@ -210,9 +210,9 @@ export default function PreciosPage() {
             <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                   {pricingPlans
-                    .filter((p) => p.name !== 'Pay as you go')
+                    .filter((p) => t(`pricingPlans.${p.id}.name`) !== 'Pay as you go')
                     .map((plan) => (
-                      <div key={plan.name} className="flex flex-col">
+                      <div key={t(`pricingPlans.${plan.id}.name`)} className="flex flex-col">
                         <PricingCard
                           plan={plan}
                           onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}

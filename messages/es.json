@@ -240,7 +240,54 @@
     "errorTitle": "Error",
     "errorDescription": "No se pudo conectar a la base de datos.",
     "paymentErrorTitle": "Error al procesar el pago",
-    "paymentErrorDescription": "Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo."
+    "paymentErrorDescription": "Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.",
+    "pricingPlans": {
+      "month":"mes",
+      "artista": {
+        "name": "Artista",
+        "credits": "8.000 créditos / mes",
+        "features": {
+          "allFeatures": "Acceso a todas las funciones",
+          "prioritySupport": "Soporte prioritario",
+          "earlyAccess": "Acceso anticipado a novedades",
+          "highQualityExport": "Exportación en alta calidad"
+        },
+        "cta": "Suscribirse"
+      },
+      "magic": {
+        "name": "Plan Mágico",
+        "credits": "12.500 créditos / mes",
+        "features": {
+          "allFeatures": "Acceso a todas las funciones",
+          "prioritySupport": "Soporte prioritario",
+          "earlyAccess": "Acceso anticipado a novedades",
+          "highQualityExport": "Exportación en alta calidad"
+        },
+        "cta": "Suscribirse"
+      },
+      "special": {
+        "name": "Plan Especial",
+        "credits": "19.000 créditos / mes",
+        "features": {
+          "allFeatures": "Acceso a todas las funciones",
+          "prioritySupport": "Soporte prioritario",
+          "earlyAccess": "Acceso anticipado a novedades",
+          "highQualityExport": "Exportación en alta calidad"
+        },
+        "cta": "Suscribirse"
+      },
+      "king": {
+        "name": "Plan King",
+        "credits": "33.000 créditos / mes",
+        "features": {
+          "allFeatures": "Acceso a todas las funciones",
+          "prioritySupport": "Soporte prioritario",
+          "earlyAccess": "Acceso anticipado a novedades",
+          "highQualityExport": "Exportación en alta calidad"
+        },
+        "cta": "Suscribirse"
+      }
+    }
   },
   "Navigation": {
     "Crear Cuento": "💫 Crear Cuento",
