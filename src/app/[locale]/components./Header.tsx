@@ -72,7 +72,7 @@ export default function Header() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2">
-                  <span>Mi Perfil</span>
+                  <span>{t('Mi Perfil')}</span>
                   <Avatar className="h-8 w-8">
                     {user.photoURL && (
                       <AvatarImage
