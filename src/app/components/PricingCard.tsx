@@ -27,7 +27,6 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
   const t = useTranslations('PreciosPage.pricingPlans')
   const plans = useMessages()
   const planFeatures = Object.keys(plans.PreciosPage.pricingPlans[plan.id]['features']);
-console.log('planFeatures',planFeatures[0]);
 
   let ctaText = t(`${plan.id}.cta`);
   if (hasActiveSubscription) {
