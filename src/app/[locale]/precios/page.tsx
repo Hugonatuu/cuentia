@@ -1,35 +1,128 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/app/[locale]/components/ui/button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/app/[locale]/components/ui/card';
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from '@/app/[locale]/components/ui/alert';
-import { Slider } from '@/app/[locale]/components/ui/slider';
-import { CreditsInfoDialog } from '@/app/perfil/components/CreditsInfoDialog';
-import { pricingPlans, userProfile } from '@/lib/placeholder-data';
-import PricingCard from '../components./PricingCard';
+} from '@/components/ui/card';
+import { CreditsInfoDialog } from '@/app/[locale]/perfil/components/CreditsInfoDialog';
+import { pricingPlans } from '@/lib/placeholder-data';
+import PricingCard from '../../components/PricingCard';
 import {
   Info,
   CreditCard,
-  AlertTriangle,
   Star,
+  Loader2,
+  Gem,
+  AlertTriangle,
+  Check,
 } from 'lucide-react';
+import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { createCheckoutSession } from '@/lib/stripe';
+import { useRouter} from '@/i18n/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { collection, query, where } from 'firebase/firestore';
+import { customerSubscriptionsCollectionRef } from '@/firebase/firestore/references';
+import { cn } from '@/lib/utils';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { useLocale, useTranslations } from 'next-intl';
+
+interface Subscription {
+  id: string;
+  status: 'active' | 'trialing' | 'past_due' | 'canceled' | 'incomplete';
+  price: {
+    id: string;
+    product: {
+      id: string;
+    },
+    metadata: {
+        firebaseRole?: string;
+    }
+  };
+  items: {
+    price: {
+        id: string;
+        product: {
+            id: string;
+        },
+        metadata: {
+            firebaseRole?: string;
+        }
+    }
+  }[];
+}
+
+const creditPack = {
+  euros: '5€',
+  credits: '5.000',
+  priceId: 'price_1SOhZfArzx82mGRMGnt8jg5G',
+};
+
+
+const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
 
 export default function PreciosPage() {
-  const [payAsYouGoEuros, setPayAsYouGoEuros] = useState(5);
+  const t = useTranslations('PreciosPage');
   const [isCreditsInfoOpen, setIsCreditsInfoOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState<string | null>(null);
+  const locale = useLocale();
+  const { user } = useUser();
+  const firestore = useFirestore();
+  const router = useRouter();
+  const { toast } = useToast();
 
-  const payAsYouGoCredits = payAsYouGoEuros * 1000;
+  const subscriptionsQuery = useMemoFirebase(() => {
+    if (!firestore || !user) return null;
+    const subsRef = customerSubscriptionsCollectionRef(firestore, user.uid);
+    return query(subsRef, where('status', 'in', ['trialing', 'active', 'past_due', 'incomplete']));
+  }, [firestore, user]);
+
+  const { data: subscriptions, isLoading: isLoadingSubscriptions } = useCollection<Subscription>(subscriptionsQuery);
+  
+  const activeSubscription = subscriptions?.find(s => ['active', 'trialing'].includes(s.status));
+  const pastDueSubscription = subscriptions?.find(s => ['past_due', 'incomplete'].includes(s.status));
+  const primarySubscription = activeSubscription || pastDueSubscription;
+
+
+  const handlePurchase = async (priceId: string, mode: 'subscription' | 'payment') => {
+    if (!user) {
+      router.push('/registro');
+      return;
+    }
+
+    if (mode === 'subscription' && primarySubscription) {
+        window.location.assign(STRIPE_BILLING_PORTAL_URL);
+        return;
+    }
+
+    if (!firestore) {
+      toast({
+        variant: 'destructive',
+        title: t('errorTitle'),
+        description: t('errorDescription'),
+      });
+      return;
+    }
+
+    setIsLoading(priceId);
+
+    try {
+      await createCheckoutSession(firestore, user.uid, priceId, mode, 1, locale);
+    } catch (error) {
+      console.error('Error handling subscription:', error);
+      toast({
+        variant: 'destructive',
+        title: t('paymentErrorTitle'),
+        description: error instanceof Error ? error.message : t('paymentErrorDescription'),
+      });
+       setIsLoading(null);
+    }
+  };
+
 
   return (
     <div className="container mx-auto py-12">
@@ -39,94 +132,97 @@ export default function PreciosPage() {
       />
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
-          Planes para Cada Creador
+          {t('pageTitle')}
         </h1>
         <p className="max-w-3xl mx-auto text-primary mt-4 font-body">
-          Elige la opción que mejor se adapte a tu ritmo creativo. Más
-          créditos, más historias, más magia.
+          {t('pageDescription')}
         </p>
       </div>
 
-      <div className="space-y-8 max-w-7xl mx-auto">
+      <div className="space-y-12 max-w-7xl mx-auto">
         <div className="flex justify-start mb-4">
           <Button variant="outline" onClick={() => setIsCreditsInfoOpen(true)}>
             <Info className="mr-2 h-4 w-4" />
-            ¿Cómo funcionan los créditos?
+            {t('creditsInfoButton')}
           </Button>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Modelo Pay As You Go</CardTitle>
-            <CardDescription>
-              Paga únicamente por lo que vas a usar
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6 pt-2">
-            <div className="flex items-center gap-6">
-              <div className="flex-grow space-y-2">
-                <div className="flex justify-between font-medium">
-                  <span>{payAsYouGoEuros}€</span>
-                  <span>{payAsYouGoCredits} créditos</span>
+        <Card className="max-w-3xl mx-auto">
+          <CardContent className="p-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-12">
+              <div className="flex-grow space-y-4">
+                <div>
+                    <CardTitle className="text-xl">{t('creditPackTitle')}</CardTitle>
+                    <CardDescription className="font-bold text-foreground mt-1">
+                    {t('creditPackDescription')}
+                    </CardDescription>
                 </div>
-                <Slider
-                  value={[payAsYouGoEuros]}
-                  onValueChange={(value) => setPayAsYouGoEuros(value[0])}
-                  min={5}
-                  max={50}
-                  step={1}
-                />
+                <ul className="space-y-2">
+                    <li className="flex items-start gap-2">
+                        <Check className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
+                        <span className="text-sm text-muted-foreground">{t('creditPackFeature')}</span>
+                    </li>
+                </ul>
+                 <Button
+                  onClick={() => handlePurchase(creditPack.priceId, 'payment')}
+                  disabled={isLoading === creditPack.priceId}
+                  size="sm"
+                >
+                  {isLoading === creditPack.priceId ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CreditCard className="mr-2 h-4 w-4" />}
+                  {t('creditPackButton')}
+                </Button>
               </div>
-              <Button>
-                <CreditCard className="mr-2 h-4 w-4" />
-                Comprar Créditos
-              </Button>
+              <div className="flex flex-col items-center gap-2 shrink-0">
+                <div className="text-center p-4 border-2 border-primary rounded-lg bg-primary/10">
+                  <p className="text-xl font-bold text-primary">{t('creditPackAmount')}</p>
+                  <p className="text-sm text-muted-foreground font-semibold">{t('creditPackPrice')}</p>
+                </div>
+              </div>
             </div>
-            <Alert variant="destructive" className="mt-4">
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle>Aviso</AlertTitle>
-              <AlertDescription>
-                Con este modelo los créditos cuestan un 20% más que en las
-                suscripciones.
-              </AlertDescription>
-            </Alert>
           </CardContent>
         </Card>
 
-        <div className="relative pt-8">
-          <div className="absolute -top-0 left-1/2 -translate-x-1/2 z-10">
+        <div className="flex justify-center">
+             <Alert className="w-auto inline-flex items-center gap-3 bg-gradient-to-r from-blue-400 to-purple-500 text-white border-0">
+                <Gem className="h-5 w-5" />
+                <AlertTitle className="font-semibold">
+                    {t('subscriptionAlert')}
+                </AlertTitle>
+            </Alert>
+        </div>
+
+        <div className="relative">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
             <div className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
               <Star className="h-5 w-5" />
               <span className="text-sm font-bold tracking-wider">
-                RECOMENDADO
+                {t('recommendedBadge')}
               </span>
             </div>
           </div>
-          <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25">
-            <CardHeader>
-              <CardTitle>✨ Suscríbete y ahorra un 20 % en créditos</CardTitle>
-              <CardDescription>
-                Disfruta de nuevas actualizaciones antes que nadie, funciones
-                premium y un 20 % más de créditos por el mismo precio.
+          <Card className="overflow-hidden border-2 border-primary shadow-lg shadow-primary/25 pt-6">
+            <CardHeader className="pt-0">
+              <CardTitle className="text-2xl font-bold">{t('subscriptionTitle')}</CardTitle>
+              <CardDescription className="font-bold text-primary !mt-2">
+                {t('subscriptionDescription')}
               </CardDescription>
             </CardHeader>
-            <CardContent className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {pricingPlans
-                .filter((p) => p.name !== 'Pay as you go')
-                .map((plan) => (
-                  <div key={plan.name} className="flex flex-col">
-                    <PricingCard
-                      plan={{
-                        ...plan,
-                        isFeatured: plan.name === userProfile.subscription,
-                        cta:
-                          plan.name === userProfile.subscription
-                            ? 'Plan Actual'
-                            : 'Cambiar Plan',
-                      }}
-                    />
-                  </div>
-                ))}
+            <CardContent>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {pricingPlans
+                    .filter((p) => t(`pricingPlans.${p.id}.name`) !== 'Pay as you go')
+                    .map((plan) => (
+                      <div key={t(`pricingPlans.${plan.id}.name`)} className="flex flex-col">
+                        <PricingCard
+                          plan={plan}
+                          onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}
+                          isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
+                          isCurrentUserPlan={primarySubscription?.items?.[0]?.price.id === plan.stripePriceId}
+                          hasActiveSubscription={!!primarySubscription}
+                        />
+                      </div>
+                    ))}
+                </div>
             </CardContent>
           </Card>
         </div>

@@ -18,74 +18,103 @@ const getImage = (id: string) => {
 
 // This is now the single source of truth for navigation.
 export const mainNavLinks = [
-  { href: '/cuentos/crear/aprendizaje', label: '💫 Crear Cuento' },
+  { href: '/cuentos/crear/aprendizaje', label: 'Crear Cuento' },
   { href: '/personajes', label: 'Personajes' },
   { href: '/comunidad', label: 'Cuentos de la comunidad' },
   { href: '/precios', label: 'Precios' },
 ];
-
 export const pricingPlans = [
   {
-    name: 'Plan Artista',
+    id: 'artista',
     price: '6,99€',
-    credits: '8.000 créditos / mes',
-    features: [
-      'Acceso a todas las funciones',
-      'Soporte prioritario',
-      'Acceso anticipado a novedades',
-      'Exportación en alta calidad'
-    ],
     isFeatured: false,
-    cta: 'Suscribirse',
-    stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W', 
+    stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W',
     firebaseRole: 'artist',
   },
   {
-    name: 'Plan Mágico',
+    id: 'magic',
     price: '9,99€',
-    credits: '12.500 créditos / mes',
-    features: [
-      'Acceso a todas las funciones',
-      'Soporte prioritario',
-      'Acceso anticipado a novedades',
-      'Exportación en alta calidad'
-    ],
     isFeatured: true,
-    cta: 'Suscribirse',
     stripePriceId: 'price_1SP1UDArzx82mGRMZPvzXqXL',
     firebaseRole: 'magic',
   },
   {
-    name: 'Plan Especial',
+    id: 'special',
     price: '14,99€',
-    credits: '19.000 créditos / mes',
-    features: [
-      'Acceso a todas las funciones',
-      'Soporte prioritario',
-      'Acceso anticipado a novedades',
-      'Exportación en alta calidad'
-    ],
     isFeatured: false,
-    cta: 'Suscribirse',
     stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6',
     firebaseRole: 'special',
   },
   {
-    name: 'Plan King',
+    id: 'king',
     price: '23,99€',
-    credits: '33.000 créditos / mes',
-    features: [
-      'Acceso a todas las funciones',
-      'Soporte prioritario',
-      'Acceso anticipado a novedades',
-      'Exportación en alta calidad'
-    ],
     isFeatured: false,
-    cta: 'Suscribirse',
     stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz',
     firebaseRole: 'king',
   },
 ];
+// export const pricingPlans = [
+//   {
+//     name: 'Artista',
+//     price: '6,99€',
+//     credits: '8.000 créditos / mes',
+//     features: [
+//       'Acceso a todas las funciones',
+//       'Soporte prioritario',
+//       'Acceso anticipado a novedades',
+//       'Exportación en alta calidad'
+//     ],
+//     isFeatured: false,
+//     cta: 'Suscribirse',
+//     stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W', 
+//     firebaseRole: 'artist',
+//   },
+//   {
+//     name: 'Plan Mágico',
+//     price: '9,99€',
+//     credits: '12.500 créditos / mes',
+//     features: [
+//       'Acceso a todas las funciones',
+//       'Soporte prioritario',
+//       'Acceso anticipado a novedades',
+//       'Exportación en alta calidad'
+//     ],
+//     isFeatured: true,
+//     cta: 'Suscribirse',
+//     stripePriceId: 'price_1SP1UDArzx82mGRMZPvzXqXL',
+//     firebaseRole: 'magic',
+//   },
+//   {
+//     name: 'Plan Especial',
+//     price: '14,99€',
+//     credits: '19.000 créditos / mes',
+//     features: [
+//       'Acceso a todas las funciones',
+//       'Soporte prioritario',
+//       'Acceso anticipado a novedades',
+//       'Exportación en alta calidad'
+//     ],
+//     isFeatured: false,
+//     cta: 'Suscribirse',
+//     stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6',
+//     firebaseRole: 'special',
+//   },
+//   {
+//     name: 'Plan King',
+//     price: '23,99€',
+//     credits: '33.000 créditos / mes',
+//     features: [
+//       'Acceso a todas las funciones',
+//       'Soporte prioritario',
+//       'Acceso anticipado a novedades',
+//       'Exportación en alta calidad'
+//     ],
+//     isFeatured: false,
+//     cta: 'Suscribirse',
+//     stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz',
+//     firebaseRole: 'king',
+//   },
+// ];
 
 export const exampleStories = [
   { id: '6', title: 'Los tres amigos', image: getImage('story-cover-6'), pdfUrl: '/cuentos/cuento-lostresamigos.pdf' },

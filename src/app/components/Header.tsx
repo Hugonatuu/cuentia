@@ -1,8 +1,7 @@
 
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link, useRouter } from '@/i18n/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -24,8 +23,11 @@ import { mainNavLinks } from '@/lib/placeholder-data';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { signOut } from 'firebase/auth';
 import Logo from '@/components/core/Logo';
+import LocaleSwitcher from './LocaleSwitcher';
+import { useTranslations } from 'next-intl';
 
 export default function Header() {
+  const t= useTranslations('Navigation')
   const { user, isUserLoading } = useUser();
   const auth = useAuth();
   const router = useRouter();
@@ -56,19 +58,20 @@ export default function Header() {
                 href={link.href}
                 className="text-sm font-semibold text-foreground/80 transition-colors hover:text-foreground"
               >
-                {link.label}
+                {t(link.label)}
               </Link>
             ))}
         </nav>
 
         <div className="flex-1 flex items-center justify-end space-x-2 mr-4">
+          <LocaleSwitcher/>
           {isUserLoading ? (
             <div className="h-8 w-20 animate-pulse rounded-md bg-muted"></div>
           ) : isUserVerified ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2">
-                  <span>Mi Perfil</span>
+                  <span>{t('Mi Perfil')}</span>
                   <Avatar className="h-8 w-8">
                     {user.photoURL && <AvatarImage src={user.photoURL} alt={user.displayName || user.email || ''} />}
                     <AvatarFallback>
@@ -94,26 +97,26 @@ export default function Header() {
                 <DropdownMenuItem asChild>
                   <Link href="/perfil">
                     <UserCircle className="mr-2 h-4 w-4" />
-                    <span>Perfil</span>
+                    <span>{t('Perfil')}</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout}>
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>Cerrar Sesión</span>
+                  <span>{t('Cerrar Sesión')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
             <div className="hidden items-center space-x-2 md:flex">
               <Button variant="ghost" asChild>
-                <Link href="/login">Iniciar Sesión</Link>
+                <Link href="/login">{t('Iniciar Sesión')}</Link>
               </Button>
               <Button
                 className="bg-accent text-accent-foreground hover:bg-accent/90"
                 asChild
               >
-                <Link href="/registro">Registrarse</Link>
+                <Link href="/registro">{t('Registrarse')}</Link>
               </Button>
             </div>
           )}
@@ -122,7 +125,7 @@ export default function Header() {
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Abrir menú</span>
+                <span className="sr-only">{t('Abrir menú')}</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
@@ -139,7 +142,7 @@ export default function Header() {
                         href={link.href}
                         className="text-lg font-medium text-foreground"
                       >
-                        {link.label}
+              {t(link.label)}
                       </Link>
                     </SheetClose>
                   ))}
@@ -149,7 +152,7 @@ export default function Header() {
                     <>
                       <SheetClose asChild>
                         <Button variant="outline" asChild>
-                          <Link href="/login">Iniciar Sesión</Link>
+                          <Link href="/login">{t('Iniciar Sesión')}</Link>
                         </Button>
                       </SheetClose>
                       <SheetClose asChild>
@@ -157,7 +160,7 @@ export default function Header() {
                           className="bg-accent text-accent-foreground hover:bg-accent/90"
                           asChild
                         >
-                          <Link href="/registro">Registrarse</Link>
+                          <Link href="/registro">{t('Registrarse')}</Link>
                         </Button>
                       </SheetClose>
                     </>

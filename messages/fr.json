@@ -1,0 +1,564 @@
+{
+  "LocaleSwitcher": {
+    "label": "Changer de langue",
+    "locale": "{locale, select, de {Allemand} en {Anglais} fr {Français} es {Espagnol} it {Italien} pt {Portugais} other {Inconnu}}"
+  },
+  "HomePage": {
+    "title": "Créez des histoires qui prennent vie en quelques secondes",
+    "subtitle": "Votre imagination et l'intelligence artificielle s'unissent pour transformer quelques mots en une histoire magique remplie d'illustrations.",
+    "cta": "✨ Créer mon histoire ✨",
+    "howItWorksTitle": "COMMENT ÇA MARCHE",
+    "step1Title": "1. CRÉEZ VOTRE PERSONNAGE",
+    "step1Description": "Téléchargez une photo, créez une version magique de vous, de votre animal de compagnie ou de qui vous voulez... et de tous les personnages que vous imaginez !",
+    "step1Cta": "Créer un personnage",
+    "step2Title": "2. Choisissez quel personnage vous voulez voir apparaître dans votre histoire",
+    "step2Description": "Vous pouvez choisir parmi les personnages que vous avez créés ou utiliser les personnages prédéfinis de Cuentia. Combinez comme vous le souhaitez !",
+    "step2Cta": "Voir les personnages",
+    "step3Title": "3. Écrivez les points clés et l'objectif d'apprentissage",
+    "step3Description": "Laissez libre cours à votre imagination ! Ajoutez les points principaux, un objectif d'apprentissage et donnez votre touche personnelle.",
+    "step4Title": "4. Ajoutez les derniers détails de personnalisation à votre livre",
+    "step4Description": "Ajoutez une dédicace spéciale et une image sur la quatrième de couverture pour le rendre encore plus unique.",
+    "examplesTitle": "Histoires créées avec Cuentia",
+    "findStoriestitle": "🌍 Trouvez plus d'histoires dans votre langue ici ! 🌍",
+    "communityStories": "Histoires de la communauté",
+    "noStories": "Il n'y a pas encore d'histoires dans la communauté.",
+    "faqTitle": "Questions Fréquentes",
+    "faq1Question": "Comment fonctionne la création d'avatars ?",
+    "faq1Answer": "Il vous suffit de télécharger plusieurs photos d'une personne ou d'un animal de compagnie, et notre IA générera un personnage de dessin animé que vous pourrez utiliser comme protagoniste dans toutes vos histoires.",
+    "faq2Question": "Que sont les crédits ?",
+    "faq2Answer": "Les crédits sont la monnaie de Cuentia pour générer des histoires et des illustrations.",
+    "faq3Question": "Puis-je utiliser les histoires à des fins commerciales ?",
+    "faq3Answer": "Oui, avec les plans d'abonnement, vous avez les droits d'utilisation, y compris commerciale.",
+    "faq4Question": "Combien de crédits coûte la création d'une histoire ?",
+    "faq4Answer": "Les histoires illustrées les plus basiques coûtent 800 crédits.",
+    "finalCtaTitle": "Prêt à créer de la magie ?",
+    "finalCtaDescription": "Rejoignez la communauté Cuentia et commencez à donner vie à vos histoires.",
+    "finalCtaButton": "S'inscrire gratuitement"
+  },
+  "CreateStoryPage": {
+    "createStoryTitle": "Créez votre histoire !",
+    "createStoryDescription": "Transformez votre imagination en une histoire inoubliable remplie d'illustrations et de magie, où chaque page prend vie avec vos propres idées et personnages.",
+    "illustrateStoryTitle": "Illustrez votre histoire",
+    "mainDataTitle": "1. Détails principaux de l'histoire",
+    "storyTitleLabel": "Titre de l'histoire",
+    "storyTitlePlaceholder": "Le mystère de la forêt enchantée",
+    "readerAgeLabel": "Âge du lecteur",
+    "readerAgePlaceholder": "Sélectionnez un âge",
+    "ageOption1": "3-5 ans",
+    "ageOption2": "6-8 ans",
+    "ageOption3": "9-12 ans",
+    "readerNameLabel": "Nom du lecteur",
+    "readerNamePlaceholder": "Léo",
+    "readerNameTooltip": "Mettez le nom du lecteur pour personnaliser la première page du livre",
+    "charactersTitle": "2. Personnages",
+    "charactersDescription": "Choisissez jusqu'à 4 personnages pour votre histoire. Vous pouvez créer les vôtres !",
+    "storyDetailsTitle": "3. Détails de l'histoire",
+    "storyDetailsSubtitle": "Ajoutez les touches finales pour rendre votre histoire unique.",
+    "languageTip": "💡 Conseil : nous vous recommandons d'écrire les détails dans la même langue que celle dans laquelle vous allez générer l'histoire, pour un résultat plus naturel et précis.",
+    "plotPointsLabel": "Points Clés de l'Intrigue (Facultatif)",
+    "plotPointsPlaceholder": "Léo, le protagoniste, part en voyage avec sa grand-mère Marie et rencontre une fille (Ana) qui deviendra sa meilleure amie.",
+    "learningObjectiveLabel": "Objectif d'Apprentissage (Facultatif)",
+    "learningObjectivePlaceholder": "Ex : Enseigner à Léo l'importance de l'amitié et du travail d'équipe.",
+    "ideasButton": "Idées",
+    "imageCountLabel": "Combien d'images voulez-vous ajouter à votre histoire ?",
+    "imageCountPlaceholder": "Sélectionnez une quantité",
+    "imageOption1": "4 images + couverture (800cd)",
+    "imageOption2": "12 images + Couverture (1.500cd)",
+    "imageOption3": "20 images + Couverture (2.400cd)",
+    "magicalTouchesTitle": "4. Touches Magiques (Facultatif)",
+    "addDedicationLabel": "Ajouter une dédicace spéciale",
+    "initialPhraseLabel": "Phrase au début de l'histoire",
+    "initialPhrasePlaceholder": "Pour mon cher Léo, avec tout mon amour.",
+    "finalPhraseLabel": "Phrase à la fin de l'histoire",
+    "finalPhrasePlaceholder": "De ta Maman, qui t'aime à la folie.",
+    "backCoverImageLabel": "Ajouter une image sur la quatrième de couverture",
+    "backCoverUploadLabel": "Image de la quatrième de couverture",
+    "backCoverUploadText": "Télécharger l'image",
+    "backCoverChangeText": "Changer l'image",
+    "languageTitle": "Langue",
+    "languageWarning": "🎯 Assurez-vous d'écrire les détails de votre histoire dans la même langue que celle dans laquelle vous allez créer l'histoire, pour que tout s'harmonise parfaitement.",
+    "languageLabel": "Langue de l'histoire",
+    "languagePlaceholder": "Sélectionnez une langue",
+    "languageEs": "Espagnol",
+    "languageEn": "Anglais",
+    "languageFr": "Français",
+    "languageIt": "Italien",
+    "languageDe": "Allemand",
+    "languagePt": "Portugais",
+    "totalCost": "Coût Total : {credits} crédits",
+    "createStoryButton": "Créer Mon Histoire Magique",
+    "generatingButton": "Génération...",
+    "illustrateTab": "Illustrez votre histoire",
+    "createTab": "Créez votre histoire",
+    "illustrateStoryDescription": "Remplissez les détails et laissez la magie opérer.",
+    "illustratePagesTitle": "Contenu des pages",
+    "illustratePagesAlertTitle": "Donnez vie à vos pages !",
+    "illustratePagesAlertDescription": "Chaque page que vous choisissez d'illustrer a un coût supplémentaire de 100 crédits.",
+    "pageCountLabel": "Nombre de pages",
+    "pageCountPlaceholder": "Sélectionnez le nombre de pages",
+    "pageLabel": "Page {number}",
+    "illustrateToggle": "Illustrer",
+    "pageTextPlaceholder": "Écrivez ici le texte pour la page {number}...",
+    "illustrateButton": "Illustrer Mon Histoire",
+    "authPopupTitle": "✨ Inscrivez-vous pour créer votre histoire ! ✨",
+    "authPopupDescription": "Rejoignez la magie ! Créez un compte pour commencer à générer vos propres histoires et personnages uniques.",
+    "authPopupAction": "S'inscrire",
+    "generatingPopupTitle": "Oups ! Une histoire est en cours de cuisson 🧁",
+    "generatingPopupDescription": "Attendez un peu et vous pourrez créer la suivante.",
+    "generatingPopupAction": "Compris",
+    "insufficientCreditsTitle": "Crédits insuffisants",
+    "insufficientCreditsDescription": "Vous avez besoin de {needed} crédits pour créer cette histoire, mais il ne vous en reste que {available}.",
+    "configErrorTitle": "Erreur de configuration",
+    "configErrorDescription": "La sélection d'images n'a pas de webhook associé. Veuillez sélectionner une option valide.",
+    "storyGeneratingTitle": "Histoire en cours !",
+    "storyGeneratingDescription": "Votre histoire est en cours de génération. Vous recevrez une notification lorsqu'elle sera prête.",
+    "storyErrorTitle": "Erreur lors de la génération de l'histoire",
+    "illustrationGeneratingTitle": "Votre histoire est en cours d'illustration !",
+    "illustrationGeneratingDescription": "Vous recevrez une notification lorsqu'elle sera prête.",
+    "illustrationErrorTitle": "Erreur lors de l'illustration de l'histoire",
+    "learningObjectiveSuggestions": {
+      "learningObjectiveSuggestion1": "Enseigner l'importance de prendre soin des autres",
+      "learningObjectiveSuggestion2": "Apprendre à valoriser les choses",
+      "learningObjectiveSuggestion3": "Faire comprendre au protagoniste qu'il est plus fort qu'il ne le croit",
+      "learningObjectiveSuggestion4": "Découvrir qu'être différent est spécial",
+      "learningObjectiveSuggestion5": "Apprendre à exprimer et à comprendre les émotions",
+      "learningObjectiveSuggestion6": "Enseigner à pardonner et à demander pardon",
+      "learningObjectiveSuggestion7": "Apprendre que tout le monde fait des erreurs et que c'est normal",
+      "learningObjectiveSuggestion8": "Comprendre la valeur de dire la vérité",
+      "learningObjectiveSuggestion9": "Enseigner le respect des autres, quelles que soient leurs différences",
+      "learningObjectiveSuggestion10": "Apprendre à écouter et à partager",
+      "learningObjectiveSuggestion11": "Apprendre à surmonter la peur de...",
+      "learningObjectiveSuggestion12": "Enseigner à avoir confiance en soi"
+    },
+    "insufficientCreditsIllustrateTitle": "Crédits insuffisants",
+    "insufficientCreditsIllustrateDescription": "Vous avez besoin de {needed} crédits pour illustrer cette histoire, mais il ne vous en reste que {available}.",
+    "validationTitleRequired": "Le titre est obligatoire.",
+    "validationTitleMaxLength": "Le titre ne peut pas dépasser 35 caractères.",
+    "validationLearningObjectiveMaxLength": "L'objectif d'apprentissage ne peut pas dépasser 200 caractères.",
+    "validationReaderAgeRequired": "L'âge est obligatoire.",
+    "validationReaderNameRequired": "Le nom du lecteur est obligatoire.",
+    "validationReaderNameMaxLength": "Le nom ne peut pas dépasser 20 caractères.",
+    "validationImageCountRequired": "Vous devez sélectionner un nombre d'images.",
+    "validationPromptMaxLength": "Les points clés ne peuvent pas dépasser 220 caractères.",
+    "validationPhraseMaxLength": "La phrase ne peut pas dépasser 150 caractères.",
+    "validationCharactersMin": "Vous devez sélectionner au moins un personnage.",
+    "validationCharactersMax": "Vous pouvez sélectionner jusqu'à 4 personnages.",
+    "validationLanguageRequired": "Vous devez sélectionner une langue.",
+    "validationPageMaxLength": "Chaque page ne peut pas dépasser 500 caractères.",
+    "validationPagesRequired": "Vous devez remplir toutes les pages.",
+    "validationPagesCount": "Vous devez remplir les {pageCount} pages.",
+    "pagesText": "pages",
+    "defaultDescription": "Remplissez les détails et laissez la magie opérer.",
+    "validationIllustrateTitleRequired": "Le titre est obligatoire.",
+    "validationIllustrateTitleMaxLength": "Le titre ne peut pas dépasser 50 caractères.",
+    "validationIllustrateReaderNameRequired": "Le nom du lecteur est obligatoire.",
+    "validationIllustrateReaderNameMaxLength": "Le nom ne peut pas dépasser 20 caractères.",
+    "validationIllustrateCharactersMin": "Vous devez sélectionner au moins un personnage.",
+    "validationIllustrateCharactersMax": "Vous pouvez sélectionner jusqu'à 4 personnages.",
+    "validationIllustratePageMaxLength": "Chaque page ne peut pas dépasser 500 caractères.",
+    "validationIllustratePagesRequired": "Vous devez remplir toutes les pages.",
+    "validationIllustratePagesCount": "Vous devez remplir les {pageCount} pages.",
+    "validationIllustratePhraseMaxLength": "La phrase ne peut pas dépasser 150 caractères.",
+    "toastStoryGeneratingTitle": "Histoire en cours !",
+    "toastStoryGeneratingDescription": "Votre histoire est en cours de génération. Vous recevrez une notification lorsqu'elle sera prête.",
+    "toastStoryErrorTitle": "Erreur lors de la génération de l'histoire",
+    "toastIllustrationGeneratingTitle": "Votre histoire est en cours d'illustration !",
+    "toastIllustrationGeneratingDescription": "Vous recevrez une notification lorsqu'elle sera prête.",
+    "toastIllustrationErrorTitle": "Erreur lors de l'illustration de l'histoire",
+    "errorDocumentNotFound": "Le document utilisateur n'existe pas.",
+    "errorStoryCreationFailed": "Impossible de créer le document de l'histoire."
+  },
+  "PersonajesPage": {
+    "pageTitle": "Un Monde de Personnages",
+    "pageDescription": "Ici vivent les personnages qui donneront vie à vos histoires. Créez de nouveaux amis, vous-même ou même votre animal de compagnie !",
+    "authCardTitle": "Téléchargez une photo de vous, de votre animal de compagnie ou de qui vous voulez et créez un personnage unique.",
+    "authCardSubtitle": "💫Inscrivez-vous et que la magie commence ! 💫",
+    "authCardButton": "Créer un personnage",
+    "myCharactersTitle": "Mes Personnages",
+    "createCharacterButton": "✨ Créer un Nouveau Personnage ✨",
+    "noCharactersTitle": "Vous n'avez pas encore créé de personnage",
+    "noCharactersDescription": "Votre histoire attend son protagoniste. Créez le premier et que la magie commence !",
+    "firstCharacterButton": "Créer mon premier personnage",
+    "deleteButton": "Supprimer",
+    "deleteButtonAriaLabel": "Supprimer le personnage",
+    "predefinedCharactersTitle": "Personnages Prédéfinis",
+    "allCategoriesButton": "Tous",
+    "noCategoryCharactersTitle": "Pas de personnages dans cette catégorie",
+    "noCategoryCharactersDescription": "Bientôt plus de personnages prêts pour l'aventure seront disponibles.",
+    "deleteDialogTitle": "Êtes-vous sûr ?",
+    "deleteDialogDescription": "Cette action est irréversible. Cela supprimera définitivement le personnage \"{characterName}\" de vos données.",
+    "deleteDialogCancel": "Annuler",
+    "deleteDialogConfirm": "Supprimer",
+    "categories": {
+      "fantasy": "Fantaisie",
+      "animal": "Animal",
+      "humans": "Humains",
+      "christmas": "Noël",
+      "other": "Autre"
+    }
+  },
+  "ComunidadPage": {
+    "pageTitle": "Histoires de la Communauté",
+    "pageDescription": "Découvrez les histoires créées par d'autres rêveurs comme vous. Inspirez-vous, partagez et laissez la magie de leurs contes vous transporter vers de nouveaux mondes.",
+    "languageDropdownTrigger": "Langue : {selectedLanguageLabel}",
+    "languageCategories": {
+      "all": "Tous",
+      "es": "Espagnol",
+      "en": "Anglais",
+      "fr": "Français",
+      "it": "Italien",
+      "de": "Allemand",
+      "pt": "Portugais"
+    },
+    "errorTitle": "Erreur lors du chargement des histoires",
+    "errorDescription": "Il y a eu un problème de connexion à la base de données. Veuillez réessayer plus tard.",
+    "noStoriesTitle": "Pas encore d'histoires dans cette catégorie",
+    "noStoriesDescription": "Explorez d'autres langues ou soyez le premier à partager !",
+    "readStoryButton": "Lire l'histoire"
+  },
+  "PreciosPage": {
+    "pageTitle": "Plans pour Chaque Créateur",
+    "pageDescription": "Choisissez l'option qui correspond le mieux à votre rythme créatif. Plus de crédits, plus d'histoires, plus de magie.",
+    "creditsInfoButton": "Comment fonctionnent les crédits ?",
+    "creditPackTitle": "Pack de Crédits",
+    "creditPackDescription": "Parfait pour ceux qui veulent essayer Cuentia ou l'utiliser sans engagement mensuel.",
+    "creditPackFeature": "Accès à toutes les fonctionnalités",
+    "creditPackButton": "Acheter",
+    "creditPackAmount": "5 000 crédits",
+    "creditPackPrice": "pour 5€",
+    "subscriptionAlert": "Jusqu'à 40 % de crédits en plus avec l'abonnement !",
+    "recommendedBadge": "RECOMMANDÉ",
+    "subscriptionTitle": "✨ Abonnez-vous et économisez sur chaque crédit",
+    "subscriptionDescription": "Sans engagement, sans risque : annulez quand vous voulez et profitez de paiements sécurisés avec Stripe",
+    "errorTitle": "Erreur",
+    "errorDescription": "Impossible de se connecter à la base de données.",
+    "paymentErrorTitle": "Erreur lors du traitement du paiement",
+    "paymentErrorDescription": "Il y a eu un problème lors de la création de la session de paiement. Veuillez réessayer."
+    ,
+    "pricingPlans": {
+      "month":"mois",
+      "artista": {
+        "name": "Plan Artiste",
+        "credits": "8 000 crédits / mois",
+        "features": {
+          "allFeatures": "Accès à toutes les fonctionnalités",
+          "prioritySupport": "Support prioritaire",
+          "earlyAccess": "Accès anticipé aux nouveautés",
+          "highQualityExport": "Exportation en haute qualité"
+        },
+        "cta": "S'abonner"
+      },
+      "magic": {
+        "name": "Plan Magique",
+        "credits": "12 500 crédits / mois",
+        "features": {
+          "allFeatures": "Accès à toutes les fonctionnalités",
+          "prioritySupport": "Support prioritaire",
+          "earlyAccess": "Accès anticipé aux nouveautés",
+          "highQualityExport": "Exportation en haute qualité"
+        },
+        "cta": "S'abonner"
+      },
+      "special": {
+        "name": "Plan Spécial",
+        "credits": "19 000 crédits / mois",
+        "features": {
+          "allFeatures": "Accès à toutes les fonctionnalités",
+          "prioritySupport": "Support prioritaire",
+          "earlyAccess": "Accès anticipé aux nouveautés",
+          "highQualityExport": "Exportation en haute qualité"
+        },
+        "cta": "S'abonner"
+      },
+      "king": {
+        "name": "Plan Roi",
+        "credits": "33 000 crédits / mois",
+        "features": {
+          "allFeatures": "Accès à toutes les fonctionnalités",
+          "prioritySupport": "Support prioritaire",
+          "earlyAccess": "Accès anticipé aux nouveautés",
+          "highQualityExport": "Exportation en haute qualité"
+        },
+        "cta": "S'abonner"
+      }
+    }
+  },
+  "Navigation": {
+    "Crear Cuento": "💫 Créer une Histoire",
+    "Personajes": "Personnages",
+    "Cuentos de la comunidad": "Histoires de la communauté",
+    "Precios": "Tarifs",
+    "Iniciar Sesión": "Se connecter",
+    "Registrarse": "S'inscrire",
+    "Mi Perfil": "Mon Profil",
+    "Usuario": "Utilisateur",
+    "Perfil": "Profil",
+    "Cerrar Sesión": "Se déconnecter",
+    "Abrir menú": "Ouvrir le menu"
+  },
+  "CreditsInfoDialog": {
+    "title": "Comment fonctionnent les crédits ?",
+    "description1": "Chaque fois que vous créez une histoire, vos crédits sont utilisés en fonction du type de création que vous choisissez.",
+    "description2": "Les histoires les plus basiques coûtent à partir de 800 crédits et comprennent le texte + des illustrations personnalisées.",
+    "description3": "Plus vous ajoutez d'éléments (plus de pages, plus d'images ou une voix narrative), plus vous aurez besoin de crédits.",
+    "actionButton": "Compris"
+  },
+  "ProfileAvatarPickerDialog": {
+    "title": "Choisissez votre Photo de Profil",
+    "description": "Sélectionnez l'un de vos personnages créés ou l'un de nos personnages prédéfinis comme avatar.",
+    "myCharactersTab": "Mes Personnages",
+    "predefinedTab": "Prédéfinis",
+    "createCharacterButton": "Créer un Personnage",
+    "noCharactersMessage": "Aucun personnage {type}.",
+    "userType": "créé",
+    "predefinedType": "prédéfini"
+  },
+  "RegisterPage": {
+    "title": "S'inscrire",
+    "description": "Créez votre compte pour commencer à créer des histoires magiques",
+    "firstNameLabel": "Prénom",
+    "firstNamePlaceholder": "Max",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "m@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "submitButton": "Créer un compte",
+    "googleButton": "S'inscrire avec Google",
+    "loginText": "Vous avez déjà un compte ?",
+    "loginLink": "Se connecter"
+  },
+  "LoginPage": {
+    "title": "Se Connecter",
+    "description": "Entrez votre e-mail pour accéder à votre compte",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "m@exemple.com",
+    "passwordLabel": "Mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "submitButton": "Se connecter",
+    "googleButton": "Se connecter avec Google",
+    "noAccountText": "Vous n'avez pas de compte ?",
+    "registerLink": "S'inscrire",
+    "verificationRequiredTitle": "Vérification requise",
+    "verificationRequiredDescription": "Veuillez vérifier votre e-mail pour vous connecter.",
+    "loginErrorTitle": "Erreur de connexion",
+    "loginErrorDescription": "Les identifiants sont incorrects. Veuillez réessayer."
+  },
+  "ForgotPasswordPage": {
+    "title": "Réinitialiser le Mot de Passe",
+    "description": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+    "emailLabel": "E-mail",
+    "emailPlaceholder": "m@exemple.com",
+    "submitButton": "Envoyer le lien",
+    "rememberPasswordText": "Vous vous souvenez de votre mot de passe ?",
+    "loginLink": "Se connecter",
+    "successTitle": "E-mail Envoyé",
+    "successDescription": "Vérifiez votre boîte de réception pour réinitialiser votre mot de passe.",
+    "errorTitle": "Erreur",
+    "errorDescription": "Une erreur est survenue. Veuillez réessayer.",
+    "userNotFoundDescription": "Aucun compte n'a été trouvé avec cette adresse e-mail."
+  },
+  "VerifyEmailPage": {
+    "title": "C'est presque fait ! Vérifiez votre e-mail",
+    "description": "Nous avons envoyé un lien de vérification à votre adresse e-mail. Veuillez cliquer sur ce lien pour activer votre compte et vous connecter.",
+    "afterVerification": "Une fois vérifié, vous pourrez accéder à toutes les fonctionnalités de Cuentia.",
+    "loginButton": "Aller à la Connexion",
+    "noEmailText": "Vous n'avez pas reçu l'e-mail ? Vérifiez votre dossier de spam ou contactez-nous."
+  },
+  "EjemplosPage": {
+    "title": "Galerie de l'Imagination",
+    "description": "Explorez les mondes créés avec Cuentia. Chaque histoire est une porte vers une nouvelle aventure ou un nouvel apprentissage.",
+    "downloadButton": "Télécharger"
+  },
+  "PerfilPage": {
+    "planTitle": "Votre Plan Actuel",
+    "subscriptionTab": "Mon abonnement",
+    "creditsTab": "Crédits Achetés",
+    "noSubscription": "Vous n'avez pas d'abonnement actif.",
+    "viewPlans": "Voir les Plans",
+    "manageSubscription": "Gérer mon abonnement",
+    "paymentFailureTitle": "Échec du paiement",
+    "paymentFailureDescription": "Un problème est survenu avec le paiement de votre abonnement. Veuillez mettre à jour votre mode de paiement.",
+    "remainingCredits": "Crédits restants du plan",
+    "howItWorks": "Comment ça marche ?",
+    "purchasedCredits": "Crédits achetés",
+    "addCredits": "Ajouter des Crédits",
+    "storiesTitle": "Mes Histoires Créées",
+    "storiesDescription": "Vous trouverez ici toutes vos créations magiques.",
+    "generating": "Génération...",
+    "readStory": "Lire l'histoire",
+    "noStoriesTitle": "Vous n'avez pas encore créé d'histoire",
+    "noStoriesDescription": "Il est temps de donner vie à votre première histoire !",
+    "createFirstStory": "Créer ma première histoire",
+    "deleteDialogTitle": "Êtes-vous sûr de vouloir supprimer cette histoire ?",
+    "deleteDialogDescription": "Cette action est irréversible. L'histoire \"{storyTitle}\" sera définitivement supprimée.",
+    "deleteCancel": "Annuler",
+    "deleteConfirm": "Supprimer"
+  },
+  "CharacterSlot": {
+    "removeButton": "Retirer le personnage",
+    "customizeButton": "Personnaliser",
+    "customizedButton": "Personnalisé",
+    "addButton": "Ajouter"
+  },
+  "CharacterPickerDialog": {
+    "title": "Choisir un Personnage",
+    "description": "Sélectionnez un personnage pour votre histoire. Les personnages déjà choisis sont désactivés.",
+    "myCharactersTab": "Mes Personnages",
+    "predefinedTab": "Prédéfinis",
+    "createNewButton": "Créer un Nouveau",
+    "noCharactersMessage": "Aucun personnage {type}.",
+    "userType": "créé",
+    "predefinedType": "prédéfini"
+  },
+  "CrearPersonajePage": {
+    "authPopup": {
+      "title": "✨ Inscrivez-vous pour créer votre personnage ! ✨",
+      "description": "Rejoignez la magie ! Créez un compte et commencez à générer vos propres avatars pour vos histoires.",
+      "actionText": "S'inscrire"
+    },
+    "generationModal": {
+      "loadingTitle": "Création de Magie...",
+      "readyTitle": "Avatar Prêt !",
+      "loadingDescription": "Nous donnons vie à votre personnage. Veuillez ne pas quitter la page.",
+      "readyDescription": "Votre avatar \"{name}\" a été créé.",
+      "generating": "Génération...",
+      "close": "Fermer"
+    },
+    "page": {
+      "title": "Créez votre Avatar Personnalisé",
+      "description": "Téléchargez quelques photos et laissez l'intelligence artificielle vous transformer, vous, un être cher ou votre animal de compagnie, en le protagoniste d'une histoire."
+    },
+    "characterData": {
+      "title": "1. Détails du Personnage",
+      "name": {
+        "label": "Nom du Personnage",
+        "placeholder": "Ex : Jack, Ana, M. Thompson..."
+      },
+      "species": {
+        "label": "Espèce",
+        "placeholder": "Sélectionnez une espèce",
+        "options": {
+          "human": "Humain",
+          "dog": "Chien",
+          "cat": "Chat",
+          "bird": "Oiseau",
+          "rabbit": "Lapin",
+          "hamster": "Hamster",
+          "fish": "Poisson",
+          "other": "Autre"
+        },
+        "other": {
+          "label": "Spécifiez l'espèce",
+          "placeholder": "Ex : Dinosaure, Dragon..."
+        }
+      },
+      "gender": {
+        "label": "Genre",
+        "placeholder": "Sélectionnez un genre",
+        "options": {
+          "male": "Masculin",
+          "female": "Féminin",
+          "neutral": "Neutre"
+        }
+      },
+      "age": {
+        "label": "Âge",
+        "placeholder": "Ex : 8"
+      }
+    },
+    "photos": {
+      "title": "2. Téléchargez les Photos ({count}/4)",
+      "description": "Téléchargez entre 2 et 4 photos. Au moins une photo doit être en pied.",
+      "dropzone": {
+        "click": "Cliquez pour télécharger",
+        "drag": "ou faites glisser et déposez"
+      },
+      "selected": "Photos Sélectionnées",
+      "remove": "Supprimer l'image"
+    },
+    "cost": {
+      "total": "Coût Total : {cost} crédits"
+    },
+    "submitButton": {
+      "loading": "Génération...",
+      "default": "Générer Mon Avatar Magique"
+    },
+    "errors": {
+      "database": "La base de données n'est pas disponible. Veuillez réessayer.",
+      "incompleteFields": "Veuillez remplir tous les champs du personnage.",
+      "insufficientPhotos": "Veuillez télécharger entre 2 et 4 photos pour générer l'avatar.",
+      "insufficientCreditsTitle": "Crédits insuffisants",
+      "insufficientCredits": "Vous avez besoin de {cost} crédits pour créer un avatar, mais il ne vous en reste que {available}.",
+      "serverError": "Un problème est survenu lors de la connexion au serveur.",
+      "noAvatarUrl": "La réponse du serveur n'inclut pas d'URL d'avatar.",
+      "photoLimit": "Limite de photos atteinte",
+      "photoLimitDescription": "Vous pouvez télécharger un maximum de 4 photos."
+    },
+    "success": {
+      "avatarGenerated": "Avatar généré et sauvegardé !",
+      "avatarSaved": "L'avatar \"{name}\" a été sauvegardé dans votre collection."
+    }
+  },
+  "CommunityStoryViewerPage": {
+    "loading": {
+      "title": "Chargement de l'histoire de la communauté..."
+    },
+    "errors": {
+      "loadError": "Impossible de charger l'histoire. Veuillez réessayer.",
+      "notFound": "Histoire non trouvée",
+      "notFoundDescription": "Nous n'avons pas pu trouver l'histoire que vous recherchez ou le PDF n'est pas disponible."
+    },
+    "controls": {
+      "download": "Télécharger le PDF",
+      "previous": "Page précédente",
+      "next": "Page suivante",
+      "page": "Page {currentPage}",
+      "pageRange": "Page {currentPage} - {nextPage}"
+    }
+  },
+  "StoryViewerPage": {
+    "loading": {
+      "title": "Chargement de votre histoire..."
+    },
+    "errors": {
+      "loadError": "Impossible de charger l'histoire. Veuillez réessayer.",
+      "notFound": "Histoire non trouvée",
+      "notFoundDescription": "Nous n'avons pas pu trouver l'histoire que vous recherchez ou le PDF n'est pas encore disponible."
+    },
+    "controls": {
+      "download": "Télécharger le PDF",
+      "previous": "Page précédente",
+      "next": "Page suivante",
+      "page": "Page {currentPage}",
+      "pageRange": "Page {currentPage} - {nextPage}"
+    }
+  },
+  "CharacterCustomizationDialog": {
+    "title": "Personnaliser {characterName}",
+    "description": "Ajoutez des détails visuels spécifiques pour ce personnage uniquement pour cette histoire.",
+    "cost": "(+100cd par personnalisation)",
+    "changes": "Changements pour cette histoire",
+    "placeholder": "Ex : Mettez des vêtements chauds et une casquette rouge à mon personnage",
+    "alert": "Écrivez la personnalisation dans la même langue que celle dans laquelle vous allez générer l'histoire.",
+    "cancel": "Annuler",
+    "save": "Enregistrer les Changements"
+  },
+  "EditAvatar": {
+    "success": {
+      "title": "Avatar mis à jour !",
+      "description": "Votre photo de profil a été changée avec succès."
+    },
+    "errors": {
+      "updateError": {
+        "title": "Erreur de mise à jour",
+        "description": "Impossible de changer votre photo de profil. Veuillez réessayer."
+      }
+    },
+    "fallback": {
+      "alt": "Avatar"
+    }
+  },
+  "Footer": {
+    "createdBy": "Créé avec 💜 pour les petits lecteurs.",
+    "copy": "© {year} Cuentia. Tous droits réservés."
+  }
+}

@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -11,15 +10,17 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
 import { useAuth, useUser } from '@/firebase';
 import { initiateEmailSignIn, initiateGoogleSignIn } from '@/firebase/non-blocking-login';
 import { useEffect, useState } from 'react';
 import { GoogleIcon } from '@/components/icons/GoogleIcon';
 import { useToast } from '@/hooks/use-toast';
 import { User } from 'firebase/auth';
+import { Link, useRouter } from '@/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function LoginPage() {
+  const t = useTranslations('LoginPage');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const auth = useAuth();
@@ -37,8 +38,8 @@ export default function LoginPage() {
     if (!loggedInUser.emailVerified) {
       toast({
         variant: 'destructive',
-        title: 'Verificación requerida',
-        description: 'Por favor, verifica tu correo electrónico para iniciar sesión.',
+        title: t('verificationRequiredTitle'),
+        description: t('verificationRequiredDescription'),
       });
       auth.signOut();
     } else {
@@ -49,8 +50,8 @@ export default function LoginPage() {
   const handleError = (error: any) => {
     toast({
       variant: 'destructive',
-      title: 'Error de inicio de sesión',
-      description: 'Las credenciales son incorrectas. Por favor, inténtalo de nuevo.',
+      title: t('loginErrorTitle'),
+      description: t('loginErrorDescription'),
     });
   };
 
@@ -69,20 +70,20 @@ export default function LoginPage() {
     <div className="flex items-center justify-center py-12">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold">Iniciar Sesión</CardTitle>
+          <CardTitle className="text-2xl font-bold">{t('title')}</CardTitle>
           <CardDescription>
-            Introduce tu correo para acceder a tu cuenta
+            {t('description')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="email">Correo electrónico</Label>
+                <Label htmlFor="email">{t('emailLabel')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@ejemplo.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -90,12 +91,12 @@ export default function LoginPage() {
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Contraseña</Label>
+                  <Label htmlFor="password">{t('passwordLabel')}</Label>
                   <Link
                     href="/restablecer-contrasena"
                     className="ml-auto inline-block text-sm underline"
                   >
-                    ¿Olvidaste tu contraseña?
+                    {t('forgotPassword')}
                   </Link>
                 </div>
                 <Input
@@ -107,7 +108,7 @@ export default function LoginPage() {
                 />
               </div>
               <Button type="submit" className="w-full">
-                Iniciar Sesión
+                {t('submitButton')}
               </Button>
             </div>
           </form>
@@ -117,12 +118,12 @@ export default function LoginPage() {
             onClick={handleGoogleSignIn}
           >
             <GoogleIcon className="mr-2 h-4 w-4" />
-            Iniciar sesión con Google
+            {t('googleButton')}
           </Button>
           <div className="mt-4 text-center text-sm">
-            ¿No tienes una cuenta?{' '}
+            {t('noAccountText')}{' '}
             <Link href="/registro" className="underline">
-              Regístrate
+              {t('registerLink')}
             </Link>
           </div>
         </CardContent>

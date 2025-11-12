@@ -6,9 +6,9 @@ import { redirect } from 'next/navigation';
 
 export default function CrearCuentoRedirectPage() {
   useEffect(() => {
-    redirect('/cuentos/crear/aprendizaje');
+    // This page is now a selector, so we don't redirect automatically.
+    // The user will choose an option. We keep this page as the entry point.
   }, []);
 
-  // Return a loading state or null while redirecting
   return null;
 }
