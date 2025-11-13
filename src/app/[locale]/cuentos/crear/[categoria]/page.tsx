@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -188,7 +189,7 @@ export default function CrearCuentoPage() {
       .min(1, t("validationReaderNameRequired"))
       .max(20, t("validationReaderNameMaxLength")),
     imageCount: z.string().min(1, t("validationImageCountRequired")),
-    prompt: z.string().max(220, t("validationPromptMaxLength")).optional(),
+    prompt: z.string().max(600, t("validationPromptMaxLength")).optional(),
     initialPhrase: z
       .string()
       .max(150, t("validationPhraseMaxLength"))
@@ -1075,14 +1076,14 @@ export default function CrearCuentoPage() {
                           <Textarea
                             placeholder={t("plotPointsPlaceholder")}
                             rows={4}
-                            maxLength={220}
+                            maxLength={600}
                             {...field}
                           />
                         </FormControl>
                         <div className="flex justify-between">
                           <FormMessage />
                           <div className="text-xs text-right text-muted-foreground">
-                            {(watchedPrompt || "").length}/220
+                            {(watchedPrompt || "").length}/600
                           </div>
                         </div>
                       </FormItem>
