@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useUser, useFirestore, useDoc, useMemoFirebase } from '@/firebase';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -75,7 +75,8 @@ export default function CrearPersonajePage() {
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
     const [generatedAvatar, setGeneratedAvatar] = useState<{name: string, url: string} | null>(null);
     const [isGenerationModalOpen, setGenerationModalOpen] = useState(false);
-
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     const userRef = useMemoFirebase(() => {
         if (!firestore || !user) return null;
@@ -136,6 +137,36 @@ export default function CrearPersonajePage() {
         setGeneratedAvatar(null);
     }
 
+    const startChangingAge = (direction: 'increment' | 'decrement') => {
+      stopChangingAge(); // Clear any existing timers
+      
+      const change = () => {
+        setAge(prevAge => {
+          if (direction === 'increment') return prevAge + 1;
+          return Math.max(0, prevAge - 1);
+        });
+      };
+      
+      change(); // Initial change on click
+  
+      timeoutRef.current = setTimeout(() => {
+        intervalRef.current = setInterval(change, 100); // Start rapid change after a delay
+      }, 500);
+    };
+  
+    const stopChangingAge = () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+
+    useEffect(() => {
+        // Cleanup on unmount
+        return () => stopChangingAge();
+      }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -489,7 +520,11 @@ export default function CrearPersonajePage() {
                             variant="outline"
                             size="icon"
                             className="h-10 w-10"
-                            onClick={() => setAge(Math.max(0, age - 1))}
+                            onMouseDown={() => startChangingAge('decrement')}
+                            onMouseUp={stopChangingAge}
+                            onMouseLeave={stopChangingAge}
+                            onTouchStart={() => startChangingAge('decrement')}
+                            onTouchEnd={stopChangingAge}
                           >
                             <Minus className="h-4 w-4" />
                           </Button>
@@ -501,7 +536,11 @@ export default function CrearPersonajePage() {
                             variant="outline"
                             size="icon"
                             className="h-10 w-10"
-                            onClick={() => setAge(age + 1)}
+                            onMouseDown={() => startChangingAge('increment')}
+                            onMouseUp={stopChangingAge}
+                            onMouseLeave={stopChangingAge}
+                            onTouchStart={() => startChangingAge('increment')}
+                            onTouchEnd={stopChangingAge}
                           >
                             <Plus className="h-4 w-4" />
                           </Button>
