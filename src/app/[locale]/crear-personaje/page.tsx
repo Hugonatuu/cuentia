@@ -489,9 +489,8 @@ export default function CrearPersonajePage() {
                             placeholder={t('characterData.age.placeholder')}
                             value={age}
                             onChange={(e) => {
-                                const value = e.target.value;
-                                // Allow only positive integers and limit length
-                                if (value === '' || (/^\d+$/.test(value) && value.length <= 2)) {
+                                const value = e.target.value.replace(/[^0-9]/g, '');
+                                if (value === '' || (value.length <= 2)) {
                                     setAge(value);
                                 }
                             }}
