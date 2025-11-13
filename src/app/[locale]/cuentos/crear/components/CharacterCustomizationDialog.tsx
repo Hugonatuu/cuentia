@@ -42,8 +42,9 @@ export function CharacterCustomizationDialog({
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (e.target.value.length <= maxLength) {
-      setVisualDescription(e.target.value);
+    const sanitizedValue = e.target.value.replace(/(\r\n|\n|\r)/gm, "");
+    if (sanitizedValue.length <= maxLength) {
+      setVisualDescription(sanitizedValue);
     }
   };
 
