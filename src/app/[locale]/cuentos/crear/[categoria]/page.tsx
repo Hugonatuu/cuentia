@@ -420,12 +420,13 @@ export default function CrearCuentoPage() {
     if (totalAvailableCredits < totalCredits) {
       toast({
         variant: "destructive",
-        title: t("insufficientCreditsIllustrateTitle"),
+        title: t("insufficientCreditsTitle"),
         description: t("insufficientCreditsDescription", {
           needed: totalCredits,
           available: totalAvailableCredits,
         }),
       });
+      router.push("/precios");
       return;
     }
 
@@ -515,7 +516,7 @@ export default function CrearCuentoPage() {
             name: character.name,
             gender: predefinedChar
               ? predefinedChar.gender[lang] || predefinedChar.gender["es"]
-              : userChar?.gender[lang] || userChar?.gender["es"],
+              : userChar?.gender[lang] || userChar?.gender?.["es"],
             age: character.age,
             description: predefinedChar
               ? predefinedChar.description[lang] ||
@@ -669,6 +670,7 @@ export default function CrearCuentoPage() {
           available: totalAvailableCredits,
         }),
       });
+      router.push("/precios");
       return;
     }
 

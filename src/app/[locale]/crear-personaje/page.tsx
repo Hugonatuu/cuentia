@@ -26,6 +26,7 @@ import { cn } from '@/lib/utils';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { getPlanLimits } from '@/lib/plans';
 import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/navigation';
 
 interface WebhookResponse {
     avatarUrl: string;
@@ -60,6 +61,7 @@ export default function CrearPersonajePage() {
     const t = useTranslations('CrearPersonajePage');
     const { user, isUserLoading } = useUser();
     const firestore = useFirestore();
+    const router = useRouter();
     const [isPopupOpen, setPopupOpen] = useState(false);
     const [characterName, setCharacterName] = useState('');
     const [species, setSpecies] = useState('');
@@ -172,6 +174,7 @@ export default function CrearPersonajePage() {
                 title: t('errors.insufficientCreditsTitle'),
                 description: t('errors.insufficientCredits', { cost: AVATAR_CREDIT_COST, available: totalAvailableCredits }),
             });
+            router.push('/precios');
             return;
         }
         // --- End Credit Check ---
