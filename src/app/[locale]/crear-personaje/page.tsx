@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { UploadCloud, Sparkles, Loader2, X, CreditCard, Wand } from "lucide-react";
+import { UploadCloud, Sparkles, Loader2, X, CreditCard, Wand, Minus, Plus } from "lucide-react";
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
 import { useToast } from '@/hooks/use-toast';
@@ -68,7 +68,7 @@ export default function CrearPersonajePage() {
     const [species, setSpecies] = useState('');
     const [otherSpecies, setOtherSpecies] = useState('');
     const [gender, setGender] = useState('');
-    const [age, setAge] = useState('');
+    const [age, setAge] = useState<number>(8);
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const { toast } = useToast();
@@ -131,7 +131,7 @@ export default function CrearPersonajePage() {
         setSpecies('');
         setOtherSpecies('');
         setGender('');
-        setAge('');
+        setAge(8);
         setSelectedFiles([]);
         setGeneratedAvatar(null);
     }
@@ -153,7 +153,7 @@ export default function CrearPersonajePage() {
         const isOtherSpecies = species === t('characterData.species.options.other');
         const finalSpeciesKey = isOtherSpecies ? otherSpecies.trim().toLowerCase() : species;
 
-        if (!characterName.trim() || !finalSpeciesKey || !gender || !age.trim()) {
+        if (!characterName.trim() || !finalSpeciesKey || !gender) {
             toast({ variant: 'destructive', title: 'Campos incompletos', description: t('errors.incompleteFields') });
             return;
         }
@@ -223,7 +223,7 @@ export default function CrearPersonajePage() {
             const speciesValue = isOtherSpecies ? otherSpecies.trim() : (speciesTranslations[finalSpeciesKey as keyof typeof speciesTranslations]?.es || finalSpeciesKey);
             formData.append('species', speciesValue);
             formData.append('gender', genderTranslations[gender as keyof typeof genderTranslations]?.es || gender);
-            formData.append('age', age.trim());
+            formData.append('age', age.toString());
             selectedFiles.forEach((file) => {
                 formData.append('images', file);
             });
@@ -261,7 +261,7 @@ export default function CrearPersonajePage() {
                 avatarUrl: result.avatarUrl,
                 species: speciesData,
                 gender: genderData,
-                age: Number(age.trim()),
+                age: Number(age),
                 createdAt: serverTimestamp()
             });
             
@@ -483,20 +483,29 @@ export default function CrearPersonajePage() {
                     </div>
                      <div className="space-y-2">
                         <Label htmlFor="age">{t('characterData.age.label')}</Label>
-                        <Input
-                            id="age"
-                            type="number"
-                            placeholder={t('characterData.age.placeholder')}
-                            value={age}
-                            onChange={(e) => {
-                                const value = e.target.value.replace(/[^0-9]/g, '');
-                                if (value === '' || (value.length <= 2)) {
-                                    setAge(value);
-                                }
-                            }}
-                            required
-                        />
-                         <div className="text-xs text-right text-muted-foreground">{age.length}/2</div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            className="h-10 w-10"
+                            onClick={() => setAge(Math.max(0, age - 1))}
+                          >
+                            <Minus className="h-4 w-4" />
+                          </Button>
+                          <div className="flex h-10 w-full items-center justify-center rounded-md border border-input bg-input px-3 py-2 text-base text-foreground">
+                            {age}
+                          </div>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="icon"
+                            className="h-10 w-10"
+                            onClick={() => setAge(age + 1)}
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                        </div>
                     </div>
                 </div>
             </CardContent>
@@ -599,3 +608,4 @@ export default function CrearPersonajePage() {
   );
 }
 
+    
