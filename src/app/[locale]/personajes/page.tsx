@@ -27,7 +27,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface Character {
   id: string;
@@ -43,7 +43,7 @@ type Category = 'Christmas' | 'Animal' | 'Fantasy' | 'Humans' | 'Other';
 interface PredefinedCharacter {
   id: string;
   name: string;
-  description: string;
+  description: Record<string, string>;
   imageUrl: string;
   imageHint: string;
   species: string;
@@ -63,6 +63,7 @@ const categories: { name: Category | 'All'; icon: React.ElementType }[] = [
 
 export default function PersonajesPage() {
   const t = useTranslations('PersonajesPage');
+  const locale = useLocale();
 
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
@@ -269,7 +270,7 @@ export default function PersonajesPage() {
                       </TooltipTrigger>
                     </Card>
                      <TooltipContent>
-                      <p className="max-w-xs">{character.description}</p>
+                      <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
