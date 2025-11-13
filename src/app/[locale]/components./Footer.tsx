@@ -11,7 +11,7 @@ export default function Footer() {
           </Link>
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 text-sm text-muted-foreground flex-1">
-           <a href="mailto:info@cuentia.net">Contacto: info@cuentia.net</a>
+           <a href="mailto:cuentia@cuentia.net">Contacto: cuentia@cuentia.net</a>
            <Link href="/legal" className="hover:text-primary">Aviso legal</Link>
            <Link href="/privacidad" className="hover:text-primary">Política de privacidad</Link>
            <Link href="/terminos" className="hover:text-primary">Términos y condiciones</Link>
