@@ -252,7 +252,9 @@ export default function PersonajesPage() {
                     >
                       <TooltipTrigger asChild>
                         <CardContent className="p-0 text-center relative">
-                            <Info className="absolute top-2 right-2 h-5 w-5 text-white bg-black/50 rounded-full p-1 z-10" />
+                            <div className="absolute top-2 right-2 z-10 p-1 bg-black/50 rounded-full md:hidden">
+                               <Info className="h-5 w-5 text-white" />
+                            </div>
                             <div className="aspect-square overflow-hidden">
                               <Image
                                 src={character.imageUrl}

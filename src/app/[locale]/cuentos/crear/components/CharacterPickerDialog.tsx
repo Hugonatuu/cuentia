@@ -47,16 +47,15 @@ const categories: { name: Category; icon: React.ElementType }[] = [
 
 const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => {
     const locale = useLocale();
-    const t = useTranslations('CharacterPickerDialog');
+    
     const isPredefined = 'description' in character;
 
     const cardContent = (
       <Card
-        className={`overflow-hidden group transition-all duration-300 cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1'}`}
-        onClick={() => !isDisabled && onSelect()}
+        className={`overflow-hidden group transition-all duration-300 ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1 cursor-pointer'}`}
+        onClick={() => !isDisabled && !isPredefined && onSelect()} // Select on click only for user characters
       >
         <CardContent className="p-0 text-center relative aspect-square">
-            {isPredefined && <Info className="absolute top-2 right-2 h-5 w-5 text-white bg-black/50 rounded-full p-1 z-10" />}
             <Image
               src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
               alt={character.name}
@@ -74,7 +73,20 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
         return (
             <TooltipProvider delayDuration={0}>
                 <Tooltip>
-                    <TooltipTrigger asChild>{cardContent}</TooltipTrigger>
+                    <TooltipTrigger asChild>
+                        <div className="relative">
+                            {cardContent}
+                            <div className="absolute top-2 right-2 z-10 p-1 bg-black/50 rounded-full md:hidden">
+                               <Info className="h-5 w-5 text-white" />
+                            </div>
+                            {!isDisabled && (
+                                <div 
+                                    className="absolute inset-0 z-20 cursor-pointer"
+                                    onClick={onSelect}
+                                ></div>
+                            )}
+                        </div>
+                    </TooltipTrigger>
                     <TooltipContent>
                         <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
                     </TooltipContent>
@@ -90,7 +102,7 @@ const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type, cat
   const t = useTranslations('CharacterPickerDialog');
 
   const filteredCharacters = type === 'predefined' && category !== 'All' 
-    ? (characters as PredefinedCharacter[])?.filter(char => char.category === category)
+    ? (characters as PredefinedCharacter[])?.filter(char => 'category' in char && char.category === category)
     : characters;
 
   if (isLoading) {
