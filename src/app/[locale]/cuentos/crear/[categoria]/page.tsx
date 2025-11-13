@@ -314,6 +314,7 @@ export default function CrearCuentoPage() {
   const watchedInitialPhrase = form.watch('initialPhrase');
   const watchedFinalPhrase = form.watch('finalPhrase');
   const watchedLanguage = form.watch('language');
+  const watchedIllustratePages = illustrateForm.watch('pages');
 
   const illustrateWatchedTitle = illustrateForm.watch('title');
   const illustrateWatchedReaderName = illustrateForm.watch('readerName');
@@ -1631,9 +1632,15 @@ export default function CrearCuentoPage() {
                                 })}
                                 {...field}
                                 rows={6}
+                                maxLength={1000}
                               />
                             </FormControl>
-                            <FormMessage />
+                            <div className="flex justify-between">
+                                <FormMessage />
+                                <div className="text-xs text-right text-muted-foreground">
+                                    {(watchedIllustratePages?.[index] || '').length}/1000
+                                </div>
+                            </div>
                           </FormItem>
                         )}
                       />
@@ -1820,3 +1827,6 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+
+    
