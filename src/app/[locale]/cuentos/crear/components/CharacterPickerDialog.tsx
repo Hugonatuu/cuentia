@@ -11,9 +11,15 @@ import Image from 'next/image';
 import {useRouter } from "@/i18n/navigation";
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
-import { PlusCircle } from 'lucide-react';
+import { PlusCircle, ChevronDown, Sparkles, Cat, User as UserIcon, Star, Info } from 'lucide-react';
 import type { Character, PredefinedCharacter, AnyCharacter } from './types';
 import { useTranslations } from 'next-intl';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface CharacterPickerDialogProps {
   isOpen: boolean;
@@ -21,6 +27,16 @@ interface CharacterPickerDialogProps {
   onSelectCharacter: (character: AnyCharacter) => void;
   excludedIds: string[];
 }
+
+type Category = 'Christmas' | 'Animal' | 'Fantasy' | 'Humans' | 'Other';
+
+const categories: { name: Category; icon: React.ElementType }[] = [
+    { name: 'Fantasy', icon: Sparkles },
+    { name: 'Animal', icon: Cat },
+    { name: 'Humans', icon: UserIcon },
+    { name: 'Christmas', icon: Star },
+    { name: 'Other', icon: Info },
+];
 
 const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => (
   <Card
@@ -41,8 +57,13 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
   </Card>
 );
 
-const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type }: { characters: AnyCharacter[] | null; onSelect: (char: AnyCharacter) => void; excludedIds: string[]; isLoading: boolean; type: 'user' | 'predefined' }) => {
+const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type, category }: { characters: AnyCharacter[] | null; onSelect: (char: AnyCharacter) => void; excludedIds: string[]; isLoading: boolean; type: 'user' | 'predefined'; category?: Category | 'All' }) => {
   const t = useTranslations('CharacterPickerDialog');
+  const tCat = useTranslations('PersonajesPage.categories');
+
+  const filteredCharacters = type === 'predefined' && category !== 'All' 
+    ? (characters as PredefinedCharacter[])?.filter(char => char.category === category)
+    : characters;
 
   if (isLoading) {
     return (
@@ -57,13 +78,13 @@ const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type }: {
     );
   }
 
-  if (!characters || characters.length === 0) {
+  if (!filteredCharacters || filteredCharacters.length === 0) {
     return <p className="text-muted-foreground text-center py-8">{t('noCharactersMessage', { type: type === 'user' ? t('userType') : t('predefinedType') })}</p>;
   }
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-      {characters.map((char) => (
+      {filteredCharacters.map((char) => (
         <CharacterCard
           key={char.id}
           character={char}
@@ -78,9 +99,12 @@ const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type }: {
 
 export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter, excludedIds }: CharacterPickerDialogProps) {
   const t = useTranslations('CharacterPickerDialog');
+  const tCat = useTranslations('PersonajesPage.categories');
+  const tCatAll = useTranslations('PersonajesPage');
   const { user } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
+  const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
 
   const userCharactersQuery = useMemoFirebase(() => {
     if (!firestore || !user) return null;
@@ -99,6 +123,12 @@ export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter,
     onSelectCharacter(character);
     onOpenChange(false);
   };
+
+  const getCategoryLabel = (category: Category | 'All') => {
+    if (category === 'All') return tCatAll('allCategoriesButton');
+    return tCat(category.toLowerCase());
+  };
+
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
@@ -133,12 +163,33 @@ export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter,
               />
             </TabsContent>
             <TabsContent value="predefined">
+              <div className="mb-4">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline">
+                        {getCategoryLabel(selectedCategory)}
+                        <ChevronDown className="ml-2 h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <DropdownMenuItem onSelect={() => setSelectedCategory('All')}>
+                        {tCatAll('allCategoriesButton')}
+                      </DropdownMenuItem>
+                      {categories.map(({ name }) => (
+                        <DropdownMenuItem key={name} onSelect={() => setSelectedCategory(name)}>
+                          {tCat(name.toLowerCase())}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               <CharacterList
                 characters={predefinedCharacters}
                 onSelect={handleSelect}
                 excludedIds={excludedIds}
                 isLoading={isPredefinedCharsLoading}
                 type="predefined"
+                category={selectedCategory}
               />
             </TabsContent>
           </ScrollArea>
