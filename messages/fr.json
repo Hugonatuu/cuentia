@@ -1,3 +1,4 @@
+
 {
   "LocaleSwitcher": {
     "label": "Changer de langue",
@@ -139,8 +140,8 @@
     "validationReaderNameRequired": "Le nom du lecteur est obligatoire.",
     "validationReaderNameMaxLength": "Le nom ne peut pas dépasser 20 caractères.",
     "validationImageCountRequired": "Vous devez sélectionner un nombre d'images.",
-    "validationPromptMaxLength": "Les points clés ne peuvent pas dépasser 220 caractères.",
-    "validationPhraseMaxLength": "La phrase ne peut pas dépasser 150 caractères.",
+    "validationPromptMaxLength": "Les points clés ne peuvent pas dépasser 600 caractères.",
+    "validationPhraseMaxLength": "La phrase ne peut pas dépasser 500 caractères.",
     "validationCharactersMin": "Vous devez sélectionner au moins un personnage.",
     "validationCharactersMax": "Vous pouvez sélectionner jusqu'à 4 personnages.",
     "validationLanguageRequired": "Vous devez sélectionner une langue.",
@@ -158,7 +159,7 @@
     "validationIllustratePageMaxLength": "Chaque page ne peut pas dépasser 500 caractères.",
     "validationIllustratePagesRequired": "Vous devez remplir toutes les pages.",
     "validationIllustratePagesCount": "Vous devez remplir les {pageCount} pages.",
-    "validationIllustratePhraseMaxLength": "La phrase ne peut pas dépasser 150 caractères.",
+    "validationIllustratePhraseMaxLength": "La phrase ne peut pas dépasser 500 caractères.",
     "toastStoryGeneratingTitle": "Histoire en cours !",
     "toastStoryGeneratingDescription": "Votre histoire est en cours de génération. Vous recevrez une notification lorsqu'elle sera prête.",
     "toastStoryErrorTitle": "Erreur lors de la génération de l'histoire",

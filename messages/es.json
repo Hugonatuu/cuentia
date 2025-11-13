@@ -1,3 +1,4 @@
+
 {
   "LocaleSwitcher": {
     "label": "Change language",
@@ -139,8 +140,8 @@
     "validationReaderNameRequired": "El nombre del lector es obligatorio.",
     "validationReaderNameMaxLength": "El nombre no puede tener más de 20 caracteres.",
     "validationImageCountRequired": "Debes seleccionar un número de imágenes.",
-    "validationPromptMaxLength": "Los puntos clave no pueden tener más de 220 caracteres.",
-    "validationPhraseMaxLength": "La frase no puede tener más de 150 caracteres.",
+    "validationPromptMaxLength": "Los puntos clave no pueden tener más de 600 caracteres.",
+    "validationPhraseMaxLength": "La frase no puede tener más de 500 caracteres.",
     "validationCharactersMin": "Debes seleccionar al menos un personaje.",
     "validationCharactersMax": "Puedes seleccionar hasta 4 personajes.",
     "validationLanguageRequired": "Debes seleccionar un idioma.",
@@ -158,7 +159,7 @@
     "validationIllustratePageMaxLength": "Cada página no puede exceder los 500 caracteres.",
     "validationIllustratePagesRequired": "Debes completar todas las páginas.",
     "validationIllustratePagesCount": "Debes completar las {pageCount} páginas.",
-    "validationIllustratePhraseMaxLength": "La frase no puede tener más de 150 caracteres.",
+    "validationIllustratePhraseMaxLength": "La frase no puede tener más de 500 caracteres.",
 
     "toastStoryGeneratingTitle": "¡Cuento en camino!",
     "toastStoryGeneratingDescription": "Tu historia se está generando. Recibirás una notificación cuando esté lista.",

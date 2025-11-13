@@ -1,3 +1,4 @@
+
 {
   "LocaleSwitcher": {
     "label": "Change language",
@@ -139,8 +140,8 @@
     "validationReaderNameRequired": "The reader's name is required.",
     "validationReaderNameMaxLength": "The name cannot exceed 20 characters.",
     "validationImageCountRequired": "You must select a number of images.",
-    "validationPromptMaxLength": "The key points cannot exceed 220 characters.",
-    "validationPhraseMaxLength": "The phrase cannot exceed 150 characters.",
+    "validationPromptMaxLength": "The key points cannot exceed 600 characters.",
+    "validationPhraseMaxLength": "The phrase cannot exceed 500 characters.",
     "validationCharactersMin": "You must select at least one character.",
     "validationCharactersMax": "You can select up to 4 characters.",
     "validationLanguageRequired": "You must select a language.",
@@ -158,7 +159,7 @@
     "validationIllustratePageMaxLength": "Each page cannot exceed 500 characters.",
     "validationIllustratePagesRequired": "You must complete all pages.",
     "validationIllustratePagesCount": "You must complete all {pageCount} pages.",
-    "validationIllustratePhraseMaxLength": "The phrase cannot exceed 150 characters.",
+    "validationIllustratePhraseMaxLength": "The phrase cannot exceed 500 characters.",
 
     "toastStoryGeneratingTitle": "Story on the way!",
     "toastStoryGeneratingDescription": "Your story is being generated. You will receive a notification when it is ready.",

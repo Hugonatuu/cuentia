@@ -162,11 +162,11 @@ export default function CrearCuentoPage() {
         }),
       initialPhrase: z
         .string()
-        .max(150, t("validationIllustratePhraseMaxLength"))
+        .max(500, t("validationIllustratePhraseMaxLength"))
         .optional(),
       finalPhrase: z
         .string()
-        .max(150, t("validationIllustratePhraseMaxLength"))
+        .max(500, t("validationIllustratePhraseMaxLength"))
         .optional(),
       backCoverImage: z.instanceof(File).optional(),
     });
@@ -192,9 +192,9 @@ export default function CrearCuentoPage() {
     prompt: z.string().max(600, t("validationPromptMaxLength")).optional(),
     initialPhrase: z
       .string()
-      .max(150, t("validationPhraseMaxLength"))
+      .max(500, t("validationPhraseMaxLength"))
       .optional(),
-    finalPhrase: z.string().max(150, t("validationPhraseMaxLength")).optional(),
+    finalPhrase: z.string().max(500, t("validationPhraseMaxLength")).optional(),
     characters: z
       .array(z.custom<CharacterWithCustomization>())
       .min(1, t("validationCharactersMin"))
@@ -1217,13 +1217,13 @@ export default function CrearCuentoPage() {
                                 <Input
                                   placeholder={t("initialPhrasePlaceholder")}
                                   {...field}
-                                  maxLength={150}
+                                  maxLength={500}
                                 />
                               </FormControl>
                               <div className="flex justify-between">
                                 <FormMessage />
                                 <div className="text-xs text-right text-muted-foreground">
-                                  {(watchedInitialPhrase || "").length}/150
+                                  {(watchedInitialPhrase || "").length}/500
                                 </div>
                               </div>
                             </FormItem>
@@ -1239,13 +1239,13 @@ export default function CrearCuentoPage() {
                                 <Input
                                   placeholder={t("finalPhrasePlaceholder")}
                                   {...field}
-                                  maxLength={150}
+                                  maxLength={500}
                                 />
                               </FormControl>
                               <div className="flex justify-between">
                                 <FormMessage />
                                 <div className="text-xs text-right text-muted-foreground">
-                                  {(watchedFinalPhrase || "").length}/150
+                                  {(watchedFinalPhrase || "").length}/500
                                 </div>
                               </div>
                             </FormItem>
@@ -1652,7 +1652,7 @@ export default function CrearCuentoPage() {
                                 <Input
                                   placeholder={t("initialPhrasePlaceholder")}
                                   {...field}
-                                  maxLength={150}
+                                  maxLength={500}
                                 />
                               </FormControl>
                               <div className="flex justify-between">
@@ -1662,7 +1662,7 @@ export default function CrearCuentoPage() {
                                     (illustrateWatchedInitialPhrase || "")
                                       .length
                                   }
-                                  /150
+                                  /500
                                 </div>
                               </div>
                             </FormItem>
@@ -1678,14 +1678,14 @@ export default function CrearCuentoPage() {
                                 <Input
                                   placeholder={t("finalPhrasePlaceholder")}
                                   {...field}
-                                  maxLength={150}
+                                  maxLength={500}
                                 />
                               </FormControl>
                               <div className="flex justify-between">
                                 <FormMessage />
                                 <div className="text-xs text-right text-muted-foreground">
                                   {(illustrateWatchedFinalPhrase || "").length}
-                                  /150
+                                  /500
                                 </div>
                               </div>
                             </FormItem>
