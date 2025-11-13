@@ -315,6 +315,7 @@ export default function CrearCuentoPage() {
   const watchedFinalPhrase = form.watch('finalPhrase');
   const watchedLanguage = form.watch('language');
 
+  const illustrateWatchedTitle = illustrateForm.watch('title');
   const illustrateWatchedReaderName = illustrateForm.watch('readerName');
   const illustrateWatchedInitialPhrase = illustrateForm.watch('initialPhrase');
   const illustrateWatchedFinalPhrase = illustrateForm.watch('finalPhrase');
@@ -1479,6 +1480,10 @@ export default function CrearCuentoPage() {
                             placeholder={t('readerNamePlaceholder')}
                             {...field}
                             maxLength={20}
+                             onChange={(e) => {
+                                const sanitizedValue = e.target.value.replace(/[^\p{L}\p{N}\s]/gu, '');
+                                field.onChange(sanitizedValue);
+                            }}
                           />
                         </FormControl>
                         <div className="flex justify-between">
