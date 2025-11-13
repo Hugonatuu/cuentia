@@ -571,6 +571,9 @@ export default function CrearCuentoPage() {
       });
       formData.append("storyId", storyDocRef.id);
       formData.append("userId", user.uid);
+      if (user.email) {
+        formData.append("userEmail", user.email);
+      }
       formData.append("characterImagesText", characterImagesText);
       formData.append("personalizacion", personalizacionText);
       formData.append("characters", JSON.stringify(charactersForWebhook));
@@ -757,6 +760,9 @@ export default function CrearCuentoPage() {
       formData.append("readerName", data.readerName);
       formData.append("storyId", storyDocRef.id);
       formData.append("userId", user.uid);
+      if (user.email) {
+        formData.append("userEmail", user.email);
+      }
       formData.append("characterImagesText", characterImagesText);
       formData.append("personalizacion", personalizacionText);
       formData.append("pages", JSON.stringify(pagesWithIllustrationInfo));

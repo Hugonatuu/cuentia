@@ -226,6 +226,9 @@ export default function CrearPersonajePage() {
             selectedFiles.forEach((file) => {
                 formData.append('images', file);
             });
+            if (user.email) {
+                formData.append('userEmail', user.email);
+            }
             
             const response = await fetch('https://natuai-n8n.kl7z6h.easypanel.host/webhook/90d5d462-d86c-455b-88d6-39192765c718', {
                 method: 'POST',
