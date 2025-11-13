@@ -990,6 +990,10 @@ export default function CrearCuentoPage() {
                               placeholder={t('readerNamePlaceholder')}
                               {...field}
                               maxLength={20}
+                              onChange={(e) => {
+                                const sanitizedValue = e.target.value.replace(/[^\p{L}\p{N}\s]/gu, '');
+                                field.onChange(sanitizedValue);
+                              }}
                             />
                           </FormControl>
                           <div className="flex justify-between">
