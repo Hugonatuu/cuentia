@@ -245,7 +245,7 @@ export default function PersonajesPage() {
          ) : filteredPredefinedCharacters && filteredPredefinedCharacters.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {filteredPredefinedCharacters.map((character) => (
-                <TooltipProvider key={character.id}>
+                <TooltipProvider key={character.id} delayDuration={0}>
                   <Tooltip>
                     <Card
                       className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-accent"
