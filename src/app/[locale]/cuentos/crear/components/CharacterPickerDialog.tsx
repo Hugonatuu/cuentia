@@ -13,13 +13,20 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { PlusCircle, ChevronDown, Sparkles, Cat, User as UserIcon, Star, Info } from 'lucide-react';
 import type { Character, PredefinedCharacter, AnyCharacter } from './types';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 
 interface CharacterPickerDialogProps {
   isOpen: boolean;
@@ -38,28 +45,49 @@ const categories: { name: Category; icon: React.ElementType }[] = [
     { name: 'Other', icon: Info },
 ];
 
-const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => (
-  <Card
-    className={`overflow-hidden group transition-all duration-300 cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1'}`}
-    onClick={() => !isDisabled && onSelect()}
-  >
-    <CardContent className="p-0 text-center relative aspect-square">
-        <Image
-          src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
-          alt={character.name}
-          fill
-          className="object-cover object-center transition-transform duration-300 group-hover:scale-110"
-        />
-      <div className="absolute bottom-0 w-full p-2 bg-black/50 backdrop-blur-sm">
-        <h3 className="font-semibold text-md truncate text-white">{character.name}</h3>
-      </div>
-    </CardContent>
-  </Card>
-);
+const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => {
+    const locale = useLocale();
+    const t = useTranslations('CharacterPickerDialog');
+    const isPredefined = 'description' in character;
+
+    const cardContent = (
+      <Card
+        className={`overflow-hidden group transition-all duration-300 cursor-pointer ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1'}`}
+        onClick={() => !isDisabled && onSelect()}
+      >
+        <CardContent className="p-0 text-center relative aspect-square">
+            {isPredefined && <Info className="absolute top-2 right-2 h-5 w-5 text-white bg-black/50 rounded-full p-1 z-10" />}
+            <Image
+              src={'avatarUrl' in character ? character.avatarUrl : character.imageUrl}
+              alt={character.name}
+              fill
+              className="object-cover object-center transition-transform duration-300 group-hover:scale-110"
+            />
+          <div className="absolute bottom-0 w-full p-2 bg-black/50 backdrop-blur-sm">
+            <h3 className="font-semibold text-md truncate text-white">{character.name}</h3>
+          </div>
+        </CardContent>
+      </Card>
+    );
+
+    if (isPredefined) {
+        return (
+            <TooltipProvider delayDuration={0}>
+                <Tooltip>
+                    <TooltipTrigger asChild>{cardContent}</TooltipTrigger>
+                    <TooltipContent>
+                        <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+        );
+    }
+
+    return cardContent;
+};
 
 const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type, category }: { characters: AnyCharacter[] | null; onSelect: (char: AnyCharacter) => void; excludedIds: string[]; isLoading: boolean; type: 'user' | 'predefined'; category?: Category | 'All' }) => {
   const t = useTranslations('CharacterPickerDialog');
-  const tCat = useTranslations('PersonajesPage.categories');
 
   const filteredCharacters = type === 'predefined' && category !== 'All' 
     ? (characters as PredefinedCharacter[])?.filter(char => char.category === category)
