@@ -426,7 +426,10 @@ export default function CrearPersonajePage() {
                             id="avatar-name" 
                             placeholder={t('characterData.name.placeholder')}
                             value={characterName}
-                            onChange={(e) => setCharacterName(e.target.value)}
+                            onChange={(e) => {
+                                const sanitizedValue = e.target.value.replace(/[^\p{L}\p{N}\s]/gu, '');
+                                setCharacterName(sanitizedValue);
+                            }}
                             required
                             maxLength={50}
                         />
