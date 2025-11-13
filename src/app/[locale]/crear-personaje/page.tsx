@@ -492,7 +492,10 @@ export default function CrearPersonajePage() {
                                 id="other-species"
                                 placeholder={t('characterData.species.other.placeholder')}
                                 value={otherSpecies}
-                                onChange={(e) => setOtherSpecies(e.target.value)}
+                                onChange={(e) => {
+                                    const sanitizedValue = e.target.value.replace(/[^\p{L}\p{N}\s]/gu, '');
+                                    setOtherSpecies(sanitizedValue);
+                                }}
                                 required
                                 maxLength={50}
                             />
@@ -648,3 +651,4 @@ export default function CrearPersonajePage() {
 }
 
     
+
