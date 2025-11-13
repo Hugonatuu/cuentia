@@ -153,7 +153,7 @@ export default function CrearCuentoPage() {
         .min(1, t('validationIllustrateCharactersMin'))
         .max(4, t('validationIllustrateCharactersMax')),
       pages: z
-        .array(z.string().max(500, t('validationIllustratePageMaxLength')))
+        .array(z.string().max(1000, t('validationIllustratePageMaxLength')))
         .refine((pages) => pages.every((p) => p.trim() !== ''), {
           message: t('validationIllustratePagesRequired'),
         })
@@ -915,10 +915,7 @@ export default function CrearCuentoPage() {
                             placeholder={t('storyTitlePlaceholder')}
                             {...field}
                             onChange={(e) => {
-                              const sanitizedValue = e.target.value.replace(
-                                /[^\p{L}\p{N}\s]/gu,
-                                ''
-                              );
+                              const sanitizedValue = e.target.value.replace(/[^\p{L}\p{N}\s]/gu, '');
                               field.onChange(sanitizedValue);
                             }}
                             maxLength={35}
