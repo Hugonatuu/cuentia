@@ -448,7 +448,7 @@
     },
     "photos": {
       "title": "2. Upload Photos ({count}/4)",
-      "description": "Upload between 2 and 4 photos. At least one photo must be full-body.",
+      "description": "Upload 2 to 4 photos where the character’s face and full body are clearly visible (person or animal). Make sure they are the only one in the image and that the photos are well lit.",
       "dropzone": {
         "click": "Click to upload",
         "drag": "or drag and drop"

@@ -466,7 +466,7 @@
     },
     "photos": {
       "title": "2. Enviar Fotos ({count}/4)",
-      "description": "Envie entre 2 e 4 fotos. Pelo menos uma foto deve ser de corpo inteiro.",
+      "description": "Carrega entre 2 e 4 fotos onde o rosto e o corpo inteiro do personagem (pessoa ou animal) estejam claramente visíveis. Garante que só ele apareça na imagem e que as fotos tenham boa iluminação.",
       "dropzone": {
         "click": "Clique para enviar",
         "drag": "ou arraste e solte"

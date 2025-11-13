@@ -473,7 +473,7 @@
     },
     "photos": {
       "title": "2. Carica le Foto ({count}/4)",
-      "description": "Carica tra 2 e 4 foto. Almeno una foto deve essere a figura intera.",
+      "description": "Carica da 2 a 4 foto in cui il volto e il corpo intero del personaggio (persona o animale) siano chiaramente visibili. Assicurati che sia l’unico nella foto e che l’immagine sia ben illuminata.",
       "dropzone": {
         "click": "Clicca per caricare",
         "drag": "o trascina e rilascia"

@@ -473,7 +473,7 @@
     },
     "photos": {
       "title": "2. Sube las Fotos ({count}/4)",
-      "description": "Sube entre 2 y 4 fotos. Al menos una foto tiene que ser de cuerpo entero.",
+      "description": "Sube entre 2 y 4 fotos donde se vea claramente la cara y el cuerpo entero del personaje (persona o animal). Asegúrate de que solo aparezca él en la imagen",
       "dropzone": {
         "click": "Haz clic para subir",
         "drag": "o arrastra y suelta"

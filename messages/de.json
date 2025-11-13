@@ -473,7 +473,7 @@
     },
     "photos": {
       "title": "2. Lade Fotos hoch ({count}/4)",
-      "description": "Lade zwischen 2 und 4 Fotos hoch. Mindestens ein Foto muss eine Ganzkörperaufnahme sein.",
+      "description": "Lade 2 bis 4 Fotos hoch, auf denen das Gesicht und der ganze Körper der Figur (Person oder Tier) deutlich zu sehen sind. Achte darauf, dass nur sie auf dem Bild erscheinen und dass die Fotos gut beleuchtet sind.",
       "dropzone": {
         "click": "Klicken zum Hochladen",
         "drag": "oder ziehen und ablegen"

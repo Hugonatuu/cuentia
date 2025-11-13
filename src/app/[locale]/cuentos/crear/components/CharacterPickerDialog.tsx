@@ -110,7 +110,7 @@ export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter,
           </DialogDescription>
         </DialogHeader>
         
-        <Tabs defaultValue="my-characters" className="flex-grow flex flex-col">
+        <Tabs defaultValue="my-characters" className="flex-grow flex flex-col min-h-0">
           <div className='flex justify-between items-center pr-1'>
             <TabsList>
                 <TabsTrigger value="my-characters">{t('myCharactersTab')}</TabsTrigger>
@@ -122,7 +122,7 @@ export function CharacterPickerDialog({ isOpen, onOpenChange, onSelectCharacter,
             </Button>
           </div>
           
-          <ScrollArea className="flex-grow mt-4 pr-4">
+          <ScrollArea className="flex-grow mt-4 pr-4 -mr-4">
             <TabsContent value="my-characters">
               <CharacterList
                 characters={userCharacters}

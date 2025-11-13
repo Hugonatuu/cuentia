@@ -467,7 +467,7 @@
     },
     "photos": {
       "title": "2. Téléchargez les Photos ({count}/4)",
-      "description": "Téléchargez entre 2 et 4 photos. Au moins une photo doit être en pied.",
+      "description": "Télécharge entre 2 et 4 photos où le visage et le corps entier du personnage (personne ou animal) sont clairement visibles. Assure-toi qu’il soit le seul sur l’image et que les photos soient bien éclairées.",
       "dropzone": {
         "click": "Cliquez pour télécharger",
         "drag": "ou faites glisser et déposez"
