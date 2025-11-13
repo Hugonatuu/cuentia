@@ -34,10 +34,17 @@ export function CharacterCustomizationDialog({
 }: CharacterCustomizationDialogProps) {
   const t = useTranslations('CharacterCustomizationDialog');
   const [visualDescription, setVisualDescription] = useState(initialVisualDescription);
+  const maxLength = 400;
 
   const handleSave = () => {
     onSave(visualDescription);
     onOpenChange(false);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length <= maxLength) {
+      setVisualDescription(e.target.value);
+    }
   };
 
   return (
@@ -66,9 +73,13 @@ export function CharacterCustomizationDialog({
               id="visual_description"
               placeholder={t('placeholder')}
               value={visualDescription}
-              onChange={(e) => setVisualDescription(e.target.value)}
+              onChange={handleChange}
               className="min-h-[100px]"
+              maxLength={maxLength}
             />
+             <div className="text-xs text-right text-muted-foreground">
+              {visualDescription.length}/{maxLength}
+            </div>
           </div>
         </div>
         <Alert variant="destructive" className="text-foreground">
