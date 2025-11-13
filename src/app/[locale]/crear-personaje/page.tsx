@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -198,7 +199,6 @@ export default function CrearPersonajePage() {
                 const availableMonthly = (getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed);
 
                 let monthlyDebit = 0;
-                let paygDebit = 0;
                 
                 if (availableMonthly > 0) {
                     monthlyDebit = Math.min(AVATAR_CREDIT_COST, availableMonthly);
@@ -206,6 +206,7 @@ export default function CrearPersonajePage() {
 
                 const remainingCost = AVATAR_CREDIT_COST - monthlyDebit;
 
+                let paygDebit = 0;
                 if (remainingCost > 0) {
                      paygDebit = Math.min(remainingCost, currentPayAsYouGo);
                 }
@@ -488,8 +489,10 @@ export default function CrearPersonajePage() {
                             placeholder={t('characterData.age.placeholder')}
                             value={age}
                             onChange={(e) => {
-                                if (e.target.value.length <= 2) {
-                                    setAge(e.target.value);
+                                const value = e.target.value;
+                                // Allow only positive integers and limit length
+                                if (value === '' || (/^\d+$/.test(value) && value.length <= 2)) {
+                                    setAge(value);
                                 }
                             }}
                             required
@@ -596,3 +599,4 @@ export default function CrearPersonajePage() {
     </div>
   );
 }
+
