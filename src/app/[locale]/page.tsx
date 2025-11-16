@@ -97,8 +97,8 @@ export default function Home({params}: PageProps<'/[locale]'>) {
               <div className="relative h-[400px] flex items-center justify-center animate-in fade-in slide-in-from-bottom-8 duration-700">
                 
                 {/* Image collage */}
-                <div className="relative z-10">
-                  <Card className="absolute -top-16 -left-40 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
+                <div className="relative z-10 scale-90 md:scale-100">
+                  <Card className="absolute -top-16 -left-20 md:-left-40 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
                       src="https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
                       alt="Transformación de foto a personaje"
