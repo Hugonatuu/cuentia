@@ -66,6 +66,7 @@
     "imageOption1": "4 immagini + copertina (800cd)",
     "imageOption2": "12 immagini + Copertina (1.500cd)",
     "imageOption3": "20 immagini + Copertina (2.400cd)",
+    "imageOption4": "10 pagine + 11 immagini (1.250cd)",
     "magicalTouchesTitle": "4. Tocchi Magici (Opzionale)",
     "addDedicationLabel": "Aggiungi una dedica speciale",
     "initialPhraseLabel": "Frase all'inizio della storia",
@@ -116,7 +117,7 @@
     "storyErrorTitle": "Errore durante la generazione della storia",
     "illustrationGeneratingTitle": "La tua storia si sta illustrando!",
     "illustrationGeneratingDescription": "Riceverai una notifica quando sarà pronta.",
-    "illustrationErrorTitle": "Errore durante l'illustrazione della storia",
+    "illustrationErrorTitle": "Errore during l'illustrazione della storia",
     "learningObjectiveSuggestions": {
       "learningObjectiveSuggestion1": "Insegnare l'importanza di prendersi cura degli altri",
       "learningObjectiveSuggestion2": "Imparare a dare valore alle cose",
