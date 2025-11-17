@@ -56,7 +56,7 @@
     "storyDetailsTitle": "3. Geschichtendetails",
     "storyDetailsSubtitle": "Füge die letzten Schliff hinzu, um deine Geschichte einzigartig zu machen.",
     "languageTip": "💡 Tipp: Wir empfehlen, die Details in derselben Sprache zu schreiben, in der du die Geschichte generieren wirst, damit das Ergebnis natürlicher und präziser ist.",
-    "plotPointsLabel": "Schlüsselpunkte der Handlung (Optional)",
+    "plotPointsLabel": "Beschreibe, was in der Geschichte passieren soll, die Beziehung zwischen den Charakteren oder die Schauplätze, an denen die Geschichte spielt.",
     "plotPointsPlaceholder": "Leo, der Protagonist, reist mit seiner Oma Maria und trifft ein Mädchen (Ana), das seine beste Freundin wird.",
     "learningObjectiveLabel": "Lernziel (Optional)",
     "learningObjectivePlaceholder": "Z.B.: Leo die Bedeutung von Freundschaft und Teamarbeit beibringen.",
@@ -570,3 +570,5 @@
     "copy": "© {year} Cuentia. Alle Rechte vorbehalten."
   }
 }
+
+    

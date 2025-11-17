@@ -56,7 +56,7 @@
     "storyDetailsTitle": "3. Detalhes da história",
     "storyDetailsSubtitle": "Adicione os toques finais para tornar sua história única.",
     "languageTip": "💡 Dica: recomendamos escrever os detalhes no mesmo idioma em que você vai gerar a história, para que o resultado seja mais natural e preciso.",
-    "plotPointsLabel": "Pontos-chave da Trama (Opcional)",
+    "plotPointsLabel": "Descreva o que você quer que aconteça na história, a relação entre os personagens ou os cenários onde a história se passa.",
     "plotPointsPlaceholder": "Leo, que é o protagonista, viaja com sua avó Maria e conhece uma menina (Ana) que se tornará sua melhor amiga.",
     "learningObjectiveLabel": "Objetivo de Aprendizado (Opcional)",
     "learningObjectivePlaceholder": "Ex: Ensinar a Leo a importância da amizade e do trabalho em equipe.",
@@ -157,7 +157,7 @@
     "validationIllustrateReaderNameMaxLength": "O nome não pode ter mais de 20 caracteres.",
     "validationIllustrateCharactersMin": "Você deve selecionar pelo menos um personagem.",
     "validationIllustrateCharactersMax": "Você pode selecionar até 4 personagens.",
-    "validationIllustratePageMaxLength": "Cada página não pode exceder 1000 caracteres.",
+    "validationIllustratePageMaxLength": "Cada página не pode exceder 1000 caracteres.",
     "validationIllustratePagesRequired": "Você deve preencher todas as páginas.",
     "validationIllustratePagesCount": "Você deve preencher as {pageCount} páginas.",
     "validationIllustratePhraseMaxLength": "A frase não pode ter mais de 500 caracteres.",
@@ -563,3 +563,5 @@
     "copy": "© {year} Cuentia. Todos os direitos reservados."
   }
 }
+
+    

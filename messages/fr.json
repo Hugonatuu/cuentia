@@ -56,7 +56,7 @@
     "storyDetailsTitle": "3. Détails de l'histoire",
     "storyDetailsSubtitle": "Ajoutez les touches finales pour rendre votre histoire unique.",
     "languageTip": "💡 Conseil : nous vous recommandons d'écrire les détails dans la même langue que celle dans laquelle vous allez générer l'histoire, pour un résultat plus naturel et précis.",
-    "plotPointsLabel": "Points Clés de l'Intrigue (Facultatif)",
+    "plotPointsLabel": "Décrivez ce que vous voulez qu'il se passe dans l'histoire, la relation entre les personnages ou les décors dans lesquels l'histoire se déroule.",
     "plotPointsPlaceholder": "Léo, le protagoniste, part en voyage avec sa grand-mère Marie et rencontre une fille (Ana) qui deviendra sa meilleure amie.",
     "learningObjectiveLabel": "Objectif d'Apprentissage (Facultatif)",
     "learningObjectivePlaceholder": "Ex : Enseigner à Léo l'importance de l'amitié et du travail d'équipe.",
@@ -564,3 +564,5 @@
     "copy": "© {year} Cuentia. Tous droits réservés."
   }
 }
+
+    

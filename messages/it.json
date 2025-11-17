@@ -56,7 +56,7 @@
     "storyDetailsTitle": "3. Dettagli della storia",
     "storyDetailsSubtitle": "Aggiungi i tocchi finali per rendere la tua storia unica.",
     "languageTip": "💡 Suggerimento: ti consigliamo di scrivere i dettagli nella stessa lingua in cui genererai la storia, in modo che il risultato sia più naturale e preciso.",
-    "plotPointsLabel": "Punti Chiave della Trama (Opzionale)",
+    "plotPointsLabel": "Descrivi cosa vuoi che accada nella storia, la relazione tra i personaggi o gli scenari in cui si svolge la storia.",
     "plotPointsPlaceholder": "Leo, che è il protagonista, parte per un viaggio con sua nonna Maria e incontra una ragazza (Ana) che diventerà la sua migliore amica.",
     "learningObjectiveLabel": "Obiettivo di Apprendimento (Opzionale)",
     "learningObjectivePlaceholder": "Es: Insegnare a Leo l'importanza dell'amicizia e del lavoro di squadra.",
@@ -78,7 +78,7 @@
     "backCoverUploadText": "Carica immagine",
     "backCoverChangeText": "Cambia immagine",
     "languageTitle": "Lingua",
-    "languageWarning": "🎯 Assicurati di scrivere i dettagli della tua storia nella stessa lingua in cui creerai il libro, in modo che tutto combaci perfettamente.",
+    "languageWarning": "🎯 Assicurati di scrivere i dettagli della tua storia nella stessa lingua in cui creerai il libro, in modo che tutto combaci perfectly.",
     "languageLabel": "Lingua della Storia",
     "languagePlaceholder": "Seleziona una lingua",
     "languageEs": "Spagnolo",
@@ -570,3 +570,5 @@
     "copy": "© {year} Cuentia. Tutti i diritti riservati."
   }
 }
+
+    
