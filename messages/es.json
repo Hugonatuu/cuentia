@@ -5,8 +5,8 @@
     "locale": "{locale, select, de {Deutsch} en {English} fr {French} es {Spanish} it {Italian} pt {Portuguese} other {Unknown}}"
   },
   "HomePage": {
-    "title": "Crea cuentos que cobran vida en segundos",
-    "subtitle": "Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en una historia mágica llena de ilustraciones.",
+    "title": "Crea cuentos infantiles que cobran vida en segundos",
+    "subtitle": "Tu imaginación y la inteligencia artificial se unen para transformar unas pocas palabras en un cuento infantil personalizado lleno de ilustraciones mágicas.",
     "cta": "✨ Crear mi cuento ✨",
     "howItWorksTitle": "CÓMO FUNCIONA",
     "step1Title": "1. CREA TU PERSONAJE",
@@ -28,8 +28,8 @@
     "faq1Answer": "Simplemente subes varias fotos de una persona o mascota, y nuestra IA generará un personaje de dibujos animados que podrás usar como protagonista en todos tus cuentos.",
     "faq2Question": "¿Qué son los créditos?",
     "faq2Answer": "Los créditos son la moneda de Cuentia para generar cuentos e ilustraciones.",
-    "faq3Question": "¿Puedo usar los cuentos comercialmente?",
-    "faq3Answer": "Sí, con los planes de suscripción tienes derechos de uso incluso comercial.",
+    "faq3Question": "¿Ofrecéis cuentos infantiles PDF gratis?",
+    "faq3Answer": "Puedes descargar todos los libros infantiles que quieras en PDF gratis para probar la experiencia antes de crear tus propios cuentos personalizados.",
     "faq4Question": "¿Cuántos créditos cuesta crear un cuento?",
     "faq4Answer": "Los cuentos ilustrados más básicos cuestan 800 créditos.",
     "finalCtaTitle": "¿Listo para crear magia?",
@@ -38,7 +38,7 @@
   },
   "CreateStoryPage": {
     "createStoryTitle": "¡Crea tu cuento!",
-    "createStoryDescription": "Transforma tu imaginación en un cuento inolvidable lleno de ilustraciones y magia, donde cada página cobra vida con tus propias ideas y personajes.",
+    "createStoryDescription": "Transforma tus ideas en un libro infantil personalizado con IA, donde cada página cobra vida con ilustraciones mágicas. También puedes ilustrar cuentos infantiles a partir de tu propio texto en solo unos segundos.",
     "illustrateStoryTitle": "Ilustra tu cuento",
     "mainDataTitle": "1. Datos principales del cuento",
     "storyTitleLabel": "Título del Cuento",
@@ -207,7 +207,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Cuentos de la Comunidad",
-    "pageDescription": "Descubre las historias creadas por otros soñadores como tú. Inspírate, comparte y deja que la magia de sus cuentos te transporte a nuevos mundos.",
+    "pageDescription": "Explora los cuentos creados por nuestra comunidad: desde historias para dormir niños hasta libros infantiles en inglés y muchos otros idiomas, todos llenos de magia, imaginación y creatividad.",
     "languageDropdownTrigger": "Language: {selectedLanguageLabel}",
     "languageCategories": {
       "all": "All",

@@ -100,7 +100,7 @@ export default function Home({params}: PageProps<'/[locale]'>) {
                 <div className="relative z-10 scale-90 md:scale-100">
                   <Card className="absolute -top-16 -left-20 md:-left-40 p-2 bg-white shadow-xl rotate-[-15deg] transform hover:scale-110 transition-transform duration-300">
                     <Image
-                      src="https://replicate.delivery/xezq/KCS09DBHCN6iK9ioDYFbGUBU9BJXvTeuHGwpYk6MNPffgaDrA/tmptmvq6ud7.jpeg"
+                      src="https://cuentia-personajes.s3.eu-north-1.amazonaws.com/replicate-prediction-1dkfd12a11rme0ctb80v4hqk1g.jpeg"
                       alt="Transformación de foto a personaje"
                       width={200}
                       height={200}
@@ -311,7 +311,7 @@ export default function Home({params}: PageProps<'/[locale]'>) {
             </div>
             <Accordion type="single" collapsible className="w-full">
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-lg">
+                <AccordionTrigger className="text-lg text-left">
                 {t('faq1Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
@@ -319,14 +319,14 @@ export default function Home({params}: PageProps<'/[locale]'>) {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-2">
-                <AccordionTrigger className="text-lg">{t('faq2Question')}
+                <AccordionTrigger className="text-lg text-left">{t('faq2Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
                 {t('faq2Answer')}
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-3">
-                <AccordionTrigger className="text-lg">
+                <AccordionTrigger className="text-lg text-left">
                 {t('faq3Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
@@ -334,7 +334,7 @@ export default function Home({params}: PageProps<'/[locale]'>) {
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="item-4">
-                <AccordionTrigger className="text-lg">
+                <AccordionTrigger className="text-lg text-left">
                 {t('faq4Question')}
                 </AccordionTrigger>
                 <AccordionContent className="text-base">
