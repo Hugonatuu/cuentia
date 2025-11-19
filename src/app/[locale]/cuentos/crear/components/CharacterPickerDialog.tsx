@@ -26,6 +26,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from '@/lib/utils';
 
 
 interface CharacterPickerDialogProps {
@@ -47,17 +48,19 @@ const categories: { name: Category; icon: React.ElementType }[] = [
 
 const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => {
     const locale = useLocale();
+    const isPredefined = 'description' in character;
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
-      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+        setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
     }, []);
-
-    const isPredefined = 'description' in character;
 
     const cardContent = (
       <Card
-        className={`overflow-hidden group transition-all duration-300 ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1 cursor-pointer'}`}
+        className={cn(
+          'overflow-hidden group transition-all duration-300 relative',
+          isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1 cursor-pointer'
+        )}
         onClick={() => !isDisabled && onSelect()}
       >
         <CardContent className="p-0 text-center relative aspect-square">
@@ -73,26 +76,25 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
         </CardContent>
       </Card>
     );
-    
-    // For non-predefined characters, just return the card.
-    if (!isPredefined) {
-        return cardContent;
-    }
 
-    // For predefined characters, wrap with Tooltip.
-    return (
-        <TooltipProvider delayDuration={100}>
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    {cardContent}
-                </TooltipTrigger>
-                <TooltipContent>
-                    <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
-                </TooltipContent>
-            </Tooltip>
-        </TooltipProvider>
-    );
+    if (isPredefined) {
+        return (
+            <TooltipProvider delayDuration={100}>
+                <Tooltip>
+                    <TooltipTrigger asChild>{cardContent}</TooltipTrigger>
+                    {isTouchDevice ? null : (
+                       <TooltipContent>
+                           <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
+                       </TooltipContent>
+                    )}
+                </Tooltip>
+            </TooltipProvider>
+        )
+    }
+    
+    return cardContent;
 };
+
 
 
 const CharacterList = ({ characters, onSelect, excludedIds, isLoading, type, category }: { characters: AnyCharacter[] | null; onSelect: (char: AnyCharacter) => void; excludedIds: string[]; isLoading: boolean; type: 'user' | 'predefined'; category?: Category | 'All' }) => {
