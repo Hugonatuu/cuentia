@@ -64,8 +64,8 @@
     "imageCountLabel": "¿Cuántas imágenes quieres añadir a tu cuento?",
     "imageCountPlaceholder": "Selecciona una cantidad",
     "imageOption1": "20 páginas + 5 imágenes (800cd)",
-    "imageOption2": "12 imágenes + Portada (1.500cd)",
-    "imageOption3": "20 imágenes + Portada (2.400cd)",
+    "imageOption2": "20 páginas + 13 imágenes (1.500cd)",
+    "imageOption3": "20 páginas + 21 imágenes (2.400cd)",
     "imageOption4": "10 páginas + 11 imágenes (1.250cd)",
     "magicalTouchesTitle": "4. Toques Mágicos (Opcional)",
     "addDedicationLabel": "Añadir una dedicatoria especial",
@@ -570,5 +570,7 @@
     "copy": "© {year} Cuentia. Todos los derechos reservados."
   }
 }
+
+    
 
     

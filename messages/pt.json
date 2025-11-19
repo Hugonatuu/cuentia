@@ -64,8 +64,8 @@
     "imageCountLabel": "Quantas imagens você quer adicionar à sua história?",
     "imageCountPlaceholder": "Selecione uma quantidade",
     "imageOption1": "20 páginas + 5 imagens (800cd)",
-    "imageOption2": "12 imagens + Capa (1.500cd)",
-    "imageOption3": "20 imagens + Capa (2.400cd)",
+    "imageOption2": "20 páginas + 13 imagens (1.500cd)",
+    "imageOption3": "20 páginas + 21 imagens (2.400cd)",
     "imageOption4": "10 páginas + 11 imagens (1.250cd)",
     "magicalTouchesTitle": "4. Toques Mágicos (Opcional)",
     "addDedicationLabel": "Adicionar uma dedicatória especial",
@@ -563,5 +563,7 @@
     "copy": "© {year} Cuentia. Todos os direitos reservados."
   }
 }
+
+    
 
     
