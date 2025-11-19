@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser, useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { userCharactersCollectionRef, predefinedCharactersCollectionRef } from '@/firebase/firestore/references';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
@@ -47,13 +47,24 @@ const categories: { name: Category; icon: React.ElementType }[] = [
 
 const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyCharacter; onSelect: () => void; isDisabled: boolean }) => {
     const locale = useLocale();
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
+    const [isTooltipOpen, setIsTooltipOpen] = useState(false);
     
+    useEffect(() => {
+        setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+    }, []);
+
     const isPredefined = 'description' in character;
+
+    const handleInfoClick = (e: React.MouseEvent | React.TouchEvent) => {
+        e.stopPropagation(); // Prevent card's onClick from firing
+        setIsTooltipOpen(prev => !prev);
+    };
 
     const cardContent = (
       <Card
         className={`overflow-hidden group transition-all duration-300 ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:-translate-y-1 cursor-pointer'}`}
-        onClick={() => !isDisabled && !isPredefined && onSelect()} // Select on click only for user characters
+        onClick={() => !isDisabled && onSelect()}
       >
         <CardContent className="p-0 text-center relative aspect-square">
             <Image
@@ -71,23 +82,22 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
 
     if (isPredefined) {
         return (
-            <TooltipProvider delayDuration={0}>
-                <Tooltip>
+            <TooltipProvider delayDuration={100}>
+                <Tooltip open={isTooltipOpen} onOpenChange={isTouchDevice ? setIsTooltipOpen : undefined}>
                     <TooltipTrigger asChild>
-                        <div className="relative">
+                        <div className="relative" onClick={(e) => { if (isTouchDevice) e.preventDefault(); }}>
                             {cardContent}
-                            <div className="absolute top-2 right-2 z-10 p-1 bg-black/50 rounded-full md:hidden">
-                               <Info className="h-5 w-5 text-white" />
-                            </div>
-                            {!isDisabled && (
-                                <div 
-                                    className="absolute inset-0 z-20 cursor-pointer"
-                                    onClick={onSelect}
-                                ></div>
+                             {isTouchDevice && !isDisabled && (
+                                <div
+                                    className="absolute top-2 right-2 z-20 p-1 bg-black/50 rounded-full cursor-pointer"
+                                    onClick={handleInfoClick}
+                                >
+                                    <Info className="h-5 w-5 text-white" />
+                                </div>
                             )}
                         </div>
                     </TooltipTrigger>
-                    <TooltipContent>
+                    <TooltipContent onClick={(e) => e.stopPropagation()}>
                         <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
                     </TooltipContent>
                 </Tooltip>
