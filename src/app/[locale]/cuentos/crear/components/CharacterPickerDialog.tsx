@@ -49,9 +49,10 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
     const locale = useLocale();
     const [isTouchDevice, setIsTouchDevice] = useState(false);
     const [isTooltipOpen, setIsTooltipOpen] = useState(false);
-    
+
     useEffect(() => {
-        setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
+      // This check only runs on the client-side
+      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
     }, []);
 
     const isPredefined = 'description' in character;
@@ -85,9 +86,9 @@ const CharacterCard = ({ character, onSelect, isDisabled }: { character: AnyChar
             <TooltipProvider delayDuration={100}>
                 <Tooltip open={isTooltipOpen} onOpenChange={isTouchDevice ? setIsTooltipOpen : undefined}>
                     <TooltipTrigger asChild>
-                        <div className="relative" onClick={(e) => { if (isTouchDevice) e.preventDefault(); }}>
+                         <div className="relative" onClick={(e) => { if (isTouchDevice && !isDisabled) onSelect(); }}>
                             {cardContent}
-                             {isTouchDevice && !isDisabled && (
+                             {isTouchDevice && (
                                 <div
                                     className="absolute top-2 right-2 z-20 p-1 bg-black/50 rounded-full cursor-pointer"
                                     onClick={handleInfoClick}
