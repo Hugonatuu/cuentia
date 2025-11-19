@@ -20,14 +20,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
 import { doc } from 'firebase/firestore';
 import {
   Tooltip,
@@ -73,10 +65,6 @@ const categories: { name: Category | 'All'; icon: React.ElementType }[] = [
 export default function PersonajesPage() {
   const t = useTranslations('PersonajesPage');
   const locale = useLocale();
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  useEffect(() => {
-    setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
-  }, []);
 
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
@@ -258,45 +246,15 @@ export default function PersonajesPage() {
          ) : filteredPredefinedCharacters && filteredPredefinedCharacters.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
               {filteredPredefinedCharacters.map((character) => (
-                isTouchDevice ? (
-                  <Dialog key={character.id}>
-                    <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-accent">
-                      <CardContent className="p-0 text-center relative">
-                        <DialogTrigger asChild>
-                          <div className="absolute top-2 right-2 z-10 p-1 bg-black/50 rounded-full md:hidden">
-                            <Info className="h-5 w-5 text-white" />
-                          </div>
-                        </DialogTrigger>
-                        <div className="aspect-square overflow-hidden">
-                          <Image
-                            src={character.imageUrl}
-                            alt={character.name}
-                            width={400}
-                            height={400}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                            data-ai-hint={character.imageHint}
-                          />
-                        </div>
-                        <div className="py-3 px-2 bg-accent text-accent-foreground">
-                          <h3 className="font-semibold text-md">{character.name}</h3>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>{character.name}</DialogTitle>
-                        <DialogDescription>
-                          {character.description[locale as keyof typeof character.description] || character.description['es']}
-                        </DialogDescription>
-                      </DialogHeader>
-                    </DialogContent>
-                  </Dialog>
-                ) : (
                   <TooltipProvider key={character.id} delayDuration={0}>
                     <Tooltip>
                       <Card className="overflow-hidden group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-2 border-accent">
-                        <TooltipTrigger asChild>
-                          <CardContent className="p-0 text-center relative">
+                        <CardContent className="p-0 text-center relative">
+                            <TooltipTrigger asChild>
+                                <div className="absolute top-2 right-2 z-10 p-1 bg-black/50 rounded-full cursor-pointer">
+                                  <Info className="h-5 w-5 text-white" />
+                                </div>
+                            </TooltipTrigger>
                               <div className="aspect-square overflow-hidden">
                                 <Image
                                   src={character.imageUrl}
@@ -311,14 +269,12 @@ export default function PersonajesPage() {
                                 <h3 className="font-semibold text-md">{character.name}</h3>
                               </div>
                           </CardContent>
-                        </TooltipTrigger>
                       </Card>
-                      <TooltipContent>
+                       <TooltipContent>
                         <p className="max-w-xs">{character.description[locale as keyof typeof character.description] || character.description['es']}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
-                )
               ))}
             </div>
          ) : (
