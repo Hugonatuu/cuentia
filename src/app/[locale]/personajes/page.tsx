@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser, useFirestore, useCollection, useMemoFirebase, deleteDocumentNonBlocking } from '@/firebase';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
@@ -74,9 +74,9 @@ export default function PersonajesPage() {
   const t = useTranslations('PersonajesPage');
   const locale = useLocale();
   const [isTouchDevice, setIsTouchDevice] = useState(false);
-  useState(() => {
+  useEffect(() => {
     setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
-  });
+  }, []);
 
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
