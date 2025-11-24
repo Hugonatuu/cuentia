@@ -1098,6 +1098,7 @@ export default function CrearCuentoPage() {
                             {...field}
                           />
                         </FormControl>
+                        <p className="text-sm text-destructive mt-2">Importante: La historia debe usar exclusivamente los personajes seleccionados. No añadas personajes adicionales en la descripción.</p>
                         <div className="flex justify-between">
                           <FormMessage />
                           <div className="text-xs text-right text-muted-foreground">
