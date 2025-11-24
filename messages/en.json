@@ -16,7 +16,7 @@
     "step2Description": "Pick from your own characters or use Cuentia’s presets. Mix and match freely!",
     "step2Cta": "View Characters",
     "step3Title": "3. Write key points and the learning objective",
-    "step3Description": "Let your imagination run wild! Add key plot points, a learning goal, and your personal touch.",
+    "step3Description": "Let your imagination run wild! Add key plot points, a learning goal, and your personal touch. Add as many images as you want!",
     "step4Title": "4. Add final customization details to your book",
     "step4Description": "Add a special dedication and a back cover image to make it even more unique.",
     "examplesTitle": "Stories created with Cuentia",
@@ -170,7 +170,8 @@
     "toastIllustrationErrorTitle": "Error illustrating story",
 
     "errorDocumentNotFound": "The user document does not exist.",
-    "errorStoryCreationFailed": "Could not create the story document."
+    "errorStoryCreationFailed": "Could not create the story document.",
+    "importantCharacterNote": "Important: The story must use only the selected characters. Do not add any additional characters."
   },
   "PersonajesPage": {
     "pageTitle": "A World of Characters",
@@ -570,7 +571,3 @@
     "copy": "© {year} Cuentia. All rights reserved."
   }
 }
-
-    
-
-    

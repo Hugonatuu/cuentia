@@ -16,7 +16,7 @@
     "step2Description": "Você pode escolher entre os personagens que criou ou usar os personagens predefinidos da Cuentia. Combine como quiser!",
     "step2Cta": "Ver personagens",
     "step3Title": "3. Escreva os pontos-chave e o objetivo de aprendizado",
-    "step3Description": "Deixe sua imaginação voar! Adicione os pontos principais, um objetivo de aprendizado e dê seu toque pessoal.",
+    "step3Description": "Deixe sua imaginação voar! Adicione os pontos principais, um objetivo de aprendizado e dê seu toque pessoal. Adicione quantas imagens quiser!",
     "step4Title": "4. Adicione os últimos detalhes de personalização ao seu livro",
     "step4Description": "Adicione uma dedicatória especial e uma imagem na contracapa para torná-lo ainda mais único.",
     "examplesTitle": "Histórias criadas com a Cuentia",
@@ -168,7 +168,8 @@
     "toastIllustrationGeneratingDescription": "Você receberá uma notificação quando estiver pronta.",
     "toastIllustrationErrorTitle": "Erro ao ilustrar a história",
     "errorDocumentNotFound": "O documento do usuário não existe.",
-    "errorStoryCreationFailed": "Não foi possível criar o documento da história."
+    "errorStoryCreationFailed": "Não foi possível criar o documento da história.",
+    "importantCharacterNote": "Importante: A história deve usar exclusivamente os personagens selecionados. Não adicione personagens adicionais."
   },
   "PersonajesPage": {
     "pageTitle": "Um Mundo de Personagens",
@@ -563,7 +564,3 @@
     "copy": "© {year} Cuentia. Todos os direitos reservados."
   }
 }
-
-    
-
-    

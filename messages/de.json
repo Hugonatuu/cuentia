@@ -16,7 +16,7 @@
     "step2Description": "Du kannst zwischen den von dir erstellten Figuren wählen oder die vordefinierten Figuren von Cuentia verwenden. Kombiniere sie, wie du möchtest!",
     "step2Cta": "Figuren anzeigen",
     "step3Title": "3. Schreibe die Schlüsselpunkte und das Lernziel",
-    "step3Description": "Lass deiner Fantasie freien Lauf! Füge die Hauptpunkte hinzu, ein Lernziel und verleihe ihr deine persönliche Note.",
+    "step3Description": "Lass deiner Fantasie freien Lauf! Füge die Hauptpunkte hinzu, ein Lernziel und verleihe ihr deine persönliche Note. Füge so viele Bilder hinzu, wie du willst!",
     "step4Title": "4. Füge die letzten Personalisierungsdetails zu deinem Buch hinzu",
     "step4Description": "Füge eine besondere Widmung und ein Bild auf der Rückseite hinzu, um es noch einzigartiger zu machen.",
     "examplesTitle": "Mit Cuentia erstellte Geschichten",
@@ -170,7 +170,8 @@
     "toastIllustrationErrorTitle": "Fehler beim Illustrieren der Geschichte",
 
     "errorDocumentNotFound": "Das Benutzerdokument existiert nicht.",
-    "errorStoryCreationFailed": "Das Geschichtendokument konnte nicht erstellt werden."
+    "errorStoryCreationFailed": "Das Geschichtendokument konnte nicht erstellt werden.",
+    "importantCharacterNote": "Wichtig: Die Geschichte darf ausschließlich die ausgewählten Charaktere verwenden. Füge keine zusätzlichen Charaktere hinzu."
   },
   "PersonajesPage": {
     "pageTitle": "Eine Welt voller Figuren",
@@ -570,7 +571,3 @@
     "copy": "© {year} Cuentia. Alle Rechte vorbehalten."
   }
 }
-
-    
-
-    
