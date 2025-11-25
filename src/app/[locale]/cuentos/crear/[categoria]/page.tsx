@@ -759,6 +759,28 @@ export default function CrearCuentoPage() {
         illustration: illustratedPages.has(index) ? 'si' : 'no',
       }));
 
+      const charactersForWebhook = data.characters.map(({ character }) => {
+        const isPredefined = 'imageUrl' in character;
+        const lang = 'es'; // Assuming Spanish for now for illustrate mode.
+
+        const predefinedChar = isPredefined ? (character as PredefinedCharacter) : null;
+        const userChar = !isPredefined ? (character as Character) : null;
+
+        let species: string | undefined = '';
+        if (predefinedChar) {
+          species = predefinedChar.species[lang] || predefinedChar.species['es'];
+        } else if (userChar && typeof userChar.species === 'object') {
+          species = userChar.species[lang] || userChar.species['es'];
+        } else if (userChar) {
+          species = userChar.species;
+        }
+
+        return {
+          name: character.name,
+          species: species,
+        };
+      });
+
       const formData = new FormData();
       formData.append('title', data.title);
       formData.append('readerName', data.readerName);
@@ -770,6 +792,7 @@ export default function CrearCuentoPage() {
       formData.append('characterImagesText', characterImagesText);
       formData.append('personalizacion', personalizacionText);
       formData.append('pages', JSON.stringify(pagesWithIllustrationInfo));
+      formData.append('characters', JSON.stringify(charactersForWebhook));
       formData.append('initialPhrase', data.initialPhrase || '');
       formData.append('finalPhrase', data.finalPhrase || '');
 
