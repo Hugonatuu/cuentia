@@ -5,9 +5,9 @@
     "locale": "{locale, select, de {Deutsch} en {Englisch} fr {Französisch} es {Spanisch} it {Italienisch} pt {Portugiesisch} other {Unbekannt}}"
   },
   "HomePage": {
-    "title": "Erschaffe Geschichten, die in Sekunden lebendig werden",
-    "subtitle": "Deine Fantasie und künstliche Intelligenz vereinen sich, um ein paar Worte in eine magische Geschichte voller Illustrationen zu verwandeln.",
-    "cta": "✨ Meine Geschichte erstellen ✨",
+    "title": "Erstelle dein personalisiertes Kinderbuch mit KI",
+    "subtitle": "Lass deine Ideen mit KI zu einem personalisierten Kinderbuch werden – jede Seite voller magischer Illustrationen.",
+    "cta": "✨ Kinderbuch mit KI erstellen ✨",
     "howItWorksTitle": "WIE ES FUNKTIONIERT",
     "step1Title": "1. ERSTELLE DEINE FIGUR",
     "step1Description": "Lade ein Foto hoch, erschaffe eine magische Version von dir, deinem Haustier oder wem auch immer... und all die Charaktere, die du dir vorstellst!",
@@ -38,7 +38,7 @@
   },
   "CreateStoryPage": {
     "createStoryTitle": "Erstelle deine Geschichte!",
-    "createStoryDescription": "Verwandle deine Vorstellungskraft in eine unvergessliche Geschichte voller Illustrationen und Magie, in der jede Seite mit deinen eigenen Ideen und Charakteren lebendig wird.",
+    "createStoryDescription": "Verwandle deine Ideen in ein personalisiertes Kinderbuch mit KI, in dem jede Seite mit magischen Illustrationen zum Leben erwacht. Du kannst auch deine eigenen Texte eingeben und in nur wenigen Sekunden Kindergeschichten illustrieren lassen.",
     "illustrateStoryTitle": "Illustriere deine Geschichte",
     "mainDataTitle": "1. Hauptdaten der Geschichte",
     "storyTitleLabel": "Titel der Geschichte",
@@ -54,7 +54,7 @@
     "charactersTitle": "2. Figuren",
     "charactersDescription": "Wähle bis zu 4 Figuren für deine Geschichte. Du kannst deine eigenen erstellen!",
     "storyDetailsTitle": "3. Geschichtendetails",
-    "storyDetailsSubtitle": "Füge die letzten Schliff hinzu, um deine Geschichte einzigartig zu machen.",
+    "storyDetailsSubtitle": "Füge den letzten Schliff hinzu, um deine Geschichte einzigartig zu machen.",
     "languageTip": "💡 Tipp: Wir empfehlen, die Details in derselben Sprache zu schreiben, in der du die Geschichte generieren wirst, damit das Ergebnis natürlicher und präziser ist.",
     "plotPointsLabel": "Sei kreativ! Beschreibe, was in der Geschichte passieren soll, die Beziehung zwischen den Charakteren oder die Schauplätze, an denen die Geschichte spielt.",
     "plotPointsPlaceholder": "Leo, der Protagonist, reist mit seiner Oma Maria und trifft ein Mädchen (Ana), das seine beste Freundin wird. Die Geschichte soll an einem Strand stattfinden.",
@@ -171,7 +171,8 @@
 
     "errorDocumentNotFound": "Das Benutzerdokument existiert nicht.",
     "errorStoryCreationFailed": "Das Geschichtendokument konnte nicht erstellt werden.",
-    "importantCharacterNote": "Wichtig: Die Geschichte darf ausschließlich die ausgewählten Charaktere verwenden. Füge keine zusätzlichen Charaktere hinzu."
+    "importantCharacterNote": "Wichtig: Die Geschichte darf ausschließlich die ausgewählten Charaktere verwenden. Füge keine zusätzlichen Charaktere hinzu.",
+    "illustrateLanguageTitle": "In welcher Sprache hast du die Geschichte geschrieben?"
   },
   "PersonajesPage": {
     "pageTitle": "Eine Welt voller Figuren",
@@ -209,7 +210,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Geschichten der Community",
-    "pageDescription": "Entdecke die Geschichten, die von anderen Träumern wie dir erstellt wurden. Lass dich inspirieren, teile und lass die Magie ihrer Geschichten dich in neue Welten entführen.",
+    "pageDescription": "Entdecke Gute-Nacht-Geschichten und kurze Kindergeschichten, die von unserer Community geteilt und mit Fantasie zum Leben erweckt wurden.",
     "languageDropdownTrigger": "Sprache: {selectedLanguageLabel}",
     "languageCategories": {
       "all": "Alle",
@@ -571,3 +572,5 @@
     "copy": "© {year} Cuentia. Alle Rechte vorbehalten."
   }
 }
+
+    

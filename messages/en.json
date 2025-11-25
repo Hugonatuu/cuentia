@@ -5,9 +5,9 @@
     "locale": "{locale, select, de {Deutsch} en {English} fr {French} es {Spanish} it {Italian} pt {Portuguese} other {Unknown}}"
   },
   "HomePage": {
-    "title": "Create stories that come to life in seconds",
-    "subtitle": "Your imagination and AI come together to turn a few words into a magical story full of illustrations.",
-    "cta": "✨ Create my Story ✨",
+    "title": "Create Stories for Kids with Our AI Generator in Seconds",
+    "subtitle": "Your imagination and AI come together to turn a few words into a personalized children’s book with AI, filled with magical illustrations.",
+    "cta": "✨ Create a personalized book ✨",
     "howItWorksTitle": "HOW IT WORKS",
     "step1Title": "1. CREATE YOUR CHARACTER",
     "step1Description": "Upload a photo, create a magical version of yourself, your pet, or anyone you want — and as many characters as you can imagine!",
@@ -28,17 +28,17 @@
     "faq1Answer": "Upload several photos and our AI generates a cartoon character you can use in your stories.",
     "faq2Question": "What are credits?",
     "faq2Answer": "Credits are Cuentia’s currency to generate stories and illustrations.",
-    "faq3Question": "Can I use the stories commercially?",
-    "faq3Answer": "Yes, with subscription plans you get usage rights, even commercially.",
+    "faq3Question": "Do you offer free children’s stories in PDF?",
+    "faq3Answer": "You can download as many children’s books in free PDF format as you want to try the experience before creating your own personalized stories.",
     "faq4Question": "How many credits to create a story?",
-    "faq4Answer": "Basic illustrated stories cost 800 credits.",
+    "faq4Answer": "The most basic illustrated stories cost 800 credits.",
     "finalCtaTitle": "Ready to create magic?",
     "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
     "finalCtaButton": "Sign up for free"
   },
   "CreateStoryPage": {
     "createStoryTitle": "Create Your Story!",
-    "createStoryDescription": "Transform your imagination into an unforgettable story full of illustrations and magic, where every page comes to life with your own ideas and characters.",
+    "createStoryDescription": "Transform your ideas into a children’s book created with AI, where every page comes to life with magical illustrations. You can also create children’s stories with AI or generate custom book illustrations from your own text in just seconds.",
     "illustrateStoryTitle": "Illustrate Your Story",
     "mainDataTitle": "1. Main Story Details",
     "storyTitleLabel": "Story Title",
@@ -171,7 +171,8 @@
 
     "errorDocumentNotFound": "The user document does not exist.",
     "errorStoryCreationFailed": "Could not create the story document.",
-    "importantCharacterNote": "Important: The story must use only the selected characters. Do not add any additional characters."
+    "importantCharacterNote": "Important: The story must use only the selected characters. Do not add any additional characters.",
+    "illustrateLanguageTitle": "In which language have you written the story?"
   },
   "PersonajesPage": {
     "pageTitle": "A World of Characters",
@@ -209,7 +210,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Community Stories",
-    "pageDescription": "Discover stories created by other dreamers like you. Get inspired, share, and let the magic of their tales transport you to new worlds.",
+    "pageDescription": "Discover a growing collection of free bedtime stories and short stories for kids, all created by our community and filled with imagination and creativity.",
     "languageDropdownTrigger": "Language: {selectedLanguageLabel}",
     "languageCategories": {
       "all": "All",
@@ -571,3 +572,5 @@
     "copy": "© {year} Cuentia. All rights reserved."
   }
 }
+
+    

@@ -5,8 +5,8 @@
     "locale": "{locale, select, de {Alemão} en {Inglês} fr {Francês} es {Espanhol} it {Italiano} pt {Português} other {Desconhecido}}"
   },
   "HomePage": {
-    "title": "Crie histórias que ganham vida em segundos",
-    "subtitle": "Sua imaginação e a inteligência artificial se unem para transformar poucas palavras em uma história mágica cheia de ilustrações.",
+    "title": "Crie contos infantis que ganham vida em segundos",
+    "subtitle": "A sua imaginação e a inteligência artificial se unem para criar histórias com IA e transformar poucas palavras em um livro infantil personalizado cheio de ilustrações mágicas.",
     "cta": "✨ Criar minha história ✨",
     "howItWorksTitle": "COMO FUNCIONA",
     "step1Title": "1. CRIE SEU PERSONAGEM",
@@ -25,11 +25,11 @@
     "noStories": "Ainda não há histórias na comunidade.",
     "faqTitle": "Perguntas Frequentes",
     "faq1Question": "Como funciona a criação de avatares?",
-    "faq1Answer": "Você simplesmente envia várias fotos de uma pessoa ou animal de estimação, e nossa IA gerará um personagem de desenho animado que você poderá usar como protagonista em todas as suas histórias.",
+    "faq1Answer": "Você simplemente envia várias fotos de uma pessoa ou animal de estimação, e nossa IA gerará um personagem de desenho animado que você poderá usar como protagonista em todas as suas histórias.",
     "faq2Question": "O que são os créditos?",
     "faq2Answer": "Os créditos são a moeda da Cuentia para gerar histórias e ilustrações.",
-    "faq3Question": "Posso usar as histórias comercialmente?",
-    "faq3Answer": "Sim, com os planos de assinatura você tem direitos de uso, inclusive comercial.",
+    "faq3Question": "Vocês oferecem contos para crianças em PDF ou livros grátis em PDF?",
+    "faq3Answer": "Sim! Você pode baixar contos para crianças em PDF e livros grátis em PDF diretamente na nossa plataforma. Eles são perfeitos para conhecer a experiência antes de criar o seu próprio livro infantil personalizado com IA.",
     "faq4Question": "Quantos créditos custa para criar uma história?",
     "faq4Answer": "As histórias ilustradas mais básicas custam 800 créditos.",
     "finalCtaTitle": "Pronto para criar magia?",
@@ -38,7 +38,7 @@
   },
   "CreateStoryPage": {
     "createStoryTitle": "Crie sua história!",
-    "createStoryDescription": "Transforme sua imaginação em uma história inesquecível, cheia de ilustrações e magia, onde cada página ganha vida com suas próprias ideias e personagens.",
+    "createStoryDescription": "Transforme suas ideias em um livro infantil personalizado com IA, onde cada página ganha vida com ilustrações mágicas. Você também pode criar um livro infantil ou ilustrar seus contos para dormir a partir do seu próprio texto em apenas alguns segundos.",
     "illustrateStoryTitle": "Ilustre sua história",
     "mainDataTitle": "1. Dados principais da história",
     "storyTitleLabel": "Título da História",
@@ -157,7 +157,7 @@
     "validationIllustrateReaderNameMaxLength": "O nome não pode ter mais de 20 caracteres.",
     "validationIllustrateCharactersMin": "Você deve selecionar pelo menos um personagem.",
     "validationIllustrateCharactersMax": "Você pode selecionar até 4 personagens.",
-    "validationIllustratePageMaxLength": "Cada página не pode exceder 1000 caracteres.",
+    "validationIllustratePageMaxLength": "Cada página não pode exceder 1000 caracteres.",
     "validationIllustratePagesRequired": "Você deve preencher todas as páginas.",
     "validationIllustratePagesCount": "Você deve preencher as {pageCount} páginas.",
     "validationIllustratePhraseMaxLength": "A frase não pode ter mais de 500 caracteres.",
@@ -169,7 +169,8 @@
     "toastIllustrationErrorTitle": "Erro ao ilustrar a história",
     "errorDocumentNotFound": "O documento do usuário não existe.",
     "errorStoryCreationFailed": "Não foi possível criar o documento da história.",
-    "importantCharacterNote": "Importante: A história deve usar exclusivamente os personagens selecionados. Não adicione personagens adicionais."
+    "importantCharacterNote": "Importante: A história deve usar exclusivamente os personagens selecionados. Não adicione personagens adicionais.",
+    "illustrateLanguageTitle": "Em que idioma você escreveu a história?"
   },
   "PersonajesPage": {
     "pageTitle": "Um Mundo de Personagens",
@@ -202,7 +203,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Histórias da Comunidade",
-    "pageDescription": "Descubra as histórias criadas por outros sonhadores como você. Inspire-se, compartilhe e deixe a magia de suas histórias transportá-lo para novos mundos.",
+    "pageDescription": "Explore os contos criados pela nossa comunidade: desde contos para dormir até livros infantis em vários idiomas — todos cheios de magia, imaginação e criatividade.",
     "languageDropdownTrigger": "Idioma: {selectedLanguageLabel}",
     "languageCategories": {
       "all": "Todos",
@@ -564,3 +565,5 @@
     "copy": "© {year} Cuentia. Todos os direitos reservados."
   }
 }
+
+    

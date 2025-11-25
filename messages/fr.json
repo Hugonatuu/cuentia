@@ -5,8 +5,8 @@
     "locale": "{locale, select, de {Allemand} en {Anglais} fr {Français} es {Espagnol} it {Italien} pt {Portugais} other {Inconnu}}"
   },
   "HomePage": {
-    "title": "Créez des histoires qui prennent vie en quelques secondes",
-    "subtitle": "Votre imagination et l'intelligence artificielle s'unissent pour transformer quelques mots en une histoire magique remplie d'illustrations.",
+    "title": "Créez un livre pour enfants personnalisé avec IA qui prend vie en quelques secondes",
+    "subtitle": "Votre imagination et l’intelligence artificielle s’unissent pour transformer quelques mots en une histoire magique pour enfants, remplie d’illustrations enchanteuses.",
     "cta": "✨ Créer mon histoire ✨",
     "howItWorksTitle": "COMMENT ÇA MARCHE",
     "step1Title": "1. CRÉEZ VOTRE PERSONNAGE",
@@ -28,8 +28,8 @@
     "faq1Answer": "Il vous suffit de télécharger plusieurs photos d'une personne ou d'un animal de compagnie, et notre IA générera un personnage de dessin animé que vous pourrez utiliser comme protagoniste dans toutes vos histoires.",
     "faq2Question": "Que sont les crédits ?",
     "faq2Answer": "Les crédits sont la monnaie de Cuentia pour générer des histoires et des illustrations.",
-    "faq3Question": "Puis-je utiliser les histoires à des fins commerciales ?",
-    "faq3Answer": "Oui, avec les plans d'abonnement, vous avez les droits d'utilisation, y compris commerciale.",
+    "faq3Question": "Proposez-vous des histoires pour enfants en PDF gratuit?",
+    "faq3Answer": "Vous pouvez télécharger autant de livres pour enfants en PDF gratuit que vous le souhaitez pour tester l’expérience avant de créer vos propres histoires personnalisées.",
     "faq4Question": "Combien de crédits coûte la création d'une histoire ?",
     "faq4Answer": "Les histoires illustrées les plus basiques coûtent 800 crédits.",
     "finalCtaTitle": "Prêt à créer de la magie ?",
@@ -38,7 +38,7 @@
   },
   "CreateStoryPage": {
     "createStoryTitle": "Créez votre histoire !",
-    "createStoryDescription": "Transformez votre imagination en une histoire inoubliable remplie d'illustrations et de magie, où chaque page prend vie avec vos propres idées et personnages.",
+    "createStoryDescription": "Transformez vos idées en un livre pour enfants personnalisé avec IA, où chaque page prend vie grâce à des illustrations magiques. Vous pouvez aussi illustrer un livre pour enfant ou donner vie à vos propres contes pour enfants en quelques secondes seulement.",
     "illustrateStoryTitle": "Illustrez votre histoire",
     "mainDataTitle": "1. Détails principaux de l'histoire",
     "storyTitleLabel": "Titre de l'histoire",
@@ -56,7 +56,7 @@
     "storyDetailsTitle": "3. Détails de l'histoire",
     "storyDetailsSubtitle": "Ajoutez les touches finales pour rendre votre histoire unique.",
     "languageTip": "💡 Conseil : nous vous recommandons d'écrire les détails dans la même langue que celle dans laquelle vous allez générer l'histoire, pour un résultat plus naturel et précis.",
-    "plotPointsLabel": "Sois créatif! Décrivez ce que vous voulez qu'il se passe dans l'histoire, la relation entre les personnages ou les décors dans lesquels l'histoire se déroule.",
+    "plotPointsLabel": "Soyez créatif! Décrivez ce que vous voulez qu'il se passe dans l'histoire, la relation entre les personnages ou les décors dans lesquels l'histoire se déroule.",
     "plotPointsPlaceholder": "Léo, le protagoniste, part en voyage avec sa grand-mère Marie et rencontre une fille (Ana) qui deviendra sa meilleure amie. L’histoire doit se dérouler sur une plage.",
     "learningObjectiveLabel": "Objectif d'Apprentissage (Facultatif)",
     "learningObjectivePlaceholder": "Ex : Enseigner à Léo l'importance de l'amitié et du travail d'équipe.",
@@ -78,7 +78,7 @@
     "backCoverUploadText": "Télécharger l'image",
     "backCoverChangeText": "Changer l'image",
     "languageTitle": "Langue",
-    "languageWarning": "🎯 Assurez-vous d'écrire les détails de votre histoire dans la même langue que celle dans laquelle vous allez créer l'histoire, pour que tout s'harmonise perfectly.",
+    "languageWarning": "🎯 Assurez-vous d'écrire les détails de votre histoire dans la même langue que celle dans laquelle vous allez créer l'histoire, pour que tout s'harmonise parfaitement.",
     "languageLabel": "Langue de l'histoire",
     "languagePlaceholder": "Sélectionnez une langue",
     "languageEs": "Espagnol",
@@ -169,7 +169,8 @@
     "toastIllustrationErrorTitle": "Erreur lors de l'illustration de l'histoire",
     "errorDocumentNotFound": "Le document utilisateur n'existe pas.",
     "errorStoryCreationFailed": "Impossible de créer le document de l'histoire.",
-    "importantCharacterNote": "Important : L’histoire doit utiliser exclusivement les personnages sélectionnés. N’ajoutez pas de personnages supplémentaires."
+    "importantCharacterNote": "Important : L’histoire doit utiliser exclusivement les personnages sélectionnés. N’ajoutez pas de personnages supplémentaires.",
+    "illustrateLanguageTitle": "Dans quelle langue avez-vous écrit l'histoire ?"
   },
   "PersonajesPage": {
     "pageTitle": "Un Monde de Personnages",
@@ -202,7 +203,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Histoires de la Communauté",
-    "pageDescription": "Découvrez les histoires créées par d'autres rêveurs comme vous. Inspirez-vous, partagez et laissez la magie de leurs contes vous transporter vers de nouveaux mondes.",
+    "pageDescription": "Découvrez les contes pour dormir gratuits et les histoires pour enfants créées par notre communauté, toutes remplies de magie, d’imagination et de créativité.",
     "languageDropdownTrigger": "Langue : {selectedLanguageLabel}",
     "languageCategories": {
       "all": "Tous",
@@ -565,3 +566,5 @@
     "copy": "© {year} Cuentia. Tous droits réservés."
   }
 }
+
+    

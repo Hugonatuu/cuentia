@@ -5,8 +5,8 @@
     "locale": "{locale, select, de {Tedesco} en {Inglese} fr {Francese} es {Spagnolo} it {Italiano} pt {Portoghese} other {Sconosciuto}}"
   },
   "HomePage": {
-    "title": "Crea storie che prendono vita in pochi secondi",
-    "subtitle": "La tua immaginazione e l'intelligenza artificiale si uniscono per trasformare poche parole in una storia magica piena di illustrazioni.",
+    "title": "Crea racconti per bambini che prendono vita in pochi secondi",
+    "subtitle": "La tua immaginazione e l’intelligenza artificiale si uniscono per creare storie con intelligenza artificiale e trasformare poche parole in un libro per bambini personalizzato, ricco di illustrazioni magiche",
     "cta": "✨ Crea la mia storia ✨",
     "howItWorksTitle": "COME FUNZIONA",
     "step1Title": "1. CREA IL TUO PERSONAGGIO",
@@ -28,8 +28,8 @@
     "faq1Answer": "Carichi semplicemente diverse foto di una persona o di un animale domestico, e la nostra IA genererà un personaggio dei cartoni animati che potrai usare come protagonista in tutte le tue storie.",
     "faq2Question": "Cosa sono i crediti?",
     "faq2Answer": "I crediti sono la valuta di Cuentia per generare storie e illustrazioni.",
-    "faq3Question": "Posso usare le storie commercialmente?",
-    "faq3Answer": "Sì, con i piani di abbonamento hai diritti d'uso anche commerciali.",
+    "faq3Question": "Offrite storie per bambini in PDF gratis?",
+    "faq3Answer": "Puoi scaricare tutti i libri per bambini in PDF gratis che desideri per provare l’esperienza prima di creare le tue storie personalizzate",
     "faq4Question": "Quanti crediti costa creare una storia?",
     "faq4Answer": "Le storie illustrate più basiche costano 800 crediti.",
     "finalCtaTitle": "Pronto a creare magia?",
@@ -38,7 +38,7 @@
   },
   "CreateStoryPage": {
     "createStoryTitle": "Crea la tua storia!",
-    "createStoryDescription": "Trasforma la tua immaginazione in una storia indimenticabile piena di illustrazioni e magia, dove ogni pagina prende vita con le tue idee e i tuoi personaggi.",
+    "createStoryDescription": "rasforma le tue idee in un libro per bambini personalizzato con l’IA, dove ogni pagina prende vita grazie a illustrazioni magiche. Puoi anche creare libri per bambini o illustrare un libro con l’IA partendo dal tuo testo in pochi secondi.",
     "illustrateStoryTitle": "Illustra la tua storia",
     "mainDataTitle": "1. Dati principali della storia",
     "storyTitleLabel": "Titolo della Storia",
@@ -78,7 +78,7 @@
     "backCoverUploadText": "Carica immagine",
     "backCoverChangeText": "Cambia immagine",
     "languageTitle": "Lingua",
-    "languageWarning": "🎯 Assicurati di scrivere i dettagli della tua storia nella stessa lingua in cui creerai il libro, in modo che tutto combaci perfectly.",
+    "languageWarning": "🎯 Assicurati di scrivere i dettagli della tua storia nella stessa lingua in cui creerai il libro, in modo che tutto combaci perfettamente.",
     "languageLabel": "Lingua della Storia",
     "languagePlaceholder": "Seleziona una lingua",
     "languageEs": "Spagnolo",
@@ -117,7 +117,7 @@
     "storyErrorTitle": "Errore durante la generazione della storia",
     "illustrationGeneratingTitle": "La tua storia si sta illustrando!",
     "illustrationGeneratingDescription": "Riceverai una notifica quando sarà pronta.",
-    "illustrationErrorTitle": "Errore during l'illustrazione della storia",
+    "illustrationErrorTitle": "Errore durante l'illustrazione della storia",
     "learningObjectiveSuggestions": {
       "learningObjectiveSuggestion1": "Insegnare l'importanza di prendersi cura degli altri",
       "learningObjectiveSuggestion2": "Imparare a dare valore alle cose",
@@ -171,7 +171,8 @@
 
     "errorDocumentNotFound": "Il documento dell'utente non esiste.",
     "errorStoryCreationFailed": "Impossibile creare il documento della storia.",
-    "importantCharacterNote": "Importante: La storia deve utilizzare esclusivamente i personaggi selezionati. Non aggiungere personaggi aggiuntivi."
+    "importantCharacterNote": "Importante: La storia deve utilizzare esclusivamente i personaggi selezionati. Non aggiungere personaggi aggiuntivi.",
+    "illustrateLanguageTitle": "In che lingua hai scritto la storia?"
   },
   "PersonajesPage": {
     "pageTitle": "Un Mondo di Personaggi",
@@ -209,7 +210,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Storie della Comunità",
-    "pageDescription": "Scopri le storie create da altri sognatori come te. Ispirati, condividi e lascia che la magia delle loro storie ti trasporti in nuovi mondi.",
+    "pageDescription": "Esplora le storie create dalla nostra community: dalle storie per bambini per dormire ai libri unici e personalizzabili per i bambini in varie lingue, tutte piene di magia, immaginazione e creatività.",
     "languageDropdownTrigger": "Lingua: {selectedLanguageLabel}",
     "languageCategories": {
       "all": "Tutte",
@@ -571,3 +572,5 @@
     "copy": "© {year} Cuentia. Tutti i diritti riservati."
   }
 }
+
+    

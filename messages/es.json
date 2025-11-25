@@ -28,7 +28,7 @@
     "faq1Answer": "Simplemente subes varias fotos de una persona o mascota, y nuestra IA generará un personaje de dibujos animados que podrás usar como protagonista en todos tus cuentos.",
     "faq2Question": "¿Qué son los créditos?",
     "faq2Answer": "Los créditos son la moneda de Cuentia para generar cuentos e ilustraciones.",
-    "faq3Question": "¿Ofrecéis cuentos infantiles PDF gratis?",
+    "faq3Question": "¿Ofrecéis cuentos infantiles en PDF gratis?",
     "faq3Answer": "Puedes descargar todos los libros infantiles que quieras en PDF gratis para probar la experiencia antes de crear tus propios cuentos personalizados.",
     "faq4Question": "¿Cuántos créditos cuesta crear un cuento?",
     "faq4Answer": "Los cuentos ilustrados más básicos cuestan 800 créditos.",
@@ -171,7 +171,8 @@
 
     "errorDocumentNotFound": "El documento del usuario no existe.",
     "errorStoryCreationFailed": "No se pudo crear el documento del cuento.",
-    "importantCharacterNote": "Importante: La historia debe usar exclusivamente los personajes seleccionados. No añadas personajes adicionales en la descripción."
+    "importantCharacterNote": "Importante: La historia debe usar exclusivamente los personajes seleccionados. No añadas personajes adicionales en la descripción.",
+    "illustrateLanguageTitle": "¿En qué idioma has escrito el cuento?"
   },
   "PersonajesPage": {
     "pageTitle": "Un Mundo de Personajes",
@@ -571,3 +572,5 @@
     "copy": "© {year} Cuentia. Todos los derechos reservados."
   }
 }
+
+    

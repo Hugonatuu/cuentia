@@ -171,6 +171,7 @@ export default function CrearCuentoPage() {
         .max(500, t('validationIllustratePhraseMaxLength'))
         .optional(),
       backCoverImage: z.instanceof(File).optional(),
+      language: z.string().min(1, t('validationLanguageRequired')),
     });
 
   type IllustrateFormValues = z.infer<
@@ -289,21 +290,17 @@ export default function CrearCuentoPage() {
       pages: Array(numberOfPages).fill(''),
       initialPhrase: '',
       finalPhrase: '',
+      language: 'es',
     },
   });
 
   useEffect(() => {
     const currentPages = illustrateForm.getValues('pages');
     illustrateForm.reset({
-      title: illustrateForm.getValues('title'),
-      readerName: illustrateForm.getValues('readerName'),
-      characters: illustrateForm.getValues('characters'),
+      ...illustrateForm.getValues(),
       pages: Array(numberOfPages)
         .fill('')
         .map((_, i) => currentPages[i] || ''),
-      initialPhrase: illustrateForm.getValues('initialPhrase'),
-      finalPhrase: illustrateForm.getValues('finalPhrase'),
-      backCoverImage: illustrateForm.getValues('backCoverImage'),
     });
   }, [numberOfPages, illustrateForm]);
 
@@ -724,6 +721,7 @@ export default function CrearCuentoPage() {
         pdfUrl: '',
         initialPhrase: data.initialPhrase || '',
         finalPhrase: data.finalPhrase || '',
+        language: data.language,
       };
       const storyDocRef = await addDoc(storiesColRef, storyData);
       if (!storyDocRef)
@@ -795,6 +793,7 @@ export default function CrearCuentoPage() {
       formData.append('characters', JSON.stringify(charactersForWebhook));
       formData.append('initialPhrase', data.initialPhrase || '');
       formData.append('finalPhrase', data.finalPhrase || '');
+      formData.append('language', data.language);
 
       if (data.backCoverImage) {
         formData.append('backCoverImage', data.backCoverImage);
@@ -1829,6 +1828,58 @@ export default function CrearCuentoPage() {
                 </CardContent>
               </Card>
 
+              <Card className="shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-semibold">
+                     {t('illustrateLanguageTitle')}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <FormField
+                    control={illustrateForm.control}
+                    name="language"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('languageLabel')}</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t('languagePlaceholder')}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="es">
+                              {t('languageEs')}
+                            </SelectItem>
+                            <SelectItem value="en">
+                              {t('languageEn')}
+                            </SelectItem>
+                            <SelectItem value="fr">
+                              {t('languageFr')}
+                            </SelectItem>
+                            <SelectItem value="it">
+                              {t('languageIt')}
+                            </SelectItem>
+                            <SelectItem value="de">
+                              {t('languageDe')}
+                            </SelectItem>
+                            <SelectItem value="pt">
+                              {t('languagePt')}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </Card>
+
               <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
                 <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
                   <CreditCard className="h-5 w-5 text-primary" />
@@ -1856,3 +1907,5 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
+
+    
