@@ -145,7 +145,7 @@ export default function CrearCuentoPage() {
       title: z
         .string()
         .min(1, t('validationIllustrateTitleRequired'))
-        .max(50, t('validationIllustrateTitleMaxLength')),
+        .max(35, t('validationIllustrateTitleMaxLength')),
       readerName: z
         .string()
         .min(1, t('validationIllustrateReaderNameRequired'))
@@ -1660,6 +1660,10 @@ export default function CrearCuentoPage() {
                                   number: index + 1,
                                 })}
                                 {...field}
+                                onChange={(e) => {
+                                  const sanitizedValue = e.target.value.replace(/\n\n+/g, '\n');
+                                  field.onChange(sanitizedValue);
+                                }}
                                 rows={6}
                                 maxLength={1000}
                               />
@@ -1908,5 +1912,3 @@ export default function CrearCuentoPage() {
     </div>
   );
 }
-
-    
