@@ -1473,6 +1473,7 @@ export default function CrearCuentoPage() {
                           <Input
                             placeholder={t('storyTitlePlaceholder')}
                             {...field}
+                            maxLength={35}
                             onChange={(e) => {
                                 const sanitizedValue = e.target.value.replace(/[^\p{L}\p{N}\s]/gu, '');
                                 field.onChange(sanitizedValue);
