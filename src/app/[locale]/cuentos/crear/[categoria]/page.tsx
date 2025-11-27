@@ -98,7 +98,7 @@ const webhookUrls: { [key: string]: string } = {
   '5': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/d69b0d64-5830-458d-997d-1a79dae318cc',
   '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
   '20': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/c855ecc7-a53c-4334-be2b-18efe019e251',
-  '11': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/56804f68-66b7-417c-b2cc-30c86e8ec886',
+  '11': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/d69b0d64-5830-458d-997d-1a79dae318cc',
 };
 
 const creditCosts = {
@@ -773,7 +773,7 @@ export default function CrearCuentoPage() {
         } else if (userChar && typeof userChar.species === 'object') {
           species = userChar.species[lang] || userChar.species['es'];
         } else if (userChar) {
-          species = userChar.species;
+          species = userChar.species as string;
         }
 
         return {
@@ -1211,11 +1211,11 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                             <SelectItem value="5">
-                              {t('imageOption5')}
-                            </SelectItem>
                              <SelectItem value="11">
                               {t('imageOption4')}
+                            </SelectItem>
+                             <SelectItem value="5">
+                              {t('imageOption5')}
                             </SelectItem>
                             <SelectItem value="4">
                               {t('imageOption1')}
