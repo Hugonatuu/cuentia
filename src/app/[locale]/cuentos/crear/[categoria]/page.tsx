@@ -321,6 +321,7 @@ export default function CrearCuentoPage() {
   const illustrateWatchedReaderName = illustrateForm.watch('readerName');
   const illustrateWatchedInitialPhrase = illustrateForm.watch('initialPhrase');
   const illustrateWatchedFinalPhrase = illustrateForm.watch('finalPhrase');
+  const illustrateWatchedLanguage = illustrateForm.watch('language');
 
   useEffect(() => {
     let credits = 0;
@@ -597,8 +598,8 @@ export default function CrearCuentoPage() {
       }
 
       toast({
-        title: t('storyGeneratingTitle'),
-        description: t('storyGeneratingDescription'),
+        title: t('toastStoryGeneratingTitle'),
+        description: t('toastStoryGeneratingDescription'),
       });
 
       form.reset();
@@ -761,7 +762,7 @@ export default function CrearCuentoPage() {
 
       const charactersForWebhook = data.characters.map(({ character }) => {
         const isPredefined = 'imageUrl' in character;
-        const lang = 'es'; // Assuming Spanish for now for illustrate mode.
+        const lang = data.language as keyof PredefinedCharacter['species'];
 
         const predefinedChar = isPredefined ? (character as PredefinedCharacter) : null;
         const userChar = !isPredefined ? (character as Character) : null;
@@ -1212,11 +1213,11 @@ export default function CrearCuentoPage() {
                              <SelectItem value="5">
                               {t('imageOption5')}
                             </SelectItem>
-                            <SelectItem value="4">
-                              {t('imageOption1')}
-                            </SelectItem>
                              <SelectItem value="11">
                               {t('imageOption4')}
+                            </SelectItem>
+                            <SelectItem value="4">
+                              {t('imageOption1')}
                             </SelectItem>
                             <SelectItem value="12">
                               {t('imageOption2')}
@@ -1485,7 +1486,12 @@ export default function CrearCuentoPage() {
                             }}
                           />
                         </FormControl>
-                        <FormMessage />
+                         <div className="flex justify-between">
+                            <FormMessage />
+                            <div className="text-xs text-right text-muted-foreground">
+                              {(illustrateWatchedTitle || '').length}/35
+                            </div>
+                        </div>
                       </FormItem>
                     )}
                   />
