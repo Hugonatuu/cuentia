@@ -900,19 +900,6 @@ export default function CrearCuentoPage() {
       </AlertDialog>
 
       <Tabs defaultValue="create" className="w-full">
-        <div className="flex justify-center mb-8">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="create">
-              <Pencil className="mr-2 h-4 w-4" />
-              {t('createTab')}
-            </TabsTrigger>
-            <TabsTrigger value="illustrate">
-              <BookImage className="mr-2 h-4 w-4" />
-              {t('illustrateTab')}
-            </TabsTrigger>
-          </TabsList>
-        </div>
-
         <div className="text-center mb-12">
           <h1 className="font-headline text-4xl md:text-5xl text-gray-800">
             {details.title}
@@ -921,6 +908,20 @@ export default function CrearCuentoPage() {
             {details.description}
           </p>
         </div>
+        
+        <div className="flex justify-center mb-8">
+            <TabsList className="grid w-full max-w-md grid-cols-2">
+                <TabsTrigger value="create">
+                    <Pencil className="mr-2 h-4 w-4" />
+                    {t('createTab')}
+                </TabsTrigger>
+                <TabsTrigger value="illustrate">
+                    <BookImage className="mr-2 h-4 w-4" />
+                    {t('illustrateTab')}
+                </TabsTrigger>
+            </TabsList>
+        </div>
+
 
         <TabsContent value="create">
           <Form {...form}>
