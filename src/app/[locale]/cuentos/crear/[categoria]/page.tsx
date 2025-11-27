@@ -907,10 +907,8 @@ export default function CrearCuentoPage() {
           <p className="max-w-xl mx-auto text-primary mt-4 font-body">
             {details.description}
           </p>
-        </div>
-        
-        <div className="flex justify-center mb-8">
-            <TabsList className="grid w-full max-w-md grid-cols-2">
+          <div className="flex justify-center mt-8 mb-8">
+            <TabsList className="grid w-full max-w-lg grid-cols-2">
                 <TabsTrigger value="create">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
@@ -920,8 +918,8 @@ export default function CrearCuentoPage() {
                     {t('illustrateTab')}
                 </TabsTrigger>
             </TabsList>
+          </div>
         </div>
-
 
         <TabsContent value="create">
           <Form {...form}>
