@@ -954,7 +954,7 @@ export default function CrearCuentoPage() {
             {details.description}
           </p>
           <div className="flex justify-center mt-8 mb-8">
-            <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1 max-w-4xl">
+            <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1">
                 <TabsTrigger value="create" className="text-sm flex-1 py-3 px-6 sm:py-3 sm:px-6">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
