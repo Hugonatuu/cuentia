@@ -19,7 +19,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@3
 interface Story {
   id: string;
   title: string;
-  pdfUrl: string;
+  pdfUrl?: string;
+  pages?: string[];
 }
 
 export default function StoryViewerPage() {
@@ -45,6 +46,16 @@ export default function StoryViewerPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!story) return;
+
+    if (story.pdfUrl) {
+      setPdfFile(story.pdfUrl);
+    }
+  }, [story]);
+
+  useEffect(() => {
+    if(!story?.pdfUrl) return;
+
     function updateSize() {
       if (containerRef.current) {
         const containerWidth = containerRef.current.offsetWidth;
@@ -59,13 +70,7 @@ export default function StoryViewerPage() {
     updateSize(); // Initial size calculation
     
     return () => window.removeEventListener('resize', updateSize);
-  }, [currentPage, numPages]);
-
-  useEffect(() => {
-    if (story?.pdfUrl) {
-      setPdfFile(story.pdfUrl);
-    }
-  }, [story]);
+  }, [currentPage, numPages, story?.pdfUrl]);
 
 
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
@@ -120,8 +125,7 @@ export default function StoryViewerPage() {
         <div className="container mx-auto py-12 flex flex-col items-center gap-8">
             <Skeleton className="h-10 w-3/4" />
             <div className="flex gap-4">
-                <Skeleton className="h-[70vh] w-[25vw]"/>
-                <Skeleton className="h-[70vh] w-[25vw]"/>
+                <Skeleton className="h-[70vh] w-full"/>
             </div>
              <Skeleton className="h-12 w-64" />
         </div>
@@ -139,7 +143,7 @@ export default function StoryViewerPage() {
     );
   }
 
-  if (!story || !story.pdfUrl) {
+  if (!story || (!story.pdfUrl && !story.pages)) {
      return (
         <div className="container mx-auto py-12">
             <Alert>
@@ -165,51 +169,65 @@ export default function StoryViewerPage() {
         )}
       </div>
 
-      <div className="flex justify-center">
-        <div 
-          className={cn(
-            "relative flex items-center justify-center transition-opacity duration-200",
-            isTransitioning ? 'opacity-0' : 'opacity-100'
-          )}
-        >
-          <Document
-            file={pdfFile}
-            onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={(error) => console.error("Error al cargar el PDF:", error.message)}
-            loading={<Skeleton className="h-[80vh] w-full max-w-[500px]"/>}
-            className="flex justify-center items-start gap-2"
-          >
-            {pageWidth > 0 && getPageNumbersToRender().map(pageNumber => (
-                <div key={pageNumber} className="shadow-lg">
-                    <Page 
-                        pageNumber={pageNumber} 
-                        renderTextLayer={false}
-                        renderAnnotationLayer={false}
-                        width={pageWidth}
-                    />
-                </div>
-            ))}
-          </Document>
-        </div>
-      </div>
-      
-      {numPages && numPages > 1 && (
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Button onClick={goToPreviousPage} disabled={!canGoPrevious || isTransitioning} variant="outline" size="icon">
-            <ChevronLeft />
-            <span className="sr-only">{t('controls.previous')}</span>
-          </Button>
-          <p className="text-lg font-medium w-28 text-center">
-            {currentPage > 1 && numPages > currentPage + 1 
-              ? t('controls.pageRange', { currentPage, nextPage: currentPage + 1 })
-              : t('controls.page', { currentPage })
-            }
-          </p>
-          <Button onClick={goToNextPage} disabled={!canGoNext || isTransitioning} variant="outline" size="icon">
-            <ChevronRight />
-            <span className="sr-only">{t('controls.next')}</span>
-          </Button>
-        </div>
+      {story.pdfUrl ? (
+          <>
+            <div className="flex justify-center">
+              <div 
+                className={cn(
+                  "relative flex items-center justify-center transition-opacity duration-200",
+                  isTransitioning ? 'opacity-0' : 'opacity-100'
+                )}
+              >
+                <Document
+                  file={pdfFile}
+                  onLoadSuccess={onDocumentLoadSuccess}
+                  onLoadError={(error) => console.error("Error al cargar el PDF:", error.message)}
+                  loading={<Skeleton className="h-[80vh] w-full max-w-[500px]"/>}
+                  className="flex justify-center items-start gap-2"
+                >
+                  {pageWidth > 0 && getPageNumbersToRender().map(pageNumber => (
+                      <div key={pageNumber} className="shadow-lg">
+                          <Page 
+                              pageNumber={pageNumber} 
+                              renderTextLayer={false}
+                              renderAnnotationLayer={false}
+                              width={pageWidth}
+                          />
+                      </div>
+                  ))}
+                </Document>
+              </div>
+            </div>
+            
+            {numPages && numPages > 1 && (
+              <div className="mt-8 flex items-center justify-center gap-4">
+                <Button onClick={goToPreviousPage} disabled={!canGoPrevious || isTransitioning} variant="outline" size="icon">
+                  <ChevronLeft />
+                  <span className="sr-only">{t('controls.previous')}</span>
+                </Button>
+                <p className="text-lg font-medium w-28 text-center">
+                  {currentPage > 1 && numPages > currentPage + 1 
+                    ? t('controls.pageRange', { currentPage, nextPage: currentPage + 1 })
+                    : t('controls.page', { currentPage })
+                  }
+                </p>
+                <Button onClick={goToNextPage} disabled={!canGoNext || isTransitioning} variant="outline" size="icon">
+                  <ChevronRight />
+                  <span className="sr-only">{t('controls.next')}</span>
+                </Button>
+              </div>
+            )}
+          </>
+      ) : (
+          <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+            <div className="space-y-6">
+                {story.pages?.map((pageText, index) => (
+                    <div key={index} className="prose lg:prose-xl text-justify">
+                        <p className='font-serif text-lg leading-relaxed'>{pageText}</p>
+                    </div>
+                ))}
+            </div>
+          </div>
       )}
     </div>
   );
