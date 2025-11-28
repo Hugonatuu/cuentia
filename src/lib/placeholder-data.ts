@@ -33,7 +33,7 @@ export const pricingPlans = [
   },
   {
     id: 'magic',
-    price: '9,99€',
+    price: '11,99€',
     isFeatured: true,
     stripePriceId: 'price_1SP1UDArzx82mGRMZPvzXqXL',
     firebaseRole: 'magic',

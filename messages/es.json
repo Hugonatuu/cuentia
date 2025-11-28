@@ -299,7 +299,7 @@
       },
       "magic": {
         "name": "Plan Mágico",
-        "credits": "12.500 créditos / mes",
+        "credits": "13.000 créditos / mes",
         "features": {
           "allFeatures": "Acceso a todas las funciones",
           "prioritySupport": "Soporte prioritario",
@@ -310,7 +310,7 @@
       },
       "special": {
         "name": "Plan Especial",
-        "credits": "19.000 créditos / mes",
+        "credits": "18.000 créditos / mes",
         "features": {
           "allFeatures": "Acceso a todas las funciones",
           "prioritySupport": "Soporte prioritario",
@@ -321,7 +321,7 @@
       },
       "king": {
         "name": "Plan King",
-        "credits": "33.000 créditos / mes",
+        "credits": "29.000 créditos / mes",
         "features": {
           "allFeatures": "Acceso a todas las funciones",
           "prioritySupport": "Soporte prioritario",

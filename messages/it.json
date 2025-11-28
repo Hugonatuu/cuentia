@@ -299,7 +299,7 @@
       },
       "magic": {
         "name": "Piano Magico",
-        "credits": "12.500 crediti / mese",
+        "credits": "13.000 crediti / mese",
         "features": {
           "allFeatures": "Accesso a tutte le funzioni",
           "prioritySupport": "Supporto prioritario",
@@ -310,7 +310,7 @@
       },
       "special": {
         "name": "Piano Speciale",
-        "credits": "19.000 crediti / mese",
+        "credits": "18.000 crediti / mese",
         "features": {
           "allFeatures": "Accesso a tutte le funzioni",
           "prioritySupport": "Supporto prioritario",
@@ -321,7 +321,7 @@
       },
       "king": {
         "name": "Piano King",
-        "credits": "33.000 crediti / mese",
+        "credits": "29.000 crediti / mese",
         "features": {
           "allFeatures": "Accesso a tutte le funzioni",
           "prioritySupport": "Supporto prioritario",
