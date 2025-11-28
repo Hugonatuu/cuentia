@@ -9,10 +9,11 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Download, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download, BookOpen, ClipboardCopy, Check } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
+import { useToast } from '@/hooks/use-toast';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
 
@@ -29,6 +30,7 @@ export default function StoryViewerPage() {
   const { user } = useUser();
   const firestore = useFirestore();
   const router = useRouter();
+  const { toast } = useToast();
 
   const currentStoryRef = useMemoFirebase(() => {
     if (!firestore || !user || !storyId) return null;
@@ -43,6 +45,7 @@ export default function StoryViewerPage() {
   const [pdfFile, setPdfFile] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [pageWidth, setPageWidth] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -120,6 +123,19 @@ export default function StoryViewerPage() {
     return pageNumbers;
   };
   
+  const handleCopyText = () => {
+    if (!story || !story.pages) return;
+    const fullText = story.pages.map(page => page.text).join('\n\n');
+    navigator.clipboard.writeText(fullText).then(() => {
+      setIsCopied(true);
+      toast({
+        title: '¡Texto copiado!',
+        description: 'El texto del cuento ha sido copiado al portapapeles.',
+      });
+      setTimeout(() => setIsCopied(false), 2000);
+    });
+  };
+
   if (isLoading) {
     return (
         <div className="container mx-auto py-12 flex flex-col items-center gap-8">
@@ -219,7 +235,16 @@ export default function StoryViewerPage() {
             )}
           </>
       ) : (
-          <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+          <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg relative">
+             <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4"
+                onClick={handleCopyText}
+                aria-label="Copiar texto"
+            >
+                {isCopied ? <Check className="h-5 w-5 text-green-500" /> : <ClipboardCopy className="h-5 w-5" />}
+            </Button>
             <div className="space-y-6">
                 {story.pages?.map((page, index) => (
                     <div key={index} className="prose lg:prose-xl text-justify">
