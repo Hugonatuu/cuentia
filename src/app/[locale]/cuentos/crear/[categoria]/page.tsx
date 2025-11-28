@@ -95,20 +95,21 @@ import { useRouter } from '@/i18n/navigation';
 import { useParams } from 'next/navigation';
 
 const webhookUrls: { [key: string]: string } = {
-  '4': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/487acb8c-418a-46ad-84ed-522c7ac87a9d',
-  '5': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/d69b0d64-5830-458d-997d-1a79dae318cc',
-  '11': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/56804f68-66b7-417c-b2cc-30c86e8ec886',
-  '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
-  '21': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/c855ecc7-a53c-4334-be2b-18efe019e251',
+  '5': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/d69b0d64-5830-458d-997d-1a79dae318cc', // 10 paginas + 5 imagenes
+  '11': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/56804f68-66b7-417c-b2cc-30c86e8ec886', // 10 paginas + 11 imagenes
+  '4': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/487acb8c-418a-46ad-84ed-522c7ac87a9d', // 20 paginas + 5 imagenes
+  '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db', // 20 paginas + 13 imagenes
+  '21': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/c855ecc7-a53c-4334-be2b-18efe019e251', // 20 paginas + 21 imagenes
 };
+
 
 const creditCosts = {
   images: {
-    '4': 800,
-    '5': 800,
-    '11': 1250,
-    '12': 1500,
-    '21': 2400,
+    '5': 800, // 10p + 5i
+    '11': 1250, // 10p + 11i
+    '4': 800, // 20p + 5i
+    '12': 1500, // 20p + 13i
+    '21': 2400, // 20p + 21i
   },
   customization: 100,
   illustrateBase: 200,
@@ -944,7 +945,7 @@ export default function CrearCuentoPage() {
   
       // Create Story Document
       const storiesColRef = userStoriesCollectionRef(firestore, user.uid);
-      const storyData = {
+      const storyData: any = {
         userId: user.uid,
         title: data.title,
         learningObjective: data.learningObjective || '',
@@ -957,6 +958,7 @@ export default function CrearCuentoPage() {
         type: 'basic',
         coverImageUrl: '',
       };
+      
       const storyDocRef = await addDoc(storiesColRef, storyData);
       if (!storyDocRef) throw new Error(t('errorStoryCreationFailed'));
   
@@ -1374,16 +1376,16 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="5">
+                             <SelectItem value="5">
                               {t('imageOption5')}
                             </SelectItem>
-                            <SelectItem value="4">
-                              {t('imageOption1')}
-                            </SelectItem>
-                            <SelectItem value="11">
+                             <SelectItem value="11">
                               {t('imageOption4')}
                             </SelectItem>
-                            <SelectItem value="12">
+                             <SelectItem value="4">
+                              {t('imageOption1')}
+                            </SelectItem>
+                             <SelectItem value="12">
                               {t('imageOption2')}
                             </SelectItem>
                             <SelectItem value="21">
