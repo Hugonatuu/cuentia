@@ -98,7 +98,6 @@ const webhookUrls: { [key: string]: string } = {
   '4': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/487acb8c-418a-46ad-84ed-522c7ac87a9d',
   '5': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/d69b0d64-5830-458d-997d-1a79dae318cc',
   '12': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/45129045-1e5b-4f16-b77d-17c2670279db',
-  '20': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/c855ecc7-a53c-4334-be2b-18efe019e251',
   '11': 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/d69b0d64-5830-458d-997d-1a79dae318cc',
 };
 
@@ -909,16 +908,16 @@ export default function CrearCuentoPage() {
             {details.description}
           </p>
           <div className="flex justify-center mt-8 mb-8">
-            <TabsList className="grid w-full max-w-4xl grid-cols-3 h-auto">
-                <TabsTrigger value="create" className="text-xs sm:text-sm">
+            <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1">
+                <TabsTrigger value="create" className="text-xs sm:text-sm flex-1">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
                 </TabsTrigger>
-                <TabsTrigger value="illustrate" className="text-xs sm:text-sm">
+                <TabsTrigger value="illustrate" className="text-xs sm:text-sm flex-1">
                     <BookImage className="mr-2 h-4 w-4" />
                     {t('illustrateTab')}
                 </TabsTrigger>
-                <TabsTrigger value="basic" className="text-xs sm:text-sm">
+                <TabsTrigger value="basic" className="text-xs sm:text-sm flex-1">
                     <BookText className="mr-2 h-4 w-4" />
                     {t('basicTab')}
                 </TabsTrigger>
