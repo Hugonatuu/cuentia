@@ -112,8 +112,8 @@ const creditCosts = {
     '21': 2400,
   },
   customization: 150,
-  illustrateBase: 200,
-  illustratePerPage: 100,
+  illustrateBase: 400,
+  illustratePerPage: 120,
   basic: {
     short: 400,
     long: 500,
@@ -1376,21 +1376,11 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="5">
-                              10 páginas + 5 imágenes (900cd)
-                            </SelectItem>
-                            <SelectItem value="11">
-                              10 páginas + 11 imágenes (1.500cd)
-                            </SelectItem>
-                            <SelectItem value="4">
-                              20 páginas + 5 imágenes (1.500cd)
-                            </SelectItem>
-                            <SelectItem value="12">
-                              20 páginas + 13 imágenes (1.800cd)
-                            </SelectItem>
-                            <SelectItem value="21">
-                              20 páginas + 21 imágenes (2.400cd)
-                            </SelectItem>
+                            <SelectItem value="5">{t('imageOption1')}</SelectItem>
+                            <SelectItem value="11">{t('imageOption4')}</SelectItem>
+                            <SelectItem value="4">{t('imageOption5')}</SelectItem>
+                            <SelectItem value="12">{t('imageOption2')}</SelectItem>
+                            <SelectItem value="21">{t('imageOption3')}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -1770,7 +1760,7 @@ export default function CrearCuentoPage() {
                     <Sparkles className="h-4 w-4 !text-yellow-800" />
                     <AlertTitle>{t('illustratePagesAlertTitle')}</AlertTitle>
                     <AlertDescription>
-                      {t('illustratePagesAlertDescription')}
+                      Cada página que elijas illustrar tiene un coste adicional de 120 créditos.
                     </AlertDescription>
                   </Alert>
                 </CardHeader>
