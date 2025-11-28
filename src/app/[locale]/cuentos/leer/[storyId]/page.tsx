@@ -235,22 +235,25 @@ export default function StoryViewerPage() {
             )}
           </>
       ) : (
-          <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg relative">
-             <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-4 right-4"
-                onClick={handleCopyText}
-                aria-label="Copiar texto"
-            >
-                {isCopied ? <Check className="h-5 w-5 text-green-500" /> : <ClipboardCopy className="h-5 w-5" />}
-            </Button>
-            <div className="space-y-6">
-                {story.pages?.map((page, index) => (
-                    <div key={index} className="prose lg:prose-xl text-justify">
-                        <p className='font-serif text-lg leading-relaxed'>{page.text}</p>
-                    </div>
-                ))}
+          <div className="max-w-2xl mx-auto">
+            <div className="flex justify-end mb-2">
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={handleCopyText}
+                    aria-label="Copiar texto"
+                >
+                    {isCopied ? <Check className="h-5 w-5 text-green-500" /> : <ClipboardCopy className="h-5 w-5" />}
+                </Button>
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-lg relative">
+                <div className="space-y-6">
+                    {story.pages?.map((page, index) => (
+                        <div key={index} className="prose lg:prose-xl text-justify">
+                            <p className='font-serif text-lg leading-relaxed'>{page.text}</p>
+                        </div>
+                    ))}
+                </div>
             </div>
           </div>
       )}
