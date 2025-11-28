@@ -93,6 +93,7 @@
     "generatingButton": "Generating...",
     "illustrateTab": "Illustrate a story written by you",
     "createTab": "Create your magical story from scratch",
+    "basicTab": "Create a basic story without illustrations",
     "illustrateStoryDescription": "Fill in the details and let the magic do the rest.",
     "illustratePagesTitle": "Page Content",
     "illustratePagesAlertTitle": "Bring your pages to life!",
@@ -573,5 +574,3 @@
     "copy": "© {year} Cuentia. All rights reserved."
   }
 }
-
-    

@@ -50,6 +50,7 @@ import {
   Lightbulb,
   Pencil,
   BookImage,
+  BookText,
 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
 import AuthPopup from '@/components/core/AuthPopup';
@@ -908,7 +909,7 @@ export default function CrearCuentoPage() {
             {details.description}
           </p>
           <div className="flex justify-center mt-8 mb-8">
-            <TabsList className="grid w-full max-w-xl grid-cols-2">
+            <TabsList className="grid w-full max-w-xl grid-cols-3">
                 <TabsTrigger value="create">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
@@ -916,6 +917,10 @@ export default function CrearCuentoPage() {
                 <TabsTrigger value="illustrate">
                     <BookImage className="mr-2 h-4 w-4" />
                     {t('illustrateTab')}
+                </TabsTrigger>
+                <TabsTrigger value="basic">
+                    <BookText className="mr-2 h-4 w-4" />
+                    {t('basicTab')}
                 </TabsTrigger>
             </TabsList>
           </div>
@@ -1917,6 +1922,21 @@ export default function CrearCuentoPage() {
               </div>
             </form>
           </Form>
+        </TabsContent>
+
+        <TabsContent value="basic">
+          {/* Placeholder for the new basic story form */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Crea un cuento básico</CardTitle>
+              <CardDescription>
+                Esta funcionalidad está en construcción. ¡Vuelve pronto!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Aquí irá el formulario para crear un cuento solo con texto.</p>
+            </CardContent>
+          </Card>
         </TabsContent>
       </Tabs>
     </div>
