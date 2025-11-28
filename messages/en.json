@@ -117,8 +117,8 @@
         "pageCount": {
           "label": "How many pages do you want your story to have?",
           "placeholder": "Select a number of pages",
-          "option1": "10 pages (350cr)",
-          "option2": "20 pages (400cr)"
+          "option1": "Short Story (400cr)",
+          "option2": "Long Story (500cr)"
         }
       },
       "validation": {

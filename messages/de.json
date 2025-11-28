@@ -117,8 +117,8 @@
         "pageCount": {
           "label": "Wie viele Seiten soll deine Geschichte haben?",
           "placeholder": "Wähle eine Seitenanzahl",
-          "option1": "10 Seiten (350cd)",
-          "option2": "20 Seiten (400cd)"
+          "option1": "Kurzgeschichte (400cd)",
+          "option2": "Lange Geschichte (500cd)"
         }
       },
       "validation": {

@@ -117,9 +117,8 @@
         "pageCount": {
           "label": "Quantas páginas você quer que sua história tenha?",
           "placeholder": "Selecione um número de páginas",
-          "option1": "10 páginas (350cr)",
-          "option2": "20 páginas (400cr)",
-          "option3": "30 páginas (650cr)"
+          "option1": "Conto Curto (400cr)",
+          "option2": "Conto Longo (500cr)"
         }
       },
       "validation": {

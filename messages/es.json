@@ -117,8 +117,8 @@
         "pageCount": {
           "label": "¿Cuántas páginas quieres que tenga tu cuento?",
           "placeholder": "Selecciona un número de páginas",
-          "option1": "10 páginas (350cd)",
-          "option2": "20 páginas (400cd)"
+          "option1": "Cuento corto (400cd)",
+          "option2": "Cuento largo (500cd)"
         }
       },
       "validation": {

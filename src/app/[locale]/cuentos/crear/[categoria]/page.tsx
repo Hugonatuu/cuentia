@@ -114,8 +114,8 @@ const creditCosts = {
   illustrateBase: 200,
   illustratePerPage: 100,
   basic: {
-    '10': 350,
-    '20': 400,
+    'short': 400,
+    'long': 500,
   },
 };
 
@@ -950,7 +950,7 @@ export default function CrearCuentoPage() {
         learningObjective: data.learningObjective || '',
         characterExplanation: data.characterExplanation || '',
         plot: data.plot,
-        pageCount: parseInt(data.pageCount, 10),
+        pageCount: data.pageCount,
         status: 'generating',
         createdAt: serverTimestamp(),
         language: data.language,
@@ -2244,10 +2244,10 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                             <SelectItem value="10">
+                             <SelectItem value="short">
                               {tBasic('fields.pageCount.option1')}
                             </SelectItem>
-                             <SelectItem value="20">
+                             <SelectItem value="long">
                               {tBasic('fields.pageCount.option2')}
                             </SelectItem>
                           </SelectContent>

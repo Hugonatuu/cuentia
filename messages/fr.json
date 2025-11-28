@@ -117,9 +117,8 @@
         "pageCount": {
           "label": "Combien de pages voulez-vous que votre histoire ait ?",
           "placeholder": "Sélectionnez un nombre de pages",
-          "option1": "10 pages (350cr)",
-          "option2": "20 pages (400cr)",
-          "option3": "30 pages (650cr)"
+          "option1": "Histoire Courte (400cr)",
+          "option2": "Histoire Longue (500cr)"
         }
       },
       "validation": {
