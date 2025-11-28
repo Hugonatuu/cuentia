@@ -20,7 +20,7 @@ interface Story {
   id: string;
   title: string;
   pdfUrl?: string;
-  pages?: string[];
+  pages?: { pageNumber: number, text: string }[];
 }
 
 export default function StoryViewerPage() {
@@ -221,9 +221,9 @@ export default function StoryViewerPage() {
       ) : (
           <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
             <div className="space-y-6">
-                {story.pages?.map((pageText, index) => (
+                {story.pages?.map((page, index) => (
                     <div key={index} className="prose lg:prose-xl text-justify">
-                        <p className='font-serif text-lg leading-relaxed'>{pageText}</p>
+                        <p className='font-serif text-lg leading-relaxed'>{page.text}</p>
                     </div>
                 ))}
             </div>
