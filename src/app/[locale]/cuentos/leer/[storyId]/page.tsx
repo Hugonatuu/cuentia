@@ -14,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
-pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.js`;
+pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js`;
 
 interface Story {
   id: string;
@@ -63,9 +63,7 @@ export default function StoryViewerPage() {
 
   useEffect(() => {
     if (story?.pdfUrl) {
-      // Set the internal API route as the source for the PDF
-      const internalPdfUrl = `/api/cuentos/${story.id}?url=${encodeURIComponent(story.pdfUrl)}`;
-      setPdfFile(internalPdfUrl);
+      setPdfFile(story.pdfUrl);
     }
   }, [story]);
 
