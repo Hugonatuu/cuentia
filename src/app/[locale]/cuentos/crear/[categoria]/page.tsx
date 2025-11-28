@@ -886,8 +886,120 @@ export default function CrearCuentoPage() {
   }
 
   async function onBasicSubmit(data: BasicStoryFormValues) {
-    console.log("Basic story submitted", data);
-    // TODO: Implement submission logic for basic story
+    if (!user || !firestore || !userProfile) {
+      handleInteraction();
+      return;
+    }
+  
+    if (isStoryGenerating) {
+      setShowGeneratingPopup(true);
+      return;
+    }
+  
+    const totalCost = creditCosts.basic[data.pageCount as keyof typeof creditCosts.basic] || 0;
+  
+    const planLimits = userProfile.stripeRole ? getPlanLimits(userProfile.stripeRole) : 0;
+    const monthlyCreditsUsed = userProfile.monthlyCreditCount || 0;
+    const availableMonthlyCredits = planLimits - monthlyCreditsUsed;
+    const payAsYouGoCredits = userProfile.payAsYouGoCredits || 0;
+    const totalAvailableCredits = availableMonthlyCredits + payAsYouGoCredits;
+  
+    if (totalAvailableCredits < totalCost) {
+      toast({
+        variant: 'destructive',
+        title: t('insufficientCreditsTitle'),
+        description: t('insufficientCreditsDescription', {
+          needed: totalCost,
+          available: totalAvailableCredits,
+        }),
+      });
+      router.push('/precios');
+      return;
+    }
+  
+    const webhookUrl = 'https://natuai-n8n.kl7z6h.easypanel.host/webhook/00898ed6-7c8e-4a2b-97da-d9670e39a9e2';
+  
+    setIsSubmitting(true);
+  
+    try {
+      // Debit Credits
+      const userRef = userDocRef(firestore, user.uid);
+      await runTransaction(firestore, async (transaction) => {
+        const userDoc = await transaction.get(userRef);
+        if (!userDoc.exists()) throw t('errorDocumentNotFound');
+  
+        const currentProfile = userDoc.data() as UserProfile;
+        const currentMonthlyUsed = currentProfile.monthlyCreditCount || 0;
+        const currentPayAsYouGo = currentProfile.payAsYouGoCredits || 0;
+        const availableMonthly = getPlanLimits(currentProfile.stripeRole || '') - currentMonthlyUsed;
+  
+        let monthlyDebit = Math.min(totalCost, availableMonthly);
+        let paygDebit = Math.max(0, totalCost - monthlyDebit);
+  
+        transaction.update(userRef, {
+          monthlyCreditCount: currentMonthlyUsed + monthlyDebit,
+          payAsYouGoCredits: currentPayAsYouGo - paygDebit,
+        });
+      });
+  
+      // Create Story Document
+      const storiesColRef = userStoriesCollectionRef(firestore, user.uid);
+      const storyData = {
+        userId: user.uid,
+        title: data.title,
+        learningObjective: data.learningObjective || '',
+        characterExplanation: data.characterExplanation || '',
+        plot: data.plot,
+        pageCount: parseInt(data.pageCount, 10),
+        status: 'generating',
+        createdAt: serverTimestamp(),
+        language: data.language,
+        type: 'basic',
+        coverImageUrl: '',
+        pdfUrl: '',
+      };
+      const storyDocRef = await addDoc(storiesColRef, storyData);
+      if (!storyDocRef) throw new Error(t('errorStoryCreationFailed'));
+  
+      // Call Webhook
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value) formData.append(key, value as string);
+      });
+      formData.append('storyId', storyDocRef.id);
+      formData.append('userId', user.uid);
+      if (user.email) {
+        formData.append('userEmail', user.email);
+      }
+  
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Error del webhook del servidor: ${response.status} - ${errorText}`);
+      }
+  
+      toast({
+        title: t('toastStoryGeneratingTitle'),
+        description: t('toastStoryGeneratingDescription'),
+      });
+  
+      basicForm.reset();
+      router.push('/perfil');
+    } catch (error) {
+      console.error('Error al crear el cuento básico:', error);
+      toast({
+        variant: 'destructive',
+        title: t('toastStoryErrorTitle'),
+        description: error instanceof Error ? error.message : 'Hubo un problema al contactar el servidor.',
+      });
+      // TODO: Implement credit rollback on failure
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (isUserLoading) {
@@ -957,17 +1069,17 @@ export default function CrearCuentoPage() {
           </p>
           <div className="flex justify-center mt-8 mb-8">
             <TabsList className="items-center justify-center rounded-md bg-muted text-muted-foreground flex flex-col sm:flex-row h-auto sm:h-auto p-1">
-                <TabsTrigger value="create" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
-                    <Pencil className="mr-2 h-4 w-4" />
+                <TabsTrigger value="create" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6 flex items-center gap-2">
+                    <Pencil className="h-4 w-4" />
                     {t('createTab')}
                 </TabsTrigger>
-                <TabsTrigger value="illustrate" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
-                    <BookImage className="mr-2 h-4 w-4" />
+                <TabsTrigger value="illustrate" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6 flex items-center gap-2">
+                    <BookImage className="h-4 w-4" />
                     {t('illustrateTab')}
                 </TabsTrigger>
-                <TabsTrigger value="basic" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
-                    <BookText className="mr-2 h-4 w-4" />
-                    {t('basicTab.title')}
+                <TabsTrigger value="basic" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6 flex items-center gap-2">
+                    <BookText className="h-4 w-4" />
+                    {tBasic('title')}
                 </TabsTrigger>
             </TabsList>
           </div>
