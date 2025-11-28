@@ -79,7 +79,7 @@
     "backCoverUploadText": "Télécharger l'image",
     "backCoverChangeText": "Changer l'image",
     "languageTitle": "Langue",
-    "languageWarning": "🎯 Assurez-vous d'écrire les détails de votre histoire dans la même langue que celle dans laquelle vous allez créer l'histoire, pour que tout s'harmonise parfaitement.",
+    "languageWarning": "🎯 Assurez-vous d'écrire les détails de votre histoire dans la même langue que celle dans laquelle vous allez créer l'histoire, pour que tout s'harmonise perfectly.",
     "languageLabel": "Langue de l'histoire",
     "languagePlaceholder": "Sélectionnez une langue",
     "languageEs": "Espagnol",
@@ -92,7 +92,7 @@
     "createStoryButton": "Créer Mon Histoire Magique",
     "generatingButton": "Génération...",
     "illustrateTab": "Illustre une histoire écrite par toi",
-    "createTab": "Crée ton histoire de zéro",
+    "createTab": "Crée ton histoire magique de zéro",
     "illustrateStoryDescription": "Remplissez les détails et laissez la magie opérer.",
     "illustratePagesTitle": "Contenu des pages",
     "illustratePagesAlertTitle": "Donnez vie à vos pages !",
@@ -170,7 +170,7 @@
     "toastIllustrationErrorTitle": "Erreur lors de l'illustration de l'histoire",
     "errorDocumentNotFound": "Le document utilisateur n'existe pas.",
     "errorStoryCreationFailed": "Impossible de créer le document de l'histoire.",
-    "importantCharacterNote": "Important : L’histoire doit utiliser exclusivement les personnages sélectionnés. N’ajoutez pas de personnages supplémentaires.",
+    "importantCharacterNote": "Important : L’histoire doit utiliser exclusively les personnages sélectionnés. N’ajoutez pas de personnages supplémentaires.",
     "illustrateLanguageTitle": "Dans quelle langue avez-vous écrit l'histoire ?"
   },
   "PersonajesPage": {

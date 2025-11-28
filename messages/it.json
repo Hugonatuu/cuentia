@@ -92,7 +92,7 @@
     "createStoryButton": "Crea la mia Storia Magica",
     "generatingButton": "Generando...",
     "illustrateTab": "Illustra una storia scritta da te",
-    "createTab": "Crea la tua storia da zero",
+    "createTab": "Crea la tua magica storia da zero",
     "illustrateStoryDescription": "Completa i dettagli e lascia che la magia faccia il resto.",
     "illustratePagesTitle": "Contenuto delle pagine",
     "illustratePagesAlertTitle": "Dai vita alle tue pagine!",
@@ -115,10 +115,10 @@
     "configErrorDescription": "La selezione delle immagini non ha un webhook associato. Seleziona un'opzione valida.",
     "storyGeneratingTitle": "Storia in arrivo!",
     "storyGeneratingDescription": "La tua storia si sta generando. Riceverai una notifica quando sarà pronta.",
-    "storyErrorTitle": "Errore durante la generazione della storia",
+    "storyErrorTitle": "Errore during la generazione della storia",
     "illustrationGeneratingTitle": "La tua storia si sta illustrando!",
     "illustrationGeneratingDescription": "Riceverai una notifica quando sarà pronta.",
-    "illustrationErrorTitle": "Errore durante l'illustrazione della storia",
+    "illustrationErrorTitle": "Errore during l'illustrazione della storia",
     "learningObjectiveSuggestions": {
       "learningObjectiveSuggestion1": "Insegnare l'importanza di prendersi cura degli altri",
       "learningObjectiveSuggestion2": "Imparare a dare valore alle cose",
@@ -164,15 +164,15 @@
     "validationIllustratePhraseMaxLength": "La frase non può superare i 500 caratteri.",
 
     "toastStoryGeneratingTitle": "Storia in arrivo!",
-    "toastStoryGeneratingDescription": "La tua storia si sta generando. Riceverai una notifica quando sarà pronta.",
-    "toastStoryErrorTitle": "Errore durante la generazione della storia",
+    "toastStoryGeneratingDescription": "La tua storia si sta generando. Riceverai una notifica when sarà pronta.",
+    "toastStoryErrorTitle": "Errore during la generazione della storia",
     "toastIllustrationGeneratingTitle": "La tua storia si sta illustrando!",
-    "toastIllustrationGeneratingDescription": "Riceverai una notifica quando sarà pronta.",
-    "toastIllustrationErrorTitle": "Errore durante l'illustrazione della storia",
+    "toastIllustrationGeneratingDescription": "Riceverai una notifica when sarà pronta.",
+    "toastIllustrationErrorTitle": "Errore during l'illustrazione della storia",
 
     "errorDocumentNotFound": "Il documento dell'utente non esiste.",
     "errorStoryCreationFailed": "Impossibile creare il documento della storia.",
-    "importantCharacterNote": "Importante: La storia deve utilizzare esclusivamente i personaggi selezionati. Non aggiungere personaggi aggiuntivi.",
+    "importantCharacterNote": "Importante: La storia deve utilizzare exclusively i personaggi selezionati. Non aggiungere personaggi aggiuntivi.",
     "illustrateLanguageTitle": "In che lingua hai scritto la storia?"
   },
   "PersonajesPage": {
@@ -244,7 +244,7 @@
     "subscriptionDescription": "Senza vincoli, senza rischi: cancella quando vuoi e goditi pagamenti sicuri con Stripe",
     "errorTitle": "Errore",
     "errorDescription": "Impossibile connettersi al database.",
-    "paymentErrorTitle": "Errore durante l'elaborazione del pagamento",
+    "paymentErrorTitle": "Errore during l'elaborazione del pagamento",
     "paymentErrorDescription": "Si è verificato un problema nella creazione della sessione di pagamento. Riprova.",
     "pricingPlans": {
       "month":"mese",
@@ -560,7 +560,7 @@
     },
     "errors": {
       "updateError": {
-        "title": "Errore durante l'aggiornamento",
+        "title": "Errore during l'aggiornamento",
         "description": "Impossibile cambiare la tua foto profilo. Riprova."
       }
     },

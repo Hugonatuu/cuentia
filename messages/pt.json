@@ -50,13 +50,13 @@
     "ageOption3": "9-12 anos",
     "readerNameLabel": "Nome do Leitor",
     "readerNamePlaceholder": "Leo",
-    "readerNameTooltip": "Coloque o nome do leitor para personalizar a primeira página do livro",
+    "readerNameTooltip": "Coloque o nome do leitor para personalizar la primeira página do livro",
     "charactersTitle": "2. Personagens",
     "charactersDescription": "Escolha até 4 personagens para a sua história. Você pode criar os seus próprios!",
     "storyDetailsTitle": "3. Detalhes da história",
     "storyDetailsSubtitle": "Adicione os toques finais para tornar sua história única.",
-    "languageTip": "💡 Dica: recomendamos escrever os detalhes no mesmo idioma em que você vai gerar a história, para que o resultado seja mais natural e preciso.",
-    "plotPointsLabel": "Seja criativo! Descreva o que você quer que aconteça na história, a relação entre os personagens ou os cenários onde a história se passa.",
+    "languageTip": "💡 Dica: recomendamos escrever os detalhes no mesmo idioma em que você vai gerar la história, para que o resultado seja mais natural e preciso.",
+    "plotPointsLabel": "Seja criativo! Descreva o que você quer que aconteça na história, la relação entre os personagens ou os cenários onde la história se passa.",
     "plotPointsPlaceholder": "Leo, que é o protagonista, viaja com sua avó Maria e conhece uma menina (Ana) que se tornará sua melhor amiga. A história deve acontecer numa praia.",
     "learningObjectiveLabel": "Objetivo de Aprendizado (Opcional)",
     "learningObjectivePlaceholder": "Ex: Ensinar a Leo a importância da amizade e do trabalho em equipe.",
@@ -92,8 +92,8 @@
     "createStoryButton": "Criar Minha História Mágica",
     "generatingButton": "Gerando...",
     "illustrateTab": "Ilustra uma história escrita por ti",
-    "createTab": "Cria a tua história do zero",
-    "illustrateStoryDescription": "Preencha os detalhes e deixe a magia fazer o resto.",
+    "createTab": "Cria a tua história mágica do zero",
+    "illustrateStoryDescription": "Preencha os detalhes e deixe la magia fazer o resto.",
     "illustratePagesTitle": "Conteúdo das páginas",
     "illustratePagesAlertTitle": "Dê vida às suas páginas!",
     "illustratePagesAlertDescription": "Cada página que você escolher ilustrar tem um custo adicional de 100 créditos.",
@@ -101,24 +101,24 @@
     "pageCountPlaceholder": "Selecione o número de páginas",
     "pageLabel": "Página {number}",
     "illustrateToggle": "Ilustrar",
-    "pageTextPlaceholder": "Escreva aqui o texto para a página {number}...",
+    "pageTextPlaceholder": "Escreva aqui o texto para la página {number}...",
     "illustrateButton": "Ilustrar Minha História",
     "authPopupTitle": "✨ Cadastre-se para criar sua história! ✨",
     "authPopupDescription": "Junte-se à magia! Crie uma conta para começar a gerar suas próprias histórias e personagens únicos.",
     "authPopupAction": "Cadastrar",
     "generatingPopupTitle": "Ops! Ainda há uma história no forno 🧁",
-    "generatingPopupDescription": "Espere um pouco e você poderá criar a próxima.",
+    "generatingPopupDescription": "Espere um pouco e você poderá criar la próxima.",
     "generatingPopupAction": "Entendi",
     "insufficientCreditsTitle": "Créditos insuficientes",
     "insufficientCreditsDescription": "Você precisa de {needed} créditos para criar esta história, mas só tem {available} restantes.",
     "configErrorTitle": "Erro de configuração",
     "configErrorDescription": "A seleção de imagens não tem um webhook associado. Por favor, selecione uma opção válida.",
     "storyGeneratingTitle": "História a caminho!",
-    "storyGeneratingDescription": "Sua história está sendo gerada. Você receberá uma notificação quando estiver pronta.",
-    "storyErrorTitle": "Erro ao gerar a história",
+    "storyGeneratingDescription": "Sua história está sendo gerada. Você receberá uma notificação when estiver pronta.",
+    "storyErrorTitle": "Erro ao gerar la história",
     "illustrationGeneratingTitle": "Sua história está sendo ilustrada!",
-    "illustrationGeneratingDescription": "Você receberá uma notificação quando estiver pronta.",
-    "illustrationErrorTitle": "Erro ao ilustrar a história",
+    "illustrationGeneratingDescription": "Você receberá uma notificação when estiver pronta.",
+    "illustrationErrorTitle": "Erro ao ilustrar la história",
     "learningObjectiveSuggestions": {
       "learningObjectiveSuggestion1": "Ensinar a importância de cuidar dos outros",
       "learningObjectiveSuggestion2": "Aprender a valorizar as coisas",
@@ -151,7 +151,7 @@
     "validationPagesRequired": "Você deve preencher todas as páginas.",
     "validationPagesCount": "Você deve preencher as {pageCount} páginas.",
     "pagesText": "páginas",
-    "defaultDescription": "Preencha os detalhes e deixe a magia fazer o resto.",
+    "defaultDescription": "Preencha os detalhes e deixe la magia fazer o resto.",
     "validationIllustrateTitleRequired": "O título é obrigatório.",
     "validationIllustrateTitleMaxLength": "O título não pode exceder 50 caracteres.",
     "validationIllustrateReaderNameRequired": "O nome do leitor é obrigatório.",
@@ -163,26 +163,26 @@
     "validationIllustratePagesCount": "Você deve preencher as {pageCount} páginas.",
     "validationIllustratePhraseMaxLength": "A frase não pode ter mais de 500 caracteres.",
     "toastStoryGeneratingTitle": "História a caminho!",
-    "toastStoryGeneratingDescription": "Sua história está sendo gerada. Você receberá uma notificação quando estiver pronta.",
-    "toastStoryErrorTitle": "Erro ao gerar a história",
+    "toastStoryGeneratingDescription": "Sua história está sendo gerada. Você receberá uma notificação when estiver pronta.",
+    "toastStoryErrorTitle": "Erro ao gerar la história",
     "toastIllustrationGeneratingTitle": "Sua história está sendo ilustrada!",
-    "toastIllustrationGeneratingDescription": "Você receberá uma notificação quando estiver pronta.",
-    "toastIllustrationErrorTitle": "Erro ao ilustrar a história",
+    "toastIllustrationGeneratingDescription": "Você receberá uma notificação when estiver pronta.",
+    "toastIllustrationErrorTitle": "Erro ao ilustrar la história",
     "errorDocumentNotFound": "O documento do usuário não existe.",
     "errorStoryCreationFailed": "Não foi possível criar o documento da história.",
-    "importantCharacterNote": "Importante: A história deve usar exclusivamente os personagens selecionados. Não adicione personagens adicionais.",
-    "illustrateLanguageTitle": "Em que idioma você escreveu a história?"
+    "importantCharacterNote": "Importante: A história deve usar exclusively os personagens selecionados. Não adicione personagens adicionais.",
+    "illustrateLanguageTitle": "Em que idioma você escreveu la história?"
   },
   "PersonajesPage": {
     "pageTitle": "Um Mundo de Personagens",
     "pageDescription": "Aqui vivem os personagens que darão vida às suas histórias. Crie novos amigos, você mesmo ou até mesmo seu animal de estimação!",
     "authCardTitle": "Envie uma foto sua, do seu animal de estimação ou de quem você quiser e crie um personagem único.",
-    "authCardSubtitle": "💫Cadastre-se e deixe a magia começar! 💫",
+    "authCardSubtitle": "💫Cadastre-se e deixe la magia começar! 💫",
     "authCardButton": "Criar Personagem",
     "myCharactersTitle": "Meus Personagens",
     "createCharacterButton": "✨ Criar Novo Personagem ✨",
     "noCharactersTitle": "Você ainda não criou nenhum personagem",
-    "noCharactersDescription": "Sua história está esperando por seu protagonista. Crie o primeiro e deixe a magia começar!",
+    "noCharactersDescription": "Sua história está esperando por seu protagonista. Crie o primeiro e deixe la magia começar!",
     "firstCharacterButton": "Criar meu primeiro personagem",
     "deleteButton": "Excluir",
     "deleteButtonAriaLabel": "Excluir personagem",
@@ -223,7 +223,7 @@
   },
   "PreciosPage": {
     "pageTitle": "Planos para Cada Criador",
-    "pageDescription": "Escolha a opção que melhor se adapta ao seu ritmo criativo. Mais créditos, mais histórias, mais magia.",
+    "pageDescription": "Escolha la opção que melhor se adapta ao seu ritmo criativo. Mais créditos, mais histórias, mais magia.",
     "creditsInfoButton": "Como funcionam os créditos?",
     "creditPackTitle": "Pacote de Créditos",
     "creditPackDescription": "Perfeito para quem quer experimentar a Cuentia ou usá-la sem compromisso mensal.",
@@ -234,11 +234,11 @@
     "subscriptionAlert": "Até 40% mais créditos com o modelo de assinatura!",
     "recommendedBadge": "RECOMENDADO",
     "subscriptionTitle": "✨ Assine e economize em cada crédito",
-    "subscriptionDescription": "Sem amarras, sem riscos: cancele quando quiser e desfrute de pagamentos seguros com Stripe",
+    "subscriptionDescription": "Sem amarras, sem riscos: cancele when quiser e desfrute de pagamentos seguros com Stripe",
     "errorTitle": "Erro",
     "errorDescription": "Não foi possível conectar ao banco de dados.",
     "paymentErrorTitle": "Erro ao processar o pagamento",
-    "paymentErrorDescription": "Ocorreu um problema ao criar a sessão de pagamento. Por favor, tente novamente.",
+    "paymentErrorDescription": "Ocorreu um problema ao criar la sessão de pagamento. Por favor, tente novamente.",
     "pricingPlans": {
       "month":"mês",
       "artista": {
@@ -369,7 +369,7 @@
   },
   "EjemplosPage": {
     "title": "Galeria da Imaginação",
-    "description": "Explore os mundos criados com a Cuentia. Cada história é uma porta para uma nova aventura ou um novo aprendizado.",
+    "description": "Explore os mundos criados com la Cuentia. Cada história é uma porta para uma nova aventura ou um novo aprendizado.",
     "downloadButton": "Descarregar"
   },
   "PerfilPage": {
@@ -429,7 +429,7 @@
     },
     "page": {
       "title": "Crie Seu Avatar Personalizado",
-      "description": "Envie algumas fotos e deixe a inteligência artificial transformar você, um ente querido ou seu animal de estimação no protagonista de uma história."
+      "description": "Envie algumas fotos e deixe la inteligência artificial transformar você, um ente querido ou seu animal de estimação no protagonista de uma história."
     },
     "characterData": {
       "title": "1. Detalhes do Personagem",
@@ -451,7 +451,7 @@
           "other": "Outro"
         },
         "other": {
-          "label": "Especifique a espécie",
+          "label": "Especifique la espécie",
           "placeholder": "Ex: Dinossauro, Dragão..."
         }
       },
@@ -507,9 +507,9 @@
       "title": "A carregar história da comunidade..."
     },
     "errors": {
-      "loadError": "Não foi possível carregar a história. Por favor, tente novamente.",
+      "loadError": "Não foi possível carregar la história. Por favor, tente novamente.",
       "notFound": "História não encontrada",
-      "notFoundDescription": "Não conseguimos encontrar a história que você procura ou o PDF não está disponível."
+      "notFoundDescription": "Não conseguimos encontrar la história que você procura ou o PDF não está disponível."
     },
     "controls": {
       "download": "Descarregar PDF",
@@ -524,9 +524,9 @@
       "title": "A carregar sua história..."
     },
     "errors": {
-      "loadError": "Não foi possível carregar a história. Por favor, tente novamente.",
+      "loadError": "Não foi possível carregar la história. Por favor, tente novamente.",
       "notFound": "História não encontrada",
-      "notFoundDescription": "Não conseguimos encontrar a história que você procura ou o PDF ainda não está disponível."
+      "notFoundDescription": "Não conseguimos encontrar la história que você procura ou o PDF ainda não está disponível."
     },
     "controls": {
       "download": "Descarregar PDF",
@@ -542,7 +542,7 @@
     "cost": "(+100cd por personalização)",
     "changes": "Alterações para esta história",
     "placeholder": "Ex: Coloque no meu personagem roupas quentes e um boné vermelho",
-    "alert": "Escreva a personalização no mesmo idioma em que você vai gerar a história.",
+    "alert": "Escreva la personalização no mesmo idioma em que você vai gerar la história.",
     "cancel": "Cancelar",
     "save": "Guardar Alterações"
   },
