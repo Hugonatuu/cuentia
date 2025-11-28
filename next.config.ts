@@ -1,6 +1,10 @@
 import type {NextConfig} from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import path from 'path';
+
 const withNextIntl = createNextIntlPlugin();
+
 const nextConfig: NextConfig = {
   /* config options here */
   typescript: {
@@ -53,8 +57,20 @@ const nextConfig: NextConfig = {
       }
     ],
   },
-   webpack: (config) => {
+   webpack: (config, { isServer }) => {
     config.resolve.alias.canvas = false;
+    
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: path.join(__dirname, 'node_modules/pdfjs-dist/build/pdf.worker.min.js'),
+            to: path.join(__dirname, 'public'),
+          },
+        ],
+      })
+    );
+
     return config;
   },
 };

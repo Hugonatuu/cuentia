@@ -14,8 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
 
-// Configure the PDF worker from pdfjs-dist
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+pdfjs.GlobalWorkerOptions.workerSrc = `/pdf.worker.min.js`;
 
 interface CommunityStory {
   id: string;
