@@ -956,7 +956,6 @@ export default function CrearCuentoPage() {
         language: data.language,
         type: 'basic',
         coverImageUrl: '',
-        pdfUrl: '',
       };
       const storyDocRef = await addDoc(storiesColRef, storyData);
       if (!storyDocRef) throw new Error(t('errorStoryCreationFailed'));
