@@ -118,8 +118,7 @@
           "label": "How many pages do you want your story to have?",
           "placeholder": "Select a number of pages",
           "option1": "10 pages (350cr)",
-          "option2": "20 pages (400cr)",
-          "option3": "30 pages (650cr)"
+          "option2": "20 pages (400cr)"
         }
       },
       "validation": {

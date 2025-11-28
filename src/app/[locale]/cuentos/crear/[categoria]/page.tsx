@@ -116,7 +116,6 @@ const creditCosts = {
   basic: {
     '10': 350,
     '20': 400,
-    '30': 650,
   },
 };
 
@@ -2250,9 +2249,6 @@ export default function CrearCuentoPage() {
                             </SelectItem>
                              <SelectItem value="20">
                               {tBasic('fields.pageCount.option2')}
-                            </SelectItem>
-                            <SelectItem value="30">
-                              {tBasic('fields.pageCount.option3')}
                             </SelectItem>
                           </SelectContent>
                         </Select>

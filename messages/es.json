@@ -118,8 +118,7 @@
           "label": "¿Cuántas páginas quieres que tenga tu cuento?",
           "placeholder": "Selecciona un número de páginas",
           "option1": "10 páginas (350cd)",
-          "option2": "20 páginas (400cd)",
-          "option3": "30 páginas (650cd)"
+          "option2": "20 páginas (400cd)"
         }
       },
       "validation": {
@@ -250,7 +249,7 @@
   },
   "ComunidadPage": {
     "pageTitle": "Cuentos de la Comunidad",
-    "pageDescription": "Explora los cuentos creados por nuestra comunidad: desde historias para dormir niños hasta libros infantiles en inglés y muchos otros idiomas, todos llenos de magia, imaginación y creatividad.",
+    "pageDescription": "Explora los cuentos creados por nuestra comunidad: desde historias para dormir niños hasta libros infantiles en inglés y muchos otros idiomas, todos llenos de magia, imaginación y créatividad.",
     "languageDropdownTrigger": "Language: {selectedLanguageLabel}",
     "languageCategories": {
       "all": "All",
