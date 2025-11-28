@@ -220,6 +220,7 @@ export default function CrearCuentoPage() {
     plot: z.string().min(1, tBasic('validation.plotRequired')).max(1000, tBasic('validation.plotMaxLength')),
     learningObjective: z.string().max(400, tBasic('validation.learningObjectiveMaxLength')).optional(),
     pageCount: z.string().min(1, tBasic('validation.pageCountRequired')),
+    language: z.string().min(1, t('validationLanguageRequired')),
   });
 
   type CreateStoryFormValues = z.infer<typeof createFormSchema>;
@@ -306,6 +307,7 @@ export default function CrearCuentoPage() {
       plot: '',
       learningObjective: '',
       pageCount: '',
+      language: 'es',
     },
   });
 
@@ -954,18 +956,18 @@ export default function CrearCuentoPage() {
             {details.description}
           </p>
           <div className="flex justify-center mt-8 mb-8">
-            <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1">
-                <TabsTrigger value="create" className="text-sm flex-1 py-3 px-6 sm:py-3 sm:px-6">
+            <TabsList className="items-center justify-center rounded-md bg-muted text-muted-foreground flex flex-col sm:flex-row h-auto sm:h-auto p-1">
+                <TabsTrigger value="create" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
                 </TabsTrigger>
-                <TabsTrigger value="illustrate" className="text-sm flex-1 py-3 px-6 sm:py-3 sm:px-6">
+                <TabsTrigger value="illustrate" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
                     <BookImage className="mr-2 h-4 w-4" />
                     {t('illustrateTab')}
                 </TabsTrigger>
-                <TabsTrigger value="basic" className="text-sm flex-1 py-3 px-6 sm:py-3 sm:px-6">
+                <TabsTrigger value="basic" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
                     <BookText className="mr-2 h-4 w-4" />
-                    {tBasic('title')}
+                    {t('basicTab.title')}
                 </TabsTrigger>
             </TabsList>
           </div>
@@ -2144,7 +2146,49 @@ export default function CrearCuentoPage() {
                       </FormItem>
                     )}
                   />
+                </CardContent>
+              </Card>
 
+              <Card className="shadow-lg">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-semibold">
+                    {t('languageTitle')}
+                  </CardTitle>
+                  <div className="mt-2 text-sm text-foreground p-3 bg-white border border-destructive rounded-lg">
+                    {t('languageWarning')}
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <FormField
+                    control={basicForm.control}
+                    name="language"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t('languageLabel')}</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={t('languagePlaceholder')}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="es">{t('languageEs')}</SelectItem>
+                            <SelectItem value="en">{t('languageEn')}</SelectItem>
+                            <SelectItem value="fr">{t('languageFr')}</SelectItem>
+                            <SelectItem value="it">{t('languageIt')}</SelectItem>
+                            <SelectItem value="de">{t('languageDe')}</SelectItem>
+                            <SelectItem value="pt">{t('languagePt')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </CardContent>
               </Card>
 
