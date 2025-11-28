@@ -1,6 +1,6 @@
 
 export const PLAN_LIMITS: { [key: string]: number } = {
-    artist: 8000,
+    artist: 7000,
     magic: 13000,
     special: 18000,
     king: 29000,
