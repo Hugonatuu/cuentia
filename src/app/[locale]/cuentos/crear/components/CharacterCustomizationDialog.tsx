@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -56,7 +57,7 @@ export function CharacterCustomizationDialog({
           <DialogDescription>
             {t('description')}
             <br />
-            <span className="font-semibold text-primary">{t('cost')}</span>
+            <span className="font-semibold text-primary">(+150cd por personalización)</span>
           </DialogDescription>
         </DialogHeader>
         <div className="grid grid-cols-4 items-start gap-4 py-4">

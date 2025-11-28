@@ -111,7 +111,7 @@ const creditCosts = {
     '12': 1800,
     '21': 2400,
   },
-  customization: 100,
+  customization: 150,
   illustrateBase: 200,
   illustratePerPage: 100,
   basic: {
@@ -1376,16 +1376,16 @@ export default function CrearCuentoPage() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                             <SelectItem value="5">
+                            <SelectItem value="5">
                               10 páginas + 5 imágenes (900cd)
                             </SelectItem>
-                             <SelectItem value="11">
+                            <SelectItem value="11">
                               10 páginas + 11 imágenes (1.500cd)
                             </SelectItem>
-                             <SelectItem value="4">
+                            <SelectItem value="4">
                               20 páginas + 5 imágenes (1.500cd)
                             </SelectItem>
-                             <SelectItem value="12">
+                            <SelectItem value="12">
                               20 páginas + 13 imágenes (1.800cd)
                             </SelectItem>
                             <SelectItem value="21">

@@ -577,7 +577,7 @@
   "CharacterCustomizationDialog": {
     "title": "Personalizar {characterName}",
     "description": "Adicione detalhes visuais específicos para este personagem apenas para esta história.",
-    "cost": "(+100cd por personalização)",
+    "cost": "(+150cd por personalização)",
     "changes": "Alterações para esta história",
     "placeholder": "Ex: Coloque no meu personagem roupas quentes e um boné vermelho",
     "alert": "Escreva la personalização no mesmo idioma em que você vai gerar la história.",
