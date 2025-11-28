@@ -105,18 +105,18 @@ const webhookUrls: { [key: string]: string } = {
 
 const creditCosts = {
   images: {
-    '5': 800, // 10p + 5i
-    '11': 1250, // 10p + 11i
-    '4': 800, // 20p + 5i
-    '12': 1500, // 20p + 13i
-    '21': 2400, // 20p + 21i
+    '5': 900,
+    '11': 1500,
+    '4': 1500,
+    '12': 1800,
+    '21': 2400,
   },
   customization: 100,
   illustrateBase: 200,
   illustratePerPage: 100,
   basic: {
-    'short': 400,
-    'long': 500,
+    short: 400,
+    long: 500,
   },
 };
 
@@ -1377,19 +1377,19 @@ export default function CrearCuentoPage() {
                           </FormControl>
                           <SelectContent>
                              <SelectItem value="5">
-                              {t('imageOption5')}
+                              10 páginas + 5 imágenes (900cd)
                             </SelectItem>
                              <SelectItem value="11">
-                              {t('imageOption4')}
+                              10 páginas + 11 imágenes (1.500cd)
                             </SelectItem>
                              <SelectItem value="4">
-                              {t('imageOption1')}
+                              20 páginas + 5 imágenes (1.500cd)
                             </SelectItem>
                              <SelectItem value="12">
-                              {t('imageOption2')}
+                              20 páginas + 13 imágenes (1.800cd)
                             </SelectItem>
                             <SelectItem value="21">
-                              {t('imageOption3')}
+                              20 páginas + 21 imágenes (2.400cd)
                             </SelectItem>
                           </SelectContent>
                         </Select>
