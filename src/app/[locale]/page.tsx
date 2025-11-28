@@ -71,7 +71,7 @@ export default function Home({params}: PageProps<'/[locale]'>) {
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
             {t('subtitle')}            </p>
             <div className="flex flex-col items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
-              <Button size="lg" asChild className="h-16 px-12 text-xl mt-4">
+              <Button size="lg" asChild className="h-16 px-8 sm:px-16 text-xl mt-4 whitespace-nowrap">
                 <Link href="/cuentos/crear/aprendizaje">
                   {t('cta')}
                 </Link>
