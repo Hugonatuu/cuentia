@@ -971,6 +971,7 @@ export default function CrearCuentoPage() {
       if (user.email) {
         formData.append('userEmail', user.email);
       }
+      formData.append('learningObjective', data.learningObjective || '');
   
       const response = await fetch(webhookUrl, {
         method: 'POST',
