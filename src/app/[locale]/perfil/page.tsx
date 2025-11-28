@@ -39,6 +39,7 @@ interface Story {
   title: string;
   coverImageUrl: string;
   pdfUrl?: string;
+  pages?: string[];
   status: 'generating' | 'completed' | 'generating_illustration';
 }
 
@@ -322,7 +323,7 @@ export default function PerfilPage() {
                 ) : stories && stories.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {stories.map((story) => {
-                        const isCompleted = story.status === 'completed' && story.pdfUrl;
+                        const isCompleted = story.status === 'completed' && (story.pdfUrl || (story.pages && story.pages.length > 0));
                         return (
                             <Card
                             key={story.id}
