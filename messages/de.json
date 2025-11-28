@@ -93,7 +93,45 @@
     "generatingButton": "Wird generiert...",
     "illustrateTab": "Illustriere eine von dir geschriebene Geschichte",
     "createTab": "Erstelle deine magische Geschichte von Grund auf neu",
-    "basicTab": "Erstelle eine einfache Geschichte ohne Illustrationen",
+    "basicTab": {
+      "title": "Erstelle eine einfache Geschichte ohne Illustrationen",
+      "description": "Schreibe deine Geschichte und die KI wird sie nur mit Text zum Leben erwecken.",
+      "submitButton": "Meine einfache Geschichte erstellen",
+      "fields": {
+        "title": {
+          "label": "Titel der Geschichte",
+          "placeholder": "Der tapfere kleine Drache"
+        },
+        "characterExplanation": {
+          "label": "Charaktererklärung (Optional)",
+          "placeholder": "z.B.: Fuego ist ein kleiner, schüchterner Drache, der Angst vor Feuer hat. Luna ist eine tapfere Prinzessin, die sich mit ihm anfreundet."
+        },
+        "plot": {
+          "label": "Was soll im Buch passieren? Sei kreativ!",
+          "placeholder": "z.B.: Die Geschichte eines Drachen und einer Prinzessin, die gemeinsam ihre Ängste überwinden, um ihr Königreich vor einem ewigen Winter zu retten."
+        },
+        "learningObjective": {
+          "label": "Lernziel (Optional)",
+          "placeholder": "z.B.: Den Wert von Freundschaft und der Überwindung von Ängsten vermitteln."
+        },
+        "pageCount": {
+          "label": "Wie viele Seiten soll deine Geschichte haben?",
+          "placeholder": "Wähle eine Seitenanzahl",
+          "option1": "10 Seiten (350cd)",
+          "option2": "20 Seiten (400cd)",
+          "option3": "30 Seiten (650cd)"
+        }
+      },
+      "validation": {
+        "titleRequired": "Der Titel ist erforderlich.",
+        "titleMaxLength": "Der Titel darf nicht länger als 35 Zeichen sein.",
+        "characterExplanationMaxLength": "Die Charaktererklärung darf 800 Zeichen nicht überschreiten.",
+        "plotRequired": "Die Handlung ist erforderlich.",
+        "plotMaxLength": "Die Handlung darf 1000 Zeichen nicht überschreiten.",
+        "learningObjectiveMaxLength": "Das Lernziel darf 400 Zeichen nicht überschreiten.",
+        "pageCountRequired": "Du musst eine Seitenanzahl auswählen."
+      }
+    },
     "illustrateStoryDescription": "Fülle die Details aus und lass die Magie den Rest erledigen.",
     "illustratePagesTitle": "Inhalt der Seiten",
     "illustratePagesAlertTitle": "Erwecke deine Seiten zum Leben!",

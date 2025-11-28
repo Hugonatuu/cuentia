@@ -93,7 +93,45 @@
     "generatingButton": "Gerando...",
     "illustrateTab": "Ilustra uma história escrita por ti",
     "createTab": "Cria a tua história mágica do zero",
-    "basicTab": "Crie uma história básica sem ilustrações",
+    "basicTab": {
+      "title": "Crie uma história básica sem ilustrações",
+      "description": "Escreva a sua história e a IA irá dar-lhe vida apenas com texto.",
+      "submitButton": "Criar a Minha História Básica",
+      "fields": {
+        "title": {
+          "label": "Título da história",
+          "placeholder": "O Pequeno Dragão Corajoso"
+        },
+        "characterExplanation": {
+          "label": "Explicação dos personagens (Opcional)",
+          "placeholder": "Ex: Fogo é um pequeno dragão tímido que tem medo do fogo. Luna é uma princesa corajosa que se torna amiga dele."
+        },
+        "plot": {
+          "label": "O que você quer que aconteça no livro? Seja criativo!",
+          "placeholder": "Ex: A história de um dragão e uma princesa que superam seus medos juntos para salvar seu reino de um inverno eterno."
+        },
+        "learningObjective": {
+          "label": "Objetivo de aprendizagem (Opcional)",
+          "placeholder": "Ex: Ensinar o valor da amizade e da superação de medos."
+        },
+        "pageCount": {
+          "label": "Quantas páginas você quer que sua história tenha?",
+          "placeholder": "Selecione um número de páginas",
+          "option1": "10 páginas (350cr)",
+          "option2": "20 páginas (400cr)",
+          "option3": "30 páginas (650cr)"
+        }
+      },
+      "validation": {
+        "titleRequired": "O título é obrigatório.",
+        "titleMaxLength": "O título não pode ter mais de 35 caracteres.",
+        "characterExplanationMaxLength": "A explicação dos personagens não pode exceder 800 caracteres.",
+        "plotRequired": "O enredo é obrigatório.",
+        "plotMaxLength": "O enredo não pode exceder 1000 caracteres.",
+        "learningObjectiveMaxLength": "O objetivo de aprendizagem não pode exceder 400 caracteres.",
+        "pageCountRequired": "Você deve selecionar um número de páginas."
+      }
+    },
     "illustrateStoryDescription": "Preencha os detalhes e deixe la magia fazer o resto.",
     "illustratePagesTitle": "Conteúdo das páginas",
     "illustratePagesAlertTitle": "Dê vida às suas páginas!",
@@ -108,7 +146,7 @@
     "authPopupDescription": "Junte-se à magia! Crie uma conta para começar a gerar suas próprias histórias e personagens únicos.",
     "authPopupAction": "Cadastrar",
     "generatingPopupTitle": "Ops! Ainda há uma história no forno 🧁",
-    "generatingPopupDescription": "Espere um pouco e você poderá criar la próxima.",
+    "generatingPopupDescription": "Espere um poco e você poderá criar la próxima.",
     "generatingPopupAction": "Entendi",
     "insufficientCreditsTitle": "Créditos insuficientes",
     "insufficientCreditsDescription": "Você precisa de {needed} créditos para criar esta história, mas só tem {available} restantes.",

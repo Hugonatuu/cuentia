@@ -112,6 +112,11 @@ const creditCosts = {
   customization: 100,
   illustrateBase: 200,
   illustratePerPage: 100,
+  basic: {
+    '10': 350,
+    '20': 400,
+    '30': 650,
+  },
 };
 
 const learningObjectiveSuggestions = [
@@ -142,6 +147,7 @@ interface Story {
 
 export default function CrearCuentoPage() {
   const t = useTranslations('CreateStoryPage');
+  const tBasic = useTranslations('CreateStoryPage.basicTab');
   const createIllustrateFormSchema = (pageCount: number) =>
     z.object({
       title: z
@@ -166,11 +172,11 @@ export default function CrearCuentoPage() {
         }),
       initialPhrase: z
         .string()
-        .max(500, t('validationIllustratePhraseMaxLength'))
+        .max(500, t('validationPhraseMaxLength'))
         .optional(),
       finalPhrase: z
         .string()
-        .max(500, t('validationIllustratePhraseMaxLength'))
+        .max(500, t('validationPhraseMaxLength'))
         .optional(),
       backCoverImage: z.instanceof(File).optional(),
       language: z.string().min(1, t('validationLanguageRequired')),
@@ -208,7 +214,17 @@ export default function CrearCuentoPage() {
     language: z.string().min(1, t('validationLanguageRequired')),
   });
 
+  const basicFormSchema = z.object({
+    title: z.string().min(1, tBasic('validation.titleRequired')).max(35, tBasic('validation.titleMaxLength')),
+    characterExplanation: z.string().max(800, tBasic('validation.characterExplanationMaxLength')).optional(),
+    plot: z.string().min(1, tBasic('validation.plotRequired')).max(1000, tBasic('validation.plotMaxLength')),
+    learningObjective: z.string().max(400, tBasic('validation.learningObjectiveMaxLength')).optional(),
+    pageCount: z.string().min(1, tBasic('validation.pageCountRequired')),
+  });
+
   type CreateStoryFormValues = z.infer<typeof createFormSchema>;
+  type BasicStoryFormValues = z.infer<typeof basicFormSchema>;
+
   const { user, isUserLoading } = useUser();
   const firestore = useFirestore();
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -217,6 +233,7 @@ export default function CrearCuentoPage() {
   const [showBackCoverImage, setShowBackCoverImage] = useState(false);
   const [backCoverPreview, setBackCoverPreview] = useState<string | null>(null);
   const [totalCredits, setTotalCredits] = useState(0);
+  const [basicTotalCredits, setBasicTotalCredits] = useState(0);
   const [numberOfPages, setNumberOfPages] = useState<number>(6);
   const [illustratedPages, setIllustratedPages] = useState<Set<number>>(
     new Set()
@@ -280,6 +297,17 @@ export default function CrearCuentoPage() {
       language: 'es',
     },
   });
+  
+  const basicForm = useForm<BasicStoryFormValues>({
+    resolver: zodResolver(basicFormSchema),
+    defaultValues: {
+      title: '',
+      characterExplanation: '',
+      plot: '',
+      learningObjective: '',
+      pageCount: '',
+    },
+  });
 
   const illustrateFormSchema = createIllustrateFormSchema(numberOfPages);
 
@@ -323,6 +351,13 @@ export default function CrearCuentoPage() {
   const illustrateWatchedFinalPhrase = illustrateForm.watch('finalPhrase');
   const illustrateWatchedLanguage = illustrateForm.watch('language');
 
+  const watchedBasicPageCount = basicForm.watch('pageCount');
+  const watchedBasicTitle = basicForm.watch('title');
+  const watchedBasicCharacterExplanation = basicForm.watch('characterExplanation');
+  const watchedBasicPlot = basicForm.watch('plot');
+  const watchedBasicLearningObjective = basicForm.watch('learningObjective');
+
+
   useEffect(() => {
     let credits = 0;
 
@@ -345,6 +380,12 @@ export default function CrearCuentoPage() {
 
     setTotalCredits(credits);
   }, [watchedImageCount, watchedCharacters]);
+
+  useEffect(() => {
+    const cost = creditCosts.basic[watchedBasicPageCount as keyof typeof creditCosts.basic] || 0;
+    setBasicTotalCredits(cost);
+  }, [watchedBasicPageCount]);
+
 
   useEffect(() => {
     const newCredits =
@@ -842,6 +883,11 @@ export default function CrearCuentoPage() {
     }
   }
 
+  async function onBasicSubmit(data: BasicStoryFormValues) {
+    console.log("Basic story submitted", data);
+    // TODO: Implement submission logic for basic story
+  }
+
   if (isUserLoading) {
     return (
       <div className="container mx-auto max-w-5xl py-12">
@@ -909,15 +955,15 @@ export default function CrearCuentoPage() {
           </p>
           <div className="flex justify-center mt-8 mb-8">
             <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1 max-w-4xl">
-                <TabsTrigger value="create" className="text-sm flex-1 py-2.5">
+                <TabsTrigger value="create" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
                 </TabsTrigger>
-                <TabsTrigger value="illustrate" className="text-sm flex-1 py-2.5">
+                <TabsTrigger value="illustrate" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
                     <BookImage className="mr-2 h-4 w-4" />
                     {t('illustrateTab')}
                 </TabsTrigger>
-                <TabsTrigger value="basic" className="text-sm flex-1 py-2.5">
+                <TabsTrigger value="basic" className="text-sm flex-1 py-2.5 px-4 sm:py-3 sm:px-6">
                     <BookText className="mr-2 h-4 w-4" />
                     {t('basicTab')}
                 </TabsTrigger>
@@ -1924,18 +1970,215 @@ export default function CrearCuentoPage() {
         </TabsContent>
 
         <TabsContent value="basic">
-          {/* Placeholder for the new basic story form */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Crea un cuento básico</CardTitle>
-              <CardDescription>
-                Esta funcionalidad está en construcción. ¡Vuelve pronto!
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Aquí irá el formulario para crear un cuento solo con texto.</p>
-            </CardContent>
-          </Card>
+        <Form {...basicForm}>
+            <form onSubmit={basicForm.handleSubmit(onBasicSubmit)} className="space-y-10">
+              <Card className="shadow-lg">
+                <CardHeader>
+                    <CardTitle className="text-2xl font-semibold">
+                      {tBasic('title')}
+                    </CardTitle>
+                    <CardDescription>
+                      {tBasic('description')}
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                   <FormField
+                    control={basicForm.control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tBasic('fields.title.label')}</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder={tBasic('fields.title.placeholder')}
+                            {...field}
+                            maxLength={35}
+                          />
+                        </FormControl>
+                        <div className="flex justify-between">
+                          <FormMessage />
+                          <div className="text-xs text-right text-muted-foreground">
+                            {watchedBasicTitle.length}/35
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={basicForm.control}
+                    name="characterExplanation"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tBasic('fields.characterExplanation.label')}</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder={tBasic('fields.characterExplanation.placeholder')}
+                            rows={4}
+                            maxLength={800}
+                            {...field}
+                          />
+                        </FormControl>
+                        <div className="flex justify-between">
+                          <FormMessage />
+                           <div className="text-xs text-right text-muted-foreground">
+                            {(watchedBasicCharacterExplanation || "").length}/800
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={basicForm.control}
+                    name="plot"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tBasic('fields.plot.label')}</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder={tBasic('fields.plot.placeholder')}
+                            rows={6}
+                            maxLength={1000}
+                            {...field}
+                          />
+                        </FormControl>
+                        <div className="flex justify-between">
+                          <FormMessage />
+                          <div className="text-xs text-right text-muted-foreground">
+                            {(watchedBasicPlot || "").length}/1000
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                   <FormField
+                    control={basicForm.control}
+                    name="learningObjective"
+                    render={({ field }) => (
+                      <FormItem>
+                        <div className="flex items-center justify-between">
+                          <FormLabel>{tBasic('fields.learningObjective.label')}</FormLabel>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                type="button"
+                                size="sm"
+                                className="bg-accent text-accent-foreground hover:bg-accent/90"
+                              >
+                                <Lightbulb className="mr-2 h-4 w-4" />
+                                {t('ideasButton')}
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              {learningObjectiveSuggestions.map(
+                                (suggestion, index) => (
+                                  <DropdownMenuItem
+                                    key={index}
+                                    onSelect={() =>
+                                      basicForm.setValue(
+                                        'learningObjective',
+                                        t(
+                                          `learningObjectiveSuggestions.${suggestion}`
+                                        )
+                                      )
+                                    }
+                                  >
+                                    {t(
+                                      `learningObjectiveSuggestions.${suggestion}`
+                                    )}
+                                  </DropdownMenuItem>
+                                )
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                        <FormControl>
+                          <Textarea
+                            placeholder={tBasic('fields.learningObjective.placeholder')}
+                            maxLength={400}
+                            {...field}
+                          />
+                        </FormControl>
+                        <div className="flex justify-between">
+                          <FormMessage />
+                          <div className="text-xs text-right text-muted-foreground">
+                            {(watchedBasicLearningObjective || "").length}/400
+                          </div>
+                        </div>
+                      </FormItem>
+                    )}
+                  />
+
+                   <FormField
+                    control={basicForm.control}
+                    name="pageCount"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tBasic('fields.pageCount.label')}</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={tBasic('fields.pageCount.placeholder')}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                             <SelectItem value="10">
+                              {tBasic('fields.pageCount.option1')}
+                            </SelectItem>
+                             <SelectItem value="20">
+                              {tBasic('fields.pageCount.option2')}
+                            </SelectItem>
+                            <SelectItem value="30">
+                              {tBasic('fields.pageCount.option3')}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                </CardContent>
+              </Card>
+
+              <div className="flex flex-col items-center justify-center gap-4 pt-4 sticky bottom-6">
+                <Card className="p-2 px-3 flex items-center gap-2 shadow-lg bg-accent/50">
+                  <CreditCard className="h-5 w-5 text-primary" />
+                  <span className="text-sm font-bold text-primary">
+                    {t('totalCost', { credits: basicTotalCredits })}
+                  </span>
+                </Card>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="shadow-lg shadow-primary/30 transition-all hover:shadow-xl hover:shadow-primary/50 hover:-translate-y-0.5"
+                  disabled={
+                    isSubmitting || basicTotalCredits === 0 || isStoryGenerating
+                  }
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      {t('generatingButton')}
+                    </>
+                  ) : (
+                    <>
+                      <BookText className="mr-2 h-5 w-5" />
+                      {tBasic('submitButton')}
+                    </>
+                  )}
+                </Button>
+              </div>
+
+            </form>
+          </Form>
         </TabsContent>
       </Tabs>
     </div>

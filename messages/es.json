@@ -93,7 +93,45 @@
     "generatingButton": "Generando...",
     "illustrateTab": "Ilustra un cuento escrito por ti",
     "createTab": "Crea tu cuento mágico desde cero",
-    "basicTab": "Crea un cuento básico sin ilustraciones",
+    "basicTab": {
+      "title": "Crea un cuento básico sin ilustraciones",
+      "description": "Escribe tu historia y la IA le dará vida solo con texto.",
+      "submitButton": "Crear mi Cuento Básico",
+      "fields": {
+        "title": {
+          "label": "Título del cuento",
+          "placeholder": "El pequeño dragón valiente"
+        },
+        "characterExplanation": {
+          "label": "Explicación de los personajes (Opcional)",
+          "placeholder": "Ej: Fuego es un pequeño dragón tímido que le teme al fuego. Luna es una valiente princesa que se hace su amiga."
+        },
+        "plot": {
+          "label": "¿Qué quieres que pase en el libro? ¡Sé creativo!",
+          "placeholder": "Ej: La historia de un dragón y una princesa que superan sus miedos juntos para salvar su reino de un invierno eterno."
+        },
+        "learningObjective": {
+          "label": "Objetivo de aprendizaje (Opcional)",
+          "placeholder": "Ej: Enseñar el valor de la amistad y la superación de los miedos."
+        },
+        "pageCount": {
+          "label": "¿Cuántas páginas quieres que tenga tu cuento?",
+          "placeholder": "Selecciona un número de páginas",
+          "option1": "10 páginas (350cd)",
+          "option2": "20 páginas (400cd)",
+          "option3": "30 páginas (650cd)"
+        }
+      },
+      "validation": {
+        "titleRequired": "El título es obligatorio.",
+        "titleMaxLength": "El título no puede tener más de 35 caracteres.",
+        "characterExplanationMaxLength": "La explicación de los personajes no puede exceder los 800 caracteres.",
+        "plotRequired": "La trama es obligatoria.",
+        "plotMaxLength": "La trama no puede exceder los 1000 caracteres.",
+        "learningObjectiveMaxLength": "El objetivo de aprendizaje no puede exceder los 400 caracteres.",
+        "pageCountRequired": "Debes seleccionar un número de páginas."
+      }
+    },
     "illustrateStoryDescription": "Rellena los detalles y deja que la magia haga el resto.",
     "illustratePagesTitle": "Contenido de las páginas",
     "illustratePagesAlertTitle": "¡Dale vida a tus páginas!",

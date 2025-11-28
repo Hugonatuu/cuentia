@@ -93,7 +93,45 @@
     "generatingButton": "Génération...",
     "illustrateTab": "Illustre une histoire écrite par toi",
     "createTab": "Crée ton histoire magique de zéro",
-    "basicTab": "Créer une histoire de base sans illustrations",
+    "basicTab": {
+      "title": "Créer une histoire de base sans illustrations",
+      "description": "Écrivez votre histoire et l'IA lui donnera vie avec seulement du texte.",
+      "submitButton": "Créer Mon Histoire de Base",
+      "fields": {
+        "title": {
+          "label": "Titre de l'histoire",
+          "placeholder": "Le brave petit dragon"
+        },
+        "characterExplanation": {
+          "label": "Explication des personnages (Facultatif)",
+          "placeholder": "ex : Fuego est un petit dragon timide qui a peur du feu. Luna est une princesse courageuse qui se lie d'amitié avec lui."
+        },
+        "plot": {
+          "label": "Que voulez-vous qu'il se passe dans le livre ? Soyez créatif !",
+          "placeholder": "ex : L'histoire d'un dragon et d'une princesse qui surmontent ensemble leurs peurs pour sauver leur royaume d'un hiver éternel."
+        },
+        "learningObjective": {
+          "label": "Objectif d'apprentissage (Facultatif)",
+          "placeholder": "ex : Enseigner la valeur de l'amitié et du dépassement de ses peurs."
+        },
+        "pageCount": {
+          "label": "Combien de pages voulez-vous que votre histoire ait ?",
+          "placeholder": "Sélectionnez un nombre de pages",
+          "option1": "10 pages (350cr)",
+          "option2": "20 pages (400cr)",
+          "option3": "30 pages (650cr)"
+        }
+      },
+      "validation": {
+        "titleRequired": "Le titre est obligatoire.",
+        "titleMaxLength": "Le titre ne peut pas dépasser 35 caractères.",
+        "characterExplanationMaxLength": "L'explication des personnages ne peut pas dépasser 800 caractères.",
+        "plotRequired": "L'intrigue est obligatoire.",
+        "plotMaxLength": "L'intrigue ne peut pas dépasser 1000 caractères.",
+        "learningObjectiveMaxLength": "L'objectif d'apprentissage ne peut pas dépasser 400 caractères.",
+        "pageCountRequired": "Vous devez sélectionner un nombre de pages."
+      }
+    },
     "illustrateStoryDescription": "Remplissez les détails et laissez la magie opérer.",
     "illustratePagesTitle": "Contenu des pages",
     "illustratePagesAlertTitle": "Donnez vie à vos pages !",

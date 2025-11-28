@@ -93,7 +93,45 @@
     "generatingButton": "Generating...",
     "illustrateTab": "Illustrate a story written by you",
     "createTab": "Create your magical story from scratch",
-    "basicTab": "Create a basic story without illustrations",
+    "basicTab": {
+      "title": "Create a basic story without illustrations",
+      "description": "Write your story and the AI will bring it to life with only text.",
+      "submitButton": "Create My Basic Story",
+      "fields": {
+        "title": {
+          "label": "Story Title",
+          "placeholder": "The Brave Little Dragon"
+        },
+        "characterExplanation": {
+          "label": "Character Explanation (Optional)",
+          "placeholder": "e.g., Fuego is a small, shy dragon who is afraid of fire. Luna is a brave princess who befriends him."
+        },
+        "plot": {
+          "label": "What do you want to happen in the book? Be creative!",
+          "placeholder": "e.g., The story of a dragon and a princess who overcome their fears together to save their kingdom from an eternal winter."
+        },
+        "learningObjective": {
+          "label": "Learning Objective (Optional)",
+          "placeholder": "e.g., Teach the value of friendship and overcoming fears."
+        },
+        "pageCount": {
+          "label": "How many pages do you want your story to have?",
+          "placeholder": "Select a number of pages",
+          "option1": "10 pages (350cr)",
+          "option2": "20 pages (400cr)",
+          "option3": "30 pages (650cr)"
+        }
+      },
+      "validation": {
+        "titleRequired": "The title is required.",
+        "titleMaxLength": "The title cannot exceed 35 characters.",
+        "characterExplanationMaxLength": "The character explanation cannot exceed 800 characters.",
+        "plotRequired": "The plot is required.",
+        "plotMaxLength": "The plot cannot exceed 1000 characters.",
+        "learningObjectiveMaxLength": "The learning objective cannot exceed 400 characters.",
+        "pageCountRequired": "You must select a number of pages."
+      }
+    },
     "illustrateStoryDescription": "Fill in the details and let the magic do the rest.",
     "illustratePagesTitle": "Page Content",
     "illustratePagesAlertTitle": "Bring your pages to life!",
