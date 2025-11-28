@@ -908,16 +908,16 @@ export default function CrearCuentoPage() {
             {details.description}
           </p>
           <div className="flex justify-center mt-8 mb-8">
-            <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1">
-                <TabsTrigger value="create" className="text-xs sm:text-sm flex-1">
+            <TabsList className="flex flex-col sm:flex-row h-auto sm:h-auto p-1 max-w-4xl">
+                <TabsTrigger value="create" className="text-sm flex-1 py-2.5">
                     <Pencil className="mr-2 h-4 w-4" />
                     {t('createTab')}
                 </TabsTrigger>
-                <TabsTrigger value="illustrate" className="text-xs sm:text-sm flex-1">
+                <TabsTrigger value="illustrate" className="text-sm flex-1 py-2.5">
                     <BookImage className="mr-2 h-4 w-4" />
                     {t('illustrateTab')}
                 </TabsTrigger>
-                <TabsTrigger value="basic" className="text-xs sm:text-sm flex-1">
+                <TabsTrigger value="basic" className="text-sm flex-1 py-2.5">
                     <BookText className="mr-2 h-4 w-4" />
                     {t('basicTab')}
                 </TabsTrigger>
