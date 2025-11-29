@@ -18,9 +18,10 @@ type PricingCardProps = {
   isLoading: boolean;
   isCurrentUserPlan: boolean;
   hasActiveSubscription: boolean;
+  isMostPopular?: boolean;
 };
 
-export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUserPlan, hasActiveSubscription }: PricingCardProps) {
+export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUserPlan, hasActiveSubscription, isMostPopular = false }: PricingCardProps) {
   const t = useTranslations('PreciosPage.pricingPlans')
   const plans = useMessages()
   const planFeatures = Object.keys(plans.PreciosPage.pricingPlans[plan.id]['features']);
@@ -31,7 +32,11 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
   }
 
   return (
-    <Card className={cn("flex flex-col", isCurrentUserPlan ? "border-primary ring-2 ring-primary shadow-lg" : "")}>
+    <Card className={cn(
+      "flex flex-col h-full", 
+      isCurrentUserPlan ? "border-primary ring-2 ring-primary shadow-lg" : "",
+      isMostPopular ? "border-blue-500 ring-2 ring-blue-500 shadow-lg" : ""
+    )}>
       <CardHeader>
         <CardTitle>{t(`${plan?.id}.name`)}</CardTitle>
         <CardDescription>{t(`${plan?.id}.credits`)}</CardDescription>
@@ -56,7 +61,7 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
             )
           })}
         </ul>
-        <p className="text-xs font-bold text-foreground mt-4">{t(`${plan.id}.storyCount`)}</p>
+        <p className="text-sm font-semibold text-foreground mt-4">{t(`${plan.id}.storyCount`)}</p>
       </CardContent>
       <CardFooter>
         <Button 

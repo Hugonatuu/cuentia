@@ -279,6 +279,7 @@
     "creditPackPrice": "por 5€",
     "subscriptionAlert": "¡Hasta un 40 % más de créditos con el modelo de suscripción!",
     "recommendedBadge": "RECOMENDADO",
+    "mostPopularBadge": "Más Popular",
     "subscriptionTitle": "✨ Suscríbete y ahorra en cada crédito",
     "subscriptionDescription": "Sin ataduras, sin riesgos: cancela cuando quieras y disfruta de pagos seguros con Stripe",
     "errorTitle": "Error",
@@ -354,7 +355,7 @@
     "title": "¿Cómo funcionan los créditos? ✨",
     "description1": "Crear tus historias es muy sencillo: solo gastas créditos según el tipo de libro que elijas. 📚",
     "description2": "Un cuento básico sin ilustraciones empieza en 400 créditos. Si quieres ilustraciones, puedes generar un libro ilustrado desde 900 créditos. 🎨",
-    "description3": "Puedes añadir páginas o imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
+    "description3": "Puedes añadir más páginas o imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
     "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {

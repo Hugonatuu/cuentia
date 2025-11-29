@@ -213,13 +213,24 @@ export default function PreciosPage() {
                   {basePricingPlans
                     .filter((p) => t(`pricingPlans.${p.id}.name`) !== 'Pay as you go')
                     .map((plan) => (
-                      <div key={t(`pricingPlans.${plan.id}.name`)} className="flex flex-col">
+                      <div key={t(`pricingPlans.${plan.id}.name`)} className="flex flex-col relative">
+                        {plan.id === 'special' && (
+                           <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                            <div className="bg-gradient-to-r from-blue-400 to-purple-500 text-white px-4 py-1.5 rounded-full flex items-center gap-2 shadow-lg">
+                                <Gem className="h-5 w-5" />
+                                <span className="text-sm font-bold tracking-wider">
+                                {t('mostPopularBadge')}
+                                </span>
+                            </div>
+                           </div>
+                        )}
                         <PricingCard
                           plan={plan}
                           onCtaClick={() => handlePurchase(plan.stripePriceId, 'subscription')}
                           isLoading={isLoading === plan.stripePriceId || isLoadingSubscriptions}
                           isCurrentUserPlan={primarySubscription?.items?.[0]?.price.id === plan.stripePriceId}
                           hasActiveSubscription={!!primarySubscription}
+                          isMostPopular={plan.id === 'special'}
                         />
                       </div>
                     ))}

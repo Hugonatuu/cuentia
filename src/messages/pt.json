@@ -25,7 +25,7 @@
     "noStories": "Ainda não há histórias na comunidade.",
     "faqTitle": "Perguntas Frequentes",
     "faq1Question": "Como funciona a criação de avatares?",
-    "faq1Answer": "Você simplemente envia várias fotos de uma pessoa ou animal de estimação, e nossa IA gerará um personagem de desenho animado que você poderá usar como protagonista em todas as suas histórias.",
+    "faq1Answer": "Você simplemente envia várias fotos de uma pessoa ou animal de estimação, e nossa IA gerará um personagem de desenho animado que você poderá usar como protagonista em todas as sua histórias.",
     "faq2Question": "O que são os créditos?",
     "faq2Answer": "Os créditos são a moeda da Cuentia para gerar histórias e ilustrações.",
     "faq3Question": "Vocês oferecem contos para crianças em PDF ou livros grátis em PDF?",
@@ -272,6 +272,7 @@
     "creditPackPrice": "por 5€",
     "subscriptionAlert": "Até 40% mais créditos com o modelo de assinatura!",
     "recommendedBadge": "RECOMENDADO",
+    "mostPopularBadge": "Mais popular",
     "subscriptionTitle": "✨ Assine e economize em cada crédito",
     "subscriptionDescription": "Sem amarras, sem riscos: cancele when quiser e desfrute de pagamentos seguros com Stripe",
     "errorTitle": "Erro",
@@ -345,9 +346,9 @@
   },
   "CreditsInfoDialog": {
     "title": "Como funcionam os créditos? ✨",
-    "description1": "Criar as suas histórias é simples: só gasta créditos com base no tipo de livro que escolher. 📚",
+    "description1": "Criar a sua história é muito simples: você só gasta créditos conforme o tipo de conto que escolher. 📚",
     "description2": "Um conto básico sem ilustrações começa em 400 créditos. Se quiser ilustrações, pode gerar um livro ilustrado a partir de 900 créditos. 🎨",
-    "description3": "Pode adicionar mais páginas ou imagens se desejar; cada extra consome alguns créditos adicionais, e verá sempre o total antes de confirmar. ✔️",
+    "description3": "Você pode adicionar mais páginas ou imagens se desejar; cada extra usa alguns créditos adicionais, e você sempre verá o consumo antes de confirmar a criação. ✔️",
     "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
