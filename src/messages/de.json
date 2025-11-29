@@ -200,14 +200,12 @@
     "validationIllustratePagesRequired": "Du musst alle Seiten ausfüllen.",
     "validationIllustratePagesCount": "Du musst alle {pageCount} Seiten ausfüllen.",
     "validationIllustratePhraseMaxLength": "Der Satz darf nicht länger als 500 Zeichen sein.",
-
     "toastStoryGeneratingTitle": "Geschichte unterwegs!",
     "toastStoryGeneratingDescription": "Deine Geschichte wird generiert. Du erhältst eine Benachrichtigung, wenn sie fertig ist.",
     "toastStoryErrorTitle": "Fehler beim Generieren der Geschichte",
     "toastIllustrationGeneratingTitle": "Deine Geschichte wird illustriert!",
     "toastIllustrationGeneratingDescription": "Du erhältst eine Benachrichtigung, wenn sie fertig ist.",
     "toastIllustrationErrorTitle": "Fehler beim Illustrieren der Geschichte",
-
     "errorDocumentNotFound": "Das Benutzerdokument existiert nicht.",
     "errorStoryCreationFailed": "Das Geschichtendokument konnte nicht erstellt werden.",
     "importantCharacterNote": "Wichtig: Die Geschichte darf ausschließlich die ausgewählten Charaktere verwenden. Füge keine zusätzlichen Charaktere hinzu.",
@@ -216,11 +214,9 @@
   "PersonajesPage": {
     "pageTitle": "Eine Welt voller Figuren",
     "pageDescription": "Hier leben die Charaktere, die deine Geschichten zum Leben erwecken. Erschaffe neue Freunde, dich selbst oder sogar dein Haustier!",
-
     "authCardTitle": "Lade ein Foto von dir, deinem Haustier oder wem auch immer hoch und erschaffe eine einzigartige Figur.",
     "authCardSubtitle": "💫 Registriere dich und lass die Magie beginnen! 💫",
     "authCardButton": "Figur erstellen",
-
     "myCharactersTitle": "Meine Figuren",
     "createCharacterButton": "✨ Neue Figur erstellen ✨",
     "noCharactersTitle": "Du hast noch keine Figuren erstellt",
@@ -228,17 +224,14 @@
     "firstCharacterButton": "Meine erste Figur erstellen",
     "deleteButton": "Löschen",
     "deleteButtonAriaLabel": "Figur löschen",
-
     "predefinedCharactersTitle": "Vordefinierte Figuren",
     "allCategoriesButton": "Alle",
     "noCategoryCharactersTitle": "Es gibt keine Figuren in dieser Kategorie",
     "noCategoryCharactersDescription": "Bald gibt es mehr Figuren, die bereit für das Abenteuer sind.",
-
     "deleteDialogTitle": "Bist du sicher?",
     "deleteDialogDescription": "Diese Aktion kann nicht rückgängig gemacht werden. Dies löscht die Figur \"{characterName}\" dauerhaft aus deinen Daten.",
     "deleteDialogCancel": "Abbrechen",
     "deleteDialogConfirm": "Löschen",
-
     "categories": {
       "fantasy": "Fantasy",
       "animal": "Tier",
@@ -264,7 +257,12 @@
     "errorDescription": "Es gab ein Problem bei der Verbindung zur Datenbank. Bitte versuche es später erneut.",
     "noStoriesTitle": "Es gibt noch keine Geschichten in dieser Kategorie",
     "noStoriesDescription": "Erkunde andere Sprachen oder sei der Erste, der etwas teilt!",
-    "readStoryButton": "Geschichte lesen"
+    "readStoryButton": "Geschichte lesen",
+    "authPopup": {
+      "title": "✨ Um diese Geschichte zu lesen, musst du dich registrieren. ✨",
+      "description": "Einmal drinnen, kannst du alle Geschichten völlig kostenlos lesen und herunterladen.",
+      "actionText": "Verstanden"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Pläne für jeden Creator",
@@ -287,7 +285,7 @@
     "paymentErrorTitle": "Fehler bei der Zahlungsabwicklung",
     "paymentErrorDescription": "Beim Erstellen der Zahlungssitzung ist ein Problem aufgetreten. Bitte versuche es erneut.",
     "pricingPlans": {
-      "month":"Monat",
+      "month": "Monat",
       "artista": {
         "name": "Künstler",
         "credits": "7.000 Credits / Monat",
@@ -614,6 +612,21 @@
   },
   "Footer": {
     "createdBy": "Erstellt mit 💜 für kleine Leser.",
-    "copy": "© {year} Cuentia. Alle Rechte vorbehalten."
+    "copy": "© {year} Cuentia. Alle Rechte vorbehalten.",
+    "legal": "Impressum",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Allgemeine Geschäftsbedingungen"
+  },
+  "LegalPage": {
+    "title": "Impressum",
+    "content": "[Der Inhalt des Impressums wird hier stehen]"
+  },
+  "PrivacyPage": {
+    "title": "Datenschutzrichtlinie",
+    "content": "[Der Inhalt der Datenschutzrichtlinie wird hier stehen]"
+  },
+  "TermsPage": {
+    "title": "Allgemeine Geschäftsbedingungen",
+    "content": "[Der Inhalt der Allgemeinen Geschäftsbedingungen wird hier stehen]"
   }
 }

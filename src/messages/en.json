@@ -200,14 +200,12 @@
     "validationIllustratePagesRequired": "You must complete all pages.",
     "validationIllustratePagesCount": "You must complete all {pageCount} pages.",
     "validationIllustratePhraseMaxLength": "The phrase cannot exceed 500 characters.",
-
     "toastStoryGeneratingTitle": "Story on the way!",
     "toastStoryGeneratingDescription": "Your story is being generated. You will receive a notification when it is ready.",
     "toastStoryErrorTitle": "Error generating story",
     "toastIllustrationGeneratingTitle": "Your story is being illustrated!",
     "toastIllustrationGeneratingDescription": "You will receive a notification when it is ready.",
     "toastIllustrationErrorTitle": "Error illustrating story",
-
     "errorDocumentNotFound": "The user document does not exist.",
     "errorStoryCreationFailed": "Could not create the story document.",
     "importantCharacterNote": "Important: The story must use only the selected characters. Do not add any additional characters.",
@@ -216,11 +214,9 @@
   "PersonajesPage": {
     "pageTitle": "A World of Characters",
     "pageDescription": "Here live the characters that will bring your stories to life. Create new friends, yourself, or even your pet!",
-
     "authCardTitle": "Upload a photo of yourself, your pet, or anyone you want and create a unique character.",
     "authCardSubtitle": "💫Sign up and let the magic begin! 💫",
     "authCardButton": "Create Character",
-
     "myCharactersTitle": "My Characters",
     "createCharacterButton": "✨ Create New Character ✨",
     "noCharactersTitle": "You haven't created any characters yet",
@@ -228,17 +224,14 @@
     "firstCharacterButton": "Create my first character",
     "deleteButton": "Delete",
     "deleteButtonAriaLabel": "Delete character",
-
     "predefinedCharactersTitle": "Predefined Characters",
     "allCategoriesButton": "All",
     "noCategoryCharactersTitle": "No characters in this category",
     "noCategoryCharactersDescription": "More characters ready for adventure will be available soon.",
-
     "deleteDialogTitle": "Are you sure?",
     "deleteDialogDescription": "This action cannot be undone. This will permanently delete the character \"{characterName}\" from your data.",
     "deleteDialogCancel": "Cancel",
     "deleteDialogConfirm": "Delete",
-
     "categories": {
       "fantasy": "Fantasy",
       "animal": "Animal",
@@ -264,7 +257,12 @@
     "errorDescription": "There was a problem connecting to the database. Please try again later.",
     "noStoriesTitle": "No stories in this category yet",
     "noStoriesDescription": "Explore other languages or be the first to share!",
-    "readStoryButton": "Read Story"
+    "readStoryButton": "Read Story",
+    "authPopup": {
+      "title": "✨ To read this story you need to register. ✨",
+      "description": "Once inside, you can read and download all the stories completely free.",
+      "actionText": "Got it"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Plans for Every Creator",
@@ -286,57 +284,57 @@
     "errorDescription": "Could not connect to the database.",
     "paymentErrorTitle": "Error processing payment",
     "paymentErrorDescription": "There was a problem creating the payment session. Please try again.",
-      "pricingPlans": {
-        "month":"month",
-        "artista": {
-          "name": "Artist",
-          "credits": "7,000 credits / month",
-          "features": {
-            "allFeatures": "Access to all features",
-            "prioritySupport": "Priority support",
-            "earlyAccess": "Early access to new features",
-            "highQualityExport": "High quality export"
-          },
-          "cta": "Subscribe",
-          "storyCount": "💫 Up to 17 stories per month 💫"
+    "pricingPlans": {
+      "month": "month",
+      "artista": {
+        "name": "Artist",
+        "credits": "7,000 credits / month",
+        "features": {
+          "allFeatures": "Access to all features",
+          "prioritySupport": "Priority support",
+          "earlyAccess": "Early access to new features",
+          "highQualityExport": "High quality export"
         },
-        "magic": {
-          "name": "Magic Plan",
-          "credits": "13,000 credits / month",
-          "features": {
-            "allFeatures": "Access to all features",
-            "prioritySupport": "Priority support",
-            "earlyAccess": "Early access to new features",
-            "highQualityExport": "High quality export"
-          },
-          "cta": "Subscribe",
-          "storyCount": "💫 Over 30 stories each month 💫"
+        "cta": "Subscribe",
+        "storyCount": "💫 Up to 17 stories per month 💫"
+      },
+      "magic": {
+        "name": "Magic Plan",
+        "credits": "13,000 credits / month",
+        "features": {
+          "allFeatures": "Access to all features",
+          "prioritySupport": "Priority support",
+          "earlyAccess": "Early access to new features",
+          "highQualityExport": "High quality export"
         },
-        "special": {
-          "name": "Special Plan",
-          "credits": "18,000 credits / month",
-          "features": {
-            "allFeatures": "Access to all features",
-            "prioritySupport": "Priority support",
-            "earlyAccess": "Early access to new features",
-            "highQualityExport": "High quality export"
-          },
-          "cta": "Subscribe",
-          "storyCount": "💫 Up to 45 adventures per month 💫"
+        "cta": "Subscribe",
+        "storyCount": "💫 Over 30 stories each month 💫"
+      },
+      "special": {
+        "name": "Special Plan",
+        "credits": "18,000 credits / month",
+        "features": {
+          "allFeatures": "Access to all features",
+          "prioritySupport": "Priority support",
+          "earlyAccess": "Early access to new features",
+          "highQualityExport": "High quality export"
         },
-        "king": {
-          "name": "King Plan",
-          "credits": "29,000 credits / month",
-          "features": {
-            "allFeatures": "Access to all features",
-            "prioritySupport": "Priority support",
-            "earlyAccess": "Early access to new features",
-            "highQualityExport": "High quality export"
-          },
-          "cta": "Subscribe",
-          "storyCount": "💫 Over 70 stories per month 💫"
-        }
+        "cta": "Subscribe",
+        "storyCount": "💫 Up to 45 adventures per month 💫"
+      },
+      "king": {
+        "name": "King Plan",
+        "credits": "29,000 credits / month",
+        "features": {
+          "allFeatures": "Access to all features",
+          "prioritySupport": "Priority support",
+          "earlyAccess": "Early access to new features",
+          "highQualityExport": "High quality export"
+        },
+        "cta": "Subscribe",
+        "storyCount": "💫 Over 70 stories per month 💫"
       }
+    }
   },
   "Navigation": {
     "Crear Cuento": "💫 Create a Story",
@@ -614,6 +612,21 @@
   },
   "Footer": {
     "createdBy": "Created with 💜 for little readers.",
-    "copy": "© {year} Cuentia. All rights reserved."
+    "copy": "© {year} Cuentia. All rights reserved.",
+    "legal": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "terms": "Terms and Conditions"
+  },
+  "LegalPage": {
+    "title": "Legal Notice",
+    "content": "[Content of the legal notice will go here]"
+  },
+  "PrivacyPage": {
+    "title": "Privacy Policy",
+    "content": "[Content of the privacy policy will go here]"
+  },
+  "TermsPage": {
+    "title": "Terms and Conditions",
+    "content": "[Content of the terms and conditions will go here]"
   }
 }

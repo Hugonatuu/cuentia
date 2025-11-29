@@ -200,14 +200,12 @@
     "validationIllustratePagesRequired": "Debes completar todas las páginas.",
     "validationIllustratePagesCount": "Debes completar las {pageCount} páginas.",
     "validationIllustratePhraseMaxLength": "La frase no puede tener más de 500 caracteres.",
-
     "toastStoryGeneratingTitle": "¡Cuento en camino!",
     "toastStoryGeneratingDescription": "Tu historia se está generando. Recibirás una notificación cuando esté lista.",
     "toastStoryErrorTitle": "Error al generar el cuento",
     "toastIllustrationGeneratingTitle": "¡Tu cuento se está ilustrando!",
     "toastIllustrationGeneratingDescription": "Recibirás una notificación cuando esté listo.",
     "toastIllustrationErrorTitle": "Error al ilustrar el cuento",
-
     "errorDocumentNotFound": "El documento del usuario no existe.",
     "errorStoryCreationFailed": "No se pudo crear el documento del cuento.",
     "importantCharacterNote": "Importante: La historia debe usar exclusivamente los personajes seleccionados. No añadas personajes adicionales en la descripción.",
@@ -216,11 +214,9 @@
   "PersonajesPage": {
     "pageTitle": "Un Mundo de Personajes",
     "pageDescription": "Aquí viven los personajes que darán vida a tus historias. ¡Crea nuevos amigos, a ti mismo o incluso a tu mascota!",
-
     "authCardTitle": "Sube una foto tuya, de tu mascota, o de quien tu quieras y crea un personaje único.",
     "authCardSubtitle": "💫¡Regístrate y deja que la magia comience! 💫",
     "authCardButton": "Crear Personaje",
-
     "myCharactersTitle": "Mis Personajes",
     "createCharacterButton": "✨ Crear Nuevo Personaje ✨",
     "noCharactersTitle": "Aún no has creado ningún personaje",
@@ -228,17 +224,14 @@
     "firstCharacterButton": "Crear mi primer personaje",
     "deleteButton": "Eliminar",
     "deleteButtonAriaLabel": "Eliminar personaje",
-
     "predefinedCharactersTitle": "Personajes Predefinidos",
     "allCategoriesButton": "Todos",
     "noCategoryCharactersTitle": "No hay personajes en esta categoría",
     "noCategoryCharactersDescription": "Pronto habrá más personajes listos para la aventura.",
-
     "deleteDialogTitle": "¿Estás seguro?",
     "deleteDialogDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente el personaje \"{characterName}\" de tus datos.",
     "deleteDialogCancel": "Cancelar",
     "deleteDialogConfirm": "Eliminar",
-
     "categories": {
       "fantasy": "Fantasy",
       "animal": "Animal",
@@ -264,7 +257,12 @@
     "errorDescription": "Hubo un problema al conectar con la base de datos. Por favor, inténtalo de nuevo más tarde.",
     "noStoriesTitle": "Aún no hay cuentos en esta categoría",
     "noStoriesDescription": "¡Explora otras lenguas o sé el primero en compartir!",
-    "readStoryButton": "Leer Cuento"
+    "readStoryButton": "Leer Cuento",
+    "authPopup": {
+      "title": "✨ Para leer este cuento necesitas registrarte. ✨",
+      "description": "Una vez dentro, podrás leer y descargar todos los cuentos completamente gratis.",
+      "actionText": "Entendido"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Planes para Cada Creador",
@@ -287,7 +285,7 @@
     "paymentErrorTitle": "Error al procesar el pago",
     "paymentErrorDescription": "Hubo un problema al crear la sesión de pago. Por favor, inténtalo de nuevo.",
     "pricingPlans": {
-      "month":"mes",
+      "month": "mes",
       "artista": {
         "name": "Artista",
         "credits": "7.000 créditos / mes",
@@ -355,7 +353,7 @@
     "title": "¿Cómo funcionan los créditos? ✨",
     "description1": "Crear tus historias es muy sencillo: solo gastas créditos según el tipo de libro que elijas. 📚",
     "description2": "Un cuento básico sin ilustraciones empieza en 400 créditos. Si quieres ilustraciones, puedes generar un libro ilustrado desde 900 créditos. 🎨",
-    "description3": "Puedes añadir más páginas o imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
+    "description3": "Puedes añadir más páginas o más imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
     "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
@@ -614,6 +612,21 @@
   },
   "Footer": {
     "createdBy": "Creado con 💜 para pequeños lectores.",
-    "copy": "© {year} Cuentia. Todos los derechos reservados."
+    "copy": "© {year} Cuentia. Todos los derechos reservados.",
+    "legal": "Aviso Legal",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos y Condiciones"
+  },
+  "LegalPage": {
+    "title": "Aviso Legal",
+    "content": "[Aquí irá el contenido del aviso legal]"
+  },
+  "PrivacyPage": {
+    "title": "Política de Privacidad",
+    "content": "[Aquí irá el contenido de la política de privacidad]"
+  },
+  "TermsPage": {
+    "title": "Términos y Condiciones",
+    "content": "[Aquí irá el contenido de los términos y condiciones]"
   }
 }

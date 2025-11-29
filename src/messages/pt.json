@@ -257,7 +257,12 @@
     "errorDescription": "Ocorreu um problema ao conectar com o banco de dados. Por favor, tente novamente mais tarde.",
     "noStoriesTitle": "Ainda não há histórias nesta categoria",
     "noStoriesDescription": "Explore outras línguas ou seja o primeiro a compartilhar!",
-    "readStoryButton": "Ler História"
+    "readStoryButton": "Ler História",
+    "authPopup": {
+      "title": "✨ Para ler este conto, você precisa se registrar. ✨",
+      "description": "Uma vez dentro, você poderá ler e baixar todos os contos completamente grátis.",
+      "actionText": "Entendido"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Planos para Cada Criador",
@@ -280,7 +285,7 @@
     "paymentErrorTitle": "Erro ao processar o pagamento",
     "paymentErrorDescription": "Ocorreu um problema ao criar la sessão de pagamento. Por favor, tente novamente.",
     "pricingPlans": {
-      "month":"mês",
+      "month": "mês",
       "artista": {
         "name": "Plano Artista",
         "credits": "7.000 créditos / mês",
@@ -607,6 +612,21 @@
   },
   "Footer": {
     "createdBy": "Criado com 💜 para pequenos leitores.",
-    "copy": "© {year} Cuentia. Todos os direitos reservados."
+    "copy": "© {year} Cuentia. Todos os direitos reservados.",
+    "legal": "Aviso Legal",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos e Condições"
+  },
+  "LegalPage": {
+    "title": "Aviso Legal",
+    "content": "[O conteúdo do aviso legal será colocado aqui]"
+  },
+  "PrivacyPage": {
+    "title": "Política de Privacidade",
+    "content": "[O conteúdo da política de privacidade será colocado aqui]"
+  },
+  "TermsPage": {
+    "title": "Termos e Condições",
+    "content": "[O conteúdo dos termos e condições será colocado aqui]"
   }
 }
