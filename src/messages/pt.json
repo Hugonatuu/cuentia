@@ -31,7 +31,7 @@
     "faq3Question": "Vocês oferecem contos para crianças em PDF ou livros grátis em PDF?",
     "faq3Answer": "Sim! Você pode baixar contos para crianças em PDF e livros grátis em PDF diretamente na nossa plataforma. Eles são perfeitos para conhecer a experiência antes de criar o seu próprio livro infantil personalizado com IA.",
     "faq4Question": "Quantos créditos custa para criar uma história?",
-    "faq4Answer": "As histórias ilustradas mais básicas custam 800 créditos.",
+    "faq4Answer": "Os contos básicos (apenas texto) começam em apenas 400 créditos, e se quiser ilustrações personalizadas, os contos ilustrados começam a partir de 900 créditos.",
     "finalCtaTitle": "Pronto para criar magia?",
     "finalCtaDescription": "Junte-se à comunidade Cuentia e comece a dar vida às suas histórias.",
     "finalCtaButton": "Cadastre-se grátis"
@@ -265,6 +265,7 @@
     "creditsInfoButton": "Como funcionam os créditos?",
     "creditPackTitle": "Pacote de Créditos",
     "creditPackDescription": "Perfeito para quem quer experimentar a Cuentia ou usá-la sem compromisso mensal.",
+    "creditPackSubDescription": "Compre quantos pacotes quiser",
     "creditPackFeature": "Acesso a todas as funções",
     "creditPackButton": "Comprar",
     "creditPackAmount": "4.500 créditos",
@@ -339,11 +340,11 @@
     "Abrir menú": "Abrir menu"
   },
   "CreditsInfoDialog": {
-    "title": "Como funcionam os créditos?",
-    "description1": "Cada vez que você cria uma história, seus créditos são usados de acordo com o tipo de criação que você escolhe.",
-    "description2": "As histórias mais básicas custam a partir de 800 créditos e incluem texto + ilustrações personalizadas.",
-    "description3": "Quanto mais elementos você adicionar (mais páginas, mais imagens ou voz narrada), mais créditos você precisará.",
-    "actionButton": "Entendi"
+    "title": "Como funcionam os créditos? ✨",
+  "description1": "Criar a sua história é muito simples: você só gasta créditos conforme o tipo de conto que escolher. 📚",
+  "description2": "Os contos básicos (somente texto) começam em apenas 400 créditos, e se quiser ilustrações personalizadas, os contos ilustrados começam a partir de 900 créditos. 🎨",
+  "description3": "Você pode adicionar mais páginas ou imagens se desejar; cada extra usa alguns créditos adicionais, e você sempre verá o consumo antes de confirmar la criação. ✔️",
+  "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Escolha Sua Foto de Perfil",

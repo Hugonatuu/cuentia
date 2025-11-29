@@ -31,7 +31,7 @@
     "faq3Question": "¿Ofrecéis cuentos infantiles en PDF gratis?",
     "faq3Answer": "Puedes descargar todos los libros infantiles que quieras en PDF gratis para probar la experiencia antes de crear tus propios cuentos personalizados.",
     "faq4Question": "¿Cuántos créditos cuesta crear un cuento?",
-    "faq4Answer": "Los cuentos ilustrados más básicos cuestan 800 créditos.",
+    "faq4Answer": "Los cuentos básicos (solo texto) empiezan en solo 400 créditos, y si quieres ilustraciones personalizadas, los cuentos ilustrados empiezan desde 900 créditos.",
     "finalCtaTitle": "¿Listo para crear magia?",
     "finalCtaDescription": "Únete a la comunidad de Cuentia y empieza a dar vida a tus historias.",
     "finalCtaButton": "Regístrate gratis"
@@ -272,6 +272,7 @@
     "creditsInfoButton": "¿Cómo funcionan los créditos?",
     "creditPackTitle": "Paquete de Créditos",
     "creditPackDescription": "Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual.",
+    "creditPackSubDescription": "Compra tantos paquetes como quieras.",
     "creditPackFeature": "Acceso a todas las funciones",
     "creditPackButton": "Comprar",
     "creditPackAmount": "4.500 créditos",
@@ -346,11 +347,11 @@
     "Abrir menú": "Abrir menú"
   },
   "CreditsInfoDialog": {
-    "title": "¿Cómo funcionan los créditos?",
-    "description1": "Cada vez que creas un cuento, tus créditos se usan según el tipo de creación que elijas.",
-    "description2": "Los cuentos más básicos cuestan desde 800 créditos, e incluyen texto + ilustraciones personalizadas.",
-    "description3": "Cuantos más elementos añadas (más páginas, más imágenes o voz narrada), más créditos necesitarás.",
-    "actionButton": "Entendido"
+    "title": "¿Cómo funcionan los créditos? ✨",
+  "description1": "Crear tu cuento es muy sencillo: solo gastas créditos según el tipo de historia que elijas. 📚",
+  "description2": "Los cuentos básicos (solo texto) empiezan en solo 400 créditos, y si quieres ilustraciones personalizadas, los cuentos ilustrados empiezan desde 900 créditos. 🎨",
+  "description3": "Puedes añadir más páginas o más imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
+  "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Elige tu Foto de Perfil",

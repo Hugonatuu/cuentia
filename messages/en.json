@@ -31,7 +31,7 @@
     "faq3Question": "Do you offer free children’s stories in PDF?",
     "faq3Answer": "You can download as many children’s books in free PDF format as you want to try the experience before creating your own personalized stories.",
     "faq4Question": "How many credits to create a story?",
-    "faq4Answer": "The most basic illustrated stories cost 800 credits.",
+    "faq4Answer": "Basic stories (text only) start at just 400 credits, and if you want personalized illustrations, illustrated stories start from 900 credits.",
     "finalCtaTitle": "Ready to create magic?",
     "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
     "finalCtaButton": "Sign up for free"
@@ -274,7 +274,7 @@
     "creditPackDescription": "Perfect for those who want to try Cuentia or use it without a monthly commitment.",
     "creditPackFeature": "Access to all features",
     "creditPackButton": "Buy",
-    "creditPackAmount": "5,000 credits",
+    "creditPackAmount": "4,500 credits",
     "creditPackPrice": "for 5€",
     "subscriptionAlert": "Up to 40% more credits with the subscription model!",
     "recommendedBadge": "RECOMMENDED",
@@ -346,11 +346,11 @@
     "Abrir menú": "Open menu"
   },
   "CreditsInfoDialog": {
-    "title": "How do credits work?",
-    "description1": "Every time you create a story, your credits are used based on the type of creation you choose.",
-    "description2": "The most basic stories cost starting from 800 credits, and include text + personalized illustrations.",
-    "description3": "The more elements you add (more pages, more images, or narrated voice), the more credits you will need.",
-    "actionButton": "Got It"
+    "title": "How do credits work? ✨",
+  "description1": "Creating your story is easy: you only spend credits based on the type of book you choose. 📚",
+  "description2": "Basic stories (text only) start at just 400 credits, and illustrated stories with personalized artwork start from 900 credits. 🎨",
+  "description3": "You can add more pages or images if you like; each extra uses a few additional credits, and you'll always see the total before confirming. ✔️",
+  "actionButton": "Got it"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Choose Your Profile Picture",

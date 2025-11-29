@@ -31,7 +31,7 @@
     "faq3Question": "Proposez-vous des histoires pour enfants en PDF gratuit?",
     "faq3Answer": "Vous pouvez télécharger autant de livres pour enfants en PDF gratuit que vous le souhaitez pour tester l’expérience avant de créer vos propres histoires personnalisées.",
     "faq4Question": "Combien de crédits coûte la création d'une histoire ?",
-    "faq4Answer": "Les histoires illustrées les plus basiques coûtent 800 crédits.",
+    "faq4Answer": "Les histoires basiques (texte uniquement) commencent à seulement 400 crédits, et si vous souhaitez des illustrations personnalisées, les histoires illustrées commencent à partir de 900 crédits.",
     "finalCtaTitle": "Prêt à créer de la magie ?",
     "finalCtaDescription": "Rejoignez la communauté Cuentia et commencez à donner vie à vos histoires.",
     "finalCtaButton": "S'inscrire gratuitement"
@@ -267,7 +267,7 @@
     "creditPackDescription": "Parfait pour ceux qui veulent essayer Cuentia ou l'utiliser sans engagement mensuel.",
     "creditPackFeature": "Accès à toutes les fonctionnalités",
     "creditPackButton": "Acheter",
-    "creditPackAmount": "5 000 crédits",
+    "creditPackAmount": "4 500 crédits",
     "creditPackPrice": "pour 5€",
     "subscriptionAlert": "Jusqu'à 40 % de crédits en plus avec l'abonnement !",
     "recommendedBadge": "RECOMMANDÉ",
@@ -340,11 +340,11 @@
     "Abrir menú": "Ouvrir le menu"
   },
   "CreditsInfoDialog": {
-    "title": "Comment fonctionnent les crédits ?",
-    "description1": "Chaque fois que vous créez une histoire, vos crédits sont utilisés en fonction du type de création que vous choisissez.",
-    "description2": "Les histoires les plus basiques coûtent à partir de 800 crédits et comprennent le texte + des illustrations personnalisées.",
-    "description3": "Plus vous ajoutez d'éléments (plus de pages, plus d'images ou une voix narrative), plus vous aurez besoin de crédits.",
-    "actionButton": "Compris"
+    "title": "Comment fonctionnent les crédits ? ✨",
+  "description1": "Créer votre histoire est très simple : vous dépensez des crédits selon le type de livre choisi. 📚",
+  "description2": "Les histoires basiques (texte seulement) commencent à 400 crédits, et les histoires illustrées avec dessins personnalisés commencent à partir de 900 crédits. 🎨",
+  "description3": "Vous pouvez ajouter plus de pages ou d’images si vous le souhaitez ; chaque ajout utilise quelques crédits supplémentaires, et vous verrez toujours le total avant de confirmer. ✔️",
+  "actionButton": "Compris"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Choisissez votre Photo de Profil",

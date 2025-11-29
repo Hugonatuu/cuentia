@@ -31,7 +31,7 @@
     "faq3Question": "Kann ich die Geschichten kommerziell nutzen?",
     "faq3Answer": "Ja, mit den Abo-Plänen hast du Nutzungsrechte, auch für kommerzielle Zwecke.",
     "faq4Question": "Wie viele Credits kostet es, eine Geschichte zu erstellen?",
-    "faq4Answer": "Die einfachsten illustrierten Geschichten kosten 800 Credits.",
+    "faq4Answer": "Einfache Geschichten (nur Text) beginnen bereits bei 400 Credits, und wenn du personalisierte Illustrationen möchtest, starten illustrierte Geschichten ab 900 Credits.",
     "finalCtaTitle": "Bereit, Magie zu erschaffen?",
     "finalCtaDescription": "Tritt der Cuentia-Community bei und beginne, deine Geschichten zum Leben zu erwecken.",
     "finalCtaButton": "Kostenlos registrieren"
@@ -274,7 +274,7 @@
     "creditPackDescription": "Perfekt für diejenigen, die Cuentia ausprobieren oder ohne monatliche Verpflichtung nutzen möchten.",
     "creditPackFeature": "Zugriff auf alle Funktionen",
     "creditPackButton": "Kaufen",
-    "creditPackAmount": "5.000 Credits",
+    "creditPackAmount": "4.500 Credits",
     "creditPackPrice": "für 5€",
     "subscriptionAlert": "Bis zu 40 % mehr Credits mit dem Abo-Modell!",
     "recommendedBadge": "EMPFOHLEN",
@@ -346,11 +346,11 @@
     "Abrir menú": "Menü öffnen"
   },
   "CreditsInfoDialog": {
-    "title": "Wie funktionieren Credits?",
-    "description1": "Jedes Mal, wenn du eine Geschichte erstellst, werden deine Credits je nach gewählter Erstellungsart verwendet.",
-    "description2": "Die einfachsten Geschichten kosten ab 800 Credits und beinhalten Text + personalisierte Illustrationen.",
-    "description3": "Je mehr Elemente du hinzufügst (mehr Seiten, mehr Bilder oder Sprachausgabe), desto mehr Credits wirst du benötigen.",
-    "actionButton": "Verstanden"
+    "title": "Wie funktionieren die Credits? ✨",
+  "description1": "Das Erstellen deiner Geschichte ist ganz einfach: Du verbrauchst nur Credits je nach Art des gewählten Buches. 📚",
+  "description2": "Einfache Geschichten (nur Text) beginnen bereits bei 400 Credits, und illustrierte Geschichten mit personalisierten Zeichnungen starten ab 900 Credits. 🎨",
+  "description3": "Du kannst nach Wunsch zusätzliche Seiten oder Bilder hinzufügen; jedes Extra benötigt ein paar zusätzliche Credits, und du siehst den Verbrauch immer vor der Bestätigung. ✔️",
+  "actionButton": "Verstanden"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Wähle dein Profilbild",

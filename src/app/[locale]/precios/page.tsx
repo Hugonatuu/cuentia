@@ -156,6 +156,7 @@ export default function PreciosPage() {
                     <CardDescription className="font-bold text-foreground mt-1">
                     {t('creditPackDescription')}
                     </CardDescription>
+                    <p className="text-primary mt-1">{t('creditPackSubDescription')}</p>
                 </div>
                 <ul className="space-y-2">
                     <li className="flex items-start gap-2">
