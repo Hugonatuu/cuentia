@@ -31,7 +31,7 @@
     "faq3Question": "Offrite storie per bambini in PDF gratis?",
     "faq3Answer": "Puoi scaricare tutti i libri per bambini in PDF gratis che desideri per provare l’esperienza prima di creare le tue storie personalizzate",
     "faq4Question": "Quanti crediti costa creare una storia?",
-    "faq4Answer": "Le storie base (solo testo) partono da appena 400 crediti, e se desideri illustrazioni personalizzate, le storie illustrate partono da 900 crediti.",
+    "faq4Answer": "Una storia di base senza illustrazioni parte da 400 crediti. Se vuoi illustrazioni, puoi generare un libro illustrato a partire da 900 crediti.",
     "finalCtaTitle": "Pronto a creare magia?",
     "finalCtaDescription": "Unisciti alla comunità di Cuentia e inizia a dare vita alle tue storie.",
     "finalCtaButton": "Registrati gratis"
@@ -271,8 +271,8 @@
     "pageDescription": "Scegli l'opzione che meglio si adatta al tuo ritmo creativo. Più crediti, più storie, più magia.",
     "creditsInfoButton": "Come funzionano i crediti?",
     "creditPackTitle": "Pacchetto di Crediti",
-    "creditPackDescription": "Perfetto per chi vuole provare Cuentia o usarla senza impegno mensile.",
-    "creditPackSubDescription": "Acquista tutti i pacchetti che desideri",
+    "creditPackDescription": "Perfetto per chi vuole provare Cuentia o usarla senza impegno mensile. ¡Crea más de 10 cuentos con este paquete!",
+    "creditPackSubDescription": "Acquista tutti i pacchetti che desideri.",
     "creditPackFeature": "Accesso a tutte le funzioni",
     "creditPackButton": "Compra",
     "creditPackAmount": "4.500 crediti",
@@ -296,7 +296,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Fino a 17 storie al mese 💫"
       },
       "magic": {
         "name": "Piano Magico",
@@ -307,7 +308,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Oltre 30 storie al mese 💫"
       },
       "special": {
         "name": "Piano Speciale",
@@ -318,7 +320,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Fino a 45 avventure al mese 💫"
       },
       "king": {
         "name": "Piano King",
@@ -329,7 +332,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Oltre 70 storie al mese 💫"
       }
     }
   },
@@ -348,10 +352,10 @@
   },
   "CreditsInfoDialog": {
     "title": "Come funzionano i crediti? ✨",
-  "description1": "Creare la tua storia è semplicissimo: usi i crediti solo in base al tipo di libro che scegli. 📚",
-  "description2": "Le storie base (solo testo) partono da 400 crediti, e le storie illustrate con disegni personalizzati partono da 900 crediti. 🎨",
-  "description3": "Puoi aggiungere più pagine o immagini se vuoi; ogni extra utilizza alcuni crediti in più e vedrai sempre il totale prima di confermare. ✔️",
-  "actionButton": "Ho capito"
+    "description1": "Creare le tue storie è facile: spendi crediti solo in base al tipo di libro che scegli. 📚",
+    "description2": "Una storia di base senza illustrazioni parte da 400 crediti. Se vuoi illustrazioni, puoi generare un libro illustrato a partire da 900 crediti. 🎨",
+    "description3": "Puoi aggiungere più pagine o immagini se vuoi; ogni extra utilizza alcuni crediti aggiuntivi, e vedrai sempre il totale prima di confermare. ✔️",
+    "actionButton": "Ho capito"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Scegli la tua Foto Profilo",

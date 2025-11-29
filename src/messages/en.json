@@ -31,7 +31,7 @@
     "faq3Question": "Do you offer free children’s stories in PDF?",
     "faq3Answer": "You can download as many children’s books in free PDF format as you want to try the experience before creating your own personalized stories.",
     "faq4Question": "How many credits to create a story?",
-    "faq4Answer": "Basic stories (text only) start at just 400 credits, and if you want personalized illustrations, illustrated stories start from 900 credits.",
+    "faq4Answer": "A basic story without illustrations starts at 400 credits. If you want illustrations, you can generate an illustrated book from 900 credits.",
     "finalCtaTitle": "Ready to create magic?",
     "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
     "finalCtaButton": "Sign up for free"
@@ -271,7 +271,7 @@
     "pageDescription": "Choose the option that best suits your creative pace. More credits, more stories, more magic.",
     "creditsInfoButton": "How do credits work?",
     "creditPackTitle": "Credit Pack",
-    "creditPackDescription": "Perfect for those who want to try Cuentia or use it without a monthly commitment.",
+    "creditPackDescription": "Perfect for those who want to try Cuentia or use it without a monthly commitment. Create more than 10 stories with this pack!",
     "creditPackSubDescription": "Buy as many packs as you want",
     "creditPackFeature": "Access to all features",
     "creditPackButton": "Buy",
@@ -296,7 +296,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Up to 17 stories per month 💫"
         },
         "magic": {
           "name": "Magic Plan",
@@ -307,7 +308,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Over 30 stories each month 💫"
         },
         "special": {
           "name": "Special Plan",
@@ -318,7 +320,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Up to 45 adventures per month 💫"
         },
         "king": {
           "name": "King Plan",
@@ -329,7 +332,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Over 70 stories per month 💫"
         }
       }
   },
@@ -348,10 +352,10 @@
   },
   "CreditsInfoDialog": {
     "title": "How do credits work? ✨",
-  "description1": "Creating your story is easy: you only spend credits based on the type of book you choose. 📚",
-  "description2": "Basic stories (text only) start at just 400 credits, and illustrated stories with personalized artwork start from 900 credits. 🎨",
-  "description3": "You can add more pages or images if you like; each extra uses a few additional credits, and you'll always see the total before confirming. ✔️",
-  "actionButton": "Got it"
+    "description1": "Creating your stories is easy: you only spend credits based on the type of book you choose. 📚",
+    "description2": "A basic story without illustrations starts at 400 credits. If you want illustrations, you can generate an illustrated book from 900 credits. 🎨",
+    "description3": "You can add more pages or images if you like; each extra uses a few additional credits, and you'll always see the total before confirming. ✔️",
+    "actionButton": "Got it"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Choose Your Profile Picture",

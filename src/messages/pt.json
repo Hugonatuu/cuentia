@@ -31,7 +31,7 @@
     "faq3Question": "Vocês oferecem contos para crianças em PDF ou livros grátis em PDF?",
     "faq3Answer": "Sim! Você pode baixar contos para crianças em PDF e livros grátis em PDF diretamente na nossa plataforma. Eles são perfeitos para conhecer a experiência antes de criar o seu próprio livro infantil personalizado com IA.",
     "faq4Question": "Quantos créditos custa para criar uma história?",
-    "faq4Answer": "Os contos básicos (apenas texto) começam em apenas 400 créditos, e se quiser ilustrações personalizadas, os contos ilustrados começam a partir de 900 créditos.",
+    "faq4Answer": "Um conto básico sem ilustrações começa em 400 créditos. Se quiser ilustrações, pode gerar um livro ilustrado a partir de 900 créditos.",
     "finalCtaTitle": "Pronto para criar magia?",
     "finalCtaDescription": "Junte-se à comunidade Cuentia e comece a dar vida às suas histórias.",
     "finalCtaButton": "Cadastre-se grátis"
@@ -264,8 +264,8 @@
     "pageDescription": "Escolha la opção que melhor se adapta ao seu ritmo criativo. Mais créditos, mais histórias, mais magia.",
     "creditsInfoButton": "Como funcionam os créditos?",
     "creditPackTitle": "Pacote de Créditos",
-    "creditPackDescription": "Perfeito para quem quer experimentar a Cuentia ou usá-la sem compromisso mensal.",
-    "creditPackSubDescription": "Compre quantos pacotes quiser",
+    "creditPackDescription": "Perfeito para quem quer experimentar a Cuentia ou usá-la sem compromisso mensal. ¡Crea más de 10 cuentos con este paquete!",
+    "creditPackSubDescription": "Compre quantos pacotes quiser.",
     "creditPackFeature": "Acesso a todas as funções",
     "creditPackButton": "Comprar",
     "creditPackAmount": "4.500 créditos",
@@ -289,7 +289,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Até 17 contos por mês 💫"
       },
       "magic": {
         "name": "Plano Mágico",
@@ -300,7 +301,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Mais de 30 contos por mês 💫"
       },
       "special": {
         "name": "Plano Especial",
@@ -311,7 +313,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Até 45 aventuras por mês 💫"
       },
       "king": {
         "name": "Plano King",
@@ -322,7 +325,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Mais de 70 contos por mês 💫"
       }
     }
   },
@@ -341,10 +345,10 @@
   },
   "CreditsInfoDialog": {
     "title": "Como funcionam os créditos? ✨",
-  "description1": "Criar a sua história é muito simples: você só gasta créditos conforme o tipo de conto que escolher. 📚",
-  "description2": "Os contos básicos (somente texto) começam em apenas 400 créditos, e se quiser ilustrações personalizadas, os contos ilustrados começam a partir de 900 créditos. 🎨",
-  "description3": "Você pode adicionar mais páginas ou imagens se desejar; cada extra usa alguns créditos adicionais, e você sempre verá o consumo antes de confirmar la criação. ✔️",
-  "actionButton": "Entendido"
+    "description1": "Criar as suas histórias é simples: só gasta créditos com base no tipo de livro que escolher. 📚",
+    "description2": "Um conto básico sem ilustrações começa em 400 créditos. Se quiser ilustrações, pode gerar um livro ilustrado a partir de 900 créditos. 🎨",
+    "description3": "Pode adicionar mais páginas ou imagens se desejar; cada extra consome alguns créditos adicionais, e verá sempre o total antes de confirmar. ✔️",
+    "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Escolha Sua Foto de Perfil",

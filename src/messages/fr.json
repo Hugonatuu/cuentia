@@ -31,7 +31,7 @@
     "faq3Question": "Proposez-vous des histoires pour enfants en PDF gratuit?",
     "faq3Answer": "Vous pouvez télécharger autant de livres pour enfants en PDF gratuit que vous le souhaitez pour tester l’expérience avant de créer vos propres histoires personnalisées.",
     "faq4Question": "Combien de crédits coûte la création d'une histoire ?",
-    "faq4Answer": "Les histoires basiques (texte uniquement) commencent à seulement 400 crédits, et si vous souhaitez des illustrations personnalisées, les histoires illustrées commencent à partir de 900 crédits.",
+    "faq4Answer": "Une histoire de base sans illustrations commence à 400 crédits. Si vous voulez des illustrations, vous pouvez générer un livre illustré à partir de 900 crédits.",
     "finalCtaTitle": "Prêt à créer de la magie ?",
     "finalCtaDescription": "Rejoignez la communauté Cuentia et commencez à donner vie à vos histoires.",
     "finalCtaButton": "S'inscrire gratuitement"
@@ -264,7 +264,7 @@
     "pageDescription": "Choisissez l'option qui correspond le mieux à votre rythme créatif. Plus de crédits, plus d'histoires, plus de magie.",
     "creditsInfoButton": "Comment fonctionnent les crédits ?",
     "creditPackTitle": "Pack de Crédits",
-    "creditPackDescription": "Parfait pour ceux qui veulent essayer Cuentia ou l'utiliser sans engagement mensuel.",
+    "creditPackDescription": "Parfait pour ceux qui veulent essayer Cuentia ou l'utiliser sans engagement mensuel. Créez plus de 10 histoires avec ce pack !",
     "creditPackSubDescription": "Achetez autant de packs que vous voulez",
     "creditPackFeature": "Accès à toutes les fonctionnalités",
     "creditPackButton": "Acheter",
@@ -273,8 +273,11 @@
     "subscriptionAlert": "Jusqu'à 40 % de crédits en plus avec l'abonnement !",
     "recommendedBadge": "RECOMMANDÉ",
     "subscriptionTitle": "✨ Abonnez-vous et économisez sur chaque crédit",
-    "subscriptionDescription": "Sans engagement, sans risque : annulez quand vous voulez et profitez de paiements sécurisés avec Stripe"
-    ,
+    "subscriptionDescription": "Sans engagement, sans risque : annulez quand vous voulez et profitez de paiements sécurisés avec Stripe",
+    "errorTitle": "Erreur",
+    "errorDescription": "Impossible de se connecter à la base de données.",
+    "paymentErrorTitle": "Erreur lors du traitement du paiement",
+    "paymentErrorDescription": "Il y a eu un problème lors de la création de la session de paiement. Veuillez réessayer.",
     "pricingPlans": {
       "month":"mois",
       "artista": {
@@ -286,7 +289,8 @@
           "earlyAccess": "Accès anticipé aux nouveautés",
           "highQualityExport": "Exportation en haute qualité"
         },
-        "cta": "S'abonner"
+        "cta": "S'abonner",
+        "storyCount": "💫 Jusqu'à 17 contes par mois 💫"
       },
       "magic": {
         "name": "Plan Magique",
@@ -297,7 +301,8 @@
           "earlyAccess": "Accès anticipé aux nouveautés",
           "highQualityExport": "Exportation en haute qualité"
         },
-        "cta": "S'abonner"
+        "cta": "S'abonner",
+        "storyCount": "💫 Plus de 30 contes chaque mois 💫"
       },
       "special": {
         "name": "Plan Spécial",
@@ -308,7 +313,8 @@
           "earlyAccess": "Accès anticipé aux nouveautés",
           "highQualityExport": "Exportation en haute qualité"
         },
-        "cta": "S'abonner"
+        "cta": "S'abonner",
+        "storyCount": "💫 Jusqu'à 45 aventures par mois 💫"
       },
       "king": {
         "name": "Plan Roi",
@@ -319,7 +325,8 @@
           "earlyAccess": "Accès anticipé aux nouveautés",
           "highQualityExport": "Exportation en haute qualité"
         },
-        "cta": "S'abonner"
+        "cta": "S'abonner",
+        "storyCount": "💫 Plus de 70 contes par mois 💫"
       }
     }
   },
@@ -338,10 +345,10 @@
   },
   "CreditsInfoDialog": {
     "title": "Comment fonctionnent les crédits ? ✨",
-  "description1": "Créer votre histoire est très simple : vous dépensez des crédits selon le type de livre choisi. 📚",
-  "description2": "Les histoires basiques (texte seulement) commencent à 400 crédits, et les histoires illustrées avec dessins personnalisés commencent à partir de 900 crédits. 🎨",
-  "description3": "Vous pouvez ajouter plus de pages ou d’images si vous le souhaitez ; chaque ajout utilise quelques crédits supplémentaires, et vous verrez toujours le total avant de confirmer. ✔️",
-  "actionButton": "Compris"
+    "description1": "Créer votre histoire est très simple : vous dépensez des crédits selon le type de livre choisi. 📚",
+    "description2": "Une histoire de base sans illustrations commence à 400 crédits. Si vous voulez des illustrations, vous pouvez générer un livre illustré à partir de 900 crédits. 🎨",
+    "description3": "Vous pouvez ajouter plus de pages ou d’images si vous le souhaitez ; chaque ajout utilise quelques crédits supplémentaires, et vous verrez toujours le total avant de confirmer. ✔️",
+    "actionButton": "Compris"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Choisissez votre Photo de Profil",

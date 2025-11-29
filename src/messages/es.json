@@ -31,7 +31,7 @@
     "faq3Question": "¿Ofrecéis cuentos infantiles en PDF gratis?",
     "faq3Answer": "Puedes descargar todos los libros infantiles que quieras en PDF gratis para probar la experiencia antes de crear tus propios cuentos personalizados.",
     "faq4Question": "¿Cuántos créditos cuesta crear un cuento?",
-    "faq4Answer": "Los cuentos básicos (solo texto) empiezan en solo 400 créditos, y si quieres ilustraciones personalizadas, los cuentos ilustrados empiezan desde 900 créditos.",
+    "faq4Answer": "Un cuento básico sin ilustraciones empieza en 400 créditos. Si quieres ilustraciones, puedes generar un libro ilustrado desde 900 créditos.",
     "finalCtaTitle": "¿Listo para crear magia?",
     "finalCtaDescription": "Únete a la comunidad de Cuentia y empieza a dar vida a tus historias.",
     "finalCtaButton": "Regístrate gratis"
@@ -271,7 +271,7 @@
     "pageDescription": "Elige la opción que mejor se adapte a tu ritmo creativo. Más créditos, más historias, más magia.",
     "creditsInfoButton": "¿Cómo funcionan los créditos?",
     "creditPackTitle": "Paquete de Créditos",
-    "creditPackDescription": "Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual.",
+    "creditPackDescription": "Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual. ¡Crea más de 10 cuentos con este paquete!",
     "creditPackSubDescription": "Compra tantos paquetes como quieras.",
     "creditPackFeature": "Acceso a todas las funciones",
     "creditPackButton": "Comprar",
@@ -296,7 +296,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Hasta 17 cuentos al mes 💫"
       },
       "magic": {
         "name": "Plan Mágico",
@@ -307,7 +308,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Más de 30 cuentos cada mes 💫"
       },
       "special": {
         "name": "Plan Especial",
@@ -318,7 +320,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Hasta 45 aventuras al mes 💫"
       },
       "king": {
         "name": "Plan King",
@@ -329,7 +332,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Más de 70 cuentos al mes 💫"
       }
     }
   },
@@ -348,10 +352,10 @@
   },
   "CreditsInfoDialog": {
     "title": "¿Cómo funcionan los créditos? ✨",
-  "description1": "Crear tu cuento es muy sencillo: solo gastas créditos según el tipo de historia que elijas. 📚",
-  "description2": "Los cuentos básicos (solo texto) empiezan en solo 400 créditos, y si quieres ilustraciones personalizadas, los cuentos ilustrados empiezan desde 900 créditos. 🎨",
-  "description3": "Puedes añadir más páginas o más imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
-  "actionButton": "Entendido"
+    "description1": "Crear tus historias es muy sencillo: solo gastas créditos según el tipo de libro que elijas. 📚",
+    "description2": "Un cuento básico sin ilustraciones empieza en 400 créditos. Si quieres ilustraciones, puedes generar un libro ilustrado desde 900 créditos. 🎨",
+    "description3": "Puedes añadir páginas o imágenes si lo deseas; cada extra usa algunos créditos adicionales, y siempre verás el coste total antes de confirmar la creación. ✔️",
+    "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Elige tu Foto de Perfil",
