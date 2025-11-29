@@ -8,10 +8,7 @@ import { useMessages, useTranslations } from "next-intl";
 
 type PricingPlan = {
   id:string;
-  // name: string;
   price: string;
-  // credits: string;
-  // features: string[];
   stripePriceId: string;
 };
 
@@ -52,6 +49,7 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
             </li>
           ))}
         </ul>
+        <p className="font-bold text-foreground mt-4">{t(`${plan.id}.storyCount`)}</p>
       </CardContent>
       <CardFooter>
         <Button 
