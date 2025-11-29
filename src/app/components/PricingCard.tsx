@@ -42,12 +42,19 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
           {t(`${plan?.id}.name`) !== 'Pay as you go' && <span className="text-muted-foreground">/{t('month')}</span>}
         </div>
         <ul className="space-y-2">
-          {planFeatures.map((feature, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <Check className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
-              <span className="text-sm text-muted-foreground">{t(`${plan.id}.features.${feature}`)}</span>
-            </li>
-          ))}
+          {planFeatures.map((feature, index) => {
+            const showTick = !((plan.id === 'artista' || plan.id === 'magic') && feature === 'prioritySupport');
+            return (
+              <li key={index} className="flex items-start gap-2">
+                {showTick ? (
+                  <Check className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
+                ) : (
+                  <div className="h-4 w-4 flex-shrink-0 mt-1" /> // Placeholder to maintain alignment
+                )}
+                <span className="text-sm text-muted-foreground">{t(`${plan.id}.features.${feature}`)}</span>
+              </li>
+            )
+          })}
         </ul>
         <p className="text-xs font-bold text-foreground mt-4">{t(`${plan.id}.storyCount`)}</p>
       </CardContent>
