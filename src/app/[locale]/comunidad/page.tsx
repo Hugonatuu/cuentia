@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { BookOpen, ChevronDown } from "lucide-react";
+import { BookOpen, ChevronDown, Lightbulb } from "lucide-react";
 import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
 import { communityStoriesCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from "@/components/ui/skeleton";
@@ -16,6 +16,15 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useTranslations } from 'next-intl';
 
 interface CommunityStory {
@@ -24,6 +33,7 @@ interface CommunityStory {
   coverImageUrl: string;
   pdfUrl: string;
   language: 'es' | 'en' | 'fr' | 'it' | 'de' | 'pt';
+  objective?: string;
 }
 
 const languageCategories = [
@@ -41,7 +51,8 @@ export default function ComunidadPage() {
   const t = useTranslations('ComunidadPage');
   const firestore = useFirestore();
   const [selectedLanguage, setSelectedLanguage] = useState<'all' | CommunityStory['language']>('all');
-  
+  const [learningObjective, setLearningObjective] = useState<string | null>(null);
+
   const communityStoriesQuery = useMemoFirebase(() => {
     if (!firestore) return null;
     return communityStoriesCollectionRef(firestore);
@@ -111,34 +122,60 @@ export default function ComunidadPage() {
       )}
 
       {!isLoading && !error && filteredStories && filteredStories.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {filteredStories.map((story) => (
-            <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
-              <CardContent className="p-0">
-                <Link href={`/comunidad/leer/${story.id}`}>
-                  <Image
-                    src={story.coverImageUrl}
-                    alt={story.title}
-                    width={400}
-                    height={600}
-                    className="w-full h-auto object-cover aspect-[2/3]"
-                  />
-                </Link>
-              </CardContent>
-              <CardHeader>
-                <CardTitle className="text-lg text-center">{story.title}</CardTitle>
-              </CardHeader>
-              <CardFooter className="mt-auto p-4">
-                <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {filteredStories.map((story) => (
+              <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
+                <CardContent className="p-0">
                   <Link href={`/comunidad/leer/${story.id}`}>
-                    <BookOpen className="mr-2 h-4 w-4" />
-                    {t('readStoryButton')}
+                    <Image
+                      src={story.coverImageUrl}
+                      alt={story.title}
+                      width={400}
+                      height={600}
+                      className="w-full h-auto object-cover aspect-[2/3]"
+                    />
                   </Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+                </CardContent>
+                <CardHeader>
+                  <CardTitle className="text-lg text-center">{story.title}</CardTitle>
+                </CardHeader>
+                <CardFooter className="mt-auto p-4 flex flex-col gap-2">
+                  <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
+                    <Link href={`/comunidad/leer/${story.id}`}>
+                      <BookOpen className="mr-2 h-4 w-4" />
+                      {t('readStoryButton')}
+                    </Link>
+                  </Button>
+                  {story.objective && (
+                    <Button
+                      variant="default"
+                      className="w-full"
+                      onClick={() => setLearningObjective(story.objective || null)}
+                    >
+                      <Lightbulb className="mr-2 h-4 w-4" />
+                      Aprendizaje
+                    </Button>
+                  )}
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+
+          <AlertDialog open={!!learningObjective} onOpenChange={() => setLearningObjective(null)}>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Objetivo de Aprendizaje</AlertDialogTitle>
+                <AlertDialogDescription>
+                  {learningObjective}
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogAction onClick={() => setLearningObjective(null)}>Entendido</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </>
       )}
        {!isLoading && !error && (!filteredStories || filteredStories.length === 0) && (
          <div className="text-center py-16 border-2 border-dashed rounded-lg">
