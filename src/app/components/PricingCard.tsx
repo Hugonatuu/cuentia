@@ -43,10 +43,10 @@ export default function PricingCard({ plan, onCtaClick, isLoading, isCurrentUser
         </div>
         <ul className="space-y-2">
           {planFeatures.map((feature, index) => {
-            const showTick = !((plan.id === 'artista' || plan.id === 'magic') && feature === 'prioritySupport');
+            const isUnsupportedFeature = (plan.id === 'artista' || plan.id === 'magic') && (feature === 'prioritySupport' || feature === 'earlyAccess');
             return (
               <li key={index} className="flex items-start gap-2">
-                {showTick ? (
+                {!isUnsupportedFeature ? (
                   <Check className="h-4 w-4 text-primary flex-shrink-0 mt-1" />
                 ) : (
                   <div className="h-4 w-4 flex-shrink-0 mt-1" /> // Placeholder to maintain alignment
