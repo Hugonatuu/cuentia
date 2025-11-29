@@ -9,7 +9,7 @@ import 'react-pdf/dist/Page/AnnotationLayer.css';
 import 'react-pdf/dist/Page/TextLayer.css';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { ChevronLeft, ChevronRight, Download, BookOpen, ClipboardCopy, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Download, BookOpen, ClipboardCopy, Check, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
@@ -198,7 +198,7 @@ export default function StoryViewerPage() {
                   file={pdfFile}
                   onLoadSuccess={onDocumentLoadSuccess}
                   onLoadError={(error) => console.error("Error al cargar el PDF:", error.message)}
-                  loading={<Skeleton className="h-[80vh] w-full max-w-[500px]"/>}
+                  loading={<div className="flex justify-center items-center h-[80vh] w-full max-w-[500px]"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>}
                   className="flex justify-center items-start gap-2"
                 >
                   {pageWidth > 0 && getPageNumbersToRender().map(pageNumber => (
