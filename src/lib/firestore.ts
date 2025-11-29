@@ -40,8 +40,8 @@ interface Payment {
     id: string;
     status: 'succeeded' | 'processing' | 'requires_action';
     amount: number;
-    description?: string; // Can be null for one-time payments
-    invoice?: string | null; // Present for subscription payments
+    description?: string | null;
+    invoice?: string | null;
 }
 
 
@@ -189,12 +189,14 @@ async function processPayment(db: Firestore, userId: string, payment: Payment) {
                  return;
             }
 
-            const isSubscriptionRenewal = payment.description === "Subscription update";
+            // A payment is for a subscription if it has an invoice OR its description says so.
+            // First subscription payments have an invoice but no description. Renewals have a description.
+            const isSubscriptionPayment = !!payment.invoice || payment.description === "Subscription update";
 
-            if (isSubscriptionRenewal) {
-                // It's a subscription renewal, reset monthly credits
+            if (isSubscriptionPayment) {
+                // It's a subscription payment (initial or renewal), reset monthly credits
                 transaction.update(userRef, { monthlyCreditCount: 0 });
-                console.log(`Successfully processed subscription renewal for payment ${payment.id}. Credits reset.`);
+                console.log(`Successfully processed subscription payment ${payment.id}. Credits reset.`);
             } else {
                 // It's a one-time purchase (credit pack)
                 const currentCredits = userDoc.data().payAsYouGoCredits || 0;
@@ -204,7 +206,7 @@ async function processPayment(db: Firestore, userId: string, payment: Payment) {
             }
             
             // Mark the payment as processed by creating a receipt
-            transaction.set(receiptRef, { appliedAt: serverTimestamp(), type: isSubscriptionRenewal ? 'subscription' : 'one-time' });
+            transaction.set(receiptRef, { appliedAt: serverTimestamp(), type: isSubscriptionPayment ? 'subscription' : 'one-time' });
         });
     } catch (error) {
         console.error(`Error processing payment ${payment.id}:`, error);
