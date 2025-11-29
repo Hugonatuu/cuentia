@@ -31,7 +31,7 @@
     "faq3Question": "Kann ich die Geschichten kommerziell nutzen?",
     "faq3Answer": "Ja, mit den Abo-Plänen hast du Nutzungsrechte, auch für kommerzielle Zwecke.",
     "faq4Question": "Wie viele Credits kostet es, eine Geschichte zu erstellen?",
-    "faq4Answer": "Einfache Geschichten (nur Text) beginnen bereits bei 400 Credits, und wenn du personalisierte Illustrationen möchtest, starten illustrierte Geschichten ab 900 Credits.",
+    "faq4Answer": "Eine einfache Geschichte ohne Illustrationen beginnt bei 400 Credits. Wenn du Illustrationen möchtest, kannst du ein illustriertes Buch ab 900 Credits erstellen.",
     "finalCtaTitle": "Bereit, Magie zu erschaffen?",
     "finalCtaDescription": "Tritt der Cuentia-Community bei und beginne, deine Geschichten zum Leben zu erwecken.",
     "finalCtaButton": "Kostenlos registrieren"
@@ -264,15 +264,20 @@
     "errorDescription": "Es gab ein Problem bei der Verbindung zur Datenbank. Bitte versuche es später erneut.",
     "noStoriesTitle": "Es gibt noch keine Geschichten in dieser Kategorie",
     "noStoriesDescription": "Erkunde andere Sprachen oder sei der Erste, der etwas teilt!",
-    "readStoryButton": "Geschichte lesen"
+    "readStoryButton": "Geschichte lesen",
+    "authPopup": {
+      "title": "✨ Um diese Geschichte zu lesen, musst du dich registrieren. ✨",
+      "description": "Einmal drinnen, kannst du alle Geschichten völlig kostenlos lesen und herunterladen.",
+      "actionText": "Verstanden"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Pläne für jeden Creator",
     "pageDescription": "Wähle die Option, die am besten zu deinem kreativen Rhythmus passt. Mehr Credits, mehr Geschichten, mehr Magie.",
     "creditsInfoButton": "Wie funktionieren Credits?",
     "creditPackTitle": "Credit-Paket",
-    "creditPackDescription": "Perfekt für diejenigen, die Cuentia ausprobieren oder ohne monatliche Verpflichtung nutzen möchten. Erstelle mehr als 10 Geschichten mit diesem Paket!",
-    "creditPackSubDescription": "⚡️ Kaufe so viele Pakete, wie du möchtest ⚡️",
+    "creditPackDescription": "Perfekt für diejenigen, die Cuentia ausprobieren oder ohne monatliche Verpflichtung nutzen möchten. ¡Crea más de 10 cuentos con este paquete!",
+    "creditPackSubDescription": "Kaufe so viele Pakete, wie du möchtest.",
     "creditPackFeature": "Zugriff auf alle Funktionen",
     "creditPackButton": "Kaufen",
     "creditPackAmount": "4.500 Credits",
@@ -353,10 +358,10 @@
   },
   "CreditsInfoDialog": {
     "title": "Wie funktionieren die Credits? ✨",
-  "description1": "Das Erstellen deiner Geschichte ist ganz einfach: Du verbrauchst nur Credits je nach Art des gewählten Buches. 📚",
-  "description2": "Einfache Geschichten (nur Text) beginnen bereits bei 400 Credits, und illustrierte Geschichten mit personalisierten Zeichnungen starten ab 900 Credits. 🎨",
-  "description3": "Du kannst nach Wunsch zusätzliche Seiten oder Bilder hinzufügen; jedes Extra benötigt ein paar zusätzliche Credits, und du siehst den Verbrauch immer vor der Bestätigung. ✔️",
-  "actionButton": "Verstanden"
+    "description1": "Das Erstellen deiner Geschichten ist ganz einfach: Du gibst nur Credits aus, je nach Art des Buches, das du wählst. 📚",
+    "description2": "Eine einfache Geschichte ohne Illustrationen beginnt bei 400 Credits. Wenn du Illustrationen möchtest, kannst du ein illustriertes Buch ab 900 Credits erstellen. 🎨",
+    "description3": "Du kannst mehr Seiten oder Bilder hinzufügen, wenn du möchtest; jedes Extra verbraucht ein paar zusätzliche Credits, und du siehst immer den Gesamtbetrag, bevor du bestätigst. ✔️",
+    "actionButton": "Verstanden"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Wähle dein Profilbild",

@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BookOpen, ChevronDown, Lightbulb } from "lucide-react";
-import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { useFirestore, useCollection, useMemoFirebase, useUser } from '@/firebase';
 import { communityStoriesCollectionRef } from '@/firebase/firestore/references';
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -25,6 +25,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import AuthPopup from '@/components/core/AuthPopup';
 import { useLocale, useTranslations } from 'next-intl';
 
 type Objective = {
@@ -55,8 +56,10 @@ export default function ComunidadPage() {
   const t = useTranslations('ComunidadPage');
   const locale = useLocale();
   const firestore = useFirestore();
+  const { user, isUserLoading } = useUser();
   const [selectedLanguage, setSelectedLanguage] = useState<'all' | CommunityStory['language']>('all');
   const [learningObjective, setLearningObjective] = useState<Objective | null>(null);
+  const [isAuthPopupOpen, setIsAuthPopupOpen] = useState(false);
 
   const communityStoriesQuery = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -70,9 +73,24 @@ export default function ComunidadPage() {
     : stories?.filter(story => story.language === selectedLanguage);
 
   const selectedLanguageLabel = t(`languageCategories.${selectedLanguage}`);
+  
+  const handleReadStoryClick = (e: React.MouseEvent) => {
+    if (!user) {
+      e.preventDefault();
+      setIsAuthPopupOpen(true);
+    }
+  };
 
   return (
     <div className="container mx-auto py-12">
+       <AuthPopup
+        isOpen={isAuthPopupOpen}
+        onOpenChange={setIsAuthPopupOpen}
+        title={t('authPopup.title')}
+        description={t('authPopup.description')}
+        actionText={t('authPopup.actionText')}
+        redirectPath="/registro"
+      />
       <div className="text-center mb-12">
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-gray-800">
           {t('pageTitle')}
@@ -132,7 +150,7 @@ export default function ComunidadPage() {
             {filteredStories.map((story) => (
               <Card key={story.id} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col">
                 <CardContent className="p-0">
-                  <Link href={`/comunidad/leer/${story.id}`}>
+                  <Link href={`/comunidad/leer/${story.id}`} onClick={handleReadStoryClick}>
                     <Image
                       src={story.coverImageUrl}
                       alt={story.title}
@@ -147,7 +165,7 @@ export default function ComunidadPage() {
                 </CardHeader>
                 <CardFooter className="mt-auto p-4 flex flex-col gap-2">
                   <Button asChild className="w-full bg-accent text-accent-foreground hover:bg-accent/90">
-                    <Link href={`/comunidad/leer/${story.id}`}>
+                    <Link href={`/comunidad/leer/${story.id}`} onClick={handleReadStoryClick}>
                       <BookOpen className="mr-2 h-4 w-4" />
                       {t('readStoryButton')}
                     </Link>

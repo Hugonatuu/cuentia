@@ -31,7 +31,7 @@
     "faq3Question": "Do you offer free children’s stories in PDF?",
     "faq3Answer": "You can download as many children’s books in free PDF format as you want to try the experience before creating your own personalized stories.",
     "faq4Question": "How many credits to create a story?",
-    "faq4Answer": "Basic stories (text only) start at just 400 credits, and if you want personalized illustrations, illustrated stories start from 900 credits.",
+    "faq4Answer": "A basic story without illustrations starts at 400 credits. If you want illustrations, you can generate an illustrated book from 900 credits.",
     "finalCtaTitle": "Ready to create magic?",
     "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
     "finalCtaButton": "Sign up for free"
@@ -264,7 +264,12 @@
     "errorDescription": "There was a problem connecting to the database. Please try again later.",
     "noStoriesTitle": "No stories in this category yet",
     "noStoriesDescription": "Explore other languages or be the first to share!",
-    "readStoryButton": "Read Story"
+    "readStoryButton": "Read Story",
+    "authPopup": {
+      "title": "✨ To read this story you need to register. ✨",
+      "description": "Once inside, you can read and download all the stories completely free.",
+      "actionText": "Got it"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Plans for Every Creator",
@@ -272,7 +277,7 @@
     "creditsInfoButton": "How do credits work?",
     "creditPackTitle": "Credit Pack",
     "creditPackDescription": "Perfect for those who want to try Cuentia or use it without a monthly commitment. Create more than 10 stories with this pack!",
-    "creditPackSubDescription": "⚡️ Buy as many packs as you want ⚡️",
+    "creditPackSubDescription": "Buy as many packs as you want",
     "creditPackFeature": "Access to all features",
     "creditPackButton": "Buy",
     "creditPackAmount": "4,500 credits",
@@ -353,10 +358,10 @@
   },
   "CreditsInfoDialog": {
     "title": "How do credits work? ✨",
-  "description1": "Creating your story is easy: you only spend credits based on the type of book you choose. 📚",
-  "description2": "Basic stories (text only) start at just 400 credits, and illustrated stories with personalized artwork start from 900 credits. 🎨",
-  "description3": "You can add more pages or images if you like; each extra uses a few additional credits, and you'll always see the total before confirming. ✔️",
-  "actionButton": "Got it"
+    "description1": "Creating your stories is easy: you only spend credits based on the type of book you choose. 📚",
+    "description2": "A basic story without illustrations starts at 400 credits. If you want illustrations, you can generate an illustrated book from 900 credits. 🎨",
+    "description3": "You can add more pages or images if you like; each extra uses a few additional credits, and you'll always see the total before confirming. ✔️",
+    "actionButton": "Got it"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Choose Your Profile Picture",

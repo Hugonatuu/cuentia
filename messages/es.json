@@ -31,7 +31,7 @@
     "faq3Question": "¿Ofrecéis cuentos infantiles en PDF gratis?",
     "faq3Answer": "Puedes descargar todos los libros infantiles que quieras en PDF gratis para probar la experiencia antes de crear tus propios cuentos personalizados.",
     "faq4Question": "¿Cuántos créditos cuesta crear un cuento?",
-    "faq4Answer": "Los cuentos básicos (solo texto) empiezan en solo 400 créditos, y si quieres ilustraciones personalizadas, los cuentos ilustrados empiezan desde 900 créditos.",
+    "faq4Answer": "Un cuento básico sin ilustraciones empieza en 400 créditos. Si quieres ilustraciones, puedes generar un libro ilustrado desde 900 créditos.",
     "finalCtaTitle": "¿Listo para crear magia?",
     "finalCtaDescription": "Únete a la comunidad de Cuentia y empieza a dar vida a tus historias.",
     "finalCtaButton": "Regístrate gratis"
@@ -55,7 +55,7 @@
     "charactersDescription": "Elige hasta 4 personajes para tu historia. ¡Puedes crear los tuyos!",
     "storyDetailsTitle": "3. Detalles de la historia",
     "storyDetailsSubtitle": "Añade los toques finales para que tu cuento sea único.",
-    "languageTip": "💡 Consejo: te Aamos escribir los detalles en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.",
+    "languageTip": "💡 Consejo: te recomendamos escribir los detalles en el mismo idioma en el que vas a generar el cuento, para que el resultado sea más natural y preciso.",
     "plotPointsLabel": "¡Sé creativo! Describe lo que quieres que pase en el cuento, la relación entre los personajes o los escenarios en los que se desarrolla el cuento.",
     "plotPointsPlaceholder": "Leo, que es el protagonista, se va de viaje con su abuela Maria y conoce a una chica (Ana) que se hará su mejor amiga. La historia quiero que se desarrolle en una Playa.",
     "learningObjectiveLabel": "Objetivo de Aprendizaje (Opcional)",
@@ -264,7 +264,12 @@
     "errorDescription": "Hubo un problema al conectar con la base de datos. Por favor, inténtalo de nuevo más tarde.",
     "noStoriesTitle": "Aún no hay cuentos en esta categoría",
     "noStoriesDescription": "¡Explora otras lenguas o sé el primero en compartir!",
-    "readStoryButton": "Leer Cuento"
+    "readStoryButton": "Leer Cuento",
+    "authPopup": {
+      "title": "✨ Para leer este cuento necesitas registrarte. ✨",
+      "description": "Una vez dentro, podrás leer y descargar todos los cuentos completamente gratis.",
+      "actionText": "Entendido"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Planes para Cada Creador",
@@ -272,7 +277,7 @@
     "creditsInfoButton": "¿Cómo funcionan los créditos?",
     "creditPackTitle": "Paquete de Créditos",
     "creditPackDescription": "Perfecto para quienes quieren probar Cuentia o usarla sin compromiso mensual. ¡Crea más de 10 cuentos con este paquete!",
-    "creditPackSubDescription": "⚡️ Compra tantos paquetes como quieras ⚡️",
+    "creditPackSubDescription": "Compra tantos paquetes como quieras.",
     "creditPackFeature": "Acceso a todas las funciones",
     "creditPackButton": "Comprar",
     "creditPackAmount": "4.500 créditos",
@@ -353,10 +358,10 @@
   },
   "CreditsInfoDialog": {
     "title": "¿Cómo funcionan los créditos? ✨",
-  "description1": "Crear tu cuento es muy sencillo: solo gastas créditos según el tipo de historia que elijas. 📚",
-  "description2": "Los cuentos básicos (solo texto) empiezan en solo 400 créditos, y si quieres ilustraciones personalizadas, los cuentos ilustrados empiezan desde 900 créditos. 🎨",
-  "description3": "Puedes añadir más páginas o más imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
-  "actionButton": "Entendido"
+    "description1": "Crear tus historias es muy sencillo: solo gastas créditos según el tipo de libro que elijas. 📚",
+    "description2": "Un cuento básico sin ilustraciones empieza en 400 créditos. Si quieres ilustraciones, puedes generar un libro ilustrado desde 900 créditos. 🎨",
+    "description3": "Puedes añadir más páginas o más imágenes si lo deseas; cada extra usa algunos créditos adicionales, pero siempre tendrás el control antes de confirmar la creación. ✔️",
+    "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Elige tu Foto de Perfil",

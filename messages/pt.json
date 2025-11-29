@@ -25,13 +25,13 @@
     "noStories": "Ainda não há histórias na comunidade.",
     "faqTitle": "Perguntas Frequentes",
     "faq1Question": "Como funciona a criação de avatares?",
-    "faq1Answer": "Você simplemente envia várias fotos de uma pessoa ou animal de estimação, e nossa IA gerará um personagem de desenho animado que você poderá usar como protagonista em todas as suas histórias.",
+    "faq1Answer": "Você simplemente envia várias fotos de uma pessoa ou animal de estimação, e nossa IA gerará um personagem de desenho animado que você poderá usar como protagonista em todas as sua histórias.",
     "faq2Question": "O que são os créditos?",
     "faq2Answer": "Os créditos são a moeda da Cuentia para gerar histórias e ilustrações.",
     "faq3Question": "Vocês oferecem contos para crianças em PDF ou livros grátis em PDF?",
     "faq3Answer": "Sim! Você pode baixar contos para crianças em PDF e livros grátis em PDF diretamente na nossa plataforma. Eles são perfeitos para conhecer a experiência antes de criar o seu próprio livro infantil personalizado com IA.",
     "faq4Question": "Quantos créditos custa para criar uma história?",
-    "faq4Answer": "Os contos básicos (apenas texto) começam em apenas 400 créditos, e se quiser ilustrações personalizadas, os contos ilustrados começam a partir de 900 créditos.",
+    "faq4Answer": "Um conto básico sem ilustrações começa em 400 créditos. Se quiser ilustrações, pode gerar um livro ilustrado a partir de 900 créditos.",
     "finalCtaTitle": "Pronto para criar magia?",
     "finalCtaDescription": "Junte-se à comunidade Cuentia e comece a dar vida às suas histórias.",
     "finalCtaButton": "Cadastre-se grátis"
@@ -257,15 +257,20 @@
     "errorDescription": "Ocorreu um problema ao conectar com o banco de dados. Por favor, tente novamente mais tarde.",
     "noStoriesTitle": "Ainda não há histórias nesta categoria",
     "noStoriesDescription": "Explore outras línguas ou seja o primeiro a compartilhar!",
-    "readStoryButton": "Ler História"
+    "readStoryButton": "Ler História",
+    "authPopup": {
+      "title": "✨ Para ler este conto, você precisa se registrar. ✨",
+      "description": "Uma vez dentro, você poderá ler e baixar todos os contos completamente grátis.",
+      "actionText": "Entendido"
+    }
   },
   "PreciosPage": {
     "pageTitle": "Planos para Cada Criador",
     "pageDescription": "Escolha la opção que melhor se adapta ao seu ritmo criativo. Mais créditos, mais histórias, mais magia.",
     "creditsInfoButton": "Como funcionam os créditos?",
     "creditPackTitle": "Pacote de Créditos",
-    "creditPackDescription": "Perfeito para quem quer experimentar a Cuentia ou usá-la sem compromisso mensal. Crie mais de 10 histórias com este pacote!",
-    "creditPackSubDescription": "⚡️ Compre quantos pacotes quiser ⚡️",
+    "creditPackDescription": "Perfeito para quem quer experimentar a Cuentia ou usá-la sem compromisso mensal. ¡Crea más de 10 cuentos con este paquete!",
+    "creditPackSubDescription": "Compre quantos pacotes quiser.",
     "creditPackFeature": "Acesso a todas as funções",
     "creditPackButton": "Comprar",
     "creditPackAmount": "4.500 créditos",
@@ -346,10 +351,10 @@
   },
   "CreditsInfoDialog": {
     "title": "Como funcionam os créditos? ✨",
-  "description1": "Criar a sua história é muito simples: você só gasta créditos conforme o tipo de conto que escolher. 📚",
-  "description2": "Os contos básicos (somente texto) começam em apenas 400 créditos, e se quiser ilustrações personalizadas, os contos ilustrados começam a partir de 900 créditos. 🎨",
-  "description3": "Você pode adicionar mais páginas ou imagens se desejar; cada extra usa alguns créditos adicionais, e você sempre verá o consumo antes de confirmar a criação. ✔️",
-  "actionButton": "Entendido"
+    "description1": "Criar a sua história é muito simples: você só gasta créditos conforme o tipo de conto que escolher. 📚",
+    "description2": "Um conto básico sem ilustrações começa em 400 créditos. Se quiser ilustrações, pode gerar um livro ilustrado a partir de 900 créditos. 🎨",
+    "description3": "Você pode adicionar mais páginas ou imagens se desejar; cada extra usa alguns créditos adicionais, e você sempre verá o consumo antes de confirmar a criação. ✔️",
+    "actionButton": "Entendido"
   },
   "ProfileAvatarPickerDialog": {
     "title": "Escolha Sua Foto de Perfil",
