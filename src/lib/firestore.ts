@@ -202,12 +202,12 @@ async function processOneTimePayment(db: Firestore, userId: string, paymentId: s
 
             const userDoc = await transaction.get(userRef);
             const currentCredits = userDoc.exists() ? userDoc.data().payAsYouGoCredits || 0 : 0;
-            const newCredits = currentCredits + 5000;
+            const newCredits = currentCredits + 4500;
             
             transaction.set(userRef, { payAsYouGoCredits: newCredits }, { merge: true });
             transaction.set(receiptRef, { appliedAt: serverTimestamp() });
         });
-        console.log(`Successfully processed payment ${paymentId} and added 5000 credits.`);
+        console.log(`Successfully processed payment ${paymentId} and added 4500 credits.`);
     } catch (error) {
         console.error(`Error processing payment ${paymentId}:`, error);
     }

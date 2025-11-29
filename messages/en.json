@@ -288,7 +288,7 @@
         "month":"month",
         "artista": {
           "name": "Artist",
-          "credits": "8,000 credits / month",
+          "credits": "7,000 credits / month",
           "features": {
             "allFeatures": "Access to all features",
             "prioritySupport": "Priority support",

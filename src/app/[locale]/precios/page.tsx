@@ -10,8 +10,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { CreditsInfoDialog } from '@/app/[locale]/perfil/components/CreditsInfoDialog';
-import { pricingPlans } from '@/lib/placeholder-data';
-import PricingCard from '../../components/PricingCard';
+import { pricingPlans as basePricingPlans } from '@/lib/placeholder-data';
+import PricingCard from '@/app/components/PricingCard';
 import {
   Info,
   CreditCard,
@@ -58,7 +58,7 @@ interface Subscription {
 
 const creditPack = {
   euros: '5€',
-  credits: '5.000',
+  credits: '4.500',
   priceId: 'price_1SOhZfArzx82mGRMGnt8jg5G',
 };
 
@@ -209,7 +209,7 @@ export default function PreciosPage() {
             </CardHeader>
             <CardContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {pricingPlans
+                  {basePricingPlans
                     .filter((p) => t(`pricingPlans.${p.id}.name`) !== 'Pay as you go')
                     .map((plan) => (
                       <div key={t(`pricingPlans.${plan.id}.name`)} className="flex flex-col">
