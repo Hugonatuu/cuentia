@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -41,7 +40,8 @@ interface Payment {
     id: string;
     status: 'succeeded' | 'processing' | 'requires_action';
     amount: number;
-    items?: { price: { id: string } }[];
+    description?: string; // Can be null for one-time payments
+    invoice?: string | null; // Present for subscription payments
 }
 
 
@@ -102,11 +102,11 @@ export function watchUserSubscription(
 }
 
 /**
- * Actualiza el documento del cliente con el nuevo rol y maneja el reinicio de créditos.
+ * Actualiza el documento del cliente con el nuevo rol.
  * @param db - La instancia de Firestore.
  * @param userId - El ID del usuario.
  * @param newRole - El nuevo rol a establecer.
- * @param newPeriodStart - El timestamp del inicio del nuevo período de facturación.
+ * @param newPeriodStart - El timestamp del inicio del nuevo período de facturación (no se usa para reiniciar créditos).
  * @param subscriptionId - El ID de la suscripción.
  * @param onRoleChange - (Opcional) Callback para notificar el cambio de rol.
  */
@@ -121,23 +121,12 @@ async function updateUserRole(
   const userDocRef = doc(db, `customers/${userId}`);
   
   try {
-    const userDoc = await getDoc(userDocRef);
-    const userData = userDoc.data();
-    const currentPeriodStart = userData?.current_period_start as Timestamp | undefined;
-
     const updates: { [key: string]: any } = {
       stripeRole: newRole,
-      subscriptionId: subscriptionId, // Always keep the subscriptionId if one exists
+      subscriptionId: subscriptionId,
+      current_period_start: newPeriodStart, // Keep updating for informational purposes
     };
-
-    // Check if the billing cycle has changed
-    if (newPeriodStart && (!currentPeriodStart || newPeriodStart.toMillis() !== currentPeriodStart.toMillis())) {
-      console.log('New billing cycle detected. Resetting credit count.');
-      updates.monthlyCreditCount = 0; // Reset credit count
-      updates.current_period_start = newPeriodStart; // Update period start date
-    }
-
-    // If there is no longer a relevant subscription, clear billing info
+    
     if (newRole === null && subscriptionId === null) {
       updates.current_period_start = null;
       updates.subscriptionId = null;
@@ -145,17 +134,17 @@ async function updateUserRole(
 
     await updateDoc(userDocRef, updates);
 
-    console.log(`User role updated to: ${newRole}. Subscription ID: ${subscriptionId}. Updates:`, updates);
+    console.log(`User role updated to: ${newRole}. Subscription ID: ${subscriptionId}.`);
     if (onRoleChange) {
       onRoleChange(newRole);
     }
   } catch (error) {
-    console.error('Error updating user role or credit count:', error);
+    console.error('Error updating user role:', error);
   }
 }
 
 /**
- * Listens for successful one-time payments and adds credits to the user's account.
+ * Listens for successful payments and adds credits to the user's account.
  * @param db The Firestore instance.
  * @param userId The ID of the user.
  * @returns An unsubscribe function for the listener.
@@ -168,13 +157,7 @@ export function watchSuccessfulPayments(db: Firestore, userId: string) {
         snapshot.docChanges().forEach(async (change) => {
             if (change.type === 'added') {
                 const payment = { id: change.doc.id, ...change.doc.data() } as Payment;
-                const isCreditPack = payment.items?.some(
-                    (item) => item.price.id === 'price_1SOhZfArzx82mGRMGnt8jg5G'
-                );
-
-                if (isCreditPack) {
-                    await processOneTimePayment(db, userId, payment.id);
-                }
+                await processPayment(db, userId, payment);
             }
         });
     });
@@ -183,32 +166,47 @@ export function watchSuccessfulPayments(db: Firestore, userId: string) {
 }
 
 /**
- * Processes a one-time payment in a secure transaction to add credits.
+ * Processes a payment in a secure transaction to update credits.
  * @param db The Firestore instance.
  * @param userId The ID of the user.
- * @param paymentId The ID of the payment document.
+ * @param payment The payment document.
  */
-async function processOneTimePayment(db: Firestore, userId: string, paymentId: string) {
+async function processPayment(db: Firestore, userId: string, payment: Payment) {
     const userRef = doc(db, `customers/${userId}`);
-    const receiptRef = doc(db, `customers/${userId}/payments_applied`, paymentId);
+    const receiptRef = doc(db, `customers/${userId}/payments_applied`, payment.id);
 
     try {
         await runTransaction(db, async (transaction) => {
             const receiptDoc = await transaction.get(receiptRef);
             if (receiptDoc.exists()) {
-                console.log(`Payment ${paymentId} already processed.`);
+                console.log(`Payment ${payment.id} already processed.`);
                 return;
             }
 
             const userDoc = await transaction.get(userRef);
-            const currentCredits = userDoc.exists() ? userDoc.data().payAsYouGoCredits || 0 : 0;
-            const newCredits = currentCredits + 4500;
+            if (!userDoc.exists()) {
+                 console.error(`User document for ${userId} not found.`);
+                 return;
+            }
+
+            const isSubscriptionRenewal = payment.description === "Subscription update";
+
+            if (isSubscriptionRenewal) {
+                // It's a subscription renewal, reset monthly credits
+                transaction.update(userRef, { monthlyCreditCount: 0 });
+                console.log(`Successfully processed subscription renewal for payment ${payment.id}. Credits reset.`);
+            } else {
+                // It's a one-time purchase (credit pack)
+                const currentCredits = userDoc.data().payAsYouGoCredits || 0;
+                const newCredits = currentCredits + 4500;
+                transaction.update(userRef, { payAsYouGoCredits: newCredits });
+                console.log(`Successfully processed one-time payment ${payment.id}. Added 4500 credits.`);
+            }
             
-            transaction.set(userRef, { payAsYouGoCredits: newCredits }, { merge: true });
-            transaction.set(receiptRef, { appliedAt: serverTimestamp() });
+            // Mark the payment as processed by creating a receipt
+            transaction.set(receiptRef, { appliedAt: serverTimestamp(), type: isSubscriptionRenewal ? 'subscription' : 'one-time' });
         });
-        console.log(`Successfully processed payment ${paymentId} and added 4500 credits.`);
     } catch (error) {
-        console.error(`Error processing payment ${paymentId}:`, error);
+        console.error(`Error processing payment ${payment.id}:`, error);
     }
 }

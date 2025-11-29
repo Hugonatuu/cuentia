@@ -31,6 +31,10 @@ export const customerSubscriptionsCollectionRef = (db: Firestore, userId: string
     return createCollection(db, `customers/${userId}/subscriptions`);
 };
 
+export const customerPaymentsCollectionRef = (db: Firestore, userId: string) => {
+    return createCollection(db, `customers/${userId}/payments`);
+};
+
 
 // Document references
 export const userDocRef = (db: Firestore, userId: string) => {
@@ -48,3 +52,4 @@ export const communityStoryDocRef = (db: Firestore, storyId: string) => {
     
 
     
+
