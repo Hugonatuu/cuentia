@@ -189,9 +189,10 @@ async function processPayment(db: Firestore, userId: string, payment: Payment) {
                  return;
             }
 
-            // A payment is for a subscription if it has an invoice OR its description says so.
-            // First subscription payments have an invoice but no description. Renewals have a description.
-            const isSubscriptionPayment = !!payment.invoice || payment.description === "Subscription update";
+            const isSubscriptionPayment =
+              !!payment.invoice ||
+              payment.description === 'Subscription update' ||
+              payment.description === 'Subscription creation';
 
             if (isSubscriptionPayment) {
                 // It's a subscription payment (initial or renewal), reset monthly credits
