@@ -296,7 +296,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Fino a 17 storie al mese 💫"
       },
       "magic": {
         "name": "Piano Magico",
@@ -307,7 +308,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Oltre 30 storie al mese 💫"
       },
       "special": {
         "name": "Piano Speciale",
@@ -318,7 +320,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Fino a 45 avventure al mese 💫"
       },
       "king": {
         "name": "Piano King",
@@ -329,7 +332,8 @@
           "earlyAccess": "Accesso anticipato alle novità",
           "highQualityExport": "Esportazione in alta qualità"
         },
-        "cta": "Abbonati"
+        "cta": "Abbonati",
+        "storyCount": "💫 Oltre 70 storie al mese 💫"
       }
     }
   },

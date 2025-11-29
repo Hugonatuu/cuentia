@@ -296,7 +296,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Hasta 17 cuentos al mes 💫"
       },
       "magic": {
         "name": "Plan Mágico",
@@ -307,7 +308,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Más de 30 cuentos cada mes 💫"
       },
       "special": {
         "name": "Plan Especial",
@@ -318,7 +320,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Hasta 45 aventuras al mes 💫"
       },
       "king": {
         "name": "Plan King",
@@ -329,7 +332,8 @@
           "earlyAccess": "Acceso anticipado a novedades",
           "highQualityExport": "Exportación en alta calidad"
         },
-        "cta": "Suscribirse"
+        "cta": "Suscribirse",
+        "storyCount": "💫 Más de 70 cuentos al mes 💫"
       }
     }
   },

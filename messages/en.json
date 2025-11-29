@@ -296,7 +296,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Up to 17 stories per month 💫"
         },
         "magic": {
           "name": "Magic Plan",
@@ -307,7 +308,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Over 30 stories each month 💫"
         },
         "special": {
           "name": "Special Plan",
@@ -318,7 +320,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Up to 45 adventures per month 💫"
         },
         "king": {
           "name": "King Plan",
@@ -329,7 +332,8 @@
             "earlyAccess": "Early access to new features",
             "highQualityExport": "High quality export"
           },
-          "cta": "Subscribe"
+          "cta": "Subscribe",
+          "storyCount": "💫 Over 70 stories per month 💫"
         }
       }
   },

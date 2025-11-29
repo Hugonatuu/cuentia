@@ -289,7 +289,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Até 17 contos por mês 💫"
       },
       "magic": {
         "name": "Plano Mágico",
@@ -300,7 +301,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Mais de 30 contos por mês 💫"
       },
       "special": {
         "name": "Plano Especial",
@@ -311,7 +313,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Até 45 aventuras por mês 💫"
       },
       "king": {
         "name": "Plano King",
@@ -322,7 +325,8 @@
           "earlyAccess": "Acesso antecipado a novidades",
           "highQualityExport": "Exportação em alta qualidade"
         },
-        "cta": "Assinar"
+        "cta": "Assinar",
+        "storyCount": "💫 Mais de 70 contos por mês 💫"
       }
     }
   },
