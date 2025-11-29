@@ -273,11 +273,7 @@
     "subscriptionAlert": "Jusqu'à 40 % de crédits en plus avec l'abonnement !",
     "recommendedBadge": "RECOMMANDÉ",
     "subscriptionTitle": "✨ Abonnez-vous et économisez sur chaque crédit",
-    "subscriptionDescription": "Sans engagement, sans risque : annulez quand vous voulez et profitez de paiements sécurisés avec Stripe",
-    "errorTitle": "Erreur",
-    "errorDescription": "Impossible de se connecter à la base de données.",
-    "paymentErrorTitle": "Erreur lors du traitement du paiement",
-    "paymentErrorDescription": "Il y a eu un problème lors de la création de la session de paiement. Veuillez réessayer."
+    "subscriptionDescription": "Sans engagement, sans risque : annulez quand vous voulez et profitez de paiements sécurisés avec Stripe"
     ,
     "pricingPlans": {
       "month":"mois",
@@ -606,5 +602,3 @@
     "copy": "© {year} Cuentia. Tous droits réservés."
   }
 }
-
-    
