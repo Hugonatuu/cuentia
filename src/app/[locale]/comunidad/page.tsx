@@ -25,7 +25,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+
+type Objective = {
+  [key: string]: string;
+}
 
 interface CommunityStory {
   id: string;
@@ -33,7 +37,7 @@ interface CommunityStory {
   coverImageUrl: string;
   pdfUrl: string;
   language: 'es' | 'en' | 'fr' | 'it' | 'de' | 'pt';
-  objective?: string;
+  objective?: Objective;
 }
 
 const languageCategories = [
@@ -49,9 +53,10 @@ const languageCategories = [
 
 export default function ComunidadPage() {
   const t = useTranslations('ComunidadPage');
+  const locale = useLocale();
   const firestore = useFirestore();
   const [selectedLanguage, setSelectedLanguage] = useState<'all' | CommunityStory['language']>('all');
-  const [learningObjective, setLearningObjective] = useState<string | null>(null);
+  const [learningObjective, setLearningObjective] = useState<Objective | null>(null);
 
   const communityStoriesQuery = useMemoFirebase(() => {
     if (!firestore) return null;
@@ -167,7 +172,7 @@ export default function ComunidadPage() {
               <AlertDialogHeader>
                 <AlertDialogTitle>Objetivo de Aprendizaje</AlertDialogTitle>
                 <AlertDialogDescription>
-                  {learningObjective}
+                  {learningObjective?.[locale as keyof Objective] || learningObjective?.['es']}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
