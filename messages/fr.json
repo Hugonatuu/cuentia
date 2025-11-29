@@ -285,7 +285,7 @@
     "paymentErrorTitle": "Erreur lors du traitement du paiement",
     "paymentErrorDescription": "Il y a eu un problème lors de la création de la session de paiement. Veuillez réessayer.",
     "pricingPlans": {
-      "month":"mois",
+      "month": "mois",
       "artista": {
         "name": "Plan Artiste",
         "credits": "7 000 crédits / mois",
@@ -613,5 +613,17 @@
   "Footer": {
     "createdBy": "Créé avec 💜 pour les petits lecteurs.",
     "copy": "© {year} Cuentia. Tous droits réservés."
+  },
+  "LegalPage": {
+    "title": "Mentions Légales",
+    "content": "[Le contenu des mentions légales sera placé ici]"
+  },
+  "PrivacyPage": {
+    "title": "Politique de Confidentialité",
+    "content": "[Le contenu de la politique de confidentialité sera placé ici]"
+  },
+  "TermsPage": {
+    "title": "Termes et Conditions",
+    "content": "[Le contenu des termes et conditions sera placé ici]"
   }
 }

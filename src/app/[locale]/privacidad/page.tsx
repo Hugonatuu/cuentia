@@ -1,10 +1,14 @@
+'use client';
+import { useTranslations } from 'next-intl';
+
 export default function PrivacyPolicyPage() {
+  const t = useTranslations('PrivacyPage');
   return (
     <div className="container mx-auto max-w-4xl py-12">
-      <h1 className="text-3xl font-bold mb-6">Política de Privacidad</h1>
+      <h1 className="text-3xl font-bold mb-6">{t('title')}</h1>
       <div className="space-y-4">
         <p>
-          [Aquí irá el contenido de la política de privacidad]
+          {t('content')}
         </p>
       </div>
     </div>

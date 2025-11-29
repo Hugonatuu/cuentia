@@ -200,14 +200,12 @@
     "validationIllustratePagesRequired": "Devi completare tutte le pagine.",
     "validationIllustratePagesCount": "Devi completare le {pageCount} pagine.",
     "validationIllustratePhraseMaxLength": "La frase non può superare i 500 caratteri.",
-
     "toastStoryGeneratingTitle": "Storia in arrivo!",
     "toastStoryGeneratingDescription": "La tua storia si sta generando. Riceverai una notifica when sarà pronta.",
     "toastStoryErrorTitle": "Errore during la generazione della storia",
     "toastIllustrationGeneratingTitle": "La tua storia si sta illustrando!",
     "toastIllustrationGeneratingDescription": "Riceverai una notifica when sarà pronta.",
     "toastIllustrationErrorTitle": "Errore during l'illustrazione della storia",
-
     "errorDocumentNotFound": "Il documento dell'utente non esiste.",
     "errorStoryCreationFailed": "Impossibile creare il documento della storia.",
     "importantCharacterNote": "Importante: La storia deve utilizzare exclusively i personaggi selezionati. Non aggiungere personaggi aggiuntivi.",
@@ -216,11 +214,9 @@
   "PersonajesPage": {
     "pageTitle": "Un Mondo di Personaggi",
     "pageDescription": "Qui vivono i personaggi che daranno vita alle tue storie. Crea nuovi amici, te stesso o persino il tuo animale domestico!",
-
     "authCardTitle": "Carica una foto tua, del tuo animale domestico, o di chi vuoi e crea un personaggio unico.",
     "authCardSubtitle": "💫 Registrati e lascia che la magia abbia inizio! 💫",
     "authCardButton": "Crea Personaggio",
-
     "myCharactersTitle": "I Miei Personaggi",
     "createCharacterButton": "✨ Crea Nuovo Personaggio ✨",
     "noCharactersTitle": "Non hai ancora creato nessun personaggio",
@@ -228,17 +224,14 @@
     "firstCharacterButton": "Crea il mio primo personaggio",
     "deleteButton": "Elimina",
     "deleteButtonAriaLabel": "Elimina personaggio",
-
     "predefinedCharactersTitle": "Personaggi Predefiniti",
     "allCategoriesButton": "Tutti",
     "noCategoryCharactersTitle": "Non ci sono personaggi in questa categoria",
     "noCategoryCharactersDescription": "Presto ci saranno più personaggi pronti per l'avventura.",
-
     "deleteDialogTitle": "Sei sicuro?",
     "deleteDialogDescription": "Questa azione non può essere annullata. Eliminerà permanentemente il personaggio \"{characterName}\" dai tuoi dati.",
     "deleteDialogCancel": "Annulla",
     "deleteDialogConfirm": "Elimina",
-
     "categories": {
       "fantasy": "Fantasia",
       "animal": "Animale",
@@ -292,7 +285,7 @@
     "paymentErrorTitle": "Errore during l'elaborazione del pagamento",
     "paymentErrorDescription": "Si è verificato un problema nella creazione della sessione di pagamento. Riprova.",
     "pricingPlans": {
-      "month":"mese",
+      "month": "mese",
       "artista": {
         "name": "Artista",
         "credits": "7.000 crediti / mese",
@@ -620,5 +613,17 @@
   "Footer": {
     "createdBy": "Creato con 💜 per piccoli lettori.",
     "copy": "© {year} Cuentia. Tutti i diritti riservati."
+  },
+  "LegalPage": {
+    "title": "Avviso Legale",
+    "content": "[Il contenuto dell'avviso legale andrà qui]"
+  },
+  "PrivacyPage": {
+    "title": "Informativa sulla Privacy",
+    "content": "[Il contenuto dell'informativa sulla privacy andrà qui]"
+  },
+  "TermsPage": {
+    "title": "Termini e Condizioni",
+    "content": "[Il contenuto dei termini e condizioni andrà qui]"
   }
 }
