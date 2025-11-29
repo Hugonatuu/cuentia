@@ -217,9 +217,9 @@ export default function PreciosPage() {
                       <div key={t(`pricingPlans.${plan.id}.name`)} className="flex flex-col relative">
                         {plan.id === 'special' && (
                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                            <div className="bg-gradient-to-r from-blue-400 to-purple-500 text-white px-6 py-1 rounded-full flex items-center gap-2 shadow-lg">
+                            <div className="bg-gradient-to-r from-blue-400 to-purple-500 text-white px-8 py-1 rounded-full flex items-center gap-2 shadow-lg">
                                 <Gem className="h-5 w-5" />
-                                <span className="text-xs font-bold tracking-wider">
+                                <span className="text-xs font-bold tracking-wider whitespace-nowrap">
                                 {t('mostPopularBadge')}
                                 </span>
                             </div>
@@ -243,4 +243,3 @@ export default function PreciosPage() {
     </div>
   );
 }
-
