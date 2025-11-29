@@ -272,6 +272,7 @@
     "creditPackPrice": "pour 5€",
     "subscriptionAlert": "Jusqu'à 40 % de crédits en plus avec l'abonnement !",
     "recommendedBadge": "RECOMMANDÉ",
+    "mostPopularBadge": "Le plus populaire",
     "subscriptionTitle": "✨ Abonnez-vous et économisez sur chaque crédit",
     "subscriptionDescription": "Sans engagement, sans risque : annulez quand vous voulez et profitez de paiements sécurisés avec Stripe",
     "errorTitle": "Erreur",
