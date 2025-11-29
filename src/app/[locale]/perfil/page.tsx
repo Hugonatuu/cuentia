@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
@@ -19,7 +20,7 @@ import { CreditsInfoDialog } from './components/CreditsInfoDialog';
 import { getPlanLimits } from '@/lib/plans';
 import { useCollection } from '@/firebase/firestore/use-collection'; 
 import { watchUserSubscription, watchSuccessfulPayments } from '@/lib/firestore'; 
-import { doc, collection, query, where, Firestore } from 'firebase/firestore';
+import { doc, collection, query, where, Firestore, Timestamp } from 'firebase/firestore';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
   AlertDialog,
@@ -40,7 +41,7 @@ interface Story {
   coverImageUrl: string;
   pdfUrl?: string;
   pages?: string[];
-  status: 'generating' | 'completed' | 'generating_illustration';
+  status: 'generating' | 'completed' | 'generating_illustration' | 'failed';
 }
 
 interface UserProfile {
@@ -140,6 +141,14 @@ export default function PerfilPage() {
   }, [firestore, user]);
 
   const { data: stories, isLoading: areStoriesLoading } = useCollection<Story>(userStoriesQuery);
+  
+  const filteredStories = stories?.filter(story => story.status !== 'failed');
+
+  const isStoryGenerating =
+    filteredStories?.some(
+      (s) => s.status === 'generating' || s.status === 'generating_illustration'
+    ) || false;
+
 
   const handleDeleteClick = (story: Story) => {
     setStoryToDelete(story);
@@ -320,9 +329,9 @@ export default function PerfilPage() {
                         </div>
                     ))}
                 </div>
-                ) : stories && stories.length > 0 ? (
+                ) : filteredStories && filteredStories.length > 0 ? (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    {stories.map((story) => {
+                    {filteredStories.map((story) => {
                         const isCompleted = story.status === 'completed' && (story.pdfUrl || (story.pages && story.pages.length > 0));
                         return (
                             <Card
@@ -389,3 +398,5 @@ export default function PerfilPage() {
     </div>
   );
 }
+
+    
