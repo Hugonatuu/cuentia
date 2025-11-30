@@ -615,7 +615,8 @@
     "copy": "© {year} Cuentia. Alle Rechte vorbehalten.",
     "legal": "Impressum",
     "privacy": "Datenschutzrichtlinie",
-    "terms": "Allgemeine Geschäftsbedingungen"
+    "terms": "Allgemeine Geschäftsbedingungen",
+    "cookies": "Cookie-Richtlinie"
   },
   "LegalPage": {
     "title": "Impressum",
@@ -628,5 +629,15 @@
   "TermsPage": {
     "title": "Allgemeine Geschäftsbedingungen",
     "content": "[Der Inhalt der Allgemeinen Geschäftsbedingungen wird hier stehen]"
+  },
+  "CookiePolicyPage": {
+    "title": "Cookie-Richtlinie",
+    "content": "[Der Inhalt der Cookie-Richtlinie wird hier stehen]"
+  },
+  "CookieBanner": {
+    "text": "Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Indem Sie auf 'Akzeptieren' klicken, stimmen Sie unserer Verwendung von Cookies für Analysen und für das reibungslose Funktionieren von Authentifizierung und Zahlungen zu. Sie können mehr in unserer",
+    "privacyPolicy": "Datenschutzerklärung",
+    "accept": "Akzeptieren",
+    "reject": "Nicht wesentliche Cookies ablehnen"
   }
 }

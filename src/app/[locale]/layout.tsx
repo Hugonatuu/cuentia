@@ -10,6 +10,8 @@ import {notFound} from 'next/navigation';
 import {Locale, hasLocale, NextIntlClientProvider} from 'next-intl';
 import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {routing} from '@/i18n/routing';
+import CookieBanner from './components/core/CookieBanner';
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
 }
@@ -49,6 +51,7 @@ export default async function LocaleLayout({
             </div>
             <WelcomePopup />
             <Toaster />
+            <CookieBanner />
           </WelcomePopupProvider>
         </FirebaseClientProvider>
         </NextIntlClientProvider>

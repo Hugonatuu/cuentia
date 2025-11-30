@@ -20,6 +20,7 @@ export default function Footer() {
            <Link href="/legal" className="hover:text-primary">{t('legal')}</Link>
            <Link href="/privacidad" className="hover:text-primary">{t('privacy')}</Link>
            <Link href="/terminos" className="hover:text-primary">{t('terms')}</Link>
+           <Link href="/cookies" className="hover:text-primary">{t('cookies')}</Link>
         </div>
 
         <div className="flex items-center justify-center md:justify-end flex-1">

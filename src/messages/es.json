@@ -615,7 +615,8 @@
     "copy": "© {year} Cuentia. Todos los derechos reservados.",
     "legal": "Aviso Legal",
     "privacy": "Política de Privacidad",
-    "terms": "Términos y Condiciones"
+    "terms": "Términos y Condiciones",
+    "cookies": "Política de Cookies"
   },
   "LegalPage": {
     "title": "Aviso Legal",
@@ -628,5 +629,15 @@
   "TermsPage": {
     "title": "Términos y Condiciones",
     "content": "[Aquí irá el contenido de los términos y condiciones]"
+  },
+  "CookiePolicyPage": {
+    "title": "Política de Cookies",
+    "content": "[Aquí irá el contenido de la política de cookies]"
+  },
+  "CookieBanner": {
+    "text": "Usamos cookies para mejorar tu experiencia. Al hacer clic en 'Aceptar', aceptas nuestro uso de cookies para análisis y para el correcto funcionamiento de la autenticación y los pagos. Puedes leer más en nuestra",
+    "privacyPolicy": "Política de Privacidad",
+    "accept": "Aceptar",
+    "reject": "Rechazar cookies no esenciales"
   }
 }

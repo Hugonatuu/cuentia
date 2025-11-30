@@ -612,7 +612,10 @@
   },
   "Footer": {
     "createdBy": "Creato con 💜 per piccoli lettori.",
-    "copy": "© {year} Cuentia. Tutti i diritti riservati."
+    "copy": "© {year} Cuentia. Tutti i diritti riservati.",
+    "legal": "Avviso Legale",
+    "privacy": "Informativa sulla Privacy",
+    "terms": "Termini e Condizioni"
   },
   "LegalPage": {
     "title": "Avviso Legale",
