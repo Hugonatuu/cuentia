@@ -229,7 +229,7 @@
     "noCategoryCharactersTitle": "No hay personajes en esta categoría",
     "noCategoryCharactersDescription": "Pronto habrá más personajes listos para la aventura.",
     "deleteDialogTitle": "¿Estás seguro?",
-    "deleteDialogDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente el personaje \"{characterName}\" de tus datos.",
+    "deleteDialogDescription": "Esta acción no se puede deshacer. Esto eliminará permanentemente el personaje \\"{characterName}\\" de tus datos.",
     "deleteDialogCancel": "Cancelar",
     "deleteDialogConfirm": "Eliminar",
     "categories": {
@@ -442,7 +442,7 @@
     "noStoriesDescription": "¡Es hora de dar vida a tu primera historia!",
     "createFirstStory": "Crear mi primer cuento",
     "deleteDialogTitle": "¿Estás seguro de que quieres eliminar este cuento?",
-    "deleteDialogDescription": "Esta acción no se puede deshacer. Se eliminará permanentemente \"{storyTitle}\".",
+    "deleteDialogDescription": "Esta acción no se puede deshacer. Se eliminará permanentemente \\"{storyTitle}\\".",
     "deleteCancel": "Cancelar",
     "deleteConfirm": "Eliminar"
   },
@@ -472,7 +472,7 @@
       "loadingTitle": "Creando Magia...",
       "readyTitle": "¡Avatar Listo!",
       "loadingDescription": "Estamos dando vida a tu personaje. Por favor, no salgas de la página.",
-      "readyDescription": "Tu avatar \"{name}\" ha sido creado.",
+      "readyDescription": "Tu avatar \\"{name}\\" ha sido creado.",
       "generating": "Generando...",
       "close": "Cerrar"
     },
@@ -548,7 +548,7 @@
     },
     "success": {
       "avatarGenerated": "¡Avatar generado y guardado!",
-      "avatarSaved": "El avatar \"{name}\" se ha guardado en tu colección."
+      "avatarSaved": "El avatar \\"{name}\\" se ha guardado en tu colección."
     }
   },
   "CommunityStoryViewerPage": {
@@ -628,7 +628,7 @@
   },
   "TermsPage": {
     "title": "Términos y Condiciones",
-    "content": "[Aquí irá el contenido de los términos y condiciones]"
+    "content": "Última actualización: 30/11/2025\\n\\n1. Identidad del Prestador\\n\\nEl presente documento regula el acceso y uso del sitio web https://cuentia.net (en adelante, el “Sitio Web”), así como la contratación de los servicios ofrecidos a través del mismo.\\n\\nEl Sitio Web es titularidad de:\\n\\nNATUTECH S.L.\\nCIF: B24793663\\nDomicilio social: Calle Monestir de Poblet, Nº 46, Puerta 2, 46015, València (Valencia), España\\nCorreo electrónico de contacto: [pon tu correo oficial]\\nNombre comercial: Cuentia\\n\\nEn estos Términos y Condiciones, “NATUTECH”, “Cuentia”, “nosotros” o “nuestro” se refieren a NATUTECH S.L.\\n“Usuario”, “tú” o “cliente” se refiere a cualquier persona que navegue, utilice o contrate servicios a través del Sitio Web.\\n\\nAl acceder, registrarte o utilizar el Sitio Web declaras haber leído y aceptado estos Términos y Condiciones.\\n\\n⸻\\n\\n2. Objeto del servicio\\n\\nCuentia es una plataforma digital que permite a los Usuarios:\\n1. Registrarse mediante correo electrónico y contraseña.\\n2. Crear personajes personalizados subiendo fotografías (por ejemplo, del usuario mismo u otras personas, incluidos menores) y asignándoles un nombre.\\n3. Redactar la información del cuento (título, tramas, aprendizajes, descripción, personajes, etc.).\\n4. Generar, mediante inteligencia artificial, un cuento infantil digital en formato PDF que incluye texto e ilustraciones basados en la información proporcionada.\\n\\n⸻\\n\\n3. Registro de usuario y cuenta\\n\\n3.1. Requisitos\\nPara utilizar la plataforma y generar cuentos, el Usuario debe crear una cuenta con:\\n• Correo electrónico\\n• Contraseña\\n\\nEl Usuario garantiza que los datos proporcionados son veraces y está obligado a mantenerlos actualizados.\\n\\n3.2. Responsabilidad sobre la cuenta\\nEl Usuario es responsable de:\\n• La confidencialidad de su contraseña\\n• El acceso a su cuenta\\n• Cualquier actividad realizada con ella\\n\\nEn caso de uso no autorizado, deberá notificarlo inmediatamente a Cuentia.\\n\\n⸻\\n\\n4. Edad mínima de uso\\n\\nEl Sitio Web está dirigido a usuarios mayores de 14 años.\\nSi el Usuario es menor de 14 años, debe usar la plataforma con consentimiento verificable de sus padres o tutores legales.\\n\\nLos padres o tutores serán responsables del uso realizado y del contenido generado.\\n\\n⸻\\n\\n5. Proceso de creación de personajes y cuentos\\n\\n5.1. Subida de fotos\\nEl Usuario puede subir:\\n• Fotografía(s) de sí mismo\\n• Fotografías de familiares o terceros, incluidos menores\\n\\nEl Usuario declara y garantiza que:\\n• Posee los derechos y permisos necesarios para subirlas\\n• cuenta con el consentimiento de las personas que aparecen en ellas (o de sus tutores)\\n\\nLas fotos se utilizan únicamente para generar ilustraciones mediante IA.\\n\\n5.2. Generación de contenido mediante IA\\nEl Usuario entiende y acepta que:\\n• Las imágenes generadas por IA son interpretaciones artísticas, no representaciones fotorrealistas.\\n• Puede haber variaciones, imperfecciones o resultados inesperados, propios de la tecnología.\\n• La calidad final depende de la información proporcionada por el Usuario.\\n\\nEsto no se considera un defecto del producto.\\n\\n⸻\\n\\n6. Naturaleza del producto digital\\n\\nEl producto final consiste en un archivo PDF descargable, disponible:\\n• En el área privada del Usuario\\n• O mediante enlace enviado por correo electrónico\\n\\nEl producto se considera “entregado” cuando el enlace de descarga se pone a disposición del Usuario.\\n\\n⸻\\n\\n7. Modelos de pago: créditos y suscripciones\\n\\n7.1. Créditos\\nEl Usuario puede comprar paquetes de créditos para generar cuentos.\\n\\n7.2. Suscripciones\\nLa plataforma ofrece planes de suscripción que incluyen:\\n• Renovación automática (mensual o anual)\\n• Créditos o minutos de generación incluidos\\n\\nEl Usuario puede cancelar su suscripción en cualquier momento desde su perfil, impidiendo futuras renovaciones.\\n\\n7.3. Pagos\\nLos pagos se gestionan a través de proveedores externos (ej. Stripe).\\nNATUTECH no almacena datos de tarjetas ni de pago.\\n\\n⸻\\n\\n8. Precio y facturación\\n\\nTodos los precios mostrados en el Sitio Web incluyen los impuestos aplicables.\\nEl Usuario recibirá automáticamente su factura por correo electrónico o en su cuenta.\\n\\nNATUTECH puede modificar los precios en cualquier momento, sin afectar a compras ya realizadas.\\n\\n⸻\\n\\n9. Derecho de desistimiento y cancelaciones\\n\\nNO hay derecho de desistimiento.\\n\\nSegún la normativa de consumidores, el desistimiento no aplica a:\\n• Productos claramente personalizados\\n• Productos digitales que se generan a demanda\\n• Contenido digital cuyo proceso de ejecución comienza inmediatamente con consentimiento del Usuario\\n\\nPor tanto:\\n• Un cuento NO puede cancelarse una vez iniciada la generación por IA.\\n• Los pagos por créditos o suscripciones utilizados no se reembolsan.\\n• Las suscripciones no son reembolsables si el Usuario cancela antes del final del periodo ya pagado.\\n\\n⸻\\n\\n10. Derechos sobre las fotos y contenido aportado\\n\\nEl Usuario declara que:\\n• Tiene derechos y/o autorización para subir las imágenes\\n• Las imágenes no vulneran derechos de terceros\\n• No contienen contenido prohibido (violento, sexual, difamatorio, ilegal, incitador al odio, etc.)\\n\\nNATUTECH podrá eliminar contenido y/o bloquear cuentas en caso de infracción.\\n\\n⸻\\n\\n11. Limitación de responsabilidad\\n\\nNATUTECH no será responsable por:\\n• Interpretaciones artísticas no exactas de la IA\\n• Variaciones de estilo, tono o precisión\\n• Resultados inesperados propios del contenido generado por IA\\n• Pérdida de acceso si el Usuario olvida su contraseña\\n• Daños derivados de un uso inadecuado del Sitio Web\\n\\nNuestra responsabilidad total se limita, como máximo, al importe pagado por el Usuario por el servicio afectado.\\n\\n⸻\\n\\n12. Disponibilidad del servicio\\n\\nLa plataforma puede experimentar:\\n• Mantenimiento\\n• Actualizaciones\\n• Caídas temporales\\n• Errores tecnológicos asociados al uso de IA\\n\\nNo garantizamos disponibilidad continua.\\n\\n⸻\\n\\n13. Fuerza mayor\\n\\nNATUTECH no será responsable de fallos o retrasos causados por circunstancias fuera de su control razonable.\\n\\n⸻\\n\\n14. Modificaciones de los Términos\\n\\nPodemos actualizar estos Términos en cualquier momento.\\nLa versión vigente estará siempre disponible en el Sitio Web.\\n\\n⸻\\n\\n15. Ley aplicable y jurisdicción\\n\\nEstos Términos se rigen por la legislación española.\\nLas partes se someten a los juzgados y tribunales de València (España), salvo disposición legal imperativa en contrario.\\n\\n⸻\\n\\n16. Contacto\\n\\nPara consultas relacionadas con estos Términos:\\n\\nNATUTECH S.L.\\nCalle Monestir de Poblet, Nº 46, Puerta 2\\n46015 – València (Valencia)\\nEmail: cuentia@cuentia"
   },
   "CookiePolicyPage": {
     "title": "Política de Cookies",
@@ -641,3 +641,5 @@
     "reject": "Rechazar cookies no esenciales"
   }
 }
+
+    

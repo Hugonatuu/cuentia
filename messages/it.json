@@ -615,7 +615,8 @@
     "copy": "© {year} Cuentia. Tutti i diritti riservati.",
     "legal": "Avviso Legale",
     "privacy": "Informativa sulla Privacy",
-    "terms": "Termini e Condizioni"
+    "terms": "Termini e Condizioni",
+    "cookies": "Informativa sui Cookie"
   },
   "LegalPage": {
     "title": "Avviso Legale",
@@ -628,5 +629,15 @@
   "TermsPage": {
     "title": "Termini e Condizioni",
     "content": "[Il contenuto dei termini e condizioni andrà qui]"
+  },
+  "CookiePolicyPage": {
+    "title": "Informativa sui Cookie",
+    "content": "[Il contenuto dell'informativa sui cookie andrà qui]"
+  },
+  "CookieBanner": {
+    "text": "Utilizziamo i cookie per migliorare la tua esperienza. Cliccando su 'Accetta', acconsenti al nostro uso dei cookie per l'analisi e per il corretto funzionamento dell'autenticazione e dei pagamenti. Puoi leggere di più nella nostra",
+    "privacyPolicy": "Informativa sulla Privacy",
+    "accept": "Accetta",
+    "reject": "Rifiuta i cookie non essenziali"
   }
 }
