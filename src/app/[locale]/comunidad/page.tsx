@@ -193,7 +193,7 @@ export default function ComunidadPage() {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogAction onClick={() => setLearningObjective(null)}>Entendido</AlertDialogAction>
+                <AlertDialogAction onClick={() => setLearningObjective(null)}>{t('objectiveDialogAction')}</AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>

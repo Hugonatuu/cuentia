@@ -263,7 +263,8 @@
       "description": "Einmal drinnen, kannst du alle Geschichten völlig kostenlos lesen und herunterladen.",
       "actionText": "Verstanden"
     },
-    "learningObjectiveButton": "Lernziel"
+    "learningObjectiveButton": "Lernerfahrung",
+    "objectiveDialogAction": "Verstanden"
   },
   "PreciosPage": {
     "pageTitle": "Pläne für jeden Creator",
