@@ -68,7 +68,7 @@ export default function Home({params}: PageProps<'/[locale]'>) {
             <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out">
                {t('title')}
             </h1>
-            <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
+            <p className="max-w-3xl mx-auto text-base md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
             {t('subtitle')}            </p>
             <div className="flex flex-col items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 ease-in-out delay-400">
               <Button size="lg" asChild className="h-16 px-8 sm:px-16 text-xl mt-4 whitespace-nowrap">
