@@ -65,7 +65,7 @@ export default function Home({params}: PageProps<'/[locale]'>) {
               priority
             />
           <div className="relative container mx-auto px-4 text-center z-10">
-            <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out">
+            <h1 className="font-headline text-4xl sm:text-5xl md:text-7xl lg:text-8xl mb-4 bg-gradient-to-r from-gradient-start to-gradient-end bg-clip-text text-transparent drop-shadow-lg animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out">
                {t('title')}
             </h1>
             <p className="max-w-3xl mx-auto text-lg md:text-xl text-blue-900 mb-8 font-open-sans font-semibold animate-in fade-in slide-in-from-top-4 duration-1000 ease-in-out delay-200">
