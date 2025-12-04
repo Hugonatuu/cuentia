@@ -188,7 +188,6 @@ export default function ComunidadPage() {
           <AlertDialog open={!!learningObjective} onOpenChange={() => setLearningObjective(null)}>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Objetivo de Aprendizaje</AlertDialogTitle>
                 <AlertDialogDescription>
                   {learningObjective?.[locale as keyof Objective] || learningObjective?.['es']}
                 </AlertDialogDescription>
