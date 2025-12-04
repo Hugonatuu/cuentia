@@ -262,7 +262,8 @@
       "title": "✨ Um diese Geschichte zu lesen, musst du dich registrieren. ✨",
       "description": "Einmal drinnen, kannst du alle Geschichten völlig kostenlos lesen und herunterladen.",
       "actionText": "Verstanden"
-    }
+    },
+    "learningObjectiveButton": "Lernerfahrung"
   },
   "PreciosPage": {
     "pageTitle": "Pläne für jeden Creator",

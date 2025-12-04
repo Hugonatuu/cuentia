@@ -262,7 +262,8 @@
       "title": "✨ Pour lire cette histoire, vous devez vous inscrire. ✨",
       "description": "Une fois inscrit, vous pourrez lire et télécharger toutes les histoires entièrement gratuitement.",
       "actionText": "Compris"
-    }
+    },
+    "learningObjectiveButton": "apprentissage"
   },
   "PreciosPage": {
     "pageTitle": "Plans pour Chaque Créateur",

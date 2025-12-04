@@ -262,7 +262,8 @@
       "title": "✨ Para leer este cuento necesitas registrarte. ✨",
       "description": "Una vez dentro, podrás leer y descargar todos los cuentos completamente gratis.",
       "actionText": "Entendido"
-    }
+    },
+    "learningObjectiveButton": "Aprendizaje"
   },
   "PreciosPage": {
     "pageTitle": "Planes para Cada Creador",
