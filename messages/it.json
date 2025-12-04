@@ -263,7 +263,8 @@
       "description": "Una volta dentro, potrai leggere e scaricare tutte le storie completamente gratis.",
       "actionText": "Capito"
     },
-    "learningObjectiveButton": "apprendimento"
+    "learningObjectiveButton": "apprendimento",
+    "objectiveDialogAction": "Capito"
   },
   "PreciosPage": {
     "pageTitle": "Piani per Ogni Creatore",
@@ -642,3 +643,5 @@
     "reject": "Rifiuta i cookie non essenziali"
   }
 }
+
+    

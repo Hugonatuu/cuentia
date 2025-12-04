@@ -263,7 +263,8 @@
       "description": "Once inside, you can read and download all the stories completely free.",
       "actionText": "Got it"
     },
-    "learningObjectiveButton": "Objective"
+    "learningObjectiveButton": "Objective",
+    "objectiveDialogAction": "Got it"
   },
   "PreciosPage": {
     "pageTitle": "Plans for Every Creator",
@@ -642,3 +643,5 @@
     "reject": "Reject non-essential cookies"
   }
 }
+
+    

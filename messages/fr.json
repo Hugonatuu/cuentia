@@ -263,7 +263,8 @@
       "description": "Une fois inscrit, vous pourrez lire et télécharger toutes les histoires entièrement gratuitement.",
       "actionText": "Compris"
     },
-    "learningObjectiveButton": "apprentissage"
+    "learningObjectiveButton": "apprentissage",
+    "objectiveDialogAction": "Compris"
   },
   "PreciosPage": {
     "pageTitle": "Plans pour Chaque Créateur",
@@ -642,3 +643,5 @@
     "reject": "Rejeter les cookies non essentiels"
   }
 }
+
+    

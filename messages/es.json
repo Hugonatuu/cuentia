@@ -263,7 +263,8 @@
       "description": "Una vez dentro, podrás leer y descargar todos los cuentos completamente gratis.",
       "actionText": "Entendido"
     },
-    "learningObjectiveButton": "Aprendizaje"
+    "learningObjectiveButton": "Aprendizaje",
+    "objectiveDialogAction": "Entendido"
   },
   "PreciosPage": {
     "pageTitle": "Planes para Cada Creador",
@@ -362,7 +363,7 @@
     "description": "Selecciona uno de tus personajes creados o uno de nuestros personajes predefinidos como tu avatar.",
     "myCharactersTab": "Mis Personajes",
     "predefinedTab": "Predefinidos",
-    "createCharacterButton": "Crear Personaje",
+    "createCharacterButton": "Crear Nuevo",
     "noCharactersMessage": "No hay personajes {type}.",
     "userType": "creados",
     "predefinedType": "predefinidos"
@@ -622,7 +623,6 @@
   "LegalPage": {
     "title": "Aviso Legal",
     "content": "Este Aviso Legal regula el acceso y uso del sitio web https://cuentia.net (en adelante, el “Sitio Web”), titularidad de NATUTECH S.L. Al navegar o utilizar el Sitio Web, el usuario acepta este Aviso Legal.<br/><br/>1. Identificación del Titular<br/>El Sitio Web es propiedad de:<br/>NATUTECH S.L.<br/>CIF: B24793663<br/>Domicilio social: Calle Monestir de Poblet, Nº 46, Puerta 2, 46015, València (Valencia), España.<br/>Correo de contacto: cuentia@cuentia.net<br/>Nombre comercial utilizado en el Sitio Web: “Cuentia”.<br/><br/>2. Objeto del Aviso Legal<br/>El presente Aviso Legal regula las condiciones de acceso, navegación y uso del Sitio Web. El acceso al Sitio Web implica la aceptación plena de estas condiciones.<br/><br/>3. Contenido del Sitio Web<br/>El Sitio Web incluye textos, diseños, elementos visuales, interfaz, estructura y funcionalidades desarrolladas por NATUTECH S.L. y no podrán ser copiados <br/> El contenido generado por los usuarios. Los cuentos creados mediante la plataforma, incluidos textos, imágenes e ilustraciones generados por IA, pertenecen íntegramente al usuario, quien puede utilizarlos libremente para cualquier fin, incluyendo impresión, publicación, difusión o uso comercial.<br/>El usuario no podrá copiar o reutilizar el software, diseño o estructura del Sitio Web.<br/><br/>4. Uso del Sitio Web<br/>El usuario se compromete a utilizar el Sitio Web de forma lícita y respetuosa. En particular, se compromete a no:<br/>• Subir contenido ilegal, ofensivo o que infrinja derechos de terceros.<br/>• Subir fotografías sin haber obtenido los permisos necesarios de las personas que aparecen en ellas.<br/>• Realizar acciones que puedan dañar, sobrecargar o afectar al funcionamiento técnico del Sitio Web.<br/>• Intentar acceder a áreas restringidas o a datos de otros usuarios.<br/><br/>5. Responsabilidad del Usuario<br/>El usuario es responsable de la veracidad de los datos y archivos que sube al Sitio Web. NATUTECH S.L. podrá eliminar contenido o cerrar cuentas que infrinjan estas condiciones o comprometan la seguridad del servicio.<br/><br/>6. Responsabilidad de NATUTECH S.L.<br/>NATUTECH S.L. no garantiza la disponibilidad continua del Sitio Web ni la ausencia de errores técnicos. El contenido generado mediante inteligencia artificial puede contener variaciones o resultados no exactos. NATUTECH S.L. no será responsable de daños derivados del uso del Sitio Web, interrupciones del servicio o resultados inesperados generados por IA.<br/><br/>7. Enlaces Externos<br/>El Sitio Web puede incluir enlaces a páginas de terceros. NATUTECH S.L. no se hace responsable del contenido ni del funcionamiento de dichos sitios externos.<br/><br/>8. Legislación Aplicable y Jurisdicción<br/>Este Aviso Legal se rige por la legislación española. Para cualquier conflicto relacionado con el uso del Sitio Web, ambas partes se someten a los juzgados y tribunales de València, salvo normativa imperativa en contrario.<br/><br/>9. Contacto<br/>Para cualquier consulta relacionada con este Aviso Legal, puedes contactar a:<br/>NATUTECH S.L.<br/>Calle Monestir de Poblet, Nº 46, Puerta 22, 46015, València (Valencia), España."
-    
   },
   "PrivacyPage": {
     "title": "Política de Privacidad",
@@ -643,3 +643,5 @@
     "reject": "Rechazar cookies no esenciales"
   }
 }
+
+    
