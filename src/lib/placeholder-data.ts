@@ -23,98 +23,48 @@ export const mainNavLinks = [
   { href: '/comunidad', label: 'Cuentos de la comunidad' },
   { href: '/precios', label: 'Precios' },
 ];
+
+export const EU_COUNTRIES = [
+  'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR',
+  'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PL',
+  'PT', 'RO', 'SE', 'SI', 'SK'
+];
+
 export const pricingPlans = [
   {
     id: 'artista',
-    price: '6,99€',
-    isFeatured: false,
-    stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W',
     firebaseRole: 'artist',
+    prices: {
+      eur: { price: '6,99€', stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W' },
+      usd: { price: '$6.99', stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W' }
+    }
   },
   {
     id: 'magic',
-    price: '11,99€',
-    isFeatured: true,
-    stripePriceId: 'price_1SYXltArzx82mGRMgXmSTejz',
     firebaseRole: 'magic',
+    prices: {
+      eur: { price: '11,99€', stripePriceId: 'price_1SYXltArzx82mGRMgXmSTejz' },
+      usd: { price: '$11.99', stripePriceId: 'price_1SYXltArzx82mGRMgXmSTejz' }
+    }
   },
   {
     id: 'special',
-    price: '14,99€',
-    isFeatured: false,
-    stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6',
     firebaseRole: 'special',
+    prices: {
+      eur: { price: '14,99€', stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6' },
+      usd: { price: '$14.99', stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6' }
+    }
   },
   {
     id: 'king',
-    price: '23,99€',
-    isFeatured: false,
-    stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz',
     firebaseRole: 'king',
+    prices: {
+      eur: { price: '23,99€', stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz' },
+      usd: { price: '$23.99', stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz' }
+    }
   },
 ];
-// export const pricingPlans = [
-//   {
-//     name: 'Artista',
-//     price: '6,99€',
-//     credits: '8.000 créditos / mes',
-//     features: [
-//       'Acceso a todas las funciones',
-//       'Soporte prioritario',
-//       'Acceso anticipado a novedades',
-//       'Exportación en alta calidad'
-//     ],
-//     isFeatured: false,
-//     cta: 'Suscribirse',
-//     stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W', 
-//     firebaseRole: 'artist',
-//   },
-//   {
-//     name: 'Plan Mágico',
-//     price: '9,99€',
-//     credits: '12.500 créditos / mes',
-//     features: [
-//       'Acceso a todas las funciones',
-//       'Soporte prioritario',
-//       'Acceso anticipado a novedades',
-//       'Exportación en alta calidad'
-//     ],
-//     isFeatured: true,
-//     cta: 'Suscribirse',
-//     stripePriceId: 'price_1SP1UDArzx82mGRMZPvzXqXL',
-//     firebaseRole: 'magic',
-//   },
-//   {
-//     name: 'Plan Especial',
-//     price: '14,99€',
-//     credits: '19.000 créditos / mes',
-//     features: [
-//       'Acceso a todas las funciones',
-//       'Soporte prioritario',
-//       'Acceso anticipado a novedades',
-//       'Exportación en alta calidad'
-//     ],
-//     isFeatured: false,
-//     cta: 'Suscribirse',
-//     stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6',
-//     firebaseRole: 'special',
-//   },
-//   {
-//     name: 'Plan King',
-//     price: '23,99€',
-//     credits: '33.000 créditos / mes',
-//     features: [
-//       'Acceso a todas las funciones',
-//       'Soporte prioritario',
-//       'Acceso anticipado a novedades',
-//       'Exportación en alta calidad'
-//     ],
-//     isFeatured: false,
-//     cta: 'Suscribirse',
-//     stripePriceId: 'price_1SP1VOArzx82mGRMBZARNcXz',
-//     firebaseRole: 'king',
-//   },
-// ];
+
 
 export const exampleStories = [
   { id: '6', title: 'Los tres amigos', image: getImage('story-cover-6'), pdfUrl: '/cuentos/cuento-lostresamigos.pdf' },
