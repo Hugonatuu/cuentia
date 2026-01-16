@@ -32,7 +32,8 @@ export default function PreciosPage({ searchParams }: PageProps) {
   // SERVER-SIDE LOGIC
   const headersList = headers();
   const forcedCountry = searchParams?.forceCountry?.toUpperCase();
-  const countryCode = forcedCountry || headersList.get('x-vercel-ip-country')?.toUpperCase();
+  // Default to 'US' to ensure USD is the default currency if country detection fails.
+  const countryCode = forcedCountry || headersList.get('x-vercel-ip-country')?.toUpperCase() || 'US';
   
   const currency: 'eur' | 'usd' = (countryCode && EU_COUNTRIES.includes(countryCode)) ? 'eur' : 'usd';
 
