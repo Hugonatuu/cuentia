@@ -37,11 +37,22 @@ const countryToLocaleMap: {[key: string]: string} = {
 };
 
 function getLocale(request: NextRequest): string {
-  const country = request.geo?.country?.toUpperCase();
+  const { searchParams } = request.nextUrl;
+
+  // 1. For testing: allow forcing a country via query parameter.
+  const forcedCountry = searchParams.get('forceCountry')?.toUpperCase();
+  if (forcedCountry) {
+    return countryToLocaleMap[forcedCountry] || defaultLocale;
+  }
+  
+  // 2. Use Vercel's header, which is more reliable than the geo object.
+  const country = request.headers.get('x-vercel-ip-country')?.toUpperCase();
   if (country && countryToLocaleMap[country]) {
     return countryToLocaleMap[country];
   }
-  return defaultLocale; // English
+
+  // 3. Fallback to the default locale (English) if no mapping is found.
+  return defaultLocale;
 }
 
 export function middleware(request: NextRequest) {
