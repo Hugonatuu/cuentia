@@ -1,5 +1,3 @@
-'use client';
-
 import {NextRequest, NextResponse} from 'next/server';
 import {routing} from './i18n/routing';
 
