@@ -8,8 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Gem, Info, Star } from 'lucide-react';
+import { Alert, AlertTitle } from '@/components/ui/alert';
+import { Gem, Star } from 'lucide-react';
 
 import { pricingPlans as basePricingPlans, EU_COUNTRIES } from '@/lib/placeholder-data';
 import CreditPackCard from './components/CreditPackCard';
@@ -30,16 +30,17 @@ type PageProps = {
 export default function PreciosPage({ searchParams }: PageProps) {
   const t = useTranslations('PreciosPage');
   
-  // SERVER-SIDE LOGIC
   const headersList = headers();
   const forcedCountry = searchParams?.forceCountry?.toUpperCase();
-  // Default to 'US' to ensure USD is the default currency if country detection fails.
-  const countryCode = forcedCountry || headersList.get('x-vercel-ip-country')?.toUpperCase();
+  const countryCode = headersList.get('x-vercel-ip-country')?.toUpperCase();
   
-  let currency: 'eur' | 'usd' = 'usd'; // Default to USD
+  let currency: 'eur' | 'usd' = 'usd';
+
+  const targetCountry = forcedCountry || countryCode;
+
   if (process.env.NODE_ENV === 'development' && !forcedCountry) {
-    currency = 'eur'; // Default to EUR in dev unless forced
-  } else if (countryCode && EU_COUNTRIES.includes(countryCode)) {
+    currency = 'eur'; 
+  } else if (targetCountry && EU_COUNTRIES.includes(targetCountry)) {
     currency = 'eur';
   }
 
