@@ -1,3 +1,4 @@
+
 import { headers } from 'next/headers';
 import { useTranslations } from 'next-intl';
 import {
@@ -17,7 +18,7 @@ import CreditsInfoButton from './components/CreditsInfoButton';
 
 const creditPackPriceIds = {
   eur: { price: '5€', stripePriceId: 'price_1SOhZfArzx82mGRMGnt8jg5G' },
-  usd: { price: '$5', stripePriceId: 'price_1SOhZfArzx82mGRMGnt8jg5G' }
+  usd: { price: '$5', stripePriceId: 'price_1SqUvwArzx82mGRMH9iWvHwn' }
 };
 
 type PageProps = {
@@ -33,9 +34,15 @@ export default function PreciosPage({ searchParams }: PageProps) {
   const headersList = headers();
   const forcedCountry = searchParams?.forceCountry?.toUpperCase();
   // Default to 'US' to ensure USD is the default currency if country detection fails.
-  const countryCode = forcedCountry || headersList.get('x-vercel-ip-country')?.toUpperCase() || 'US';
+  const countryCode = forcedCountry || headersList.get('x-vercel-ip-country')?.toUpperCase();
   
-  const currency: 'eur' | 'usd' = (countryCode && EU_COUNTRIES.includes(countryCode)) ? 'eur' : 'usd';
+  let currency: 'eur' | 'usd' = 'usd'; // Default to USD
+  if (process.env.NODE_ENV === 'development' && !forcedCountry) {
+    currency = 'eur'; // Default to EUR in dev unless forced
+  } else if (countryCode && EU_COUNTRIES.includes(countryCode)) {
+    currency = 'eur';
+  }
+
 
   return (
     <div className="container mx-auto py-12">
