@@ -43,7 +43,7 @@ export default function Footer() {
                 className="transition-opacity hover:opacity-80"
             />
           </a>
-          <a href="https://www.facebook.com/share/14WCM7KLeU4/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <a href="https://www.facebook.com/share/1AsNNjN9ag/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
              <Image 
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/600px-Facebook_f_logo_%282019%29.svg.png"
                 alt="Facebook Logo"
