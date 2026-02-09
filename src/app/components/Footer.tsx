@@ -36,7 +36,7 @@ export default function Footer() {
           </a>
           <a href="https://www.tiktok.com/@cuentia.app?_r=1&_t=ZN-93lx96ynW5e" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
              <Image 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/TikTok_logo.svg/1024px-TikTok_logo.svg.png"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Tiktok_icon.svg/640px-Tiktok_icon.svg.png"
                 alt="TikTok Logo"
                 width={24}
                 height={24}
