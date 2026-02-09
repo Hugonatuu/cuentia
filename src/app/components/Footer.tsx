@@ -2,8 +2,7 @@
 import { Link } from '@/i18n/navigation';
 import Logo from '@/components/core/Logo';
 import { useTranslations } from 'next-intl';
-import { Instagram } from 'lucide-react';
-import { TikTokIcon } from './icons/TikTokIcon';
+import Image from 'next/image';
 
 export default function Footer() {
   const t = useTranslations('Footer');
@@ -27,10 +26,22 @@ export default function Footer() {
 
         <div className="flex items-center justify-center md:justify-end flex-1 space-x-4">
           <a href="https://www.instagram.com/cuentia.app?igsh=MWdlODU5dDVrNWk0dA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <Instagram className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+            <Image 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/600px-Instagram_icon.png"
+                alt="Instagram Logo"
+                width={24}
+                height={24}
+                className="transition-opacity hover:opacity-80"
+            />
           </a>
           <a href="https://www.tiktok.com/@cuentia.app?_r=1&_t=ZN-93lx96ynW5e" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-            <TikTokIcon className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+             <Image 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/TikTok_logo.svg/1024px-TikTok_logo.svg.png"
+                alt="TikTok Logo"
+                width={24}
+                height={24}
+                className="transition-opacity hover:opacity-80"
+            />
           </a>
         </div>
       </div>

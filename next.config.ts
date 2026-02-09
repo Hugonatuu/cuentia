@@ -52,6 +52,12 @@ const nextConfig: NextConfig = {
         hostname: 'replicate.delivery',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
