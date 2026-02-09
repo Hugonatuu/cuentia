@@ -2,6 +2,8 @@
 import { Link } from '@/i18n/navigation';
 import Logo from '@/components/core/Logo';
 import { useTranslations } from 'next-intl';
+import { Instagram } from 'lucide-react';
+import { TikTokIcon } from './icons/TikTokIcon';
 
 export default function Footer() {
   const t = useTranslations('Footer');
@@ -23,7 +25,13 @@ export default function Footer() {
            <Link href="/cookies" className="hover:text-primary">{t('cookies')}</Link>
         </div>
 
-        <div className="flex items-center justify-center md:justify-end flex-1">
+        <div className="flex items-center justify-center md:justify-end flex-1 space-x-4">
+          <a href="https://www.instagram.com/cuentia.app?igsh=MWdlODU5dDVrNWk0dA%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <Instagram className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+          </a>
+          <a href="https://www.tiktok.com/@cuentia.app?_r=1&_t=ZN-93lx96ynW5e" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <TikTokIcon className="h-6 w-6 text-muted-foreground hover:text-primary transition-colors" />
+          </a>
         </div>
       </div>
     </footer>
