@@ -21,10 +21,14 @@ export async function createCheckoutSession(
     success_url: string; 
     cancel_url: string;
     line_items?: {price: string, quantity: number}[];
+    automatic_tax: { enabled: boolean };
+    invoice_creation: { enabled: boolean };
   } = {
     mode: mode,
     success_url: window.location.origin + `/${locale}/perfil`,
     cancel_url: window.location.origin + `/${locale}/precios`,
+    automatic_tax: { enabled: true },
+    invoice_creation: { enabled: true },
   };
 
   if (mode === 'payment') {
