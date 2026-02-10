@@ -23,11 +23,6 @@ export function generateStaticParams() {
 export const metadata: Metadata = {
   title: 'Cuentia',
   description: 'Crea cuentos infantiles personalizados con IA.',
-  icons: {
-    icon: '/logo.png',
-    shortcut: '/logo.png',
-    apple: '/logo.png',
-  },
 };
 
 export default async function LocaleLayout({
