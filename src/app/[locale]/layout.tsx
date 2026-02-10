@@ -24,7 +24,9 @@ export const metadata: Metadata = {
   title: 'Cuentia',
   description: 'Crea cuentos infantiles personalizados con IA.',
   icons: {
-    icon: 'https://cuentia.net/cuentos/logo.png?v=3',
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
   },
 };
 
