@@ -8,19 +8,12 @@ export const size = {
   width: 32,
   height: 32,
 };
-// Let Next.js handle the content type to generate a proper .ico file.
-// export const contentType = 'image/png';
 
 // Image generation
 export default function Icon() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:9002';
-  const logoUrl = `${baseUrl}/cuentos/logo.png?v=3`;
+  // Use the absolute URL to ensure the logo is found during the build process on Vercel.
+  const logoUrl = 'https://cuentia.net/cuentos/logo.png?v=3';
     
-  // The background color is from globals.css --background variable
-  const backgroundColor = '#E0F7FF';
-  
   return new ImageResponse(
     (
       <div
@@ -30,14 +23,12 @@ export default function Icon() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: backgroundColor,
-          borderRadius: '50%',
         }}
       >
         <img 
             src={logoUrl}
-            width="24"
-            height="24"
+            width="32"
+            height="32"
             alt="Cuentia Logo" 
         />
       </div>
