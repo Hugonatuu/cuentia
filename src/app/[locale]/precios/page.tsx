@@ -17,8 +17,8 @@ import PricingPlanCard from './components/PricingPlanCard';
 import CreditsInfoButton from './components/CreditsInfoButton';
 
 const creditPackPriceIds = {
-  eur: { price: '5€', stripePriceId: 'price_1SOhZfArzx82mGRMGnt8jg5G' },
-  usd: { price: '$5', stripePriceId: 'price_1SqUvwArzx82mGRMH9iWvHwn' }
+  eur: { price: '5€', stripePriceId: 'price_1T1MA1ADXw4fxUEk73Sy7rvW' },
+  usd: { price: '$5', stripePriceId: 'price_1T1MA1ADXw4fxUEkk6PXoMsE' }
 };
 
 type PageProps = {

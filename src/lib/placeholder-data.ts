@@ -35,32 +35,32 @@ export const pricingPlans = [
     id: 'artista',
     firebaseRole: 'artist',
     prices: {
-      eur: { price: '6,99€', stripePriceId: 'price_1SP1TBArzx82mGRMjNgh561W' },
-      usd: { price: '$7.99', stripePriceId: 'price_1SqUzVArzx82mGRM2cGewrbQ' }
+      eur: { price: '6,99€', stripePriceId: 'price_1T1MCcADXw4fxUEkoWJry0ze' },
+      usd: { price: '$7.99', stripePriceId: 'price_1T1MCdADXw4fxUEkmYG3eMKd' }
     }
   },
   {
     id: 'magic',
     firebaseRole: 'magic',
     prices: {
-      eur: { price: '11,99€', stripePriceId: 'price_1SYXltArzx82mGRMgXmSTejz' },
-      usd: { price: '$12.99', stripePriceId: 'price_1SqV2JArzx82mGRMwVnw63Ta' }
+      eur: { price: '11,99€', stripePriceId: 'price_1T1PEsADXw4fxUEkueXt7Rji' },
+      usd: { price: '$12.99', stripePriceId: 'price_1T1PEsADXw4fxUEk1P1f5DTT' }
     }
   },
   {
     id: 'special',
     firebaseRole: 'special',
     prices: {
-      eur: { price: '14,99€', stripePriceId: 'price_1SP1UuArzx82mGRMlMWtlyP6' },
-      usd: { price: '$15.99', stripePriceId: 'price_1SqV0NArzx82mGRMlXZg8yuT' }
+      eur: { price: '14,99€', stripePriceId: 'price_1T1PEwADXw4fxUEkbO1lz2Mg' },
+      usd: { price: '$15.99', stripePriceId: 'price_1T1PEwADXw4fxUEkAwKwc8DE' }
     }
   },
   {
     id: 'king',
     firebaseRole: 'king',
     prices: {
-      eur: { price: '23,99€', stripePriceId: 'price_1Sza7ZArzx82mGRM78KcOBH6' },
-      usd: { price: '$24.99', stripePriceId: 'price_1SzaGfArzx82mGRMjF2W5QX1' }
+      eur: { price: '23,99€', stripePriceId: 'price_1T1PEzADXw4fxUEkJRqMUmPu' },
+      usd: { price: '$24.99', stripePriceId: 'price_1T1PEzADXw4fxUEkU6WHxp5j' }
     }
   },
 ];
