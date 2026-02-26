@@ -6,12 +6,25 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/app/[loc
 import { CheckCircle2 } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import Script from 'next/script';
 
 export default function PagoExitosoPage() {
   const t = useTranslations('SuccessPage');
 
   return (
     <div className="container mx-auto py-24 flex items-center justify-center">
+      {/* Event snippet for Compra conversion page */}
+      <Script id="google-ads-conversion" strategy="afterInteractive">
+        {`
+          gtag('event', 'conversion', {
+              'send_to': 'AW-17959066368/nZYRCKaapv8bEIC2xvNC',
+              'value': 5.0,
+              'currency': 'EUR',
+              'transaction_id': ''
+          });
+        `}
+      </Script>
+
       <Card className="max-w-md w-full text-center shadow-xl border-2 border-primary/20">
         <CardHeader>
           <div className="flex justify-center mb-4">
