@@ -36,6 +36,11 @@
     "finalCtaDescription": "Tritt der Cuentia-Community bei und beginne, deine Geschichten zum Leben zu erwecken.",
     "finalCtaButton": "Kostenlos registrieren"
   },
+  "SuccessPage": {
+    "title": "Zahlung erfolgreich!",
+    "description": "Deine Credits wurden deinem Konto gutgeschrieben. Du kannst jetzt anfangen, magische Geschichten zu erstellen.",
+    "cta": "Zu meinen Geschichten"
+  },
   "CreateStoryPage": {
     "createStoryTitle": "Erstelle deine Geschichte!",
     "createStoryDescription": "Verwandle deine Ideen in ein personalisiertes Kinderbuch mit KI, in dem jede Seite mit magischen Illustrationen zum Leben erwacht. Du kannst auch deine eigenen Texte eingeben und in nur wenigen Sekunden Kindergeschichten illustrieren lassen.",

@@ -36,6 +36,11 @@
     "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
     "finalCtaButton": "Sign up for free"
   },
+  "SuccessPage": {
+    "title": "Payment Successful!",
+    "description": "Your credits have been added to your account. You can now start creating magical stories.",
+    "cta": "Go to My Stories"
+  },
   "CreateStoryPage": {
     "createStoryTitle": "Create Your Story!",
     "createStoryDescription": "Transform your ideas into a children’s book created with AI, where every page comes to life with magical illustrations. You can also create children’s stories with AI or generate custom book illustrations from your own text in just seconds.",

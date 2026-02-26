@@ -36,6 +36,11 @@
     "finalCtaDescription": "Rejoignez la communauté Cuentia et commencez à donner vie à vos histoires.",
     "finalCtaButton": "S'inscrire gratuitement"
   },
+  "SuccessPage": {
+    "title": "Paiement réussi !",
+    "description": "Vos crédits ont été ajoutés à votre compte. Vous pouvez maintenant commencer à créer des histoires magiques.",
+    "cta": "Voir mes histoires"
+  },
   "CreateStoryPage": {
     "createStoryTitle": "Créez votre histoire !",
     "createStoryDescription": "Transformez vos idées en un livre pour enfants personnalisé avec IA, où chaque page prend vie grâce à des illustrations magiques. Vous pouvez aussi illustrer un livre pour enfant ou donner vie à vos propres contes pour enfants en quelques secondes seulement.",

@@ -79,7 +79,7 @@ interface Subscription {
   current_period_start: Timestamp;
 }
 
-const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/4gM3cu95E7Sff8m4Ou9k400';
+const STRIPE_BILLING_PORTAL_URL = 'https://billing.stripe.com/p/login/test_9B66oGbbidu391N0BbeME00';
 
 export default function PerfilPage() {
   const t = useTranslations('PerfilPage');
