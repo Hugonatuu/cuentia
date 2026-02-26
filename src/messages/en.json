@@ -36,6 +36,11 @@
     "finalCtaDescription": "Join Cuentia and start bringing your stories to life.",
     "finalCtaButton": "Sign up for free"
   },
+  "SuccessPage": {
+    "title": "Payment Successful!",
+    "description": "Your credits have been added to your account. You can now start creating magical stories.",
+    "cta": "Go to My Stories"
+  },
   "CreateStoryPage": {
     "createStoryTitle": "Create Your Story!",
     "createStoryDescription": "Transform your ideas into a children’s book created with AI, where every page comes to life with magical illustrations. You can also create children’s stories with AI or generate custom book illustrations from your own text in just seconds.",
@@ -423,128 +428,6 @@
     "description": "Explore the worlds created with Cuentia. Every story is a door to a new adventure or a new learning experience.",
     "downloadButton": "Download"
   },
-  "CharacterSlot": {
-    "removeButton": "Remove character",
-    "customizeButton": "Customize",
-    "customizedButton": "Customized",
-    "addButton": "Add"
-  },
-  "CharacterPickerDialog": {
-    "title": "Choose a Character",
-    "description": "Select a character for your story. Already chosen characters are disabled.",
-    "myCharactersTab": "My Characters",
-    "predefinedTab": "Predefined",
-    "createNewButton": "Create New",
-    "noCharactersMessage": "No {type} characters.",
-    "userType": "created",
-    "predefinedType": "predefined"
-  },
-  "CrearPersonajePage": {
-    "authPopup": {
-      "title": "✨ Sign up to create your character! ✨",
-      "description": "Join the magic! Create an account and start generating your own avatars for your stories.",
-      "actionText": "Sign Up"
-    },
-    "generationModal": {
-      "loadingTitle": "Creating Magic...",
-      "readyTitle": "Avatar Ready!",
-      "loadingDescription": "We are bringing your character to life. Please do not leave the page.",
-      "readyDescription": "Your avatar \"{name}\" has been created.",
-      "generating": "Generating...",
-      "close": "Close"
-    },
-    "page": {
-      "title": "Create Your Personalized Avatar",
-      "description": "Upload a few photos and let artificial intelligence transform you, a loved one, or your pet into the protagonist of a story."
-    },
-    "characterData": {
-      "title": "1. Character Details",
-      "name": {
-        "label": "Character Name",
-        "placeholder": "e.g., Jack, Ana, Mr Thompson..."
-      },
-      "species": {
-        "label": "Species",
-        "placeholder": "Select a species",
-        "options": {
-          "human": "Human",
-          "dog": "Dog",
-          "cat": "Cat",
-          "bird": "Bird",
-          "rabbit": "Rabbit",
-          "hamster": "Hamster",
-          "fish": "Fish",
-          "other": "Other"
-        },
-        "other": {
-          "label": "Specify the species",
-          "placeholder": "e.g., Dinosaur, Dragon..."
-        }
-      },
-      "gender": {
-        "label": "Gender",
-        "placeholder": "Select a gender",
-        "options": {
-          "male": "Male",
-          "female": "Female",
-          "neutral": "Neutral"
-        }
-      },
-      "age": {
-        "label": "Age",
-        "placeholder": "e.g., 8"
-      }
-    },
-    "photos": {
-      "title": "2. Upload Photos ({count}/4)",
-      "description": "Upload 2 to 4 photos where the character’s face and full body are clearly visible (person or animal). Make sure they are the only one in the image and that the photos are well lit.",
-      "dropzone": {
-        "click": "Click to upload",
-        "drag": "or drag and drop"
-      },
-      "selected": "Selected Photos",
-      "remove": "Remove image"
-    },
-    "cost": {
-      "total": "Total Cost: {cost} credits"
-    },
-    "submitButton": {
-      "loading": "Generating...",
-      "default": "Generate My Magic Avatar"
-    },
-    "errors": {
-      "database": "The database is unavailable. Please try again.",
-      "incompleteFields": "Please complete all character fields.",
-      "insufficientPhotos": "Please upload between 2 and 4 photos to generate the avatar.",
-      "insufficientCreditsTitle": "Insufficient credits",
-      "insufficientCredits": "You need {cost} credits to create an avatar, but you only have {available} remaining.",
-      "serverError": "There was a problem contacting the server.",
-      "noAvatarUrl": "The server response did not include an avatar URL.",
-      "photoLimit": "Photo limit reached",
-      "photoLimitDescription": "You can upload a maximum of 4 photos."
-    },
-    "success": {
-      "avatarGenerated": "Avatar generated and saved!",
-      "avatarSaved": "The avatar \"{name}\" has been saved to your collection."
-    }
-  },
-  "CommunityStoryViewerPage": {
-    "loading": {
-      "title": "Loading community story..."
-    },
-    "errors": {
-      "loadError": "Could not load the story. Please try again.",
-      "notFound": "Story not found",
-      "notFoundDescription": "We could not find the story you are looking for or the PDF is not available."
-    },
-    "controls": {
-      "download": "Download PDF",
-      "previous": "Previous page",
-      "next": "Next page",
-      "page": "Page {currentPage}",
-      "pageRange": "Page {currentPage} - {nextPage}"
-    }
-  },
   "PerfilPage": {
     "planTitle": "Your Current Plan",
     "subscriptionTab": "My Subscription",
@@ -619,27 +502,5 @@
     "privacy": "Privacy Policy",
     "terms": "Terms and Conditions",
     "cookies": "Cookie Policy"
-  },
-  "LegalPage": {
-  "title": "Legal Notice",
-  "content": "This Legal Notice regulates access to and use of the website https://cuentia.net (hereinafter, the “Website”), owned by NATUTECH S.L. By browsing or using the Website, the user accepts this Legal Notice.<br/><br/>1. Identification of the Owner<br/>The Website is owned by:<br/>NATUTECH S.L.<br/>CIF: B24793663<br/>Registered address: Calle Monestir de Poblet, Nº 46, Puerta 2, 46015, València (Valencia), Spain.<br/>Contact email: cuentia@cuentia.net<br/>Trade name used on the Website: “Cuentia”.<br/><br/>2. Purpose of the Legal Notice<br/>This Legal Notice regulates the conditions of access, browsing, and use of the Website. Access to the Website implies full acceptance of these conditions.<br/><br/>3. Website Content<br/>The Website includes texts, designs, visual elements, interface, structure and functionalities developed by NATUTECH S.L. and may not be copied.<br/>User-generated content is not affected. Stories created through the platform, including text, images and AI-generated illustrations, belong entirely to the user, who may use them freely for any purpose, including printing, publishing, sharing or commercial use.<br/>The user may not copy or reuse the Website’s software, design, or structure.<br/><br/>4. Use of the Website<br/>The user agrees to use the Website lawfully and respectfully. In particular, the user agrees not to:<br/>• Upload illegal, offensive, or rights-infringing content.<br/>• Upload photos without having obtained the necessary permissions from the individuals appearing in them.<br/>• Carry out actions that may damage, overload, or affect the technical functioning of the Website.<br/>• Attempt to access restricted areas or data belonging to other users.<br/><br/>5. User Responsibility<br/>The user is responsible for the accuracy of the data and files uploaded to the Website. NATUTECH S.L. may remove content or close accounts that violate these conditions or compromise service security.<br/><br/>6. Responsibility of NATUTECH S.L.<br/>NATUTECH S.L. does not guarantee continuous availability of the Website nor the absence of technical errors. AI-generated content may include variations or inexact results. NATUTECH S.L. shall not be liable for damages arising from the use of the Website, service interruptions, or unexpected AI-generated outcomes.<br/><br/>7. External Links<br/>The Website may include links to third-party sites. NATUTECH S.L. is not responsible for the content or functioning of such external sites.<br/><br/>8. Applicable Law and Jurisdiction<br/>This Legal Notice is governed by Spanish law. For any dispute related to the use of the Website, both parties submit to the courts and tribunals of València, unless mandatory law states otherwise.<br/><br/>9. Contact<br/>For any inquiries related to this Legal Notice, you may contact:<br/>NATUTECH S.L.<br/>Calle Monestir de Poblet, Nº 46, Puerta 22, 46015, València (Valencia), Spain."
-},
-"PrivacyPage": {
-  "title": "Privacy Policy",
-  "content": "This Privacy Policy explains how NATUTECH S.L. (hereinafter, “Cuentia”, “we”, or “our”) collects, uses and protects the personal data of users who access the website https://cuentia.net (hereinafter, the “Website”). By using Cuentia, you accept this Privacy Policy.<br/><br/>1. Data Controller<br/>NATUTECH S.L.<br/>CIF: B24793663<br/>Address: Calle Monestir de Poblet, Nº 46, Puerta 2, 46015, València (Valencia), Spain.<br/>Contact email: cuentia@cuentia.net.<br/>Trade name used: Cuentia.<br/><br/>2. Data We Collect<br/>Cuentia collects only the data necessary to provide its service:<br/>• Registration data: email and password (encrypted).<br/>• Data provided by the user: story title, descriptions, text, character names and any written information used to create the story.<br/>• Photos uploaded by the user to generate characters using AI.<br/>• Technical data: IP address, device, session identifiers and basic usage necessary for platform functionality.<br/>• Payment data processed by Stripe (we do not store card information).<br/><br/>3. Purpose of Processing<br/>Data is used exclusively to:<br/>• Create and manage the user account.<br/>• Generate personalized AI characters.<br/>• Create digital stories in PDF format.<br/>• Send notifications related to the story or the account (e.g., “your story is ready”).<br/>• Permanently store PDFs and generated images so the user can access them at any time.<br/>• Manage payments, billing and subscriptions.<br/>• Ensure the security and correct functioning of the Website.<br/>Cuentia does not sell, rent or transfer user data to third parties.<br/><br/>4. Processing of Photos and Uploaded Content<br/>Photos uploaded to generate characters are processed as follows:<br/>• Stored for a maximum of 24 hours in a temporary space.<br/>• After generating character images, the original photos are automatically deleted.<br/>• Photos are used exclusively to create AI illustrations.<br/>• The generated character images (not the original photos) are stored permanently for future use.<br/>The user guarantees they have the rights and permissions to upload such photos, including parental/guardian consent for minors.<br/><br/>5. Legal Basis for Processing<br/>We process personal data based on:<br/>• Contract performance: creation of the account, story generation and PDF delivery.<br/>• Consent: use of photos to generate AI characters.<br/>• Legitimate interest: improving and securing the Website’s technical operation.<br/>• Legal obligation: billing and tax compliance.<br/><br/>6. Data Retention<br/>• Uploaded photos: up to 24 hours, then deleted.<br/>• AI-generated character images: stored permanently until deleted by the user.<br/>• Generated PDFs: stored permanently until deleted.<br/>• Account data: stored while the account remains active.<br/>If the user deletes their account, data will be irreversibly deleted except data required by law.<br/><br/>7. Data Processors and Transfers<br/>Service providers used:<br/>• AWS S3: storage of PDFs and images.<br/>• Firebase / Firestore: account and database management.<br/>• Stripe: payment processing.<br/>• AI systems (OpenAI or others): text and image generation.<br/><br/>Some providers are outside the EU. Standard Contractual Clauses (SCC) apply.<br/><br/>8. User Rights<br/>The user may:<br/>• Access their data.<br/>• Rectify inaccurate data.<br/>• Request deletion of data.<br/>• Object to processing.<br/>• Restrict processing.<br/>• Request portability.<br/>• Withdraw consent.<br/>To exercise rights: cuentia@cuentia.net.<br/>They may also contact the Spanish Data Protection Agency (AEPD).<br/><br/>9. Data Security<br/>Measures applied:<br/>• HTTPS encryption.<br/>• Encrypted passwords.<br/>• Secure servers.<br/>• Restricted access.<br/>No system is 100% infallible, but we apply strict measures.<br/><br/>10. Account and Data Deletion<br/>When deleting the account:<br/>• PDFs are erased.<br/>• Generated images are erased.<br/>• Registration data is deleted.<br/>• Temporary photos are deleted.<br/>Data required by law is kept as permitted.<br/><br/>11. Changes to this Policy<br/>Cuentia may update this Policy when necessary. The current version will always be available at https://cuentia.net.<br/><br/>12. Contact<br/>NATUTECH S.L.<br/>Calle Monestir de Poblet, Nº 46, Puerta 2, 46015, València (Valencia), Spain.<br/>Email: cuentia@cuentia.net."
-},
-"TermsPage": {
-  "title": "Terms and Conditions",
-  "content": "Last updated: 30/11/2025<br /><br />1. Identity of the Provider<br /><br />This document regulates access and use of the website https://cuentia.net (hereinafter, the “Website”), as well as the contracting of services offered through it.<br /><br />The Website is owned by:<br /><br />NATUTECH S.L.<br />CIF: B24793663<br />Registered address: Calle Monestir de Poblet, Nº 46, Puerta 2, 46015, València (Valencia), Spain<br />Contact email: cuentia@cuentia.net<br />Trade name: Cuentia<br /><br />In these Terms and Conditions, “NATUTECH”, “Cuentia”, “we” or “our” refer to NATUTECH S.L.<br />“User”, “you” or “client” refers to any person who browses, uses or contracts services through the Website.<br /><br />By accessing, registering or using the Website, you declare that you have read and accepted these Terms and Conditions.<br /><br />⸻<br /><br />2. Purpose of the Service<br /><br />Cuentia is a digital platform that allows Users to:<br />1. Register with email and password.<br />2. Create personalized characters by uploading photos (e.g., of themselves or others, including minors) and assigning them a name.<br />3. Write the story information (title, plot, learning objectives, description, characters, etc.).<br />4. Generate, through artificial intelligence, a children's digital story in PDF format including text and illustrations based on the provided information.<br /><br />⸻<br /><br />3. User Registration and Account<br /><br />3.1. Requirements<br />To use the platform and generate stories, the User must create an account with:<br />• Email address<br />• Password<br /><br />The User guarantees that the information provided is truthful and must keep it updated.<br /><br />3.2. Account Responsibility<br />The User is responsible for:<br />• The confidentiality of their password<br />• Access to their account<br />• Any activity carried out through it<br /><br />In case of unauthorized use, the User must immediately notify Cuentia.<br /><br />⸻<br /><br />4. Minimum Age of Use<br /><br />The Website is intended for users over 14 years old.<br />If the User is under 14, they must use the platform with verifiable parental or guardian consent.<br /><br />Parents or guardians are responsible for the use made and for the content generated.<br /><br />⸻<br /><br />5. Process of Creating Characters and Stories<br /><br />5.1. Uploading Photos<br />The User may upload:<br />• Their own photo(s)<br />• Photos of family members or third parties, including minors<br /><br />The User declares and guarantees:<br />• They have the necessary rights and permissions to upload them<br />• They have the consent of the individuals appearing in them (or their guardians)<br /><br />Photos are used exclusively to generate AI illustrations.<br /><br />5.2. AI Content Generation<br />The User understands and accepts that:<br />• AI-generated images are artistic interpretations, not photorealistic representations.<br />• There may be variations, imperfections or unexpected results inherent to the technology.<br />• Final quality depends on the information provided by the User.<br /><br />This is not considered a product defect.<br /><br />⸻<br /><br />6. Nature of the Digital Product<br /><br />The final product is a downloadable PDF file, available:<br />• In the User’s private area<br />• Or via emailed download link<br /><br />The product is considered “delivered” when the download link is made available to the User.<br /><br />⸻<br /><br />7. Payment Models: Credits and Subscriptions<br /><br />7.1. Credits<br />The User may purchase credit packs to generate stories.<br /><br />7.2. Subscriptions<br />The platform offers subscription plans that include:<br />• Automatic renewal (monthly or yearly)<br />• Included credits or generation minutes<br /><br />The User may cancel their subscription anytime from their profile, preventing future renewals.<br /><br />7.3. Payments<br />Payments are processed through external providers (e.g., Stripe).<br />NATUTECH does not store card or payment data.<br /><br />⸻<br /><br />8. Price and Billing<br /><br />All prices displayed on the Website include applicable taxes.<br />The User will automatically receive their invoice via email or in their account.<br /><br />NATUTECH may modify prices at any time, without affecting past purchases.<br /><br />⸻<br /><br />9. Withdrawal Right and Cancellations<br /><br />There is NO right of withdrawal.<br /><br />Under consumer law, withdrawal does not apply to:<br />• Clearly personalized products<br />• Digital products generated on demand<br />• Digital content whose execution begins immediately with user consent<br /><br />Therefore:<br />• A story CANNOT be cancelled once AI generation has begun.<br />• Payments for used credits or subscriptions are non-refundable.<br />• Subscriptions are non-refundable if cancelled before the end of the paid period.<br /><br />⸻<br /><br />10. Rights over Photos and Uploaded Content<br /><br />The User declares that:<br />• They have rights/authorization to upload the images<br />• The images do not infringe third-party rights<br />• They do not contain prohibited content (violent, sexual, defamatory, illegal, hateful, etc.)<br /><br />NATUTECH may remove content and/or block accounts in case of infringement.<br /><br />⸻<br /><br />11. Limitation of Liability<br /><br />NATUTECH shall not be liable for:<br />• Inaccurate artistic interpretations by AI<br />• Variations in style, tone or accuracy<br />• Unexpected results inherent to AI content<br />• Loss of access if the User forgets their password<br />• Damages arising from improper Website use<br /><br />Total liability is limited to the amount paid by the User for the affected service.<br /><br />⸻<br /><br />12. Service Availability<br /><br />The platform may experience:<br />• Maintenance<br />• Updates<br />• Temporary outages<br />• Technology-related AI errors<br /><br />Continuous availability is not guaranteed.<br /><br />⸻<br /><br />13. Force Majeure<br /><br />NATUTECH is not responsible for failures or delays caused by circumstances beyond its reasonable control.<br /><br />⸻<br /><br />14. Modification of Terms<br /><br />We may update these Terms at any time.<br />The latest version will always be available on the Website.<br /><br />⸻<br /><br />15. Applicable Law and Jurisdiction<br /><br />These Terms are governed by Spanish law.<br />Both parties submit to the courts of València (Spain), unless mandatory law states otherwise.<br /><br />⸻<br /><br />16. Contact<br /><br />For inquiries related to these Terms:<br /><br />NATUTECH S.L.<br />Calle Monestir de Poblet, Nº 46, Puerta 2<br />46015 – València (Valencia)<br />Email: cuentia@cuentia"
-},
-"CookiePolicyPage": {
-  "title": "Cookie Policy",
-  "content": "Last updated: [November 30, 2025]<br/><br/>1. What are cookies?<br/><br/>Cookies are small text files stored in the user’s browser when visiting a website. They allow the site to remember information about the visit (such as chosen language or session status), and in some cases help ensure transaction security.<br/><br/>This Policy also includes similar storage technologies, such as browser storage (Local Storage, Session Storage, IndexedDB), used for similar purposes.<br/><br/>⸻<br/><br/>2. Who is responsible for processing?<br/><br/>The data controller for personal data associated with cookie use on this website is:<br/><br/>Company: NATUTECH, S.L.<br/>CIF: B24793663<br/>Address: CALLE MONESTIR DE POBLET, NUM 46, PUERTA 2, 46015, VALÈNCIA (Valencia), Spain<br/>Contact email: cuentia@cuentia.net<br/><br/>⸻<br/><br/>3. Types of cookies<br/><br/>Cookies may be classified as follows:<br/><br/>a) According to who manages them:<br/>• First-party cookies: sent to the user's device from a domain managed by the website owner.<br/>• Third-party cookies: sent to the user's device from a domain managed by an external entity.<br/><br/>b) According to their purpose:<br/>• Technical/necessary cookies: enable browsing and use of website services (session management, security, payments).<br/>• Preference/customization cookies: remember user settings such as language.<br/>• Analytics cookies: track and analyze user behavior.<br/>• Behavioral advertising cookies: store behavioral data to display personalized ads.<br/><br/>This website only uses technical/necessary and preference cookies, essential for proper functioning and payment processing. No analytics or advertising cookies are used.<br/><br/>c) According to duration:<br/>• Session cookies: deleted when the browser closes.<br/>• Persistent cookies: stored for a defined period.<br/><br/>⸻<br/><br/>4. Cookies used on this website<br/><br/>We only use cookies and storage mechanisms required to provide the service:<br/><br/>4.1. First-party cookies<br/>Language cookie (Next-Intl)<br/>• Name: NEXT_LOCALE<br/>• Provider: First-party (Cuentia / NATUTECH, S.L.)<br/>• Purpose: Remember the user’s selected language.<br/>• Type: Preference (functional) cookie.<br/>• Duration: According to your app configuration.<br/><br/>4.2. Third-party cookies<br/>Stripe cookies (payment platform)<br/>Used when interacting with the payment system.<br/>• Provider: Stripe Payments Europe, Ltd.<br/>• Domain: checkout.stripe.com and others.<br/>• Purpose:<br/>• Verify user and device identity.<br/>• Prevent fraud.<br/>• Ensure secure payment processing.<br/>• Type: Technical/necessary.<br/>• Examples:<br/>• __stripe_mid (persistent)<br/>• __stripe_sid (session)<br/><br/>4.3. Similar technologies: Firebase local storage<br/>• Technology: IndexedDB / Local Storage (Firebase Authentication).<br/>• Purpose: Maintain login status and secure access.<br/>• Type: Technical/necessary.<br/>• Duration: Persistent unless session is closed or browser data is cleared.<br/><br/>⸻<br/><br/>5. Is consent required?<br/><br/>No. These cookies are necessary to:<br/>• Remember language<br/>• Maintain authentication<br/>• Process payments securely<br/><br/>Under GDPR and LSSI, these cookies do not require prior consent.<br/><br/>If non-essential cookies are added, a consent banner will be implemented.<br/><br/>⸻<br/><br/>6. How to manage or delete cookies<br/><br/>Users may:<br/>• Configure their browser to block/delete cookies.<br/>• Clear browsing data.<br/><br/>Deleting necessary cookies may cause some site features not to function properly.<br/><br/>Useful links:<br/>• Google Chrome<br/>• Mozilla Firefox<br/>• Safari<br/>• Edge<br/>• Opera<br/><br/>⸻<br/><br/>7. International data transfers<br/><br/>Stripe and Firebase may transfer data outside the EEA (e.g., USA).<br/>Such transfers use legal safeguards (Standard Contractual Clauses).<br/><br/>⸻<br/><br/>8. Updating the Cookie Policy<br/><br/>We may update this policy if new features or technologies are added.<br/>Review this policy periodically.<br/><br/>⸻<br/><br/>9. Contact<br/><br/>Email: cuentia@cuentia.net<br/>Postal address: NATUTECH, S.L., CALLE MONESTIR DE POBLET, NUM 46, PUERTA 22, 46015, VALÈNCIA (Valencia), Spain"
-  },
-  "CookieBanner": {
-    "text": "We use cookies to improve your experience. By clicking 'Accept', you agree to our use of cookies for analytics and for the proper functioning of authentication and payments. You can read more in our",
-    "privacyPolicy": "Privacy Policy",
-    "accept": "Accept",
-    "reject": "Reject non-essential cookies"
   }
 }

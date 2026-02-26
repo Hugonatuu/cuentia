@@ -1,3 +1,4 @@
+
 'use client';
 
 import { addDoc, onSnapshot, Firestore } from 'firebase/firestore';
@@ -11,7 +12,7 @@ export async function createCheckoutSession(
   priceId: string,
   mode: CheckoutMode,
   quantity: number = 1,
-  locale:string
+  locale: string
 ): Promise<void> {
   const checkoutSessionsRef = customerCheckoutSessionsCollectionRef(db, userId);
 
@@ -25,38 +26,32 @@ export async function createCheckoutSession(
     invoice_creation: { enabled: boolean };
   } = {
     mode: mode,
-    success_url: window.location.origin + `/${locale}/perfil`,
+    success_url: window.location.origin + `/${locale}/pago-exitoso`,
     cancel_url: window.location.origin + `/${locale}/precios`,
     automatic_tax: { enabled: true },
     invoice_creation: { enabled: true },
   };
 
   if (mode === 'payment') {
-    // For 'payment' mode, use line_items to specify quantity
     sessionData.line_items = [{price: priceId, quantity}];
   } else {
-    // For 'subscription' mode, use the price field
     sessionData.price = priceId;
   }
 
-  // 1. Create a new checkout session document in Firestore.
   const docRef = await addDoc(checkoutSessionsRef, sessionData);
 
-  // 2. Wait for the CheckoutSession to get a URL from the Stripe extension.
   onSnapshot(docRef, (snap) => {
     const data = snap.data();
     if (data) {
       const { error, url } = data;
 
       if (error) {
-        // Show an error to your customer and inspect your Cloud Function logs in the Firebase console.
         console.error(`An error occurred: ${error.message}`);
-        alert(`An error occurred: ${error.message}`); // Consider using a toast notification
+        alert(`An error occurred: ${error.message}`);
         return;
       }
 
       if (url) {
-        // We have a URL, let's redirect to Checkout.
         window.location.assign(url);
       }
     }
